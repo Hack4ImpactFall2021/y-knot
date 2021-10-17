@@ -10,9 +10,10 @@
 
 /* Left Side */
 .login-page-left {
-  /* flex-grow: 1; */
   color: white;
-  background-color: blue;
+  /* background-color: blue; */
+  background: url('bg.jpg') no-repeat center ;;
+  background-size: cover;
   width: 50%;
   border-radius: 0 50px 50px 0;
   
