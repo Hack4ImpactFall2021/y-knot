@@ -1,0 +1,9 @@
+.login-page{
+   /* background-color: red; */
+  width: 100%;
+  height: 100vh;
+  background: url(wave.svg) no-repeat center center fixed; 
+  background-size: cover;
+ 
+
+}

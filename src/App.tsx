@@ -1,8 +1,13 @@
 import React from 'react';
+import Login from './LoginPage/Login';
+
+import './App.css';
 
 const App = () => {
     return (
-        <h1>Hello World!</h1>
+
+
+        <Login />
     );
 }
 
