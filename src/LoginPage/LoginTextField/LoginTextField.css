@@ -1,0 +1,10 @@
+.input-group input{
+  border: 1px black solid;
+  outline: none;
+  height: 30px;
+  width: 100%;
+  padding: 30px 10px;
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+  font-size: 1.3rem;
+}
