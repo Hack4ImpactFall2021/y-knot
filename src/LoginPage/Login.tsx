@@ -19,6 +19,9 @@ function Login() {
 
       <div className='login-page-right'>
 
+        {/* Logo Goes Here */}
+
+        
         <div className='login-form'>
           <LoginTextField header="Username"/>
           <LoginTextField header="Password" />
