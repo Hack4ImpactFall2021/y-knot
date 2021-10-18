@@ -14,7 +14,7 @@
   /* background-color: blue; */
   background: url('bg.jpg') no-repeat center ;;
   background-size: cover;
-  width: 50%;
+  width: 55%;
   border-radius: 0 50px 50px 0;
   
   
@@ -33,7 +33,7 @@
 /* Right Side */
 .login-page-right {
 
-  width: 60%;
+  width: 45%;
   margin: 0 auto;
 }
 .login-form {
