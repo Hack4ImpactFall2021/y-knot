@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import AayushisComponent from './AayushiR'
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
+    <AayushisComponent firstName="Stanley" lastName="Thomas" age={12} likesPizza={false}/>
+    <AayushisComponent firstName="Stanley" lastName="Thomas" age={12} likesPizza={true} 
+        favoriteToppings={['cheese', 'cheese', 'more cheese']}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
