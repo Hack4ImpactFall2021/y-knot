@@ -26,15 +26,17 @@ const DanielsComponent:React.FC<DanielsProps> = (props) =>  {
       <li>{props.lastName}</li>
       <li>{props.age}</li>
       <li>likesPizza: {props.likesPizza}</li>
+
       {props.likesPizza && (
         <ul>
           {
-            props.toppings.map(t => {
+            props.toppings.map(t => (
               <li>{t}</li>
-            })
+            ))
           }
         </ul>
       )}
+
     </ul>
   )
 }
