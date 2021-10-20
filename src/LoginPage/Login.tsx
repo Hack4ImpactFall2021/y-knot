@@ -2,9 +2,20 @@ import React, {useState} from 'react';
 
 import LoginTextField from './LoginTextField/LoginTextField';
 import LoginButton from './LoginButton/LoginButton';
+import logo from './logo.png';
 import './Login.css'
 
 function Login() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+
+  const showState = () => {
+    console.log(email);
+    console.log(password);
+  }
+
   return (
     <div className='login-page'>
     
@@ -14,18 +25,15 @@ function Login() {
           <h1>Welcome</h1><hr/>
           <h4>Y-KNOT Mentor Application Portal</h4>
         </div>
-        
       </div>
 
-      <div className='login-page-right'>
-
-        {/* Logo Goes Here */}
-
-        
+      <div className='login-page-right'>   
+      <img className='login-logo' src={logo}/>
         <div className='login-form'>
-          <LoginTextField header="Username"/>
-          <LoginTextField header="Password" />
-          <LoginButton text="Login"/>
+          
+          <LoginTextField header="Email" onChange={val => setEmail(val)}/>
+          <LoginTextField header="Password" onChange={val => setPassword(val)}/>
+          <LoginButton text="Login" onClick={showState}/>
         </div>
 
       </div>

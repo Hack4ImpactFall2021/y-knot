@@ -2,7 +2,7 @@
   width: 100%;
   height: 100vh;
 
-  font-family: 'Rubik';
+  font-family: 'SF Pro Display', sans-serif;
   display: flex;
  
 
@@ -11,36 +11,52 @@
 /* Left Side */
 .login-page-left {
   color: white;
-  /* background-color: blue; */
   background: url('bg.jpg') no-repeat center ;;
   background-size: cover;
-  width: 55%;
+  min-width: 55%;
   border-radius: 0 50px 50px 0;
   
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   
 }
 .login-welcome {
 
-  margin: 10% auto;
-  padding: 80px 0;
-
+  margin: 0 auto;
   font-size: 1.5rem;
   text-align: center;
   width: 80%;
 
 }
 
+.login-welcome h1 {
+  font-size: 8rem;
+  margin: 0;
+}
+
 /* Right Side */
 .login-page-right {
-
   width: 45%;
   margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+.login-logo {
+  max-width: 80%;
+}
+
+
+
+
 .login-form {
   width: 60%;
-  margin: 24% auto;
+  margin: 30px auto;
 }
 
 .login-form > * {
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }

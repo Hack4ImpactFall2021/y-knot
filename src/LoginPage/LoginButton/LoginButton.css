@@ -10,3 +10,12 @@
   background-color: #0A1737;
   border-radius: 10px;
 }
+
+.login-btn:hover {
+  background-color: #0e204d;
+  cursor: pointer;
+}
+
+/* .login-btn:focus{
+  background-color:#0A1737;
+} */
