@@ -12,6 +12,7 @@ function Login() {
 
 
   const showState = () => {
+    alert("hello");
     console.log(email);
     console.log(password);
   }
