@@ -60,3 +60,14 @@
 .login-form > * {
   margin-bottom: 50px;
 }
+
+@media only screen and (max-width: 1200px) {
+  .login-page-left {
+    display: none;
+    
+  }
+  .login-page-right {
+    width: 100%;
+    
+  }
+}
