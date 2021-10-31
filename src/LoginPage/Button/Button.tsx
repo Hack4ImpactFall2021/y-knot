@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './LoginButton.css'
+import './Button.css'
 
 interface ButtonProps {
   text: string
