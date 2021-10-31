@@ -42,4 +42,58 @@ function Login() {
   )
 }
 
+
+// create user func
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
+const auth = getAuth();
+createUserWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => {
+    console.log("User has been created in Firebase.");
+    const user = userCredential.user;
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log("An error took place during the user creation: " + errorMessage);
+
+  });
+
+
+  //sign in func
+
+  import { signInWithEmailAndPassword } from "firebase/auth";
+
+
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      console.log("User has been signed in.");
+      const user = userCredential.user;
+      // ...
+    })
+    .catch((error) => {
+      console.log("An error took place during login: " + error);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+
+  //reset password func
+  import { sendPasswordResetEmail } from "firebase/auth";
+
+sendPasswordResetEmail(auth, email)
+  .then(() => {
+    console.log("The reset password email was sent. Please check your email.");
+    // Password reset email sent!
+    // ..
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log("There was an error during the password reset: " + errorMessage);
+  });
+
+
+  
+
 export default Login
