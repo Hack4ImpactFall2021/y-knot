@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 
-import LoginTextField from './LoginTextField/LoginTextField';
-import LoginButton from './LoginButton/LoginButton';
+import TextField from './TextField/TextField';
+import Button from './Button/Button';
 import logo from './logo.png';
 import './Login.css'
 
-function Login() {
+const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,12 +29,12 @@ function Login() {
       </div>
 
       <div className='login-page-right'>   
-      <img className='login-logo' src={logo}/>
+        <img className='login-logo' src={logo}/>
         <div className='login-form'>
           
-          <LoginTextField header="Email" onChange={val => setEmail(val)}/>
-          <LoginTextField header="Password" onChange={val => setPassword(val)}/>
-          <LoginButton text="Login" onClick={showState}/>
+          <TextField header="Email Address" onChange={val => setEmail(val)}/>
+          <TextField header="Password" onChange={val => setPassword(val)}/>
+          <Button text="Login" onClick={showState}/>
         </div>
 
       </div>
