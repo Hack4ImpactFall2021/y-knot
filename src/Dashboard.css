@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+.dashboard-page {
+    font-family: 'Roboto'; 
+    background-color: #E5E5E5;
+    width: 100%;
+    height: 100vh;
+}
+
+.dashboard-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
