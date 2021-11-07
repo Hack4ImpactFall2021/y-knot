@@ -1,24 +1,52 @@
 import React from 'react';
-// import styles from './buttons.module.css';
 import './Buttons.css'
 
-interface ButtonProps {
+interface CommonProps {
     text: string;
     barColor: string;
     count: number;
-    // icon: string;
+    totalApps: boolean;
     // onClick: () => void;
 }
 
-const Button = ({text, barColor, count}: ButtonProps) => {
+type IconProps = 
+    | { totalApps: true; icon?: never}
+    | { totalApps: false; icon: string}
+
+type ButtonProps = CommonProps & IconProps
+
+const Button = ({text, barColor, totalApps, icon, count}: ButtonProps) => {
     return (
         <button className='button'
             // onClick={onClick} 
+
+            // this allows for a variable color bar on the bottom of the button
             style = {{background: "linear-gradient(#FFFFFF 84%, " + barColor + " 16%)" }}
             >
                 
-                {text} 
-        </button> // children instead of text?
+                <div className='button-content'> 
+                    <div className='button-top'>
+
+                       
+                        {!totalApps && 
+                        <div className='icon'>
+                            <img src= {icon} alt=""/> 
+                        </div> }
+
+                       <div className='count'>
+                           <b>{count}</b>
+                       </div>
+
+                    </div>
+
+                    <div className='label'>
+                        {text} 
+                    </div>
+                    
+                </div>
+                
+                
+        </button> 
     )
 }
 
