@@ -10,10 +10,10 @@ const Dashboard = () => {
         <div className='dashboard-page'>
 
             <div className='dashboard-buttons'>
-            <Button text="Total Applicants" barColor="#10275B" totalApps={true} count={61} />
-            <Button text="New Applicants" barColor="#F44250" totalApps={false} icon={new_apps_icon} count={23}/>
-            <Button text="Interviewing" barColor="#FF8427" totalApps={false} icon={interview_icon} count={4}/>
-            <Button text="Background Check" barColor="#FCBB45" totalApps={false} icon={bg_check_icon} count={34}/>
+                <Button text="Total Applicants" barColor="#10275B" totalApps={true} count={61} />
+                <Button text="New Applicants" barColor="#F44250" totalApps={false} icon={new_apps_icon} count={23}/>
+                <Button text="Interviewing" barColor="#FF8427" totalApps={false} icon={interview_icon} count={4}/>
+                <Button text="Background Check" barColor="#FCBB45" totalApps={false} icon={bg_check_icon} count={34}/>
             </div>
             
         </div>

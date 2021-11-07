@@ -29,17 +29,12 @@ img {
 }
 
 .icon {
-  /* flex-basis: 40%; */
-  /* padding-bottom: 0px; */
   padding-left: 18px;
 }
 
 .button-top {
   display: flex;
   align-items: left;
-  /* justify-content: left; */
-  /* flex-basis: 40%; */
-  /* padding-left: 25px; */
 }
 
 .button-content {
@@ -51,7 +46,6 @@ img {
   align-items: left;
   justify-content: left;
   padding-left: 18px;
-  /* padding-top: 10px; */
 }
 
 .count{
