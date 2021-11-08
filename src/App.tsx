@@ -1,22 +1,17 @@
 import React from 'react';
 import Login from './LoginPage/Login';
+import Profile from './ProfilePage/Profile';
 
 import './App.css';
 // import firebase from './config/firebase';
 
 const App = () => {
-    const handleClick = () => {
-    }
+
     return (
 
 
-        <Login />
-        // <div>
-        //     <h1>
-        //         {firebase.appId}
-        //         <button onClick={handleClick}>Click Me!</button>
-        //     </h1>
-        // </div>
+        <Profile />
+
     );
 }
 
