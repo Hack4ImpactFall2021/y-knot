@@ -1,0 +1,11 @@
+.profile-header-action-btn {
+  width: 100%;
+  height: 40px;
+  width: 100px;
+  font-weight: bold;
+
+  border: none;
+  color: white;
+
+  border-radius: 10px;
+}

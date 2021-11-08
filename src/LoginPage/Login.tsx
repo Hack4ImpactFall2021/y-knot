@@ -29,7 +29,7 @@ const Login = () => {
       </div>
 
       <div className='login-page-right'>   
-        <img className='login-logo' src={logo}/>
+        <img className='login-logo' src={logo} alt={'logo'}/>
         <div className='login-form'>
           
           <TextField header="Email Address" onChange={val => setEmail(val)}/>

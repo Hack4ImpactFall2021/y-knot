@@ -1,0 +1,13 @@
+.profile-status {
+  width: 150px;
+  height: 40px;
+
+  color: white;
+  border-radius: 10px;;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+}

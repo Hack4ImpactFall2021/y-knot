@@ -1,17 +1,18 @@
 import React from 'react';
-import './Profile.css';
+import ProfileHeader from './ProfileHeader/ProfileHeader';
 
+import './Profile.css';
+import ProfileContent from './ProfileContent/ProfileContent';
 
 const Profile = () => {
+
+
   return (
     <div className='profile-page'>
-      <h1>Profile Page</h1>
-
-      <div>
-        Content
-      </div>
+      <ProfileHeader />
+      <ProfileContent />
     </div>
-  )
-}
+  );
+};
 
-export default Profile
+export default Profile;

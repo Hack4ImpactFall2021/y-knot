@@ -1,0 +1,26 @@
+.profile-header {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-header > div {
+  display: flex;
+  align-items: center;
+}
+
+.profile-header-info > * {
+  margin-right: 50px;
+}
+.profile-header-actions > * {
+  margin-left: 50px;
+}
+
+.profile-header-name {
+  color: #10275B;
+  font-size: 3rem;
+  font-weight: bold;
+}
