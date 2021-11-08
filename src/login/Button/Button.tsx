@@ -1,5 +1,4 @@
 import React from 'react'
-
 import './Button.css'
 
 interface ButtonProps {
@@ -8,10 +7,9 @@ interface ButtonProps {
 }
 
 
-
-export const LoginButton: React.FC<ButtonProps> = (props) => {
+export const LoginButton: React.FC<ButtonProps> = ({text, onClick}) => {
   return (
-    <button className='login-btn' onClick={props.onClick}>{props.text}</button>
+    <button className='login-btn' onClick={onClick}>{text}</button>
   )
 }
 

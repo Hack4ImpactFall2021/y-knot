@@ -1,6 +1,6 @@
-
 import React from 'react';
 import './TextField.css'
+
 interface TextFieldProps{
   header: string
   onChange: (val: string) => void;

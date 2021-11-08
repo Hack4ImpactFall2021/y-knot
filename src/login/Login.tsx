@@ -7,11 +7,14 @@ import './Login.css'
 
 const Login = () => {
 
+  // email address
   const [email, setEmail] = useState('');
+
+  // password 
   const [password, setPassword] = useState('');
 
-
-  const showState = () => {
+  // validates & authenticates then routes to dashboard page
+  const handleClick = () => {
     alert("hello");
     console.log(email);
     console.log(password);
@@ -31,10 +34,9 @@ const Login = () => {
       <div className='login-page-right'>   
         <img className='login-logo' src={logo}/>
         <div className='login-form'>
-          
           <TextField header="Email Address" onChange={val => setEmail(val)}/>
           <TextField header="Password" onChange={val => setPassword(val)}/>
-          <Button text="Login" onClick={showState}/>
+          <Button text="Login" onClick={handleClick}/>
         </div>
 
       </div>
@@ -42,7 +44,7 @@ const Login = () => {
   )
 }
 
-
+/*
 // create user func
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
@@ -79,7 +81,7 @@ createUserWithEmailAndPassword(auth, email, password)
     });
 
   //reset password func
-  import { sendPasswordResetEmail } from "firebase/auth";
+import { sendPasswordResetEmail } from "firebase/auth";
 
 sendPasswordResetEmail(auth, email)
   .then(() => {
@@ -94,6 +96,6 @@ sendPasswordResetEmail(auth, email)
   });
 
 
-  
+  */
 
 export default Login
