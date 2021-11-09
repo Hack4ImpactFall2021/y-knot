@@ -1,28 +1,89 @@
 import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import { AuthError } from '@firebase/auth';
 
-import TextField from './TextField/TextField';
-import Button from './Button/Button';
-import logo from './logo.png';
 import './Login.css'
+import logo from './assets/logo.png';
+import TextField, {TextFieldTypes} from './textField/TextField';
+import Button from './button/Button';
+import { useAuth } from '../auth/AuthProvider';
+import NetworkManager, { Endpoints } from '../network/NetworkManager';
 
-const Login = () => {
+const Login: React.FC<any> = () => {
 
   // email address
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState<string>('');
 
   // password 
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState<string>('');
+
+  // error message
+  const [errorMessage, setErrorMessage] = useState<string>('');
+
+  // prevents action when page loads
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const auth = useAuth();
+  const navigate = useNavigate();
 
   // validates & authenticates then routes to dashboard page
-  const handleClick = () => {
-    alert("hello");
-    console.log(email);
-    console.log(password);
+  const handleClick = async () => {
+
+    // clears previous error messages
+    setErrorMessage('')
+    setIsLoading(true)
+
+    // client side email & password validation
+    let errors = ''
+
+    if (password.trim().length == 0 || email.trim().length === 0) {
+      errors = "Email or Password can not be blank";
+    } else {
+      const regexp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+      if (!regexp.test(email)) {
+        errors = "Email address is invalid";
+      }
+    }
+
+    if (errors.length > 0) {
+      setErrorMessage(errors);
+      setIsLoading(false)
+      return;
+    }
+
+    console.log("Email and Password are valid");
+
+    // make network request to authenticate user
+    try {
+      let user = await NetworkManager.makeRequest(Endpoints.AuthenticateUser, {email: email, password: password});
+      console.log(user);
+
+      // save jwt, refesh in cookies
+      auth.login("Stanley", () => {
+        navigate('/');
+      })
+
+    } catch (error) {
+      let code = (error as AuthError).code;
+      if (code === "auth/user-not-found") {
+          setErrorMessage("Account does not exist")
+      } else if (code === "auth/wrong-password") {
+          setErrorMessage("Incorrect Password")
+      } else if (code === "auth/too-many-requests") {
+          setErrorMessage("Access to this account has been temporarily disabled due to many failed login attempts. You can reset your password or try again later.")
+      } else {
+          setErrorMessage('Something went wrong, please try again later.');
+      }
+    } finally {
+      setIsLoading(false);
+    }
+
   }
 
   return (
     <div className='login-page'>
-    
+      {/* <h1>This is: {auth?.user}</h1> */}
+
       <div className='login-page-left'>
 
         <div className='login-welcome'>
@@ -34,9 +95,10 @@ const Login = () => {
       <div className='login-page-right'>   
         <img className='login-logo' src={logo}/>
         <div className='login-form'>
-          <TextField header="Email Address" onChange={val => setEmail(val)}/>
-          <TextField header="Password" onChange={val => setPassword(val)}/>
-          <Button text="Login" onClick={handleClick}/>
+          <TextField header="Email Address" isDisabled={isLoading} fieldType={TextFieldTypes.email} onChange={val => setEmail(val)}/>
+          <TextField header="Password" isDisabled={isLoading} fieldType={TextFieldTypes.password} onChange={val => setPassword(val)}/>
+          <Button text="Login" isDisabled={isLoading} onClick={handleClick}/>
+          <h4 className='login-errors' style={{opacity: errorMessage.length == 0 ? 0 : 100}}>{errorMessage}</h4>
         </div>
 
       </div>
@@ -44,58 +106,5 @@ const Login = () => {
   )
 }
 
-/*
-// create user func
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    console.log("User has been created in Firebase.");
-    const user = userCredential.user;
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("An error took place during the user creation: " + errorMessage);
-
-  });
-
-
-  //sign in func
-
-  import { signInWithEmailAndPassword } from "firebase/auth";
-
-
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log("User has been signed in.");
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      console.log("An error took place during login: " + error);
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
-
-  //reset password func
-import { sendPasswordResetEmail } from "firebase/auth";
-
-sendPasswordResetEmail(auth, email)
-  .then(() => {
-    console.log("The reset password email was sent. Please check your email.");
-    // Password reset email sent!
-    // ..
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("There was an error during the password reset: " + errorMessage);
-  });
-
-
-  */
-
-export default Login
+export default Login;
