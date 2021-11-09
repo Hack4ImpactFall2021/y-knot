@@ -8,7 +8,6 @@ interface Props {
 
 const RequireAuth:React.FC<Props> = ({ children }) => {
     const auth = useAuth();
-    
     if (!auth.user) {
       return <Navigate to="/login" />;
     }

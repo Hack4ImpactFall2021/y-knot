@@ -1,39 +1,42 @@
-import React, { createContext, useContext, useMemo, useState} from 'react';
+import { getAuth, onAuthStateChanged } from '@firebase/auth';
+import React, { createContext, useContext, useEffect, useState} from 'react';
+import app from '../config/firebase';
 
 interface Props {
     children: JSX.Element
 }
 
 interface AuthContextType {
-    user: string;
-    login: (user: string, callback: VoidFunction) => void;
-    logout: (callback: VoidFunction) => void;
-  }
+    user: any;
+}
 
 let AuthContext = createContext<AuthContextType>(null!);
 
+// custom hook to useAuth
 export const useAuth = () => {
     return useContext(AuthContext);
 }
 
 export const AuthProvider: React.FC<Props> = ({children}) => {
 
-    const [user, setUser] = React.useState<any>(null);
+    const [user, setUser] = useState<any>(null);
+    const [pending, setPending] = useState(true);
 
-    let login = (newUser: string, callback: VoidFunction) => {
-        setUser(newUser);
-        callback();
-    };
-  
-    let logout = (callback: VoidFunction) => {
-        setUser(null);
-        callback();
-    };
+    useEffect(() => {
+        const auth = getAuth(app);
+        onAuthStateChanged(auth, (user) => {
+            setUser(user);
+            setPending(false);
+        });
+    }, [])
 
-    const value = {user, login, logout}
+
+    if (pending) {
+        return (<h1>Loading</h1>)
+    }
 
     return (
-        <AuthContext.Provider value={value}>
+        <AuthContext.Provider value={{user}}>
             {children}
         </AuthContext.Provider>
     )

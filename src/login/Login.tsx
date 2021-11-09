@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import { AuthError } from '@firebase/auth';
+import { AuthError, getAuth } from '@firebase/auth';
 
 import './Login.css'
 import logo from './assets/logo.png';
@@ -8,6 +8,7 @@ import TextField, {TextFieldTypes} from './textField/TextField';
 import Button from './button/Button';
 import { useAuth } from '../auth/AuthProvider';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
+import app from '../config/firebase';
 
 const Login: React.FC<any> = () => {
 
@@ -25,6 +26,12 @@ const Login: React.FC<any> = () => {
 
   const auth = useAuth();
   const navigate = useNavigate();
+
+  // logs out the user whenever they route to the login page
+  useEffect(() => {
+    getAuth(app).signOut();
+  }, [])
+
 
   // validates & authenticates then routes to dashboard page
   const handleClick = async () => {
@@ -58,11 +65,9 @@ const Login: React.FC<any> = () => {
       let user = await NetworkManager.makeRequest(Endpoints.AuthenticateUser, {email: email, password: password});
       console.log(user);
 
-      // save jwt, refesh in cookies
-      auth.login("Stanley", () => {
-        navigate('/');
-      })
+      navigate('/');
 
+    // handle errors
     } catch (error) {
       let code = (error as AuthError).code;
       if (code === "auth/user-not-found") {
@@ -82,8 +87,6 @@ const Login: React.FC<any> = () => {
 
   return (
     <div className='login-page'>
-      {/* <h1>This is: {auth?.user}</h1> */}
-
       <div className='login-page-left'>
 
         <div className='login-welcome'>

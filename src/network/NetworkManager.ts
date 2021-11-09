@@ -1,5 +1,5 @@
 import { AuthError, User } from "@firebase/auth";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import app from "../config/firebase";
 
