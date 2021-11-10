@@ -1,11 +1,31 @@
-import React from 'react'
+import React from 'react';
+import { Dropzone, FileItem } from '@dropzone-ui/react';
 
-const BackgroundCheck = () =>  {
+
+interface BackgroundCheckProps {
+  files: any;
+  updateFiles: (files: any) => void;
+
+} 
+const BackgroundCheck = (props:BackgroundCheckProps) => {
   return (
     <div>
-      Background Check
-    </div>  
-  )
-}
+      <Dropzone
+      
+        onChange={props.updateFiles}
+        value={props.files}
+      >
+        {props.files.map((file: any) => (
+          <FileItem
+            {...file}
+            preview
+            info
+            key={file.id}
+          />
+        ))}
+      </Dropzone>
+    </div>
+  );
+};
 
-export default BackgroundCheck
+export default BackgroundCheck;

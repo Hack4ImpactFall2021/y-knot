@@ -13,7 +13,13 @@ const INTERVIEW = 'INTERVIEW';
 const BACKGROUND_CHECK = 'BACKGROUND_CHECK';
 
 const ProfileContent = () => {
+  const [backgroundCheckFile, setBackgroundCheckFile] = useState([]);
   const [currentTab, setCurrentTab] = useState<string>(USER_INFO);
+
+
+  const updateFiles = (files: any) => {
+    setBackgroundCheckFile(files)
+  }
 
   let content = null;
   if (currentTab === USER_INFO) {
@@ -23,7 +29,12 @@ const ProfileContent = () => {
   } else if (currentTab === INTERVIEW) {
     content = <Interview />;
   } else if (currentTab === BACKGROUND_CHECK) {
-    content = <BackgroundCheck />;
+    content = (
+      <BackgroundCheck
+        updateFiles={updateFiles}
+        files={backgroundCheckFile}
+      />
+    );
   }
 
 
@@ -47,7 +58,7 @@ const ProfileContent = () => {
           value={USER_INFO}
           onClick={handleDisplay}
         >
-          <span> User Information </span>
+          <span>User Information</span>
         </button>
         <button
           className='profile-content-tab'
@@ -73,11 +84,14 @@ const ProfileContent = () => {
           onClick={handleDisplay}
         >
           <span>Background Check</span>
-
         </button>
 
       </div>
-      {content}
+
+      <div className='profile-content-body'>
+        {content} 
+      </div>
+
     </div>
   ); 
 };

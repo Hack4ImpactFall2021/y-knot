@@ -1,5 +1,5 @@
 .profile-content {
-
+  /* height: ; */
 }
 
 .profile-content-tab-container{
@@ -17,8 +17,17 @@
   font-size: 1.4rem;
   text-align: left;
   padding: 0;
+  background-color: transparent;
 }
 
 .profile-content-tab span {
   cursor: pointer;
+}
+
+.profile-content-body {
+  border-radius: 20px;
+  background-color: rgb(180, 180, 180);
+  height: 75vh;
+  padding: 10px 30px
+
 }
