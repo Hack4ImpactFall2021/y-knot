@@ -6,6 +6,7 @@ import Interview from './InterviewTab/Interview';
 import BackgroundCheck from './BackgroundCheckTab/BackgroundCheck';
 
 import './ProfileContent.css';
+import { FileValidated } from '@dropzone-ui/react';
 
 const USER_INFO = 'USER_INFO';
 const APPLICATION = 'APPLICATION';
@@ -13,11 +14,11 @@ const INTERVIEW = 'INTERVIEW';
 const BACKGROUND_CHECK = 'BACKGROUND_CHECK';
 
 const ProfileContent = () => {
-  const [backgroundCheckFile, setBackgroundCheckFile] = useState([]);
+  const [backgroundCheckFile, setBackgroundCheckFile] = useState<FileValidated[]>([]);
   const [currentTab, setCurrentTab] = useState<string>(USER_INFO);
 
 
-  const updateFiles = (files: any) => {
+  const updateFiles = (files: FileValidated[]) => {
     setBackgroundCheckFile(files)
   }
 
