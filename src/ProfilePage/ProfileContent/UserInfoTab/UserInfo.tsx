@@ -1,4 +1,8 @@
-import React from 'react'
+import React from 'react';
+import ProfileHeader from './ProfileHeader/ProfileHeader';
+
+import './UserInfo.css';
+
 
 const UserInfo = () => {
   return (
@@ -8,4 +12,4 @@ const UserInfo = () => {
   )
 }
 
-export default UserInfo
+export default UserInfo;
