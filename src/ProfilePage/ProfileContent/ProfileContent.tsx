@@ -8,14 +8,20 @@ import BackgroundCheck from './BackgroundCheckTab/BackgroundCheck';
 import './ProfileContent.css';
 import { FileValidated } from '@dropzone-ui/react';
 
+
 const USER_INFO = 'USER_INFO';
 const APPLICATION = 'APPLICATION';
 const INTERVIEW = 'INTERVIEW';
 const BACKGROUND_CHECK = 'BACKGROUND_CHECK';
 
-const ProfileContent = () => {
+interface ProfileContentProps {
+  currentTab: string;
+  setCurrentTab: (tab: string) => void;
+}
+
+const ProfileContent:React.FC<ProfileContentProps> = (props) => {
   const [backgroundCheckFile, setBackgroundCheckFile] = useState<FileValidated[]>([]);
-  const [currentTab, setCurrentTab] = useState<string>(USER_INFO);
+
 
 
   const updateFiles = (files: FileValidated[]) => {
@@ -23,13 +29,13 @@ const ProfileContent = () => {
   }
 
   let content = null;
-  if (currentTab === USER_INFO) {
+  if (props.currentTab === USER_INFO) {
     content = <UserInfo />;
-  } else if (currentTab === APPLICATION) {
+  } else if (props.currentTab === APPLICATION) {
     content = <Application />;
-  } else if (currentTab === INTERVIEW) {
+  } else if (props.currentTab === INTERVIEW) {
     content = <Interview />;
-  } else if (currentTab === BACKGROUND_CHECK) {
+  } else if (props.currentTab === BACKGROUND_CHECK) {
     content = (
       <BackgroundCheck
         updateFiles={updateFiles}
@@ -40,14 +46,14 @@ const ProfileContent = () => {
 
 
   const getBtnActive  = (tab: string): CSSProperties | undefined=> {
-    if (tab === currentTab) {
+    if (tab === props.currentTab) {
       return {textDecoration: 'underline'}
     } 
     return undefined;
   }
   const handleDisplay = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const newDisplay = e.currentTarget.value;
-    setCurrentTab(newDisplay);
+    props.setCurrentTab(newDisplay);
   };
 
   return (

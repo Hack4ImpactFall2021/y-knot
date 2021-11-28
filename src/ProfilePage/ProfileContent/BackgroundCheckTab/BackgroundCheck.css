@@ -2,6 +2,7 @@
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+
 }
 
 .background-check-container > * {
@@ -21,3 +22,48 @@
 }
 
 .background-check-textarea:focus { outline: none; }
+
+.bg-reference-title {
+  font-size: 1.3rem;
+  font-weight: 900;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.background-check-reference {
+  margin-left: 10px;
+}
+
+.background-check-reference > * {
+  margin-bottom: 5px;
+}
+
+.background-check-reference .input-group {
+  margin-right: 5px;
+}
+
+.bg-reference-contact {
+  width: 100%;
+}
+
+.background-check-reference .input-group input{
+  margin-top: 5px;
+  border: 1px black solid;
+  outline: none;
+  height: 15px;
+  width: 100%;
+  padding: 15px 10px;
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+  font-size: 1.3rem;
+}
+
+
+

@@ -3,7 +3,11 @@ import React from 'react';
 import UserStatus from './UserStatus/UserStatus';
 import Button from './Button/Button';
 import './ProfileHeader.css'
-const ProfileHeader = () => {
+
+interface ProfileHeaderProps {
+  status: string
+}
+const ProfileHeader:React.FC<ProfileHeaderProps> = (props) => {
 
 
   const acceptProfile = () => alert('accept profile');
@@ -12,7 +16,7 @@ const ProfileHeader = () => {
     <div className='profile-header'>
       <div className='profile-header-info'>
         <span className='profile-header-name'>Bobby Smith</span>
-        <UserStatus status={'INTERVIEWING'} />
+        <UserStatus status={props.status} />
       </div>
 
       <div className='profile-header-actions'>
