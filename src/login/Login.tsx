@@ -3,9 +3,9 @@ import {useNavigate} from 'react-router-dom';
 import { AuthError, getAuth } from '@firebase/auth';
 
 import './Login.css'
-import logo from './assets/logo.png';
-import TextField, {TextFieldTypes} from './textField/TextField';
-import Button from './button/Button';
+import logo from './assets/logo.png'; 
+import TextField, {TextFieldTypes} from './TextField/TextField';
+import Button from './Button/Button';
 import { useAuth } from '../auth/AuthProvider';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import app from '../config/firebase';
