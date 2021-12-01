@@ -14,10 +14,9 @@ const BackgroundCheck = (props: BackgroundCheckProps) => {
         ))}
       </Dropzone>
 
-      <textarea className="background-check-textarea">
-        At w3schools.com you will learn how to make a website. They offer free
-        tutorials in all web development technologies.
-      </textarea>
+      <textarea className="background-check-textarea" placeholder="notes" />
+
+
 
       <div className="background-check-reference-container">
         <div className="bg-reference">
