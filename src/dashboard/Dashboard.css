@@ -31,6 +31,16 @@
 .dashboard-applicants {
   margin-top: 2rem;
   background-color: white;
-  padding: 1rem;
+  padding: 2rem;
+  padding-top: 1rem;
   border-radius: 20px;
+  max-height: 60vh;
+  overflow: hidden;
+}
+
+.dashboard-applicants > .tiles {
+  max-height: 50vh;
+  overflow: scroll;
+  scrollbar-width: none;
+  margin-bottom: 1rem;
 }

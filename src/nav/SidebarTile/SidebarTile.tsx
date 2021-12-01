@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 import './SidebarTile.css'
 import dashboard_active from '../assets/dashboard_active.png';

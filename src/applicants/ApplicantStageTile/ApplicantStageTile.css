@@ -1,0 +1,8 @@
+.applicant-stage-tile {
+}
+
+.applicant-stage-tile > h1 {
+  font-size: 0.875rem;
+  padding: 0.3125rem;
+  color: white;
+}

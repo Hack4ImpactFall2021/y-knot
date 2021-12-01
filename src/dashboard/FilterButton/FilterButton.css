@@ -1,15 +1,20 @@
 .filter-button {
   width: 250px;
-  height: 120px;
+  max-height: 143px;
   border-radius: 0px 0px 10px 10px;
   display: flex;
   flex-direction: column;
   padding-bottom: 23px;
+  transition: 300ms filter linear;
+}
+
+.filter-button-selected {
+  filter: drop-shadow(0px 1.2rem 10px #c4c4c4);
 }
 
 .filter-button:hover {
   cursor: pointer;
-  filter: drop-shadow(0px 1rem 10px #c4c4c4);
+  filter: drop-shadow(0px 1.2rem 10px #c4c4c4);
   transition: 300ms filter linear;
 }
 
