@@ -2,6 +2,7 @@ import React from 'react';
 import Login from './LoginPage/Login';
 
 import './App.css';
+import Settings from './SettingsPage/Settings';
 // import firebase from './config/firebase';
 
 const App = () => {
@@ -9,8 +10,8 @@ const App = () => {
     }
     return (
 
-
-        <Login />
+        <Settings />
+        // <Login />
         // <div>
         //     <h1>
         //         {firebase.appId}

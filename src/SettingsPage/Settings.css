@@ -1,0 +1,12 @@
+.settings-page {
+  font-family: 'SF Pro Display', sans-serif;
+  margin: 15px 5%;
+  height: 100%;
+  overflow-y: hidden;
+
+}
+.settings-title {
+  color: #10275B;
+  font-size: 3rem;
+  font-weight: bold;
+}
