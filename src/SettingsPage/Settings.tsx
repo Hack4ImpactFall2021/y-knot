@@ -26,7 +26,7 @@ const Settings = () => {
 
         <div className="grid2r2c">
           <div className="input-group row1 col1">
-            <label>New Password</label> <br />
+            <label>Current Password</label> <br />
             <input type="text" />
           </div>
           <div className="input-group row2 col1">
@@ -47,14 +47,14 @@ const Settings = () => {
 
         <div className="grid2r2c">
           <div className="input-group row1 col1">
-            <label>New Email</label> <br />
+            <label>Email Address</label> <br />
             <input type="text" />
           </div>
           <div className="input-group row2 col1">
-            <label>New Email</label> <br />
+            <label>Password</label> <br />
             <input type="text" />
           </div>
-          <button className="settings-button row2 col2">Create Acount</button>
+          <button className="settings-button row2 col2">Create Account</button>
         </div>
       </div>
     </div>

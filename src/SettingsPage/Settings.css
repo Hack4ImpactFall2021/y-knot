@@ -6,6 +6,7 @@
   background-color: #f1f1f1;
   margin-left: 250px;
   padding:  0 30px;
+  overflow-y: scroll;
 }
 .settings-title {
   color: #10275b;
