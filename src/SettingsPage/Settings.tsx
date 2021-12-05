@@ -26,11 +26,11 @@ const Settings = () => {
 
         <div className="grid2r2c">
           <div className="input-group row1 col1">
-            <label>Current Password</label> <br />
+            <label>New Password</label> <br />
             <input type="text" />
           </div>
           <div className="input-group row2 col1">
-            <label>New Password</label> <br />
+            <label>Confirm New Password</label> <br />
             <input type="text" />
           </div>
           <button className="settings-button row2 col2">
