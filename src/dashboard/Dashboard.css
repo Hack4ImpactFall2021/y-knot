@@ -15,11 +15,20 @@
 
 .dashboard-content {
   padding: 2rem;
-  min-width: 70rem;
+  padding-top: 1rem;
+  min-width: 75rem;
   max-width: 70rem;
   display: flex;
   flex: 1;
   flex-direction: column;
+  overflow: scroll;
+  scrollbar-width: none;
+}
+
+.dashboard-content > h1 {
+  color: #10275b;
+  font-weight: bold;
+  font-size: 2.5rem;
 }
 
 .dashboard-filters {
@@ -35,6 +44,7 @@
   padding-top: 1rem;
   border-radius: 20px;
   max-height: 60vh;
+  min-height: 50vh;
   overflow: hidden;
 }
 
@@ -42,5 +52,10 @@
   max-height: 50vh;
   overflow: scroll;
   scrollbar-width: none;
+  -ms-overflow-style: none;
   margin-bottom: 1rem;
+}
+
+.dashboard-applicants > .tiles::-webkit-scrollbar {
+  display: none;
 }

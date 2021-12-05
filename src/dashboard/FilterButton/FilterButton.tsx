@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './FilterButton.css'
+import all_applicants from '../../assets/all.png';
 import new_applicant from '../../assets/new.png';
 import interviewing from '../../assets/interviewing.png';
 import background_check from '../../assets/background_check.png';
@@ -28,7 +29,7 @@ const FilterButton: React.FC<Props> = ({type, selected, count, onClick}) => {
     }
 
     const filtersToImage: filterToImageType = {
-        [ApplicantFilters.AllApplicants]: new_applicant,
+        [ApplicantFilters.AllApplicants]: all_applicants,
         [ApplicantFilters.BackgroundCheck]: background_check,
         [ApplicantFilters.NewApplicants]: new_applicant,
         [ApplicantFilters.Interviewing]: interviewing
