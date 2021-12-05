@@ -54,31 +54,31 @@ class UserInfo extends Component {
         <div>
           <label>Occupation</label>
           <input type ="text" 
-          value = { this.state.username} 
+          // value = { this.state.username} 
           onChange={this.handleOccupationChange} 
           />
 
           <label>Highest Education Attainment</label>
           <input type = "text"
-          value = { this.state.education}
+          // value = { this.state.education}
           onChange = {this.handleEducationChange}
           />
 
           <label>Phone</label>
           <input type = "number"
-          value = { this.state.phoneNumber}
+          // value = { this.state.phoneNumber}
           onChange = { this.handlePhoneNumChange}
           />
 
           <label>Email</label>
           <input type = "email"
-          value = { this.state.email}
+          // value = { this.state.email}
           onChange = { this.handleEmailChange}
           />
 
           <label>Address</label>
           <input type = "text"
-          value = { this.state.address} 
+          // value = { this.state.address} 
           onChange = { this.handleAddressChange}
           />
         </div>

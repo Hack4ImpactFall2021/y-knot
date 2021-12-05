@@ -3,7 +3,6 @@
 
 .interview-container {
     height: 100%;
-    /* overflow-y: scroll; */
     overflow-x: hidden;
 }
 
@@ -12,7 +11,7 @@
     width: 52%;
     margin-left: 2%;
     margin-right: 3%;
-    height: 360px;
+    /* height: 355px; */
     padding: 12px 20px;
     border: 2px solid #ccc;
     font-size: 1.2em;
@@ -29,6 +28,7 @@
 
 .interview-scheduled {
     margin-top: 10px;
+    font-size: 20px;
     font-weight: bold;
     text-align: left;
     align-items: left;
@@ -60,19 +60,19 @@
     font-family: 'Inter';
     line-height: 1.125em;
     border: 2px solid #ccc;
-    /* font-size: 24px; */
-    /* font-weight: bold; */
     text-align: left;
-    /* display: flex;
-    flex-direction: column; */
-    align-items: center;
     background-color: white;
-    /* border-top-color: white; */
-    /* margin-left: 3%; */
-    /* margin-right: 3%; */
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
-    padding-top: 20px;
-    padding-bottom: 20px;
     padding-left: 20px;
+}
+
+.time {
+    color: #666666;
+    font-size: 16px;
+}
+
+.applicant-interview {
+    color: #ff8427;
+    font-size: 20px;
 }
