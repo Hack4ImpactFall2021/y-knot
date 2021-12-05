@@ -1,8 +1,78 @@
-.interview-page { 
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://rsms.me/inter/inter.css');
 
-    font-family: 'SF Pro Display', sans-serif;
-    margin: 15px 5%;
+.interview-container {
     height: 100%;
-    overflow-y: hidden;
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
+}
 
+.interview-notes {
+    font-family: 'Inter'; 
+    width: 52%;
+    margin-left: 2%;
+    margin-right: 3%;
+    height: 360px;
+    padding: 12px 20px;
+    border: 2px solid #ccc;
+    font-size: 1.2em;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    resize: none;
+}
+  
+.interview-container > * {
+    margin-bottom: 15px;
+}
+
+.interview-scheduled {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: left;
+    align-items: left;
+    background-color: white;
+    border: 2px solid #ccc;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    margin-left: 3%;
+    margin-right: 3%;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    
+}
+
+.calendar-and-notes {
+    display: flex;
+}
+
+.calendar-container {
+    margin-left: 3%;
+    width: 40%;
+}
+
+.interview-time {
+    max-width: 100%;
+    font-family: 'Inter';
+    line-height: 1.125em;
+    border: 2px solid #ccc;
+    /* font-size: 24px; */
+    /* font-weight: bold; */
+    text-align: left;
+    /* display: flex;
+    flex-direction: column; */
+    align-items: center;
+    background-color: white;
+    /* border-top-color: white; */
+    /* margin-left: 3%; */
+    /* margin-right: 3%; */
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
 }
