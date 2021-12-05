@@ -61,4 +61,67 @@ const Settings = () => {
   );
 };
 
+//Update Email Address Field
+
+import { getAuth, updateEmail } from "firebase/auth";
+const auth = getAuth();
+const user = auth.currentUser;
+// Change this email to make it the text input
+const email = "user@example.com";
+
+updateEmail(user, email).then(() => { 
+
+  console.log("Email address has been updated to " + email);
+
+}).catch((error) => { 
+
+  const errorCode = error.code;
+  const errorMessage = error.message;
+  console.log("An error took place during the email address update: " + errorMessage);
+
+})
+
+
+//Update Password Field
+
+import { updatePassword } from "firebase/auth";
+
+//Change this variable to make it the password input
+const newPass = "abc123";
+
+//Change this variable to make it the confirm password input
+const confirmPass = "abc123";
+
+if (newPass == confirmPass) { 
+  updatePassword(user, newPass).then(() => { 
+    console.log("Password has been updated successfully!");
+  }).catch((error) => { 
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log("An error took place during the password update: " + errorMessage);
+  
+  })
+} else { 
+  console.log("The password and confirm password are not the same.");
+}
+
+
+// Register New Account
+
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
+//Change this field to be the email address input for the new user
+const emailInput = "abc@example.com";
+
+//Change this field to be the password input for the new user
+const passInput = "abc123";
+
+createUserWithEmailAndPassword(auth, emailInput, passInput).then((userCredential) => { 
+  console.log("User was created successfully in Firebase.");
+}).catch((error) => { 
+  const errorCode = error.code;
+  const errorMessage = error.message;
+  console.log("An error took place during the user creation: " + errorMessage);
+})
+
 export default Settings;
