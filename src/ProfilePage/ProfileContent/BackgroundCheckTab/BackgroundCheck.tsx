@@ -14,10 +14,141 @@ const BackgroundCheck = (props: BackgroundCheckProps) => {
         ))}
       </Dropzone>
 
-      <textarea className='background-check-textarea'>
-        At w3schools.com you will learn how to make a website. They offer free
-        tutorials in all web development technologies.
-      </textarea>
+      <textarea className="background-check-textarea" placeholder="notes" />
+
+
+
+      <div className="background-check-reference-container">
+        <div className="bg-reference">
+          <div className="bg-reference-title">Reference 1</div>
+          <div className="background-check-reference">
+            <div className="flex-row">
+              <div className="bg-reference-contact">
+                <div className="input-group">
+                  <label>Phone</label> <br />
+                  <input type="text" value="204-324-3434" disabled />
+                </div>
+              </div>
+              <div className="bg-reference-contact">
+                <div className="input-group">
+                  <label>Email</label> <br />
+                  <input type="text" value="gonnaquit@gmail.com" disabled />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-reference-address">
+              <div className="input-group">
+                <label>Address</label> <br />
+                <input type="text" value="204-324-3434" disabled />
+              </div>
+
+              <div className="input-group">
+                <input type="text" value="204-324-3434" disabled />
+              </div>
+
+              <div className="flex-row">
+                <div className="input-group width-100">
+                  <input type="text" value="204-324-3434" disabled />
+                </div>
+                <div className="input-group width-100">
+                  <input type="text" value="204-324-3434" disabled />
+                </div>
+              </div>
+
+              <div className="input-group">
+                <input type="text" value="204-324-3434" disabled />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="bg-reference">
+          <div className="bg-reference-title">Reference 1</div>
+          <div className="background-check-reference">
+            <div className="flex-row">
+              <div className="bg-reference-contact">
+                <div className="input-group">
+                  <label>Phone</label> <br />
+                  <input type="text" value="204-324-3434" disabled />
+                </div>
+              </div>
+              <div className="bg-reference-contact">
+                <div className="input-group">
+                  <label>Email</label> <br />
+                  <input type="text" value="gonnaquit@gmail.com" disabled />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-reference-address">
+              <div className="input-group">
+                <label>Address</label> <br />
+                <input type="text" value="204-324-3434" disabled />
+              </div>
+
+              <div className="input-group">
+                <input type="text" value="204-324-3434" disabled />
+              </div>
+
+              <div className="flex-row">
+                <div className="input-group width-100">
+                  <input type="text" value="204-324-3434" disabled />
+                </div>
+                <div className="input-group width-100">
+                  <input type="text" value="204-324-3434" disabled />
+                </div>
+              </div>
+
+              <div className="input-group">
+                <input type="text" value="204-324-3434" disabled />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="bg-reference">
+          <div className="bg-reference-title">Reference 1</div>
+          <div className="background-check-reference">
+            <div className="flex-row">
+              <div className="bg-reference-contact">
+                <div className="input-group">
+                  <label>Phone</label> <br />
+                  <input type="text" value="204-324-3434" disabled />
+                </div>
+              </div>
+              <div className="bg-reference-contact">
+                <div className="input-group">
+                  <label>Email</label> <br />
+                  <input type="text" value="gonnaquit@gmail.com" disabled />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-reference-address">
+              <div className="input-group">
+                <label>Address</label> <br />
+                <input type="text" value="204-324-3434" disabled />
+              </div>
+
+              <div className="input-group">
+                <input type="text" value="204-324-3434" disabled />
+              </div>
+
+              <div className="flex-row">
+                <div className="input-group width-100">
+                  <input type="text" value="204-324-3434" disabled />
+                </div>
+                <div className="input-group width-100">
+                  <input type="text" value="204-324-3434" disabled />
+                </div>
+              </div>
+
+              <div className="input-group">
+                <input type="text" value="204-324-3434" disabled />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

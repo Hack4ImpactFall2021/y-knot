@@ -3,13 +3,14 @@
 }
 
 .profile-content-tab-container{
-  font-family: 'SF Pro Display', sans-serif;
+  /* font-family: 'SF Pro Display', sans-serif; */
   display: flex;
   justify-content: space-between;
 }
 
 .profile-content-tab{
-  font-family: 'SF Pro Display', sans-serif;
+  /* font-family: 'SF Pro Display', sans-serif; */
+  font-weight: bold;
   flex: 1;
   border: none;
   padding: 5px;
@@ -18,6 +19,7 @@
   text-align: left;
   padding: 0;
   background-color: transparent;
+  text-align: center;
 }
 
 .profile-content-tab span {
@@ -28,6 +30,6 @@
   border-radius: 20px;
   background-color: rgb(180, 180, 180);
   height: 75vh;
-  padding: 10px 30px
+  padding: 30px;
 
 }
