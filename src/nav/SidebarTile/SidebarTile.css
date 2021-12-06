@@ -1,0 +1,23 @@
+.option-tile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 2rem;
+  color: #c4c4c4;
+}
+
+.option-tile:hover {
+  background-color: #ececec;
+  cursor: pointer;
+}
+
+.option-tile > img {
+  width: 27px;
+  height: 27px;
+  margin-right: 2rem;
+}
+
+.option-tile-active {
+  border-right: 5px solid black;
+  color: black;
+}

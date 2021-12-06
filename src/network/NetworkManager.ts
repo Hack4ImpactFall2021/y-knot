@@ -1,10 +1,14 @@
 import { AuthError, User } from "@firebase/auth";
 import { getAuth } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import app from "../config/firebase";
+import {collection, getDocs, DocumentData} from "firebase/firestore"
+
+import { Applicant, ApplicantStages } from "../utils/utils";
+import app, { db } from "../config/firebase";
 
 export enum Endpoints{
     AuthenticateUser, 
+    GetAllApplicants,
 }
 
 class NetworkManger {
@@ -23,7 +27,9 @@ class NetworkManger {
     public async makeRequest (endpoint: Endpoints, params?: any) {
         switch (endpoint){
           case Endpoints.AuthenticateUser:
-            return this.authenticateUser(params.email, params.password)
+            return this.authenticateUser(params.email, params.password);
+          case Endpoints.GetAllApplicants:
+            return this.getAllApplicants();
         }
 
     }
@@ -42,7 +48,32 @@ class NetworkManger {
           reject(error);
         });
       })
-  
+    }
+
+    // returns all applicants from db
+    private getAllApplicants(): Promise<Applicant []> {
+      return new Promise((resolve, reject) => {
+        getDocs(collection(db, "applicants"))
+        .then((docs) => {
+          let applicants: Applicant[] = [];
+          docs.forEach((doc) => {
+            let data = doc.data();
+            const applicant: Applicant = {
+              firstName: data.first_name,
+              lastName: data.last_name,
+              email: data.email,
+              phoneNumber: data.phone_number,
+              submissionId: data.submission_id,
+              stage: data.stage
+            };
+            applicants.push(applicant);
+          });
+          resolve(applicants);
+        })
+        .catch((error) => {
+          reject(error);
+        })
+      });
     }
 
 }
