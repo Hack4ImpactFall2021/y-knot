@@ -3,6 +3,7 @@ import './Settings.css';
 import { getAuth, updateEmail, User } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { updatePassword } from "firebase/auth";
+import app from '../config/firebase';
 
 const Settings = () => {
   return (
@@ -67,7 +68,7 @@ const Settings = () => {
 
 //Update Email Address Field
 
-const auth = getAuth();
+const auth = getAuth(app);
 var user = auth.currentUser;
 
 if (user == null) { 
