@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './UserInfo.css';
+import 'material-ui';
 
 
 class UserInfo extends Component {
@@ -81,6 +82,14 @@ class UserInfo extends Component {
           // value = { this.state.address} 
           onChange = { this.handleAddressChange}
           />
+
+          <p>Is user an employee of any of the following FBI, Secret Service, CIA, or police department?</p>
+          <div>
+            <input type="radio" value="Yes"/> Yes
+            <input type="radio" value="No" name="gender" /> No
+          </div>
+          
+        
         </div>
 
       </form>
