@@ -23,6 +23,10 @@
   flex-direction: column;
   overflow: scroll;
   scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.dashboard-content::-webkit-scrollbar {
+  display: none;
 }
 
 .dashboard-content > h1 {
