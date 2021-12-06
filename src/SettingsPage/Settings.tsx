@@ -26,11 +26,11 @@ const Settings = () => {
 
         <div className="grid2r2c">
           <div className="input-group row1 col1">
-            <label>New Password</label> <br />
+            <label>Current Password</label> <br />
             <input type="text" />
           </div>
           <div className="input-group row2 col1">
-            <label>Confirm New Password</label> <br />
+            <label>New Password</label> <br />
             <input type="text" />
           </div>
           <button className="settings-button row2 col2">
@@ -63,9 +63,13 @@ const Settings = () => {
 
 //Update Email Address Field
 
-import { getAuth, updateEmail } from "firebase/auth";
+import { getAuth, updateEmail, User } from "firebase/auth";
 const auth = getAuth();
-const user = auth.currentUser;
+var user = auth.currentUser;
+
+if (user == null) { 
+  user = user as unknown as User;
+}
 // Change this email to make it the text input
 const email = "user@example.com";
 
