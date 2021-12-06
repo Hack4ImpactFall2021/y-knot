@@ -1,5 +1,9 @@
 import React from 'react';
 import './Settings.css';
+import { getAuth, updateEmail, User } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { updatePassword } from "firebase/auth";
+
 const Settings = () => {
   return (
     <div className="settings-page">
@@ -63,7 +67,6 @@ const Settings = () => {
 
 //Update Email Address Field
 
-import { getAuth, updateEmail, User } from "firebase/auth";
 const auth = getAuth();
 var user = auth.currentUser;
 
@@ -88,8 +91,6 @@ updateEmail(user, email).then(() => {
 
 //Update Password Field
 
-import { updatePassword } from "firebase/auth";
-
 //Change this variable to make it the password input
 const newPass = "abc123";
 
@@ -111,8 +112,6 @@ if (newPass == confirmPass) {
 
 
 // Register New Account
-
-import { createUserWithEmailAndPassword } from "firebase/auth";
 
 //Change this field to be the email address input for the new user
 const emailInput = "abc@example.com";
