@@ -1,16 +1,88 @@
-.settings {
-  display: flex;
-  flex-direction: row;
+.settings-page {
+  font-family: 'SF Pro Display', sans-serif;
+  /* margin: 15px 5%; */
   height: 100vh;
+  overflow-y: hidden;
+  background-color: #f1f1f1;
+  margin-left: 250px;
+  padding:  0 30px;
+  overflow-y: scroll;
+}
+.settings-title {
+  color: #10275b;
+  font-size: 3rem;
+  font-weight: bold;
 }
 
-.settings-container {
-  width: 100%;
+.settings-box {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 15px;
+  margin: 20px;
+  /* display: flex; */
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  display: flex;
-  flex: 4;
-  padding: 2rem;
-  background-color: #f4f4f4;
+.settings-box span {
+  font-weight: bold;
+}
+
+.settings-button {
+
+
+  /* text-transform: uppercase; */
+  border: none;
+  color: white;
+  font-size: 1.1rem;
+  background-color: #0a1737;
+  border-radius: 10px;
+  white-space: nowrap;
+  height: 30px;
+}
+
+.input-group input {
+  /* margin-top: 5px; */
+  border: 1px rgb(189, 189, 189) solid;
+  outline: none;
+  height: 15px;
+  width: 100%;
+  padding: 15px 10px;
+  border-radius: 0.4rem;
+  box-sizing: border-box;
+  /* font-size: 1rem; */
+  margin-right: 5px;
+}
+
+.grid1r2c{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
+  align-items: end;
+
+  column-gap: 10px;
+  row-gap: 15px;
+}
+
+.grid2r2c {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: end;
+  column-gap: 10px;
+  row-gap: 15px;
+}
+
+.row1 {
+  /* grid-column: 1 / span 1; */
+  grid-row: 1 / span 1;
+}
+
+.row2 {
+  grid-row: 2 / span 1;
+}
+.col1 {
+  grid-column: 1 / span 1;
+}
+.col2 {
+  grid-column: 2 / span 1;
 }
