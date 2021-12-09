@@ -7,21 +7,21 @@
 .dashboard-container {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  display: flex;
-  justify-content: center;
-  flex: 4;
   background-color: #f4f4f4;
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }
 
 .dashboard-content {
-  padding: 2rem;
-  padding-top: 1rem;
-  min-width: 75rem;
-  max-width: 70rem;
+  padding: 32px;
+  padding-top: 16px;
+  min-width: 1120px;
+  max-width: 1120px;
   display: flex;
   flex: 1;
   flex-direction: column;
-  overflow: scroll;
+  overflow: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -32,7 +32,7 @@
 .dashboard-content > h1 {
   color: #10275b;
   font-weight: bold;
-  font-size: 2.5rem;
+  font-size: 40px;
 }
 
 .dashboard-filters {
@@ -47,19 +47,12 @@
   padding: 2rem;
   padding-top: 1rem;
   border-radius: 20px;
-  max-height: 60vh;
-  min-height: 50vh;
-  overflow: hidden;
+  min-height: 560px;
+  max-height: 560px;
 }
 
 .dashboard-applicants > .tiles {
-  max-height: 50vh;
-  overflow: scroll;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  margin-bottom: 1rem;
-}
-
-.dashboard-applicants > .tiles::-webkit-scrollbar {
-  display: none;
+  min-height: 460px;
+  max-height: 460px;
+  overflow: auto;
 }

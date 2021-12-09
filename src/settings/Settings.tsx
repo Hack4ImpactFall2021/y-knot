@@ -4,29 +4,53 @@ import { getAuth, updateEmail, User } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { updatePassword } from "firebase/auth";
 import app from '../config/firebase';
+import Sidebar, { NavRoutes } from '../nav/Sidebar';
+import TextField from './TextField/TextField';
+import Button from './Button/Button';
 
 const Settings = () => {
   return (
-    <div className="settings-page">
-      <span className="settings-title">Settings</span>
+    <div className="settings">
+      <Sidebar  selected={NavRoutes.Settings}/>
+      <div className="settings-container">
+        <div className="settings-content">
+        <h1 className="settings-title">Settings</h1>
 
-      <div className="settings-update-email settings-box">
-        <span>Update Email Address</span>
-        <hr />
-
-        <div className="grid1r2c">
-          <div className="input-group row1 col1">
-            <label>Email Address</label> <br />
-            <input type="text" />
+        <div className="settings-box">
+          <h2>Update Email Address</h2>
+          <hr />
+          <div className="main">
+            <TextField label="Email Address"/>
+            <Button label="Change Email Address"/>
           </div>
-          <button className="settings-button row1 col2">
-            Change Email Address
-          </button>
         </div>
-      </div>
+ 
+        <div className="settings-box">
+          <h2>Update Password</h2>
+          <hr />
+          <div className="main">
+            <div className="two">
+            <TextField label="New Password"/>
+            <TextField label="Confirm New Password"/>
+            </div>
+            <Button label="Change Password"/>
+          </div>
+        </div>
 
-      <div className="settings-update-password settings-box">
-        <span>Update Password</span>
+        <div className="settings-box">
+          <h2>Create New Account</h2>
+          <hr />
+          <div className="main">
+            <div className="two">
+            <TextField label="Email Address"/>
+            <TextField label="Password"/>
+            </div>
+            <Button label="Create Account"/>
+          </div>
+        </div>
+
+      {/* <div className="">
+        <h2>Update Password</h2>
         <hr />
 
         <div className="grid2r2c">
@@ -46,8 +70,8 @@ const Settings = () => {
         </div>
       </div>
 
-      <div className="settings-create-account settings-box">
-        <span>Create New Account</span>
+      <div className="">
+        <h2>Create New Password </h2>
         <hr />
 
         <div className="grid2r2c">
@@ -61,6 +85,9 @@ const Settings = () => {
           </div>
           <button className="settings-button row2 col2">Create Account</button>
         </div>
+      </div> */}
+
+      </div>
       </div>
     </div>
   );

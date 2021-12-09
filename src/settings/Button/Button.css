@@ -1,0 +1,21 @@
+.settings-button {
+  display: flex;
+  flex: 1;
+  background-color: #091734;
+  height: 56px;
+  max-width: 320px;
+  align-self: flex-end;
+  justify-content: center;
+  align-items: center;
+}
+
+.settings-button > .button-text {
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: normal;
+}
+
+.settings-button:hover {
+  background-color: #0e204d;
+  cursor: pointer;
+}

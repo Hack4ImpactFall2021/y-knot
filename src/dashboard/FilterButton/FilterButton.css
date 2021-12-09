@@ -1,10 +1,10 @@
 .filter-button {
-  width: 280px;
-  max-height: 143px;
+  width: 250px;
+  max-height: 114px;
   border-radius: 0px 0px 10px 10px;
   display: flex;
   flex-direction: column;
-  padding-bottom: 23px;
+  padding-bottom: 27px;
   transition: 300ms filter linear;
 }
 
