@@ -60,3 +60,7 @@
   flex: 1;
   flex-direction: column;
 }
+
+.error {
+  color: red;
+}
