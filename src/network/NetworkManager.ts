@@ -1,8 +1,8 @@
 import { AuthError, User } from "@firebase/auth";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword} from "firebase/auth";
-import {collection, getDocs} from "firebase/firestore"
+import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot} from "firebase/firestore"
 
-import { Applicant, ApplicantStages } from "../utils/utils";
+import { Applicant } from "../utils/utils";
 import app, { db } from "../config/firebase";
 
 export enum Endpoints{
@@ -10,7 +10,8 @@ export enum Endpoints{
     GetAllApplicants,
     UpdateEmail,
     UpdatePassword,
-    CreateNewUser
+    CreateNewUser,
+    GetApplicant
 }
 
 class NetworkManger {
@@ -38,9 +39,27 @@ class NetworkManger {
             return this.updateUserPassword(params.password);
           case Endpoints.CreateNewUser:
             return this.createNewUser(params.email, params.password);
+          case Endpoints.GetApplicant:
+            return this.getApplicant(params.submissionId);
         }
 
     }
+
+    // gets a user from db by submission id
+    // submissionId: submission id
+    private getApplicant(submissionId: string): Promise<DocumentSnapshot<DocumentData>>{
+      return new Promise((resolve, reject) => {
+        getDoc(doc(db, "applicants", submissionId))
+        .then(snap => {
+          resolve(snap);
+        })
+        .catch(error => {
+          reject(error)
+        })
+      })
+    }
+
+    
 
     // signs in user using email and password
     // email: email address

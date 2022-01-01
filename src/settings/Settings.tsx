@@ -67,7 +67,7 @@ const Settings = () => {
       setMessage([true, "Passwords do not match."]);
       setIsDisabled(false);
       return;
-    } else if (password.trim().length == 0 || confirmPassword.trim().length == 0) {
+    } else if (password.trim().length === 0 || confirmPassword.trim().length === 0) {
       setMessage([true, "Password can not be blank."]);
       setIsDisabled(false);
       return;

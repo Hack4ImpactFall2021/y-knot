@@ -1,0 +1,123 @@
+.profile {
+  display: flex;
+  height: 100vh;
+  background-color: white;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  justify-content: center;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 50px;
+  margin-right: 50px;
+  min-width: 1120px;
+  max-width: 1120px;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.profile-container::-webkit-scrollbar {
+  display: none;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 90px;
+  margin-top: 64px;
+}
+.profile-header .profile-header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.profile-header .profile-header-left .name {
+  color: #10275b;
+  font-size: 48px;
+  font-weight: bold;
+  margin-right: 40px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.profile-header .profile-header-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.profile-header .profile-header-right .button {
+  width: 200px;
+  height: 50px;
+  font-weight: bold;
+  color: white;
+  font-size: 24px;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.profile-header .profile-header-right .button > img {
+  width: 32px;
+  height: 32px;
+  margin-left: 20px;
+}
+
+.profile-header .profile-header-right .accept {
+  background-color: #117a54;
+  margin-right: 40px;
+  transition: all 300ms;
+}
+.profile-header .profile-header-right .reject {
+  background-color: #f44250;
+  transition: all 300ms;
+}
+
+.profile-header .profile-header-right .accept:hover {
+  background-color: #0c6846;
+  cursor: pointer;
+}
+.profile-header .profile-header-right .reject:hover {
+  background-color: #d03945;
+  cursor: pointer;
+}
+
+.profile-tabs {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.profile-tabs .tab-title:hover {
+  cursor: pointer;
+  color: black;
+}
+
+.profile-tabs .tab-title {
+  margin-right: 50px;
+  font-size: 24px;
+}
+
+.profile-tabs .selected {
+  padding-bottom: 5px;
+  border-bottom: 2px solid black;
+}
+
+.profile-content {
+  display: flex;
+  flex: 1;
+  min-height: 650px;
+  max-height: 650px;
+  margin: 10px 0px;
+  background-color: #ececec;
+}

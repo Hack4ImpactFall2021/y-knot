@@ -7,6 +7,7 @@ import RequireAuth from './auth/RequireAuth';
 import Dashboard from './dashboard/Dashboard';
 import Settings from './settings/Settings';
 import Login from './login/Login';
+import Profile from './profile/Profile';
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
                     <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
+                    <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
                 </Routes>
             </Router>
