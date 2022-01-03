@@ -31,6 +31,10 @@
   -ms-overflow-style: none;
 }
 
+.settings-content::-webkit-scrollbar {
+  display: none;
+}
+
 .settings-title {
   color: #10275b;
   font-size: 40px;

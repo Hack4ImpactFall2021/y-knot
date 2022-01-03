@@ -50,7 +50,9 @@ const Settings = () => {
 
     } catch (error) {
       if ((error as AuthError).code === "auth/requires-recent-login") {
-        navigate('/login');
+        console.log(error);
+        setMessage([true, "Log out and log back in then try again."]);
+        setIsDisabled(false);
       } else {
         console.log(error);
         setMessage([true, "Oops, something went wrong. Please try again later."]);
@@ -71,19 +73,25 @@ const Settings = () => {
       setMessage([true, "Password can not be blank."]);
       setIsDisabled(false);
       return;
+    } else if (password.length < 6) {
+      setMessage([true, "Password must be longer than 6 characters."]);
+      setIsDisabled(false);
+      return;
     }
 
     try {
       await NetworkManager.makeRequest(Endpoints.UpdatePassword, {password: password});
       setPassword("");
       setConfirmPassword("");
-      setMessage([false, "Succesfully updated password"]);
+      setMessage([false, "Successfully updated password"]);
       setIsDisabled(false);
       console.log("updated password");
       
     } catch (error) {
       if ((error as AuthError).code === "auth/requires-recent-login") {
-        navigate('/login');
+        console.log(error);
+        setMessage([true, "Log out and log back in then try again."]);
+        setIsDisabled(false);
       } else {
         console.log(error);
         setMessage([true, "Oops, something went wrong. Please try again later."]);
@@ -121,7 +129,9 @@ const Settings = () => {
       console.log("Created new user with email and password");
     } catch (error) {
       if ((error as AuthError).code === "auth/requires-recent-login") {
-        navigate('/login');
+        console.log(error);
+        setMessage([true, "Log out and log back in then try again."]);
+        setIsDisabled(false);
       } else {
         console.log(error);
         setMessage([true, "Oops, something went wrong. Please try again later."]);

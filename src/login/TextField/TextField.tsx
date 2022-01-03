@@ -12,9 +12,10 @@ interface TextFieldProps{
   fieldType: TextFieldTypes,
   isDisabled?: boolean,
   onChange: (val: string) => void;
+  onSubmit?: () => void;
 }
 
-const LoginTextField:React.FC<TextFieldProps> = ({header, fieldType, isDisabled, onChange})=> {
+const LoginTextField:React.FC<TextFieldProps> = ({header, fieldType, isDisabled, onChange, onSubmit = () => {}})=> {
   return (
     <div className="input-group">
         <label>{header}</label> <br/>
@@ -22,6 +23,11 @@ const LoginTextField:React.FC<TextFieldProps> = ({header, fieldType, isDisabled,
           disabled = {isDisabled}
           type={fieldType}
           onChange={({ target: { value } }) => onChange(value)}
+          onKeyPress={e => {
+            if (e.code === 'Enter' || e.key === 'Enter') {
+              onSubmit();
+            }
+          }}
         />
     </div>
   )
