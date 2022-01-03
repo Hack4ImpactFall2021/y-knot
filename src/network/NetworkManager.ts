@@ -1,14 +1,17 @@
 import { AuthError, User } from "@firebase/auth";
-import { getAuth } from "firebase/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import {collection, getDocs, DocumentData} from "firebase/firestore"
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword} from "firebase/auth";
+import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot} from "firebase/firestore"
 
-import { Applicant, ApplicantStages } from "../utils/utils";
+import { Applicant } from "../utils/utils";
 import app, { db } from "../config/firebase";
 
 export enum Endpoints{
     AuthenticateUser, 
     GetAllApplicants,
+    UpdateEmail,
+    UpdatePassword,
+    CreateNewUser,
+    GetApplicant
 }
 
 class NetworkManger {
@@ -30,9 +33,33 @@ class NetworkManger {
             return this.authenticateUser(params.email, params.password);
           case Endpoints.GetAllApplicants:
             return this.getAllApplicants();
+          case Endpoints.UpdateEmail:
+            return this.updateUserEmail(params.email);
+          case Endpoints.UpdatePassword:
+            return this.updateUserPassword(params.password);
+          case Endpoints.CreateNewUser:
+            return this.createNewUser(params.email, params.password);
+          case Endpoints.GetApplicant:
+            return this.getApplicant(params.submissionId);
         }
 
     }
+
+    // gets a user from db by submission id
+    // submissionId: submission id
+    private getApplicant(submissionId: string): Promise<DocumentSnapshot<DocumentData>>{
+      return new Promise((resolve, reject) => {
+        getDoc(doc(db, "applicants", submissionId))
+        .then(snap => {
+          resolve(snap);
+        })
+        .catch(error => {
+          reject(error)
+        })
+      })
+    }
+
+    
 
     // signs in user using email and password
     // email: email address
@@ -76,60 +103,63 @@ class NetworkManger {
       });
     }
 
+    // updates email of current user in auth
+    // email: new email
+    private updateUserEmail(email: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        const auth = getAuth(app);
+        let user = auth.currentUser;
+
+        if (user === null) {
+          reject("user is null");
+        }
+        user = user as User;
+
+        updateEmail(user, email).then(() => { 
+          resolve();
+        }).catch((error) => { 
+          reject(error);
+        })
+      });
+    }
+
+    // updates password of current user in auth
+    // password: new password
+    private updateUserPassword(password: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        const auth = getAuth(app);
+        let user = auth.currentUser;
+
+        if (user === null) {
+          reject("user is null");
+        }
+        user = user as User;
+
+        updatePassword(user, password).then(() => { 
+          resolve();
+        }).catch((error) => { 
+          reject(error);
+        
+        })
+      }); 
+    }
+
+    // creates a new user in db
+    // email: email of new user
+    // password: password of new user
+    private createNewUser(email: string, password: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        const auth = getAuth(app);
+
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((user) => { 
+          resolve();
+        }).catch((error) => { 
+          reject(error);
+        })
+      })
+    }
+
 }
 
 export default NetworkManger.getInstance();
-
-/*
-// create user func
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-
-const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    console.log("User has been created in Firebase.");
-    const user = userCredential.user;
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("An error took place during the user creation: " + errorMessage);
-
-  });
-
-
-  //sign in func
-
-  import { signInWithEmailAndPassword } from "firebase/auth";
-
-
-
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log("User has been signed in.");
-      const user = userCredential.user;
-      // ...
-    })
-    .catch((error) => {
-      console.log("An error took place during login: " + error);
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
-
-  //reset password func
-import { sendPasswordResetEmail } from "firebase/auth";
-
-sendPasswordResetEmail(auth, email)
-  .then(() => {
-    console.log("The reset password email was sent. Please check your email.");
-    // Password reset email sent!
-    // ..
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("There was an error during the password reset: " + errorMessage);
-  });
-
-
-  */
