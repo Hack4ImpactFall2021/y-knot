@@ -6,6 +6,17 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   justify-content: center;
 }
+.exit-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 53px;
+  height: 53px;
+}
+
+.exit-btn:hover {
+  cursor: pointer;
+}
 
 .profile-container {
   display: flex;
@@ -111,13 +122,4 @@
 .profile-tabs .selected {
   padding-bottom: 5px;
   border-bottom: 2px solid black;
-}
-
-.profile-content {
-  display: flex;
-  flex: 1;
-  min-height: 650px;
-  max-height: 650px;
-  margin: 10px 0px;
-  background-color: #ececec;
 }

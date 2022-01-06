@@ -2,7 +2,7 @@ import { AuthError, User } from "@firebase/auth";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword} from "firebase/auth";
 import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot} from "firebase/firestore"
 
-import { Applicant } from "../utils/utils";
+import { Applicant, JotformResponse } from "../utils/utils";
 import app, { db } from "../config/firebase";
 
 export enum Endpoints{
@@ -11,8 +11,11 @@ export enum Endpoints{
     UpdateEmail,
     UpdatePassword,
     CreateNewUser,
-    GetApplicant
+    GetApplicant,
+    GetApplicantForm
 }
+
+const apiKey = "f6ab2830e4825fdc6f2757697e4215be";
 
 class NetworkManger {
     
@@ -41,6 +44,10 @@ class NetworkManger {
             return this.createNewUser(params.email, params.password);
           case Endpoints.GetApplicant:
             return this.getApplicant(params.submissionId);
+          case Endpoints.GetApplicantForm:
+            return this.getApplicantForm(params.id);
+          default:
+            return;
         }
 
     }
@@ -157,6 +164,23 @@ class NetworkManger {
         }).catch((error) => { 
           reject(error);
         })
+      })
+    }
+
+    private getApplicantForm(id: string): Promise<JotformResponse> {
+      return new Promise((resolve, reject) => {
+        const url = `https://api.jotform.com/submission/${id}?apiKey=${apiKey}`;
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          if (data.responseCode != 200) {
+            reject(new Error('invalid-id'))
+          } else {
+            resolve(data);
+          }
+        })
+        .catch(error => reject(error));
       })
     }
 
