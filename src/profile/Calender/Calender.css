@@ -1,0 +1,40 @@
+.calender-container {
+  background-color: white;
+  width: 100%;
+  height: 400px;
+  display: grid;
+  grid-template-columns: repeat(7, auto);
+  grid-template-rows: repeat(7, minmax(min-content, max-content));
+}
+
+.calender-month {
+  grid-column: 1/8;
+  grid-row: 1/2;
+
+  font-weight: 400;
+  font-size: 24px;
+  color: #c4c4c4;
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+.calender-weekday {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0px;
+}
+
+.calender-day {
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  margin: 0px;
+}
+
+.calender-selected {
+  background-color: blue;
+  color: white;
+}

@@ -1,6 +1,6 @@
 .filter-button {
   width: 250px;
-  max-height: 114px;
+  max-height: 120px;
   border-radius: 0px 0px 10px 10px;
   display: flex;
   flex-direction: column;
@@ -9,17 +9,17 @@
 }
 
 .filter-button-selected {
-  filter: drop-shadow(0px 1.2rem 10px #c4c4c4);
+  filter: drop-shadow(0px 20px 10px #c4c4c4);
 }
 
 .filter-button:hover {
   cursor: pointer;
-  filter: drop-shadow(0px 1.2rem 10px #c4c4c4);
+  filter: drop-shadow(0px 20px 10px #c4c4c4);
   transition: 300ms filter linear;
 }
 
 .filter-text {
-  margin-left: 2rem;
+  margin-left: 32px;
   margin-top: 0px;
   font-weight: 400;
   font-size: 1.5rem;
@@ -27,21 +27,20 @@
 }
 
 .filter-count {
-  font-size: 2rem;
+  font-size: 32px;
   color: #0a1737;
 }
 
 .filter-image {
   width: 52px;
   height: 42px;
-  margin-right: 2rem;
+  margin-right: 32px;
 }
 
 .filter-head {
   display: flex;
   flex-direction: row;
-  width: 100%;
   align-items: center;
   justify-content: flex-start;
-  margin-left: 2rem;
+  margin-left: 32px;
 }

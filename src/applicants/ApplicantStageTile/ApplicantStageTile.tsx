@@ -33,6 +33,7 @@ const ApplicantStageTile: React.FC<Props> = ({stage, maximized}) => {
         [ApplicantStages.Accepted]: new_applicant,
     }
 
+
     return (
         <div className='applicant-stage-tile' style={{backgroundColor: stagesToColors[stage]}}>
             {
@@ -40,7 +41,7 @@ const ApplicantStageTile: React.FC<Props> = ({stage, maximized}) => {
                 <img src={stagesToImage[stage]} className='tile-image'/>
                 : null
             }
-            <h1 className={maximized ? 'max' : 'min'} >{stage.charAt(0) + stage.slice(1).toLowerCase()}</h1>
+            <h1 className={maximized ? 'max' : 'min'} >{stage === ApplicantStages.BackgroundCheck ? 'Background Check': stage.charAt(0) + stage.slice(1).toLowerCase()}</h1>
         </div>
     );
 }

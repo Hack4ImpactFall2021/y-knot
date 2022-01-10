@@ -10,6 +10,7 @@ export type Applicant = {
     phoneNumber: string,
     stage: ApplicantStages,
     submissionId: string,
+    notes?: string
 }
 
 export type JotformResponse = {

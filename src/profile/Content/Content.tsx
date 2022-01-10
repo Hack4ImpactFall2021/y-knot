@@ -2,6 +2,8 @@ import React from 'react';
 
 import { JotformResponse } from '../../utils/utils';
 import Application from '../Application/Application';
+import BackgroundCheck from '../BackgroundCheck/BackgroundCheck';
+import Interview from '../Interview/Interview';
 import { Tabs } from '../Profile';
 import UserInformation from '../UserInformation/UserInformation';
 
@@ -18,9 +20,9 @@ const Content: React.FC<Props> = ({ type, data }) => {
             case Tabs.Application:
                 return (<Application data={data} />);
             case Tabs.Interview:
-                return (<div></div>);
+                return (<Interview data={data}/>);
             case Tabs.BackgroundCheck:
-                return (<div></div>);
+                return (<BackgroundCheck data={data} />);
             default:
                 return null;
         }
