@@ -2,18 +2,13 @@
   background-color: #ececec;
   margin-bottom: 20px;
   width: 100%;
-  min-height: 656px;
-  max-height: 656px;
+  min-height: 668px;
+  max-height: 668px;
 
   overflow-y: auto;
   overflow-x: hidden;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
 
-.user-application::-webkit-scrollbar {
-  display: none;
-}
 .response {
   padding: 20px;
   overflow-x: auto;

@@ -2,8 +2,8 @@
   background-color: #ececec;
   margin-bottom: 20px;
   width: 100%;
-  min-height: 656px;
-  max-height: 656px;
+  min-height: 668px;
+  max-height: 668px;
   display: grid;
   grid-template-rows: 100px auto;
   grid-template-columns: 40% 60%;
