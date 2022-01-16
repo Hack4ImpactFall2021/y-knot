@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Applicant, JotformResponse } from '../../utils/utils';
 
 import './BackgroundCheck.css';
@@ -16,6 +16,8 @@ const BackgroundCheck: React.FC<Props> = ({data, files, uploadFile}) => {
 
     const response = data['content']['answers'];
 
+    const inputRef = useRef<HTMLInputElement>(null);
+
     console.log(files);
 
     return (
@@ -24,9 +26,13 @@ const BackgroundCheck: React.FC<Props> = ({data, files, uploadFile}) => {
             <div className='bg-check-results'>
                 <div className='bg-check-results-header'>
                     <h1>{files.length === 0 ? 'Upload Background Check' : `${files.length} Uploaded Document${files.length === 1 ? '' : 's'}`}</h1>
-                    <div>
-                        <input type='file' onChange={e => uploadFile(e.target.files)}/>
-                    </div>
+                        <input ref={inputRef} type='file' style={{'display': 'none'}} onChange={e => uploadFile(e.target.files)}/>
+                        <button onClick={() => {
+                            if (inputRef) {
+                                inputRef.current?.click();
+                            }
+                        }}>Choose File</button>
+
                 </div>
                     {
                         files.length > 0 ?
