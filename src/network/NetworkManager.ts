@@ -1,21 +1,34 @@
 import { AuthError, User } from "@firebase/auth";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword} from "firebase/auth";
-import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot} from "firebase/firestore"
+import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy} from "firebase/firestore"
 
-import { Applicant, JotformResponse } from "../utils/utils";
-import app, { db } from "../config/firebase";
+import { Applicant, ApplicantStages, JotformResponse } from "../utils/utils";
+import app, { db, storage } from "../config/firebase";
+import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { resolve } from "dns";
 
 export enum Endpoints{
     AuthenticateUser, 
     GetAllApplicants,
+    GetAcceptedApplicants,
+    GetRejectedApplicants,
     UpdateEmail,
     UpdatePassword,
     CreateNewUser,
     GetApplicant,
-    GetApplicantForm
+    GetApplicantForm,
+    UpdateNote,
+    UploadFile,
+    GetFiles,
+    UpdateStage,
+    SendInterviewEmail,
+    SendBackgroundCheckEmail,
+    SendRejectionEmail,
+    SendAcceptanceEmail
 }
 
 const apiKey = "f6ab2830e4825fdc6f2757697e4215be";
+
 
 class NetworkManger {
     
@@ -46,6 +59,26 @@ class NetworkManger {
             return this.getApplicant(params.submissionId);
           case Endpoints.GetApplicantForm:
             return this.getApplicantForm(params.id);
+          case Endpoints.UpdateNote:
+            return this.updateNote(params.note, params.id, params.stage);
+          case Endpoints.UploadFile:
+            return this.uploadFile(params.file, params.id, params.filename);
+          case Endpoints.GetFiles:
+            return this.getFiles(params.id);
+          case Endpoints.UpdateStage:
+            return this.updateStage(params.id, params.stage);
+          case Endpoints.SendInterviewEmail:
+            return this.sendInterviewEmail(params.email);
+          case Endpoints.SendBackgroundCheckEmail:
+              return this.sendBackgroundCheckEmail(params.email);
+          case Endpoints.SendRejectionEmail:
+              return this.sendRejectionEmail(params.email, params.name);
+          case Endpoints.SendAcceptanceEmail:
+              return this.sendAcceptanceEmail(params.email, params.name, params.username, params.password);
+          case Endpoints.GetAcceptedApplicants:
+              return this.getAcceptedApplicants();
+          case Endpoints.GetRejectedApplicants:
+              return this.getRejectedApplicants();    
           default:
             return;
         }
@@ -87,7 +120,7 @@ class NetworkManger {
     // returns all applicants from db
     private getAllApplicants(): Promise<Applicant []> {
       return new Promise((resolve, reject) => {
-        getDocs(collection(db, "applicants"))
+        getDocs(query(collection(db, "applicants"), where("stage", "in", ["NEW", "INTERVIEWING", "BACKGROUND CHECK"]), orderBy("createdAt", "desc")))
         .then((docs) => {
           let applicants: Applicant[] = [];
           docs.forEach((doc) => {
@@ -98,7 +131,9 @@ class NetworkManger {
               email: data.email,
               phoneNumber: data.phone_number,
               submissionId: data.submission_id,
-              stage: data.stage
+              stage: data.stage,
+              notes: data.notes,
+              createdAt: data.createdAt
             };
             applicants.push(applicant);
           });
@@ -109,6 +144,62 @@ class NetworkManger {
         })
       });
     }
+
+
+    private getAcceptedApplicants(): Promise<Applicant []> {
+      return new Promise((resolve, reject) => {
+        getDocs(query(collection(db, "applicants"), where("stage", "==", "ACCEPTED"), orderBy("createdAt", "desc")))
+        .then((docs) => {
+          let applicants: Applicant[] = [];
+          docs.forEach((doc) => {
+            let data = doc.data();
+            const applicant: Applicant = {
+              firstName: data.first_name,
+              lastName: data.last_name,
+              email: data.email,
+              phoneNumber: data.phone_number,
+              submissionId: data.submission_id,
+              stage: data.stage,
+              notes: data.notes,
+              createdAt: data.createdAt
+            };
+            applicants.push(applicant);
+          });
+          resolve(applicants);
+        })
+        .catch((error) => {
+          reject(error);
+        })
+      })
+    }
+
+    private getRejectedApplicants(): Promise<Applicant []> {
+      return new Promise((resolve, reject) => {
+        getDocs(query(collection(db, "applicants"), where("stage", "==", "REJECTED"), orderBy("createdAt", "desc")))
+        .then((docs) => {
+          let applicants: Applicant[] = [];
+          docs.forEach((doc) => {
+            let data = doc.data();
+            const applicant: Applicant = {
+              firstName: data.first_name,
+              lastName: data.last_name,
+              email: data.email,
+              phoneNumber: data.phone_number,
+              submissionId: data.submission_id,
+              stage: data.stage,
+              notes: data.notes,
+              createdAt: data.createdAt
+            };
+            applicants.push(applicant);
+          });
+          resolve(applicants);
+        })
+        .catch((error) => {
+          reject(error);
+        })
+      })
+    }
+
 
     // updates email of current user in auth
     // email: new email
@@ -167,6 +258,8 @@ class NetworkManger {
       })
     }
 
+    // id: id of jotform submission
+    // returns the form submission associated with the id
     private getApplicantForm(id: string): Promise<JotformResponse> {
       return new Promise((resolve, reject) => {
         const url = `https://api.jotform.com/submission/${id}?apiKey=${apiKey}`;
@@ -183,6 +276,103 @@ class NetworkManger {
         .catch(error => reject(error));
       })
     }
+
+    // note: note user has created
+    // id: id of applicant
+    // adds or updates the notes field of applicant in database
+    private updateNote(note: string, id: string, stage: ApplicantStages): Promise<void> {
+      return new Promise((resolve, reject) => {
+       
+          updateDoc(doc(db, 'applicants', id), {note: note})
+          .then(() => resolve())
+          .catch(error => reject(error));
+        
+      });
+    }
+
+    // file: background check file
+    // id: id of applicant
+    // uploads a file to cloud storage
+    private uploadFile(file: File, id: string, filename: string): Promise<string> {
+      return new Promise((resolve, reject) => {
+        console.log(id);
+          uploadBytes(ref(storage, `${id}/${filename}`), file)
+          .then(() => {
+            getDownloadURL(ref(storage, `${id}/${filename}`))
+            .then(url => resolve(url))
+            .catch(error => reject(error));
+          })
+          .catch(error => reject(error));
+      })
+    }
+
+    // id: id of applicant
+    // gets all files uploaded for applicant in cloud storage
+    private getFiles(id: string): Promise<[string, string] [] > {
+      return new Promise((resolve, reject) => {
+        listAll(ref(storage, id))
+        .then(res =>  {
+          let lst: [string, string] [] = [];
+          res.items.forEach((itemRef) => {
+            getDownloadURL(itemRef)
+            .then(url => lst.push([itemRef.name, url]))
+            .catch(error => reject(error));
+          });
+          resolve(lst);
+        })
+        .catch(error => reject(error));
+      }) 
+    }
+
+    private updateStage(id: string, stage: ApplicantStages): Promise<void> {
+      return new Promise((resolve, reject) => {
+        updateDoc(doc(db, 'applicants', id), {stage: stage})
+        .then(() => resolve())
+        .catch(error => reject(error));
+      })
+    }
+
+    private sendInterviewEmail(email: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendInterviewEmail?email=${email}`)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => reject(error));
+      })
+    }
+
+    private sendBackgroundCheckEmail(email: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendBackgroundCheckEmail?email=${email}`)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => reject(error));
+      })
+    }
+
+    private sendRejectionEmail(email: string, name: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendRejectionEmail?email=${email}&name=${name}`)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => reject(error));
+      });
+    }
+
+    private sendAcceptanceEmail(email: string, name: string, username: string, password: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendAcceptanceEmail?email=${email}&name=${name}&username=${username}&password=${password}`)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => reject(error));
+      });
+    }
+
+
 
 }
 

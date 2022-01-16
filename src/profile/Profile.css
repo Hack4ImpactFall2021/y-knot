@@ -51,11 +51,14 @@
 
 .profile-header .profile-header-left .name {
   color: #10275b;
-  font-size: 48px;
+  font-size: 40px;
   font-weight: bold;
   margin-right: 40px;
   margin-top: 0px;
   margin-bottom: 0px;
+  max-width: 400px;
+  white-space: nowrap;
+  overflow: auto;
 }
 
 .profile-header .profile-header-right {

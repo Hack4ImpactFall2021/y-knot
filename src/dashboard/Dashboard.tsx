@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import "./Dashboard.css"
 import Sidebar, { NavRoutes } from '../nav/Sidebar';
-import { ApplicantFilters, ApplicantStages, Applicant } from '../utils/utils';
+import { ApplicantStages, Applicant, stagesToText } from '../utils/utils';
 import FilterButton from './FilterButton/FilterButton';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import ApplicantTile from '../applicants/ApplicantTile/ApplicantTile';
@@ -10,7 +10,7 @@ import ApplicantTile from '../applicants/ApplicantTile/ApplicantTile';
 
 const Dashboard = () => {
     
-    const [filter, setFilter] = useState<ApplicantFilters>(ApplicantFilters.AllApplicants);
+    const [filter, setFilter] = useState<ApplicantStages | null>(null);
     const [applicants, setApplicants] = useState<Applicant[]>([]);
 
     const [allApplicants, setAllApplicants] = useState<Applicant []>([]);
@@ -23,10 +23,11 @@ const Dashboard = () => {
     }, [])
 
     const filtersToApplicants = {
-        [ApplicantFilters.AllApplicants]: allApplicants,
-        [ApplicantFilters.NewApplicants]: newApplicants,
-        [ApplicantFilters.Interviewing]: interviewingApplicants,
-        [ApplicantFilters.BackgroundCheck]: backgroundCheckApplicants
+        [ApplicantStages.New]: newApplicants,
+        [ApplicantStages.Interviewing]: interviewingApplicants,
+        [ApplicantStages.BackgroundCheck]: backgroundCheckApplicants,
+        [ApplicantStages.Rejected]: newApplicants,
+        [ApplicantStages.Accepted]: newApplicants,
     }
 
     const getApplicants: VoidFunction = async () => {
@@ -61,10 +62,14 @@ const Dashboard = () => {
         }
     }
 
-    const handleFilterChange = (value: ApplicantFilters) => {
+    const handleFilterChange = (value: ApplicantStages | null) => {
         
         setFilter(value);
-        setApplicants(filtersToApplicants[value])
+        if (value) {
+            setApplicants(filtersToApplicants[value])
+        } else {
+            setApplicants(allApplicants);
+        }
     }
 
     return (
@@ -74,14 +79,22 @@ const Dashboard = () => {
                 <div className='dashboard-content'>
                     <h1>Dashboard</h1>
                     <div className="dashboard-filters">
+                    <FilterButton key={'all_applicants'} type={null} count={allApplicants.length} onClick={() => handleFilterChange(null)} selected={null}/>
                         {
-                        Object.values(ApplicantFilters).map(value => {
-                            return (<FilterButton type={value} count={filtersToApplicants[value].length} onClick={() => handleFilterChange(value)} selected={filter}/>)
+                        Object.values(ApplicantStages).map(value => {
+                            if (value != ApplicantStages.Accepted && value != ApplicantStages.Rejected) {
+                                return (<FilterButton key={value} type={value} count={filtersToApplicants[value].length} onClick={() => handleFilterChange(value)} selected={filter}/>)
+                            }
                         })
                         }
                     </div>
                     <div className='dashboard-applicants'>
-                        <h2>{filter}</h2>
+                        {
+                            filter ? 
+                            <h2>{stagesToText[filter]}</h2>
+                            :
+                            <h2>All Applicants</h2>
+                        }
                         <hr/>
                         <div className='tiles'>
                             {

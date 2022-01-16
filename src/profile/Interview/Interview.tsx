@@ -1,14 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { JotformResponse } from '../../utils/utils';
+import { Applicant, JotformResponse } from '../../utils/utils';
 import Calender from '../Calender/Calender';
 import './Interview.css';
 import edit from '../assets/edit.png';
+import NetworkManager, { Endpoints } from '../../network/NetworkManager';
 
-type Props = {data: JotformResponse}
+type Props = {
+    data: JotformResponse,
+    applicant: Applicant
+}
 
-const Interview: React.FC<Props> = ({data}) => {
+const Interview: React.FC<Props> = ({data, applicant}) => {
 
+    const [note, setNote] = useState<string>(applicant.notes || "");
+    const [isSaved, setIsSaved] = useState<boolean>(true);
+
+    const handleClick = async (): Promise<void> => {
+        if (!isSaved) {
+            try {
+                await NetworkManager.makeRequest(Endpoints.UpdateNote, {note: note, id: applicant.submissionId, stage: applicant.stage})
+                setIsSaved(true);
+                console.log('Saved');
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
 
 
     return (
@@ -26,14 +44,17 @@ const Interview: React.FC<Props> = ({data}) => {
                                 <h1 className='notes-title'>NOTES:</h1>
                                 <img src={edit} className='edit-icon'/>
                             </div>
-                            <p className='notes-header-center'>All Changes Saved</p>
+                            <p className='notes-header-center'>{isSaved ? 'All Changes Saved' : 'Unsaved Changes'}</p>
                             <div className='notes-header-right'>
-                            <button className='save-btn'>Save</button>
+                            <button className='save-btn' onClick={handleClick} disabled={isSaved}>Save</button>
                             </div>
                             
                         </div>
                         
-                        <textarea  className='notes'/>
+                        <textarea  className='notes' value={note} onChange={e => {
+                            setNote(e.target.value);
+                            setIsSaved(false);
+                        }}/>
                     </div>
                 </div>
         </div>

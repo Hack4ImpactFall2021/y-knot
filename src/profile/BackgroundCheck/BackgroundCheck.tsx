@@ -1,37 +1,50 @@
-import React from 'react';
-import { JotformResponse } from '../../utils/utils';
+import React, { useEffect, useState } from 'react';
+import { Applicant, JotformResponse } from '../../utils/utils';
 
 import './BackgroundCheck.css';
 import file from '../assets/file.png';
+import NetworkManager, { Endpoints } from '../../network/NetworkManager';
 
 type Props = {
-    data: JotformResponse
+    data: JotformResponse,
+    applicant: Applicant,
+    files: [string, string] [],
+    uploadFile: any
 }
 
-const BackgroundCheck: React.FC<Props> = ({data}) => {
+const BackgroundCheck: React.FC<Props> = ({data, files, uploadFile}) => {
 
     const response = data['content']['answers'];
+
+    console.log(files);
 
     return (
         <div className='user-background-check'>
 
             <div className='bg-check-results'>
                 <div className='bg-check-results-header'>
-                    <h1>1 Uploaded Document</h1>
+                    <h1>{files.length === 0 ? 'Upload Background Check' : `${files.length} Uploaded Document${files.length === 1 ? '' : 's'}`}</h1>
                     <div>
-                        <button>Upload</button>
+                        <input type='file' onChange={e => uploadFile(e.target.files)}/>
                     </div>
                 </div>
-
-                <div className='bg-check-results-body'>
-                    <hr style={{borderTop: '1px solid black', width: '100%', marginTop: '-10px', marginBottom: '15px'}}></hr>
-                    <div className='bg-check-results-tile'>
-                        <img src={file}/>
-                        <a href='#' target="_blank">Background_Check_1.pdf</a>
-                    </div>
-                    
-                </div>
-
+                    {
+                        files.length > 0 ?
+                        <div className='bg-check-results-body'>
+                        <hr style={{borderTop: '1px solid black', width: '100%', marginTop: '-10px', marginBottom: '15px'}}></hr>
+                        {
+                        files.map(f => {
+                            return (
+                                <div key={f[1]} className='bg-check-results-tile'>
+                                    <img src={file}/>
+                                    <a href={f[1]} target="_blank">{f[0]}</a>
+                                </div>
+                            );
+                        })
+                    }
+                        </div>
+                        : null
+                    }
             </div>
 
             <div className='response-box'>
