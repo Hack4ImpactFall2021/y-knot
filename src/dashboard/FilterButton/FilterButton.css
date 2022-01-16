@@ -1,6 +1,6 @@
 .filter-button {
   width: 250px;
-  max-height: 120px;
+  max-height: 115px;
   border-radius: 0px 0px 10px 10px;
   display: flex;
   flex-direction: column;
@@ -43,4 +43,9 @@
   align-items: center;
   justify-content: flex-start;
   margin-left: 32px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.filter-head > h1 {
+  margin: 0px;
 }
