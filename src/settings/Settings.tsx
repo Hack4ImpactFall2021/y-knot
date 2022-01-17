@@ -53,7 +53,11 @@ const Settings = () => {
         console.log(error);
         setMessage([true, "Log out and log back in then try again."]);
         setIsDisabled(false);
-      } else {
+      } else if ((error as AuthError).code === "auth/email-already-in-use") {
+        console.log(error);
+        setMessage([true, "Email is already in use."]);
+        setIsDisabled(false);
+      }else {
         console.log(error);
         setMessage([true, "Oops, something went wrong. Please try again later."]);
         setIsDisabled(false);

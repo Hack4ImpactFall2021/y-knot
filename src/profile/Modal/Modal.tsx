@@ -5,6 +5,7 @@ import loading from '../assets/loading.gif';
 import { Actions } from '../Profile';
 
 type Props = {
+    name: string
     action: Actions
     email: string,
     setEmail: React.Dispatch<React.SetStateAction<string>>,
@@ -13,7 +14,7 @@ type Props = {
     reject: () => void,
 }
 
-const Modal: React.FC<Props> = ({action, email, setEmail, setApplicantLogin, accept, reject}) => {
+const Modal: React.FC<Props> = ({name, action, email, setEmail, setApplicantLogin, accept, reject}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const [newEmail, setNewEmail] = useState(email);
@@ -44,22 +45,22 @@ const Modal: React.FC<Props> = ({action, email, setEmail, setApplicantLogin, acc
                 <h3 className='modal-message'>
                     {
                         action === Actions.MoveToInterviewStage ? 
-                        <p className='modal-message-text'>Are you sure you want to move Applicant Test to the <b>Interview Stage</b>? This action <b>can not</b> be undone. This will send an email the applicant asking to schedule an interview.</p>
+                        <p className='modal-message-text'>Are you sure you want to move {name} to the <b>Interview Stage</b>? This action <b>can not</b> be undone. This will send an email the applicant asking to schedule an interview.</p>
                         : null
                     }
                     {
                         action === Actions.MoveToBackgroundCheckStage ? 
-                        <p className='modal-message-text'>Are you sure you want to move Applicant Test to the <b>Background Check Stage</b>? This action <b>can not</b> be undone. This will send an email the applicant asking to complete a background check.</p>
+                        <p className='modal-message-text'>Are you sure you want to move {name} to the <b>Background Check Stage</b>? This action <b>can not</b> be undone. This will send an email the applicant asking to complete a background check.</p>
                         : null
                     }
                     {
                         action === Actions.Accept ? 
-                        <p className='modal-message-text'>Are you sure you want to <b>accept</b> Applicant Test? This action <b>can not</b> be undone.</p>
+                        <p className='modal-message-text'>Are you sure you want to <b>accept</b> {name}? This action <b>can not</b> be undone.</p>
                         : null
                     }
                     {
                         action === Actions.Reject ? 
-                        <p className='modal-message-text'>Are you sure you want to <b>reject</b> Applicant Test ? This action <b>can not</b> be undone.</p>
+                        <p className='modal-message-text'>Are you sure you want to <b>reject</b> {name} ? This action <b>can not</b> be undone.</p>
                         : null
                     }
                     <br />
