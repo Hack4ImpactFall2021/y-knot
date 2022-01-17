@@ -102,6 +102,7 @@ const Login: React.FC<any> = () => {
           <TextField header="Email Address" isDisabled={isLoading} fieldType={TextFieldTypes.email} onChange={val => setEmail(val)}/>
           <TextField header="Password" isDisabled={isLoading} fieldType={TextFieldTypes.password} onChange={val => setPassword(val)} onSubmit={handleClick}/>
           <Button text="Login" isDisabled={isLoading} onClick={handleClick}/>
+          <a href='/resetPassword' className='forgot-password-link'>Forgot Password?</a>
           <h4 className='login-errors' style={{opacity: errorMessage.length == 0 ? 0 : 100}}>{errorMessage}</h4>
         </div>
 

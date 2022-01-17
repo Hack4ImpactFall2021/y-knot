@@ -9,6 +9,7 @@ import Settings from './settings/Settings';
 import Login from './login/Login';
 import Profile from './profile/Profile';
 import History from './history/History';
+import ResetPassword from './login/ResetPassword/ResetPassword';
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
             <Router>
                 <Routes>
                     <Route path='/login' element={<Login/>}/>
+                    <Route path='/resetPassword' element={<ResetPassword/>}/>
                     <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
                     <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>

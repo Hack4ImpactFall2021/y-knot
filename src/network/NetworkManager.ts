@@ -1,11 +1,10 @@
 import { AuthError, User } from "@firebase/auth";
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword} from "firebase/auth";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword, sendPasswordResetEmail} from "firebase/auth";
 import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy} from "firebase/firestore"
 
 import { Applicant, ApplicantStages, JotformResponse } from "../utils/utils";
 import app, { db, storage } from "../config/firebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import { resolve } from "dns";
 
 export enum Endpoints{
     AuthenticateUser, 
@@ -26,7 +25,8 @@ export enum Endpoints{
     SendRejectionEmail,
     SendAcceptanceEmail,
     GetCalendlyLink,
-    GetScheduledInterview
+    GetScheduledInterview,
+    SendPasswordResetEmail
 }
 
 const apiKey = "f6ab2830e4825fdc6f2757697e4215be";
@@ -85,6 +85,8 @@ class NetworkManger {
               return this.getCalendlyLink();
           case Endpoints.GetScheduledInterview:
               return this.getScheduledInterview(params.email);
+          case Endpoints.SendPasswordResetEmail:
+              return this.sendResetPasswordEmail(params.email);
           default:
             return;
         }
@@ -240,7 +242,16 @@ class NetworkManger {
         user = user as User;
 
         updatePassword(user, password).then(() => { 
-          resolve();
+          
+          fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendPasswordUpdatedEmail?email=${auth.currentUser?.email}`)
+          .then(() => {
+            resolve();
+          })
+          .catch(error => {
+            console.log(error);
+            resolve();
+          });
+
         }).catch((error) => { 
           reject(error);
         
@@ -424,6 +435,19 @@ class NetworkManger {
         .catch(err => {
           console.error(err);
         });
+      })
+    }
+
+    private sendResetPasswordEmail(email: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        const auth = getAuth();
+        sendPasswordResetEmail(auth, email)
+          .then(() => {
+            resolve();
+          })
+          .catch((error) => {
+            reject(error);
+          });
       })
     }
 
