@@ -367,8 +367,12 @@ const Profile = () => {
                 window.location.reload();
 
             } catch (error) {
+                if (error === 'invalid-email') {
+                    setPopupMessage([true, 'Email Adddress in Invalid.'])
+                } else {
+                    setPopupMessage([true, 'Oops, something went wrong. Please try again later.'])
+                }
                 console.log(error);
-                setPopupMessage([true, 'Oops, something went wrong. Please try again later.'])
                 setShowModal(false);
             }
 
@@ -387,8 +391,12 @@ const Profile = () => {
                 window.location.reload();
     
             } catch(error) {
+                if (error === 'invalid-email') {
+                    setPopupMessage([true, 'Email Adddress in Invalid.'])
+                } else {
+                    setPopupMessage([true, 'Oops, something went wrong. Please try again later.'])
+                }
                 console.log(error);
-                setPopupMessage([true, 'Oops, something went wrong. Please try again later.'])
                 setShowModal(false);
             }
     
@@ -411,8 +419,12 @@ const Profile = () => {
             window.location.reload();
             
         } catch (error) {
+            if (error === 'invalid-email') {
+                setPopupMessage([true, 'Email Adddress in Invalid.'])
+            } else {
+                setPopupMessage([true, 'Oops, something went wrong. Please try again later.'])
+            }
             console.log(error);
-            setPopupMessage([true, 'Oops, something went wrong. Please try again later.'])
             setShowModal(false);
         }
     }
@@ -433,8 +445,12 @@ const Profile = () => {
 
             
         } catch (error) {
+            if (error === 'invalid-email') {
+                setPopupMessage([true, 'Email Adddress in Invalid.'])
+            } else {
+                setPopupMessage([true, 'Oops, something went wrong. Please try again later.'])
+            }
             console.log(error);
-            setPopupMessage([true, 'Oops, something went wrong. Please try again later.'])
             setShowModal(false);
         }
     }
