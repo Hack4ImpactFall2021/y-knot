@@ -28,6 +28,7 @@ const Profile = () => {
     const [popupMessage, setPopupMessage] = useState<[boolean, string]>([false, '']);
     const [email, setEmail] = useState<string>("");
     const [applicantLogin, setApplicantLogin] = useState<[string, string]>(["", ""]);
+    const [interviewTime, setInterviewTime] = useState<Date | null>(null);
 
     const [tab, setTab] = useState<string>(Tabs.UserInformation);
 
@@ -280,10 +281,16 @@ const Profile = () => {
         getApplicantForm();
     }, []);
 
-    useEffect(() => {
-        console.log("Email changed");
-        console.log(email)
-    }, [email])
+    const getInterviewTime = async (email: string) => {
+        try {
+            let d = await NetworkManager.makeRequest(Endpoints.GetScheduledInterview, {email: email}) as Date;
+            setInterviewTime(d);
+        } catch(error) {
+            console.log(`No interview scheduled for ${email}`);
+            console.log(error);
+        }
+    }
+
 
     const getApplicant = async () => {
         try {
@@ -303,6 +310,10 @@ const Profile = () => {
                 });
                 console.log(applicant);
                 setEmail(data.email);
+
+                if (data.stage != ApplicantStages.New) {
+                    getInterviewTime(data.email);
+                }
             } else {
                 throw new Error("not-found")
             }
@@ -340,10 +351,16 @@ const Profile = () => {
             nextStage = ApplicantStages.Interviewing
 
             try {
+                // create calendly email
+                let url = await NetworkManager.makeRequest(Endpoints.GetCalendlyLink) as string;
+                url = url.concat(`?name=${applicant?.firstName}%20${applicant?.lastName}&email=${email}`);
+                console.log('calendly url: ')
+                console.log(url);
                 // send email w/ interview
-                await NetworkManager.makeRequest(Endpoints.SendInterviewEmail, {email: email});
+                await NetworkManager.makeRequest(Endpoints.SendInterviewEmail, {email: email, url: url});
                 console.log('sent email');
 
+                // move user in database
                 await NetworkManager.makeRequest(Endpoints.UpdateStage, {id: applicant?.submissionId, stage: nextStage});
                 console.log('updated db')
                 setShowModal(false);
@@ -491,7 +508,7 @@ const Profile = () => {
                             );
                         })}
                     </div>
-                    <Content type={tab} data={data} applicant={applicant} />
+                    <Content type={tab} data={data} applicant={applicant} interviewTime={interviewTime} />
                 </div>
             </div>
         );

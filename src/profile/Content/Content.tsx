@@ -12,9 +12,10 @@ type Props = {
     type: string,
     data: JotformResponse | null,
     applicant: Applicant,
+    interviewTime: Date | null
 }
 
-const Content: React.FC<Props> = ({ type, data, applicant}) => {
+const Content: React.FC<Props> = ({ type, data, applicant, interviewTime}) => {
 
     const [files, setFiles] = useState<[string, string] []>([]);
 
@@ -53,7 +54,7 @@ const Content: React.FC<Props> = ({ type, data, applicant}) => {
             case Tabs.Application:
                 return (<Application data={data} />);
             case Tabs.Interview:
-                return (<Interview data={data} applicant={applicant}/>);
+                return (<Interview data={data} applicant={applicant} interviewTime={interviewTime}/>);
             case Tabs.BackgroundCheck:
                 return (<BackgroundCheck data={data} applicant={applicant} files={files} uploadFile={uploadFile} />);
             default:

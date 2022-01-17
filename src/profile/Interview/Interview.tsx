@@ -8,10 +8,11 @@ import NetworkManager, { Endpoints } from '../../network/NetworkManager';
 
 type Props = {
     data: JotformResponse,
-    applicant: Applicant
+    applicant: Applicant,
+    interviewTime: Date | null
 }
 
-const Interview: React.FC<Props> = ({data, applicant}) => {
+const Interview: React.FC<Props> = ({data, interviewTime, applicant}) => {
 
     const [note, setNote] = useState<string>(applicant.notes || "");
     const [isSaved, setIsSaved] = useState<boolean>(true);
@@ -32,10 +33,10 @@ const Interview: React.FC<Props> = ({data, applicant}) => {
     return (
         <div className='interview-information'>
             <div className='scheduling'>
-                <h2 className='scheduling-text'>No Interview Scheduled</h2>
+                <h2 className='scheduling-text'>{interviewTime ? `Interview Scheduled: ${interviewTime.toDateString()} at ${interviewTime.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`: "No Interview Scheduled"}</h2>
             </div>
                 <div className='interview-body-left'>
-                    <Calender date={new Date()} selected={-1}/>
+                    <Calender date={interviewTime}/>
                 </div>
                 <div className='interview-body-right'>
                     <div className='notes-container'>
