@@ -445,7 +445,8 @@ const Profile = () => {
                 {
                     showModal ? 
                     <Modal 
-                        name={applicant.firstName + ' ' + applicant.lastName}
+                        firstname={applicant.firstName}
+                        lastname={applicant.lastName}
                         action={action}
                         email={applicant.email}
                         setEmail={setEmail}

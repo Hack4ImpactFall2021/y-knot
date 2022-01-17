@@ -22,9 +22,18 @@ const BackgroundCheck: React.FC<Props> = ({data, files, uploadFile}) => {
 
     return (
         <div className='user-background-check'>
+            {
+                response['38']['answer'] === 'Yes' ? 
+                <div className='bg-check-exempt'>
+                    <h2 style={{'fontSize': '24px', 'marginLeft': '10px'}}>This applicant is exempt from the background check</h2>
+                </div>
+                : null
+            }
 
             <div className='bg-check-results'>
+
                 <div className='bg-check-results-header'>
+
                     <h1>{files.length === 0 ? 'Upload Background Check' : `${files.length} Uploaded Document${files.length === 1 ? '' : 's'}`}</h1>
                         <input ref={inputRef} type='file' style={{'display': 'none'}} onChange={e => uploadFile(e.target.files)}/>
                         <button onClick={() => {
@@ -59,6 +68,7 @@ const BackgroundCheck: React.FC<Props> = ({data, files, uploadFile}) => {
                     <p className='response-text'>{response['26']['answer'] && response['26']['prettyFormat']}</p>
                 </div>
             </div>
+
             <div className='phone-reference1 response-box'>
                 <h1 className='response-title'>Phone Number</h1>
                 <div className='response-body'>

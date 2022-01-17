@@ -5,7 +5,8 @@ import loading from '../assets/loading.gif';
 import { Actions } from '../Profile';
 
 type Props = {
-    name: string
+    firstname: string,
+    lastname: string,
     action: Actions
     email: string,
     setEmail: React.Dispatch<React.SetStateAction<string>>,
@@ -14,12 +15,13 @@ type Props = {
     reject: () => void,
 }
 
-const Modal: React.FC<Props> = ({name, action, email, setEmail, setApplicantLogin, accept, reject}) => {
+const Modal: React.FC<Props> = ({firstname, lastname, action, email, setEmail, setApplicantLogin, accept, reject}) => {
     const [isLoading, setIsLoading] = useState(false);
     const [isReady, setIsReady] = useState(false);
     const [newEmail, setNewEmail] = useState(email);
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState(firstname.charAt(0).concat(lastname).concat('@yknotinc.org').toLocaleLowerCase());
+    const [password, setPassword] = useState(Math.random().toString(36).slice(2));
+    const name = firstname + " " + lastname;
 
     useEffect(() => {
         console.log('setting email');
