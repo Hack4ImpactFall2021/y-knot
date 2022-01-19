@@ -74,7 +74,7 @@ const Settings = () => {
       setIsDisabled(false);
       return;
     } else if (password.trim().length === 0 || confirmPassword.trim().length === 0) {
-      setMessage([true, "Password can not be blank."]);
+      setMessage([true, "Password cannot be blank."]);
       setIsDisabled(false);
       return;
     } else if (password.length < 6) {
@@ -113,7 +113,7 @@ const Settings = () => {
       setIsDisabled(false);
       return;
     } else if (newPassword.trim().length === 0) {
-      setMessage([true, "Password can not be blank."]);
+      setMessage([true, "Password cannot be blank."]);
       setIsDisabled(false);
     } else if (newPassword.length < 6) {
       setMessage([true, "Password must be longer than 6 characters."]);
