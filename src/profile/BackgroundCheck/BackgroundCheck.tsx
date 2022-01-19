@@ -3,7 +3,9 @@ import { Applicant, JotformResponse } from '../../utils/utils';
 
 import './BackgroundCheck.css';
 import file from '../assets/file.png';
+import error from '../assets/error.png';
 import NetworkManager, { Endpoints } from '../../network/NetworkManager';
+
 
 type Props = {
     data: JotformResponse,
@@ -25,7 +27,8 @@ const BackgroundCheck: React.FC<Props> = ({data, files, uploadFile}) => {
             {
                 response['38']['answer'] === 'Yes' ? 
                 <div className='bg-check-exempt'>
-                    <h2 style={{'fontSize': '24px', 'marginLeft': '10px'}}>This applicant is exempt from the background check</h2>
+                    <img src={error}/>
+                    <h2 style={{'fontSize': '24px', 'marginLeft': '10px'}}>This applicant is exempt from the background check.</h2>
                 </div>
                 : null
             }
