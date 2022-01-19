@@ -57,7 +57,7 @@ const Modal: React.FC<Props> = ({firstname, lastname, action, email, setEmail, s
                     }
                     {
                         action === Actions.Accept ? 
-                        <p className='modal-message-text'>Are you sure you want to <b>accept</b> {name}? This action <b>cannot</b> be undone. Please make sure that you have created {name}'s Y-KNOT Gmail account and Y-KNOT mentor portal account before you proceed.</p>
+                        <p className='modal-message-text'>Are you sure you want to <b>accept</b> {name}? This action <b>cannot</b> be undone.  <br></br>  <br></br>Please make sure that you have created {name}'s Y-KNOT Gmail account and Y-KNOT mentor portal account (credentials below) before you proceed.</p>
                         : null
                     }
                     {
