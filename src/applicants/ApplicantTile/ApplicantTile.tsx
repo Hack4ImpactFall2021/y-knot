@@ -19,8 +19,8 @@ const ApplicantTile: React.FC<Props> = ({applicant}) => {
     return (
         <div className='applicant-tile' onClick={handleClick}>
             <div className='applicant-tile-left'>
-                <h1 className='applicant-name'>{applicant.firstName} {applicant.lastName}</h1>
                 <ApplicantStageTile stage={applicant.stage} maximized={false}/>
+                <h1 className='applicant-name'>{applicant.firstName} {applicant.lastName}</h1>
             </div>
             <img src={arrow} className='arrow' />
         </div>

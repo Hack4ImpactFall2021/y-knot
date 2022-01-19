@@ -29,10 +29,10 @@
 .applicant-name {
   color: #10275b;
   font-size: 1.5rem;
-  width: 200px;
+  width: 500px;
   overflow: auto;
   white-space: nowrap;
-  margin-right: 30px;
+  margin-left: 30px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
