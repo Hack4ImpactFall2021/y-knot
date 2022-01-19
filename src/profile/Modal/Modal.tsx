@@ -47,12 +47,12 @@ const Modal: React.FC<Props> = ({firstname, lastname, action, email, setEmail, s
                 <h3 className='modal-message'>
                     {
                         action === Actions.MoveToInterviewStage ? 
-                        <p className='modal-message-text'>Are you sure you want to move {name} to the <b>Interview Stage</b>? This action <b>cannot</b> be undone. This will send an email to the applicant then asking to schedule an interview.</p>
+                        <p className='modal-message-text'>Are you sure you want to move {name} to the <b>Interview Stage</b>? This action <b>cannot</b> be undone. This will send an email to the applicant asking them to schedule an interview.</p>
                         : null
                     }
                     {
                         action === Actions.MoveToBackgroundCheckStage ? 
-                        <p className='modal-message-text'>Are you sure you want to move {name} to the <b>Background Check Stage</b>? This action <b>can not</b> be undone. This will send an email to the applicant asking them to complete a background check.</p>
+                        <p className='modal-message-text'>Are you sure you want to move {name} to the <b>Background Check Stage</b>? This action <b>cannot</b> be undone. This will send an email to the applicant asking them to complete a background check.</p>
                         : null
                     }
                     {
