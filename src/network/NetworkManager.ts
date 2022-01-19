@@ -26,7 +26,8 @@ export enum Endpoints{
     SendAcceptanceEmail,
     GetCalendlyLink,
     GetScheduledInterview,
-    SendPasswordResetEmail
+    SendPasswordResetEmail,
+    SendNewAccountCreatedEmail
 }
 
 const apiKey = "f6ab2830e4825fdc6f2757697e4215be";
@@ -87,6 +88,8 @@ class NetworkManger {
               return this.getScheduledInterview(params.email);
           case Endpoints.SendPasswordResetEmail:
               return this.sendResetPasswordEmail(params.email);
+          case Endpoints.SendNewAccountCreatedEmail:
+              return this.sendNewAccountCreatedEmail(params.email, params.password)
           default:
             return;
         }
@@ -451,6 +454,15 @@ class NetworkManger {
       })
     }
 
+    private sendNewAccountCreatedEmail(email:string, password:string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendNewAccountCreatedEmail?email=${email}&password=${password}`)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => reject(error));
+      })
+    }
 
 
 }

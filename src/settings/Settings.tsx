@@ -131,6 +131,7 @@ const Settings = () => {
 
     try {
       await NetworkManager.makeRequest(Endpoints.CreateNewUser, {email: newEmail, password: newPassword});
+      await NetworkManager.makeRequest(Endpoints.SendNewAccountCreatedEmail, {email: newEmail, password: newPassword})
       setNewEmail("");
       setNewPassword("");
       setMessage([false, "Created new user"]);
@@ -182,7 +183,7 @@ const Settings = () => {
           <hr />
           <div className="main">
             <div className="two">
-            <TextField label="New Password"  value={password} onChange={val => setPassword(val)}/>
+            <TextField label="New Password" hasHover value={password} onChange={val => setPassword(val)}/>
             <TextField label="Confirm New Password" value={confirmPassword} onChange={val => setConfirmPassword(val)}/>
             </div>
             <Button label="Change Password" onClick={!isDisabled ? updatePassword: () => {}}/>
@@ -195,7 +196,7 @@ const Settings = () => {
           <div className="main">
             <div className="two">
             <TextField label="Email Address" value={newEmail} onChange={val => setNewEmail(val)}/>
-            <TextField label="Password" value={newPassword} onChange={val => setNewPassword(val)}/>
+            <TextField label="Password" hasHover value={newPassword} onChange={val => setNewPassword(val)}/>
             </div>
             <Button label="Create Account" onClick={!isDisabled ? createNewUser : () => {}}/>
           </div>

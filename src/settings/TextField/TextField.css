@@ -9,6 +9,7 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 22px;
   font-weight: normal;
+  display: flex;
 }
 
 .text-field {
@@ -20,4 +21,24 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 20px;
   font-weight: normal;
+}
+
+.label > span {
+  display: flex;
+  align-items: center;
+}
+
+.label > span > img {
+  width: 26px;
+  height: 26px;
+  margin: 0px 10px;
+}
+
+.label > span > img:hover {
+  cursor: pointer;
+}
+
+.label > span {
+  font-size: 16px;
+  font-style: italic;
 }
