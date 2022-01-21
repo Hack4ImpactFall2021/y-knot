@@ -34,7 +34,7 @@ const ResetPassword = () => {
         <div className='reset-password'>
             <div className='reset-password-container'>
                 <h1>Reset Password</h1>
-                <h3>Enter your email address and we will send you instructions on how to reset your password</h3>
+                <h3>Enter your email address, and we will send you instructions on how to reset your password.</h3>
                 <p>Email: </p>
                 <div className='email-input'>
                     <input type='email' value={email} onChange={e => setEmail(e.target.value)}/>       
