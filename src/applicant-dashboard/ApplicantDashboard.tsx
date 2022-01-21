@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-import "./Dashboard.css"
+import "./ApplicantDashboard.css"
 import Sidebar, { NavRoutes } from '../nav/Sidebar';
 import { ApplicantStages, Applicant, stagesToText } from '../utils/utils';
-import FilterButton from './FilterButton/FilterButton';
+import FilterButton from '../FilterButton/FilterButton';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import ApplicantTile from '../applicants/ApplicantTile/ApplicantTile';
 

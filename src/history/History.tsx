@@ -6,7 +6,7 @@ import { Applicant, ApplicantStages, stagesToText } from '../utils/utils';
 import ApplicantTile from '../applicants/ApplicantTile/ApplicantTile';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import all_applicants from '../assets/all.png';
-import FilterButton from '../dashboard/FilterButton/FilterButton';
+import FilterButton from '../FilterButton/FilterButton';
 
 
 const History = () => {

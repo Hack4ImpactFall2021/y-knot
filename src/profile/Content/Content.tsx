@@ -45,7 +45,7 @@ const Content: React.FC<Props> = ({ type, data, applicant, interviewTime}) => {
                 console.log(error);
             }
         }
-      }
+    }
 
     if (data) {
         switch (type) {

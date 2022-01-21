@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { AuthProvider } from './auth/AuthProvider';
 import RequireAuth from './auth/RequireAuth';
-import Dashboard from './dashboard/Dashboard';
+import Dashboard from './applicant-dashboard/ApplicantDashboard';
 import Settings from './settings/Settings';
 import Login from './login/Login';
 import Profile from './profile/Profile';

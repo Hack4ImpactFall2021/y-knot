@@ -1,13 +1,13 @@
 import React from 'react';
 
 import './FilterButton.css'
-import all_applicants from '../../assets/all.png';
-import new_applicant from '../../assets/new.png';
-import interviewing from '../../assets/interviewing.png';
-import background_check from '../../assets/background_check.png';
-import accepted from '../../assets/accepted.png';
-import rejected from '../../assets/rejected.png';
-import { ApplicantStages, stagesToText } from '../../utils/utils';
+import all_applicants from '../assets/all.png';
+import new_applicant from '../assets/new.png';
+import interviewing from '../assets/interviewing.png';
+import background_check from '../assets/background_check.png';
+import accepted from '../assets/accepted.png';
+import rejected from '../assets/rejected.png';
+import { ApplicantStages, stagesToText } from '../utils/utils';
 
 interface Props {
     type: ApplicantStages | null,
