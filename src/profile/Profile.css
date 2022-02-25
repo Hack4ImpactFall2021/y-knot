@@ -6,6 +6,17 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   justify-content: center;
 }
+.exit-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 53px;
+  height: 53px;
+}
+
+.exit-btn:hover {
+  cursor: pointer;
+}
 
 .profile-container {
   display: flex;
@@ -40,11 +51,14 @@
 
 .profile-header .profile-header-left .name {
   color: #10275b;
-  font-size: 48px;
+  font-size: 40px;
   font-weight: bold;
-  margin-right: 40px;
+  margin-right: 20px;
   margin-top: 0px;
   margin-bottom: 0px;
+  max-width: 360px;
+  white-space: nowrap;
+  overflow: auto;
 }
 
 .profile-header .profile-header-right {
@@ -54,7 +68,7 @@
 }
 
 .profile-header .profile-header-right .button {
-  width: 200px;
+  width: 210px;
   height: 50px;
   font-weight: bold;
   color: white;
@@ -111,13 +125,4 @@
 .profile-tabs .selected {
   padding-bottom: 5px;
   border-bottom: 2px solid black;
-}
-
-.profile-content {
-  display: flex;
-  flex: 1;
-  min-height: 650px;
-  max-height: 650px;
-  margin: 10px 0px;
-  background-color: #ececec;
 }

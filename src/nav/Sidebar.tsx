@@ -5,7 +5,7 @@ import SidebarTile from './SidebarTile/SidebarTile';
 import logout from './assets/logout.png';
 import { useNavigate } from 'react-router-dom';
 
-export enum NavRoutes {Dashboard = "Dashboard", Settings = "Settings"}
+export enum NavRoutes {Dashboard = "Dashboard", History = "History", Settings = "Settings"}
 
 interface Props {
     selected: NavRoutes
@@ -20,7 +20,7 @@ const Sidebar: React.FC<Props> = ({selected}) => {
             <div>
             {
                 Object.values(NavRoutes).map(route => {
-                    return (<SidebarTile route={route} selected={selected} />)
+                    return (<SidebarTile key={route} route={route} selected={selected} />)
                 })
             }
             </div>

@@ -6,6 +6,8 @@ import dashboard_active from '../assets/dashboard_active.png';
 import dashboard_inactive from '../assets/dashboard_inactive.png';
 import settings_active from '../assets/settings_active.png';
 import settings_inactive from '../assets/settings_inactive.png';
+import history_active from '../assets/history_active.png';
+import history_inactive from '../assets/history_inactive.png';
 import { NavRoutes } from '../Sidebar';
 
 interface Props {
@@ -23,6 +25,7 @@ const SidebarTile: React.FC<Props> = ({route, selected}) => {
 
     const routeToImage: routeToimageType = {
         [NavRoutes.Dashboard]: isSelected ? dashboard_active : dashboard_inactive,
+        [NavRoutes.History]: isSelected ? history_active : history_inactive,
         [NavRoutes.Settings]: isSelected ? settings_active: settings_inactive
     }
 
@@ -34,6 +37,10 @@ const SidebarTile: React.FC<Props> = ({route, selected}) => {
         switch (route) {
             case NavRoutes.Dashboard:
                 navigate('/')
+                break;
+
+            case NavRoutes.History:
+                navigate('/history')
                 break;
 
             case NavRoutes.Settings:

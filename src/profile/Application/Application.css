@@ -1,0 +1,41 @@
+.user-application {
+  background-color: #ececec;
+  margin-bottom: 20px;
+  width: 100%;
+  min-height: 668px;
+  max-height: 668px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.response {
+  padding: 20px;
+  overflow-x: auto;
+  height: fit-content;
+}
+
+.response-body-lg {
+  background-color: white;
+  min-height: 120px;
+  max-height: 120px;
+  border-left: 15px solid white;
+  border-right: 15px solid white;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.response-text-lg {
+  white-space: normal;
+}
+
+.response-body-lg::-webkit-scrollbar {
+  display: none;
+}
+
+.radio-text {
+  margin-right: 15px;
+  margin-left: 2px;
+}

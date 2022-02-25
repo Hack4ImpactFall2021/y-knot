@@ -53,6 +53,10 @@ const Settings = () => {
         console.log(error);
         setMessage([true, "Log out and log back in then try again."]);
         setIsDisabled(false);
+      } else if ((error as AuthError).code === "auth/email-already-in-use") {
+        console.log(error);
+        setMessage([true, "Email is already in use."]);
+        setIsDisabled(false);
       } else {
         console.log(error);
         setMessage([true, "Oops, something went wrong. Please try again later."]);
@@ -70,7 +74,7 @@ const Settings = () => {
       setIsDisabled(false);
       return;
     } else if (password.trim().length === 0 || confirmPassword.trim().length === 0) {
-      setMessage([true, "Password can not be blank."]);
+      setMessage([true, "Password cannot be blank."]);
       setIsDisabled(false);
       return;
     } else if (password.length < 6) {
@@ -109,9 +113,14 @@ const Settings = () => {
       setIsDisabled(false);
       return;
     } else if (newPassword.trim().length === 0) {
-      setMessage([true, "Password can not be blank."]);
+      setMessage([true, "Password cannot be blank."]);
       setIsDisabled(false);
+    } else if (newPassword.length < 6) {
+      setMessage([true, "Password must be longer than 6 characters."]);
+      setIsDisabled(false);
+      return;
     }
+
 
     const regexp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
     if (!regexp.test(newEmail)) {
@@ -122,6 +131,7 @@ const Settings = () => {
 
     try {
       await NetworkManager.makeRequest(Endpoints.CreateNewUser, {email: newEmail, password: newPassword});
+      await NetworkManager.makeRequest(Endpoints.SendNewAccountCreatedEmail, {email: newEmail, password: newPassword})
       setNewEmail("");
       setNewPassword("");
       setMessage([false, "Created new user"]);
@@ -131,6 +141,10 @@ const Settings = () => {
       if ((error as AuthError).code === "auth/requires-recent-login") {
         console.log(error);
         setMessage([true, "Log out and log back in then try again."]);
+        setIsDisabled(false);
+      }  else if ((error as AuthError).code === "auth/email-already-in-use") {
+        console.log(error);
+        setMessage([true, "Email is already in use."]);
         setIsDisabled(false);
       } else {
         console.log(error);
@@ -169,7 +183,7 @@ const Settings = () => {
           <hr />
           <div className="main">
             <div className="two">
-            <TextField label="New Password"  value={password} onChange={val => setPassword(val)}/>
+            <TextField label="New Password" hasHover value={password} onChange={val => setPassword(val)}/>
             <TextField label="Confirm New Password" value={confirmPassword} onChange={val => setConfirmPassword(val)}/>
             </div>
             <Button label="Change Password" onClick={!isDisabled ? updatePassword: () => {}}/>
@@ -182,7 +196,7 @@ const Settings = () => {
           <div className="main">
             <div className="two">
             <TextField label="Email Address" value={newEmail} onChange={val => setNewEmail(val)}/>
-            <TextField label="Password" value={newPassword} onChange={val => setNewPassword(val)}/>
+            <TextField label="Password" hasHover value={newPassword} onChange={val => setNewPassword(val)}/>
             </div>
             <Button label="Create Account" onClick={!isDisabled ? createNewUser : () => {}}/>
           </div>
