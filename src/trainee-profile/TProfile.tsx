@@ -8,8 +8,7 @@ import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { Applicant, JotformResponse } from '../utils/utils';
 import close from '../profile/assets/close.png';
 
-/* TODO: ADD TRAINING TAB */
-export enum Tabs { TraineeProfile = "Your Profile" };
+export enum Tabs { TraineeProfile = "Your Profile" , Training = "Training"};
 
 const TProfile = () => {
     const navigate = useNavigate();
@@ -69,10 +68,15 @@ const TProfile = () => {
     if (applicant) {
         return (
             <div className='t-profile'>
-
                 <img className='exit-btn' src={close} onClick={() => navigate(-1)} />
-                <div className='profile-container'>
-                    <div className='profile-tabs'>
+                <div className='t-profile-container'>
+                    <div className='t-profile-header'>
+                        <div className='t-profile-header-left'>
+                            <h1 className='name'>{applicant.firstName} {applicant.lastName}</h1>
+                        </div>
+                    </div>
+
+                    <div className='t-profile-tabs'>
                         {Object.values(Tabs).map(curr => {
                             return (
                                 <h1 key={curr} className={curr === tab ? 'tab-title selected' : 'tab-title'} onClick={e => setTab(e.currentTarget.innerHTML)}>{curr}</h1>

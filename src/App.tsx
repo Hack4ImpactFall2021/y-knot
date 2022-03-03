@@ -23,9 +23,9 @@ const App = () => {
                     <Route path='/resetPassword' element={<ResetPassword/>}/>
                     <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
                     <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
-                    <Route path='/traineeProfile' element={<RequireAuth children={<TProfile/>}/>}/>
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
-                    <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
+                    {/* <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} /> */}
+                    <Route path='/:id' element={<RequireAuth children={<TProfile/>}/>}/>
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
                     
                 </Routes>
