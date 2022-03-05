@@ -6,13 +6,15 @@ import ProgressBar from './ProgressBar';
 const Training = () => {
     return (
         <div className='training'>
-            <div className="progress-bar-wrapper"><ProgressBar fillAmount={26}/></div>
+            <div className='progress-bar-wrapper'><ProgressBar fillAmount={50}/></div>
 
-            <button className='thinkify'>
-                Thinkify
-            </button>
+            <div className='training-button-text-wrapper'>
+                <button className='training-button'>
+                    Thinkific
+                </button>
 
-            <p className='click-text'>Click to Start Your Training</p>
+                <p className='click-text'>Click to Start Your Training</p>
+            </div>
         </div>
     );
     
