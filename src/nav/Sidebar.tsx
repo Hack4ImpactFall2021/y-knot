@@ -5,7 +5,7 @@ import SidebarTile from './SidebarTile/SidebarTile';
 import logout from './assets/logout.png';
 import { useNavigate } from 'react-router-dom';
 
-export enum NavRoutes {Dashboard = "Dashboard", History = "History", Settings = "Settings"}
+export enum NavRoutes {Dashboard = "Dashboard", History = "History", Settings = "Settings", Home = "Home"}
 
 interface Props {
     selected: NavRoutes
