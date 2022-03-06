@@ -21,7 +21,7 @@ const Trainee: React.FC<Props> = () => {
             <h1>Welcome, {name}!</h1>
             <img src={logo} alt="Where is the logo?"/> 
           </div>
-          <div className="progress-bar-wrapper"><ProgressBar fillAmount={26}/></div>
+          <div className="progress-bar-wrapper"><ProgressBar fillAmount={75}/></div>
           <div className="training-btn-wrapper">
             <button className="training-btn">
               Go to Training
