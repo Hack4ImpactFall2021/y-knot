@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import "./Trainee.css";
 import logo from "../login/assets/logo.png";
-import Sidebar, { NavRoutes } from '../nav/Sidebar';
+import TraineeSidebar, { NavRoutes } from './TraineeSidebar';
 import ProgressBar from "./ProgressBar";
 interface Props {
 
@@ -14,7 +14,7 @@ const Trainee: React.FC<Props> = () => {
   const name = "Jason";
   return (
     <div className="dashboard trainee-dashboard"> 
-      <Sidebar selected={NavRoutes.Home}/>
+      <TraineeSidebar selected={NavRoutes.Home}/>
       <div className="dashboard-container wrapper">
         <div className="trainee-landing">
           <div className="heading-wrapper">
