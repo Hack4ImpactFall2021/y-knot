@@ -27,6 +27,7 @@ const App = () => {
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
                     <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
+                    
                 </Routes>
             </Router>
         </AuthProvider>
