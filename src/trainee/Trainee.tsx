@@ -22,10 +22,12 @@ const Trainee: React.FC<Props> = () => {
             <img src={logo} alt="Where is the logo?"/> 
           </div>
           <div className="progress-bar-wrapper"><ProgressBar fillAmount={75}/></div>
-          <div className="training-btn-wrapper">
-            <button className="training-btn">
-              Go to Training
-            </button>
+            <div className="training-btn-wrapper">
+            <a target="_blank" href="https://y-knotinc.thinkific.com/">
+                <button className="training-btn">
+                    Go to Training
+                </button>
+            </a>
           </div>
           <div className="text-blurb">
             <h2>
