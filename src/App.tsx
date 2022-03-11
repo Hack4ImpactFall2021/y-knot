@@ -10,6 +10,7 @@ import Login from './login/Login';
 import Profile from './profile/Profile';
 import History from './history/History';
 import ResetPassword from './login/ResetPassword/ResetPassword';
+import MentorProfile from './mentor/MentorProfile';
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
                     <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
                     <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
+                    <Route path='/:id' element={<RequireAuth children={<MentorProfile />}/>} />
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
                 </Routes>
             </Router>
