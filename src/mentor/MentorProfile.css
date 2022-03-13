@@ -1,0 +1,46 @@
+.mentor-profile {
+    background-color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+.exit-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 53px;
+    height: 53px;
+}
+  
+.exit-btn:hover {
+    cursor: pointer;
+    filter: brightness(0.8);
+}
+.mentor-name {
+    color: #10275b;
+    font-size: 2.5em;
+    margin: 0;
+    margin-top: 1em;
+}
+  
+.mentor-profile-container {
+    margin: 0 5em;
+    height: 90vh;
+}
+.mentor-profile-tabs {
+    display: flex;
+    margin-left: 1.5em;
+}
+  
+.mentor-profile-tabs .tab-title:hover {
+    cursor: pointer;
+}
+  
+.mentor-profile-tabs .tab-title {
+    margin: 2em 4em 1em 0;
+    font-size: 1.2em;
+}
+  
+.mentor-profile-tabs .selected {
+    padding-bottom: 5px;
+    border-bottom: 2px solid black;
+}

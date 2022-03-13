@@ -1,18 +1,20 @@
 import React from 'react';
 
-import './MentorProfileForm.css';
+import './MentorInfo.css';
 import { JotformResponse } from '../../utils/utils';
 
 type Props = {
     data: JotformResponse;
 }
 
-const MentorProfile : React.FC<Props> = ({ data }) => {
+const MentorProfileForm : React.FC<Props> = ({ data }) => {
 
     const response = data['content']['answers'];
 
     return (
-        <div className='trainee-profile'>
+        <div className="mentor-info">
+        <div className="scroll-section">
+        <section className="mentor-profile-form">
             <div className='occupation response-box'>
                 <h1 className='response-title'>Occupation</h1>
                 <div className='response-body'>
@@ -91,9 +93,8 @@ const MentorProfile : React.FC<Props> = ({ data }) => {
                     <p className='response-text radio-text'>No</p>
                 </div>
             </div>
-
-
-
+        </section>
+        </div>
         </div>
     )
 }

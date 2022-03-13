@@ -24,8 +24,8 @@ const App = () => {
                     <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
                     <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
+                    <Route path='/mentor/:id' element={<RequireAuth children={<MentorProfile />}/>} />
                     <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
-                    <Route path='/:id' element={<RequireAuth children={<MentorProfile />}/>} />
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
                 </Routes>
             </Router>

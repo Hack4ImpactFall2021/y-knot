@@ -3,58 +3,62 @@ import NetworkManager, { Endpoints } from '../../network/NetworkManager';
 
 import { Applicant, JotformResponse } from '../../utils/utils';
 import { Tabs } from '../MentorProfile';
-import MentorProfileForm from './MentorProfileForm';
-import Training from '../TrainingPage/Training';
+import Mentee from './Mentee';
+import MentorInfo from './MentorInfo';
 
 type Props = {
     type: string,
-    data: JotformResponse | null,
-    applicant: Applicant,
+    formData: JotformResponse | null,
 }
 
-const Content: React.FC<Props> = ({ type, data, applicant}) => {
+const Content: React.FC<Props> = ({ type, formData }) => {
 
-    const [files, setFiles] = useState<[string, string] []>([]);
+    const menteeList = [
+        {
+            name: "Jason Cavanaugh"
+        },
+        {
+            name: "Amanda Liu"
+        },
+        {
+            name: "Jason Cavanaugh"
+        },
+        {
+            name: "Amanda Liu"
+        },
+        {
+            name: "Jason Cavanaugh"
+        },
+        {
+            name: "Amanda Liu"
+        },
+        {
+            name: "Jason Cavanaugh"
+        },
+        {
+            name: "Amanda Liu"
+        },
+        {
+            name: "Jason Cavanaugh"
+        },
+        {
+            name: "Amanda Liu"
+        },
+    ];
+    //Eventually this list will have to come from somewhere I guess. And also we'll need to have more information for each mentee
 
-    useEffect(() => {
-        getDocuments();
-    }, [applicant])
-    
-    const getDocuments = async () => {
-        try {
-            let f = await NetworkManager.makeRequest(Endpoints.GetFiles, {id: applicant.submissionId});
-            f = f as [string, string] [];
-            setFiles(f);
-            console.log('updated document list');
-        } catch (error) {
-            console.log(error);
-        }
+    if (!formData) {
+        return (
+            <div style={{ backgroundColor: '#ececec', width: '100%', height: '656px' }}></div>
+        );
     }
-
-    const uploadFile = async (filelist: FileList | null) => {
-        if (filelist && filelist[0]) {
-            try {
-            let url = await NetworkManager.makeRequest(Endpoints.UploadFile, {file: filelist[0], id: applicant.submissionId,  filename: filelist[0].name});
-            let newFiles = [...files];
-            newFiles.push([filelist[0].name, (url as string)]);
-            setFiles(newFiles);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    }
-
-    if (data) {
-        switch (type) {
-            case Tabs.TraineeProfile:
-                return (<MentorProfileForm data={data} />);
-            case Tabs.Training:
-                return (<Mentee />);
-            default:
-                return null;
-        }
-    } else {
-        return <div style={{ backgroundColor: '#ececec', width: '100%', height: '656px' }}></div>;
+    switch (type) {
+        case Tabs.MentorInfo:
+            return (<MentorInfo data={formData} />);
+        case Tabs.MenteeProfile:
+            return (<Mentee mentees={menteeList}/>);
+        default:
+            return null;
     }
 }
 

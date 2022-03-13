@@ -8,19 +8,17 @@ import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { Applicant, JotformResponse } from '../utils/utils';
 import close from '../profile/assets/close.png';
 
-export enum Tabs { TraineeProfile = "Your Profile" , Training = "Training"};
+export enum Tabs { MentorInfo = "Your Profile" , MenteeProfile = "Mentee Profile"};
 
 const MentorProfile = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [applicant, setApplicant] = useState<Applicant | null>(null);
-    const [data, setData] = useState<JotformResponse | null>(null);
+    const [formData, setFormData] = useState<JotformResponse | null>(null);
     const [email, setEmail] = useState<string>("");
     const [applicantLogin, setApplicantLogin] = useState<[string, string]>(["", ""]);
 
-    const [tab, setTab] = useState<string>(Tabs.TraineeProfile);
-
-    
+    const [tab, setTab] = useState<string>(Tabs.MentorInfo);
 
     useEffect(() => {
         getApplicant();
@@ -58,40 +56,50 @@ const MentorProfile = () => {
     const getApplicantForm = async () => {
         try {
             let data = await NetworkManager.makeRequest(Endpoints.GetApplicantForm, { id: id });
-            setData(data as JotformResponse);
+            setFormData(data as JotformResponse);
         } catch (error) {
             console.log(error);
         }
     }
-    
 
-    if (applicant) {
-        return (
-            <div className='t-profile'>
-                <img className='exit-btn' src={close} onClick={() => navigate(-1)} />
-                <div className='t-profile-container'>
-                    <div className='t-profile-header'>
-                        <div className='t-profile-header-left'>
-                            <h1 className='name'>{applicant.firstName} {applicant.lastName}</h1>
-                        </div>
-                    </div>
 
-                    <div className='t-profile-tabs'>
-                        {Object.values(Tabs).map(curr => {
-                            return (
-                                <h1 key={curr} className={curr === tab ? 'tab-title selected' : 'tab-title'} onClick={e => setTab(e.currentTarget.innerHTML)}>{curr}</h1>
-                            );
-                        })}
-                    </div>
-                    <Content type={tab} data={data} applicant={applicant} />
-                </div>
-            </div>
-        );
-    } else {
-        return (
-            <div></div>
-        );
+    if (!applicant) {
+        return (<div></div>);
     }
+    return (
+        <div className="mentor-profile">
+            {/* Close button */}
+            <img 
+                className="exit-btn" 
+                src={close} 
+                onClick={() => navigate(-1)} 
+            />
+            <div className="mentor-profile-container">
+                {/* Mentor Name */}
+                <h1 className="mentor-name">
+                    {applicant.firstName} {applicant.lastName}
+                </h1>
+                {/* Tabs */}
+                <div className="mentor-profile-tabs">
+                    {Object.values(Tabs).map(curr => {
+                        return (
+                            <h1 
+                                key={curr} 
+                                className={curr === tab ? "tab-title selected" : "tab-title"} 
+                                onClick={e => setTab(e.currentTarget.innerHTML)}
+                            >
+                                {curr}
+                            </h1>
+                        );
+                    })}
+                </div>
+                <Content 
+                    type={tab} 
+                    formData={formData} 
+                />
+            </div>
+        </div>
+    );
 }
 
 export default MentorProfile;
