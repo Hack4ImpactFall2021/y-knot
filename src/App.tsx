@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import { AuthProvider } from './auth/AuthProvider';
 import RequireAuth from './auth/RequireAuth';
+import RequireAdminAuth from './auth/RequireAdminAuth';
 import Dashboard from './applicant-dashboard/ApplicantDashboard';
 import Settings from './settings/Settings';
 import Login from './login/Login';
@@ -21,7 +22,7 @@ const App = () => {
                 <Routes>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/resetPassword' element={<ResetPassword/>}/>
-                    <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
+                    <Route path='/' element={<RequireAdminAuth children={<Dashboard/>} />}/>
                     <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
                     <Route path='/trainee/home' element={<RequireAuth children={<Trainee/>} />}/>
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
