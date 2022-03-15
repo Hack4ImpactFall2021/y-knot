@@ -8,11 +8,14 @@ const Training = () => {
         <div className='training'>
             <div className='progress-bar-wrapper'><ProgressBar fillAmount={50}/></div>
 
-            <div className='training-button-text-wrapper'>
-                <button className='training-button'>
-                    Thinkific
-                </button>
+            <img className = "thinkific-gif" src = "https://support.thinkific.com/hc/article_attachments/360042089974/5d3734ac5ee60.gif" alt = "Thinkific"/>
 
+            <div className='training-button-text-wrapper'>
+                <form action = "https://y-knotinc.thinkific.com/" target="_blank">
+                    <button type = "submit" className='training-button'>
+                        Thinkific
+                    </button>
+                </form>
                 <p className='click-text'>Click to Start Your Training</p>
             </div>
         </div>

@@ -10,6 +10,11 @@
     justify-content: space-evenly;
   }
 
+.thinkific-gif {
+  width: 1000px;
+  height: auto
+}
+
 .training-button-text-wrapper {
     display: flex;
     flex-direction: column;
