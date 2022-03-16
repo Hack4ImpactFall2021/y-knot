@@ -11,6 +11,7 @@ import Profile from './profile/Profile';
 import History from './history/History';
 import ResetPassword from './login/ResetPassword/ResetPassword';
 import MentorLanding from './mentor-landing/MentorLanding';
+import LogsReports from './logs-and-reports/LogsReports';
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
                     <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
                     <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
                     <Route path='/mentor' element={<RequireAuth children={<MentorLanding/>} />}/>
+                    <Route path='/lr' element={<RequireAuth children={<LogsReports/>} />}/>
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
                     <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
