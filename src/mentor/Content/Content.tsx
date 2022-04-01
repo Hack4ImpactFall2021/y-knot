@@ -5,6 +5,7 @@ import { Applicant, JotformResponse } from '../../utils/utils';
 import { Tabs } from '../MentorProfile';
 import Mentee from './Mentee';
 import MentorInfo from './MentorInfo';
+import LogsReports from './LogsReports';
 
 type Props = {
     type: string,
@@ -57,6 +58,8 @@ const Content: React.FC<Props> = ({ type, formData }) => {
             return (<MentorInfo data={formData} />);
         case Tabs.MenteeProfile:
             return (<Mentee mentees={menteeList}/>);
+        case Tabs.LogsReports:
+          return (<LogsReports />)
         default:
             return null;
     }

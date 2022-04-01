@@ -3,14 +3,11 @@ import LogsReportsSquare from "./LogsReportsSquare";
 
 
 import "./LogsReports.css";
-type Props = {
-    mentees: any[]
-}
 
 
-const LogsReports: React.FC<Props> = ({ mentees }) => {
+const LogsReports: React.FC = () => {
     return (
-        <section className=".logs-reports-list">
+        <section className="logs-reports-list">
             <div>
                 <LogsReportsSquare
                     title="Hour Log"
