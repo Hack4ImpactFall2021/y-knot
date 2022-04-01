@@ -26,7 +26,8 @@ const SidebarTile: React.FC<Props> = ({route, selected}) => {
     const routeToImage: routeToimageType = {
         [NavRoutes.Dashboard]: isSelected ? dashboard_active : dashboard_inactive,
         [NavRoutes.History]: isSelected ? history_active : history_inactive,
-        [NavRoutes.Settings]: isSelected ? settings_active: settings_inactive
+        [NavRoutes.Settings]: isSelected ? settings_active: settings_inactive,
+        [NavRoutes.Home]: isSelected ? settings_active: settings_inactive
     }
 
 
@@ -45,6 +46,9 @@ const SidebarTile: React.FC<Props> = ({route, selected}) => {
 
             case NavRoutes.Settings:
                 navigate('/settings')
+                break;
+            case NavRoutes.Home:
+                navigate('/trainee/home');
                 break;
         }
     }
