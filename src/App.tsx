@@ -10,6 +10,7 @@ import Login from './login/Login';
 import Profile from './profile/Profile';
 import History from './history/History';
 import ResetPassword from './login/ResetPassword/ResetPassword';
+import Trainee from "./trainee/Trainee";
 
 
 const App = () => {
@@ -22,9 +23,12 @@ const App = () => {
                     <Route path='/resetPassword' element={<ResetPassword/>}/>
                     <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
                     <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
+                    <Route path='/trainee/home' element={<RequireAuth children={<Trainee/>} />}/>
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
-                    <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
+                    {/* <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} /> */}
+                    <Route path='/:id' element={<RequireAuth children={<TProfile/>}/>}/>
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
+                    
                 </Routes>
             </Router>
         </AuthProvider>
