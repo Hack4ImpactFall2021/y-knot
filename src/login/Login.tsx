@@ -73,11 +73,13 @@ const Login: React.FC<any> = () => {
           navigate('/');
         } else if (token.claims.role == "trainee") {
           navigate('/trainee/home');
+        } else if (token.claims.role == "mentor") {
+          navigate('/mentor');
         } else {
-          navigate('/login');
+          setErrorMessage('No account role error');
         }
       }else {
-        navigate('/login');
+        setErrorMessage('Issue retrieving user data');
       }
     // handle errors
     } catch (error) {
