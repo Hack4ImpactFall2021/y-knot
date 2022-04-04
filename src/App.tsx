@@ -23,9 +23,9 @@ const App = () => {
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/resetPassword' element={<ResetPassword/>}/>
                     <Route path='/' element={<RequireAdminAuth children={<Dashboard/>} />}/>
-                    <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
+                    <Route path='/settings' element={<RequireAdminAuth children={<Settings/>} />}/>
                     <Route path='/trainee/home' element={<RequireAuth children={<Trainee/>} />}/>
-                    <Route path='/history' element={<RequireAuth children={<History/>} />}/>
+                    <Route path='/history' element={<RequireAdminAuth children={<History/>} />}/>
                     <Route path='/:id' element={<RequireAdminAuth children={<Profile/>}/>} />
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
                     

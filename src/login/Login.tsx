@@ -66,8 +66,19 @@ const Login: React.FC<any> = () => {
       let user = await NetworkManager.makeRequest(Endpoints.AuthenticateUser, {email: email, password: password});
       console.log(user);
 
-      navigate('/');
-
+      let currentUser = getAuth().currentUser;
+      if (currentUser != null) {
+        let token = await currentUser.getIdTokenResult();
+        if (token.claims.role == "admin") {
+          navigate('/');
+        } else if (token.claims.role == "trainee") {
+          navigate('/trainee/home');
+        } else {
+          navigate('/login');
+        }
+      }else {
+        navigate('/login');
+      }
     // handle errors
     } catch (error) {
       let code = (error as AuthError).code;

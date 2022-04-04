@@ -130,7 +130,7 @@ const Settings = () => {
     } 
 
     try {
-      await NetworkManager.makeRequest(Endpoints.CreateNewUser, {email: newEmail, password: newPassword});
+      await NetworkManager.makeRequest(Endpoints.CreateNewUser, {email: newEmail, password: newPassword, role: "admin"});
       await NetworkManager.makeRequest(Endpoints.SendNewAccountCreatedEmail, {email: newEmail, password: newPassword})
       setNewEmail("");
       setNewPassword("");

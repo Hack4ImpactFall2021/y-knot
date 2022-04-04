@@ -165,6 +165,10 @@ const Profile = () => {
 
 
         try {
+            // create trainee account
+             await NetworkManager.makeRequest(Endpoints.CreateNewUser, {email: email, username: applicantLogin[0], password: applicantLogin[1], role: "trainee"});
+             console.log("created account")
+             
             // send email to reject applicant
             await NetworkManager.makeRequest(Endpoints.SendAcceptanceEmail, {email: email, name: applicant?.firstName + " " + applicant?.lastName, username: applicantLogin[0], password: applicantLogin[1]})
             console.log('sent email')

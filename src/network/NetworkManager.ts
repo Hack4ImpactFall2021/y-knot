@@ -5,6 +5,9 @@ import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, Document
 import { Applicant, ApplicantStages, JotformResponse } from "../utils/utils";
 import app, { db, storage } from "../config/firebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { getFunctions, httpsCallable } from "firebase/functions";
+
+const functions = getFunctions();
 
 export enum Endpoints{
     AuthenticateUser, 
@@ -57,7 +60,7 @@ class NetworkManger {
           case Endpoints.UpdatePassword:
             return this.updateUserPassword(params.password);
           case Endpoints.CreateNewUser:
-            return this.createNewUser(params.email, params.password);
+            return this.createNewUser(params.email, params.password, params.role);
           case Endpoints.GetApplicant:
             return this.getApplicant(params.submissionId);
           case Endpoints.GetApplicantForm:
@@ -122,7 +125,7 @@ class NetworkManger {
         .then((userCredential) => {
           resolve(userCredential.user)
         })
-        .catch((error: AuthError) => {    
+        .catch((error: AuthError) => {
           reject(error);
         });
       })
@@ -265,13 +268,20 @@ class NetworkManger {
     // creates a new user in db
     // email: email of new user
     // password: password of new user
-    private createNewUser(email: string, password: string): Promise<void> {
+    private createNewUser(email: string, password: string, role: string): Promise<void> {
       return new Promise((resolve, reject) => {
         const auth = getAuth(app);
 
         createUserWithEmailAndPassword(auth, email, password)
-        .then((user) => { 
-          resolve();
+        .then((userCredential) => {
+          console.log("account made");
+          const setRole = httpsCallable(functions, 'setUserRole');
+          const user = userCredential.user;
+          console.log(user);
+          setRole({uid: user.uid, role: role}).then(() => {
+            console.log("role set");
+            resolve();
+          });
         }).catch((error) => { 
           reject(error);
         })
