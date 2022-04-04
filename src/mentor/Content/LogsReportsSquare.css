@@ -15,6 +15,7 @@
   .logs-reports-title {
     color: black;
     display: block;
+    font-size: 22px;
     margin-top: 40px;
     margin-right: 10px;
     margin-left: 2em;
@@ -23,7 +24,8 @@
   .logs-reports-text {
     color: black;
     margin-top: 60px;
-    margin-left: 2em;
+    margin-left: 1.5em;
+    margin-right: 1.5em
   }
   
   
