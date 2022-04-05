@@ -1,4 +1,5 @@
 import React from 'react';
+import LogsReportsSquare from "./LogsReportsSquare";
 
 import bus from "./assets/bus.png"
 import comments from "./assets/comments.png"
@@ -11,69 +12,72 @@ import "./LogsReports.css"
 
 const LogsReports = () => {
     return (
-        <div className = "logs-and-reports">
-            <div className="btn-wrapper">
-                <a target="_blank" href="https://y-knotinc.thinkific.com/">
-                    <button className ="hour-log-btn">
-                        <img src = {hours}></img>
-                        <h1 className = "btn-header">Hour Log</h1>
-                        <p className = "btn-txt">Please make sure you keep track of your hours weekly</p>
-                    </button>
-                </a>
-            </div>
-            <div className = "btn-wrapper">
-                <a target="_blank" href="https://y-knotinc.thinkific.com/">
-                    <button className="encounter-note-btn">
-                        <img src = {encounter}></img>
-                        <h1 className = "btn-header">Encounter Note</h1>
-                        <p className = "btn-txt">This document is used to provide validation of each meeting. Please be reminded this is only for actual meetings!</p>
-                    </button>
-                </a>
-            </div>
-            <div className = "btn-wrapper">
-                <a target="_blank" href="https://y-knotinc.thinkific.com/">
-                    <button className="school-visitation-btn">
-                        <img src = {bus}></img>
-                        <h1 className = "btn-header">School Visitation Request</h1>
-                        <p className = "btn-txt">This document authorizes permission for a mentor to visit a mentee’s school. Please allow five days to process.</p>
-                    </button>
-                </a>
-            </div>
-            <div className = "btn-wrapper">
-                <a target="_blank" href="https://y-knotinc.thinkific.com/">
-                    <button className="attempt-note-btn">
-                        <img src = {comments}></img>
-                        <h1 className = "btn-header">Attempt Note</h1>
-                        <p className = "btn-txt">This document is used to provide proof of attempts made by the 
-                        mentor to the mentee. *Reminder, if there are three consecutive missed attempts please 
-                        reach out to the Director, Mentoring for further recommendations. *</p>
-                    </button>
-                </a>
-            </div>
 
-            <div className="btn-wrapper">
-                <a target="_blank" href="https://y-knotinc.thinkific.com/">
-                    <button className="activity-req-btn">
-                        <img src = {pencil}></img>
-                        <h1 className = "btn-header">Activity Request</h1>
-                        <p className = "btn-txt">This document is used to request permission to meet a mentee 
-                        outside of approved locations. *Please allow three days for processing.*</p>
-                    </button>
-                </a>
+            <div className="logs-reports-list">
+                <div className = "item1">
+                    <LogsReportsSquare
+                        icon={hours}
+                        title="Hour Log"
+                        text="Please make sure you keep track of all your hours weekly."
+                        color="#45963B"
+                    />
+                </div>
+                <div className="item2">
+                    <a target="_blank" style={{textDecoration: `none`}} href="https://form.jotform.com/210117812875050" >
+                    <LogsReportsSquare
+                        icon={encounter}
+                        title="Encounter Note"
+                        text="This document is used to provide validation of each meeting. 
+                                Please be reminded this is only for actual meetings!"
+                        color="#45963B"
+                    />
+                    </a>
+                </div>
+                <div className="item3">
+                    <a target="_blank" style={{textDecoration: `none`}} href="https://form.jotform.com/210196013862046">
+                    <LogsReportsSquare
+                        icon={bus}
+                        title="School Visitation Request"
+                        text="This document authorizes permission for a mentor to visit a
+                                mentee's school. Please allow five days to process."
+                        color="#2912BE"
+                    />
+                    </a>
+                </div>
+                <div className = "item4">
+                    <a target="_blank" style={{textDecoration: `none`}} href="https://form.jotform.com/210117785912051">
+                <LogsReportsSquare
+                    icon={comments}
+                    title="Attempt Note"
+                    text="This document is used to provide proof of attempts made by the mentor to the mentee.
+                            Remember, if there are three consecutive missed attempts please reach out to the Director,
+                            Mentoring for further recommendations."
+                    color="#FFE425"
+                    />
+                    </a>
+                </div>
+                <div className = "item5"> 
+                    <a target="_blank" style={{textDecoration: `none`}} href="https://form.jotform.com/210806121792046">
+                    <LogsReportsSquare
+                        icon={pencil}
+                        title="Activity Request"
+                        text="This document is used to request permission to meet a mentee outside of approved locations.
+                        *Please allow three days for processing.*"
+                        color="#FFE425"
+                    />
+                    </a>
+                </div>
+                <div className="item6">
+                    <a target="_blank" style={{textDecoration: `none`}} href="https://form.jotform.com/220267320255043">
+                    <LogsReportsSquare
+                        icon={incident}
+                        title="Incident Report"
+                        text="Use this document if any type of incident takes place that needs reporting. You will also find the number to report for mandated reporting."
+                        color="#F27F1E"
+                    />
+                    </a>
+                </div>
             </div>
-
-            <div className="btn-wrapper">
-                <a target="_blank" href="https://y-knotinc.thinkific.com/">
-                    <button className="incident-report-btn">
-                        <img src = {incident}></img>
-                        <h1 className = "btn-header">Incident Report</h1>
-                        <p className = "btn-txt">Use this document if any type of incident 
-                        takes place that needs reporting. You will also find the number to report for 
-                        mandated reporting.</p>
-                    </button>
-                </a>
-            </div>
-        </div>
     );
 }
 

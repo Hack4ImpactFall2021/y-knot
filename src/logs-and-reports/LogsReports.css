@@ -1,42 +1,54 @@
-.hour-log-btn {  
-    border-color: green;
-    white-space: normal;
+.logs-reports-list {
+    background-color: #ececec;
+    border-radius: 20px;
+    padding: 30px 20px;
+    height: 70%;
+    display:inline-grid;
+    gap: 50px 100px;
 }
 
-.encounter-note-btn-btn {  
-    border-color: green;
-    white-space: normal;
+.a {
+    text-decoration: none;
 }
 
-.school-visitation-btn {  
-    border-color: blue;
-    white-space: normal;
+.item1 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 2;
 }
 
-.attempt-note-btn {  
-    border-color: yellow;
-    white-space: normal;
+.item2 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 2;
 }
 
-.activity-req-btn {
-    border-color: yellow;
-    white-space: normal;
+.item3 {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
 }
 
-.incident-btn {
-    border-color: orange;
-    white-space: normal;
+.item4 {
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }
 
-.btn-wrapper {
-    width: 500px;
-    height: auto;
-    text-align: center;
-    /* border-width: medium; */
-    color: white;
-    display: inline-block;
-    margin: 4px 2px;
-    padding: 15px 32px;
-    border-radius: 0px 0px 10px 10px;
-    
+.item5 {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+
+  .item6 {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }

@@ -1,0 +1,33 @@
+
+
+.logs-reports-square {
+    transition: 300ms all;
+    width: 350px;
+    height: 250px;
+    text-align: center;
+    background-color: white;
+    margin: 4px 2px;
+    padding: 15px 32px;
+    border-radius: 15px;
+  }
+  
+  .logs-reports-square:hover {
+    background-color: #f4f4f4;
+    cursor: pointer;
+  }
+  
+  .logs-reports-title {
+    color: black;
+    display: block;
+    font-size: 22px;
+    margin-top: 40px;
+    margin-right: 10px;
+    margin-left: 2em;
+  }
+
+  .logs-reports-text {
+    color: black;
+    margin-top: 60px;
+    margin-left: 1.5em;
+    margin-right: 1.5em
+  }
