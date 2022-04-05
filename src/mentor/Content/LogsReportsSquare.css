@@ -1,11 +1,10 @@
 .logs-reports-square {
     background-color: #f4f4f4;
     border-radius: 15px;
-    height:250px;
-    width: 250px;
+    border: 2px solid #c4c4c4;
+    width: 98%;
     margin: 10px;
     transition: 300ms all;
-    background-color: lightBlue;
   }
   
   .logs-reports-square:hover {

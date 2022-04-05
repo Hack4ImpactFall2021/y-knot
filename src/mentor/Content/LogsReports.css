@@ -3,5 +3,5 @@
     border-radius: 20px;
     padding: 30px 20px;
     height: 70%;
-    display:grid;
+    overflow: hidden;
 }

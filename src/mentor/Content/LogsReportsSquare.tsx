@@ -3,18 +3,16 @@ type Props = {
     icon: string
     title: string
     text: string
-    color: string
 }
-const LogsReportsSquare: React.FC<Props> = ({icon, title, text, color}) => {
+const LogsReportsSquare: React.FC<Props> = ({icon, title, text}) => {
     return (
-        <div style={{border: `2px solid ${color}`}} className="logs-reports-square">
+        <div className="logs-reports-square">
             <h3 className="logs-reports-title"> 
-                <img src={icon} />
+               {icon}
                {title}
                {text}
             </h3>
         </div>
     );
 }
-
 export default LogsReportsSquare;
