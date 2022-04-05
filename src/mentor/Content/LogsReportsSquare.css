@@ -2,7 +2,7 @@
     background-color: #f4f4f4;
     border-radius: 15px;
     height:250px;
-    width: 350px;
+    width: 250px;
     margin: 10px;
     transition: 300ms all;
     background-color: lightBlue;
@@ -14,16 +14,12 @@
   }
   
   .logs-reports-title {
-    color: black;
-    display: block;
-    margin-top: 40px;
-    margin-right: 10px;
+    color: #45963b;
     margin-left: 2em;
   }
 
   .logs-reports-text {
-    color: black;
-    margin-top: 60px;
+    color: #45963b;
     margin-left: 2em;
   }
   
