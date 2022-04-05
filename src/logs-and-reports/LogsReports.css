@@ -1,0 +1,42 @@
+.hour-log-btn {  
+    border-color: green;
+    white-space: normal;
+}
+
+.encounter-note-btn-btn {  
+    border-color: green;
+    white-space: normal;
+}
+
+.school-visitation-btn {  
+    border-color: blue;
+    white-space: normal;
+}
+
+.attempt-note-btn {  
+    border-color: yellow;
+    white-space: normal;
+}
+
+.activity-req-btn {
+    border-color: yellow;
+    white-space: normal;
+}
+
+.incident-btn {
+    border-color: orange;
+    white-space: normal;
+}
+
+.btn-wrapper {
+    width: 500px;
+    height: auto;
+    text-align: center;
+    /* border-width: medium; */
+    color: white;
+    display: inline-block;
+    margin: 4px 2px;
+    padding: 15px 32px;
+    border-radius: 0px 0px 10px 10px;
+    
+}
