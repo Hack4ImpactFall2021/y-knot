@@ -1,0 +1,97 @@
+.mentee-info-modal {
+  /* Modal positioning */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Modal size */
+  width: 90%;
+  height: 90%;
+  border-radius: 1em;
+
+  /* Colors */
+  background-color: #ececec;
+  border: 2px solid #c4c4c4;
+
+  /* Modal fade in on open */
+  animation-name: modalopen;
+  animation-duration: 0.25s;
+}
+@keyframes modalopen {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+.mentee-info-modal .mentee-name {
+  margin-left: 20px;
+}
+
+.mentee-info-modal .modal-close-btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 30px;
+  color: #c4c4c4;
+}
+.mentee-info-modal .modal-close-btn:hover {
+  cursor: pointer;
+  filter: brightness(0.8);
+}
+
+.mentee-info-modal .modal-content {
+  height: 80%;
+  overflow-y: scroll;
+  margin: 25px;
+}
+
+.mentee-info-modal .modal-content  * {
+  border-radius: 0.5em;
+}
+
+.mentee-info-modal .modal-content .mentee-info-response-box {
+  /* border: 1px solid red; */
+}
+
+.mentee-info-modal .mentee-info-response-box {
+  padding: 7px;
+  height: fit-content;
+}
+
+.mentee-info-modal .mentee-info-response-title {
+  font-weight: 400;
+  font-size: 20px;
+  margin: 0px;
+  margin-bottom: 15px;
+}
+
+.mentee-info-modal .phone-age-grade {
+  display: flex;
+}
+.mentee-info-modal .phone-age-grade > * {
+  width: 33%; /* wat */
+}
+
+.mentee-info-modal .response-subtext {
+  position: absolute;
+  right: 10px;
+  bottom: -10px;
+  font-weight: 200;
+  font-size: 12px;
+  color: #8a8a8a;
+}
+
+.mentee-info-modal .mentee-info-response-body {
+  background-color: white;
+  min-height: 45px;
+  max-height: 45px;
+  border-left: 15px solid white;
+  border-right: 15px solid white;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
