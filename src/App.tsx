@@ -13,7 +13,7 @@ import ResetPassword from './login/ResetPassword/ResetPassword';
 import MentorProfile from './mentor/MentorProfile';
 import MentorLanding from './mentor-landing/MentorLanding';
 import LogsReports from './logs-and-reports/LogsReports';
-
+import Trainee from "./trainee/Trainee";
 
 const App = () => {
     
@@ -30,7 +30,12 @@ const App = () => {
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
                     <Route path='/mentor/:id' element={<RequireAuth children={<MentorProfile />}/>} />
                     <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
+                    <Route path='/trainee/home' element={<RequireAuth children={<Trainee/>} />}/>
+                    <Route path='/history' element={<RequireAuth children={<History/>} />}/>
+                    {/* <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} /> */}
+                    <Route path='/:id' element={<RequireAuth children={<TProfile/>}/>}/>
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
+                    
                 </Routes>
             </Router>
         </AuthProvider>

@@ -1,0 +1,22 @@
+.training-progress-bar {
+    height: 2em;
+    width: 40em;
+    border-radius: 15px;
+    border: 1px solid #0e204d;
+  }
+  
+  .bar-filled {
+    min-width: 6%;
+    border: 1px solid #091734;
+    background-color: #091734;
+    height: 2em;
+    width: 10em;
+    border-radius: 15px;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .bar-filled p {
+    margin-right: 0.5em;
+  }
