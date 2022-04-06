@@ -5,6 +5,10 @@ import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, Document
 import { Applicant, ApplicantStages, JotformResponse } from "../utils/utils";
 import app, { db, storage } from "../config/firebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
+import { getFunctions, httpsCallable } from "firebase/functions";
+import UserInformation from "../profile/UserInformation/UserInformation";
+
+const functions = getFunctions();
 
 export enum Endpoints{
     AuthenticateUser, 
@@ -29,9 +33,6 @@ export enum Endpoints{
     SendPasswordResetEmail,
     SendNewAccountCreatedEmail
 }
-
-const apiKey = "f6ab2830e4825fdc6f2757697e4215be";
-
 
 class NetworkManger {
     
@@ -282,18 +283,21 @@ class NetworkManger {
     // returns the form submission associated with the id
     private getApplicantForm(id: string): Promise<JotformResponse> {
       return new Promise((resolve, reject) => {
-        const url = `https://api.jotform.com/submission/${id}?apiKey=${apiKey}`;
+        const getForm : any = httpsCallable(functions, "getApplicantForm");
 
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
+        getForm({"id": id})
+        .then( (response : any) => response.data)
+        .then((data: any) => {
+          console.log(data);
           if (data.responseCode != 200) {
             reject(new Error('invalid-id'))
           } else {
             resolve(data);
           }
         })
-        .catch(error => reject(error));
+        .catch((error : any) => {
+          reject(error)
+        });
       })
     }
 
