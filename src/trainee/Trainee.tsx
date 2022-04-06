@@ -1,9 +1,8 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 import "./Trainee.css";
-import logo from "../login/assets/logo.png";
-import TraineeSidebar, { NavRoutes } from './TraineeSidebar';
+import logo from '../login/assets/logo.png'
+import TraineeSidebar, { NavRoutes } from '../nav/TraineeSidebar';
 import ProgressBar from "./ProgressBar";
 interface Props {
 
@@ -12,6 +11,12 @@ interface Props {
 
 const Trainee: React.FC<Props> = () => {
   const name = "Jason";
+  const [percentCompleted, setPercentCompleted] = useState(75);
+
+  // useEffect(() => {
+  //   setPercentCompleted
+  // })
+
   return (
     <div className="dashboard trainee-dashboard"> 
       <TraineeSidebar selected={NavRoutes.Home}/>
@@ -21,7 +26,7 @@ const Trainee: React.FC<Props> = () => {
             <h1>Welcome, {name}!</h1>
             <img src={logo} alt="Where is the logo?"/> 
           </div>
-          <div className="progress-bar-wrapper"><ProgressBar fillAmount={75}/></div>
+          <div className="progress-bar-wrapper"><ProgressBar fillAmount={percentCompleted}/></div>
             <div className="training-btn-wrapper">
             <a target="_blank" href="https://y-knotinc.thinkific.com/">
                 <button className="training-btn">
