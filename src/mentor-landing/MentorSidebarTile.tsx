@@ -13,12 +13,13 @@ import { NavRoutes } from './MentorSidebar';
 
 interface Props {
     route: NavRoutes,
-    selected: NavRoutes
+    selected: NavRoutes,
+    id: string
 }
 
 type routeToimageType = {[key in NavRoutes]: string}
 
-const MentorSidebarTile: React.FC<Props> = ({route, selected}) => {
+const MentorSidebarTile: React.FC<Props> = ({route, selected, id}) => {
 
     const navigate = useNavigate();
     
@@ -26,7 +27,7 @@ const MentorSidebarTile: React.FC<Props> = ({route, selected}) => {
 
     const routeToImage: routeToimageType = {
         [NavRoutes.Home]: isSelected ? home_active : home_inactive,
-        [NavRoutes.Settings]: isSelected ? settings_active : settings_inactive,
+        [NavRoutes.MentorSettings]: isSelected ? settings_active : settings_inactive,
         [NavRoutes.Resources]: isSelected ? resources_active : resources_inactive,
         [NavRoutes.Profile]: profile_inactive
     }
@@ -38,17 +39,17 @@ const MentorSidebarTile: React.FC<Props> = ({route, selected}) => {
 
         switch (route) {
             case NavRoutes.Home:
-                navigate('/trainee/home')
+                navigate('/mentor/home')
                 break;
-            case NavRoutes.Settings:
-                navigate('/settings')
+            case NavRoutes.MentorSettings:
+                navigate('/mentor/settings')
                 break;
             /* PUT PATH FOR RESOURCES */
             case NavRoutes.Resources:
-                navigate('/')
+                navigate('/mentor')
                 break;
             case NavRoutes.Profile:
-                navigate('/');
+                navigate('/mentor/' + id);
                 break;
         }
     }

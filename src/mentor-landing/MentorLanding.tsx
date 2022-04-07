@@ -5,7 +5,7 @@ import "./MentorLanding.css";
 import logo from "../login/assets/logo.png";
 import mentoring from "./assets/mentoring_landing.jpg"
 import MentorSidebar, { NavRoutes } from './MentorSidebar';
-import LogsReports from "../logs-and-reports/LogsReports";
+import LogsReports from "../mentor/logs-and-reports/LogsReports";
 interface Props {
 
 

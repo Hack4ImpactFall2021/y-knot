@@ -4,7 +4,7 @@ import SidebarTile from './MentorSidebarTile';
 import logout from './assets/logout.png';
 import { useNavigate } from 'react-router-dom';
 
-export enum NavRoutes { Home = "Home", Settings = "Settings", Resources = "Resources", Profile = "Profile" }
+export enum NavRoutes { Home = "Home", MentorSettings = "Settings", Resources = "Resources", Profile = "Profile" }
 
 interface Props {
     selected: NavRoutes
@@ -18,7 +18,7 @@ const MentorSidebar: React.FC<Props> = ({selected}) => {
             <div>
             {
                 Object.values(NavRoutes).map(route => {
-                    return (<SidebarTile key={route} route={route} selected={selected} />)
+                    return (<SidebarTile key={route} route={route} selected={selected} id="5188587455818895665"/>)
                 })
             }
             </div>
