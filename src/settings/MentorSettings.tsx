@@ -3,7 +3,7 @@ import { AuthError } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 import './Settings.css';
-import Sidebar, { NavRoutes } from '../nav/Sidebar';
+import MentorSidebar, { NavRoutes } from '../nav/MentorSidebar';
 import TextField from './TextField/TextField';
 import Button from './Button/Button';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
@@ -159,7 +159,7 @@ const MentorSettings = () => {
   return (
     <>
     <div className="settings">
-      <Sidebar selected={NavRoutes.Settings}/>
+      <MentorSidebar selected={NavRoutes.MentorSettings}/>
       <div className="settings-container">
         {
           message![1].length > 0 ?
