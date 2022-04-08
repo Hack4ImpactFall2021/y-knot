@@ -3,7 +3,8 @@ import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, up
 import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy} from "firebase/firestore"
 
 import { Applicant, ApplicantStages, JotformResponse } from "../utils/utils";
-import app, { db, storage } from "../config/firebase";
+import app, {db, storage } from "../config/firebase";
+import secondaryApp from "../config/secondaryFirebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { getFunctions, httpsCallable } from "firebase/functions";
 
@@ -22,7 +23,9 @@ export enum Endpoints{
     UpdateNote,
     UploadFile,
     GetFiles,
+    GetLoginId,
     UpdateStage,
+    UpdateFirebaseId,
     SendInterviewEmail,
     SendBackgroundCheckEmail,
     SendRejectionEmail,
@@ -73,6 +76,10 @@ class NetworkManger {
             return this.getFiles(params.id);
           case Endpoints.UpdateStage:
             return this.updateStage(params.id, params.stage);
+          case Endpoints.UpdateFirebaseId:
+            return this.updateFirebaseId(params.id, params.firebaseId);
+          case Endpoints.GetLoginId:
+            return this.getLoginId();
           case Endpoints.SendInterviewEmail:
             return this.sendInterviewEmail(params.email, params.url);
           case Endpoints.SendBackgroundCheckEmail:
@@ -129,6 +136,21 @@ class NetworkManger {
           reject(error);
         });
       })
+    }
+
+    private getLoginId(): Promise<string> {
+      return new Promise((resolve, reject) => {
+        const auth = getAuth();
+        if (!auth)
+          reject("error");
+        else {
+          if (auth.currentUser){
+            const uid : string = auth.currentUser.uid
+            resolve(uid);
+          } else
+            reject("error");
+        }
+      });
     }
 
     // returns all applicants from db
@@ -268,24 +290,28 @@ class NetworkManger {
     // creates a new user in db
     // email: email of new user
     // password: password of new user
-    private createNewUser(email: string, password: string, role: string): Promise<void> {
-      return new Promise((resolve, reject) => {
-        const auth = getAuth(app);
+    private createNewUser(email: string, password: string, role: string): Promise<string> {
+      const auth = getAuth(app);
+      const auth2 = getAuth(secondaryApp);
 
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          console.log("account made");
-          const setRole = httpsCallable(functions, 'setUserRole');
-          const user = userCredential.user;
-          console.log(user);
-          setRole({uid: user.uid, role: role}).then(() => {
-            console.log("role set");
-            resolve();
-          });
-        }).catch((error) => { 
-          reject(error);
+      return new Promise((resolve, reject) => {
+        auth.currentUser?.getIdToken().then((idToken) => {
+            createUserWithEmailAndPassword(auth2, email, password)
+            .then((userCredential) => {
+              console.log("account made");
+              const setRole = httpsCallable(functions, 'setUserRole');
+              const user = userCredential.user;
+              console.log(user);
+              setRole({uid: user.uid, role: role, idToken: idToken}).then((response : any) => {
+                  resolve(user.uid);
+              });
+            }).catch((error) => { 
+              reject(error);
+            }).catch((error) => {
+              reject(error);
+            })
         })
-      })
+      });
     }
 
     // id: id of jotform submission
@@ -357,6 +383,14 @@ class NetworkManger {
     private updateStage(id: string, stage: ApplicantStages): Promise<void> {
       return new Promise((resolve, reject) => {
         updateDoc(doc(db, 'applicants', id), {stage: stage})
+        .then(() => resolve())
+        .catch(error => reject(error));
+      })
+    }
+
+    private updateFirebaseId(id: string, firebaseId: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        updateDoc(doc(db, 'applicants', id), {firebase_id: firebaseId})
         .then(() => resolve())
         .catch(error => reject(error));
       })

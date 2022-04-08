@@ -166,8 +166,12 @@ const Profile = () => {
 
         try {
             // create trainee account
-             await NetworkManager.makeRequest(Endpoints.CreateNewUser, {email: email, username: applicantLogin[0], password: applicantLogin[1], role: "trainee"});
+             const fid = await NetworkManager.makeRequest(Endpoints.CreateNewUser, {email: email, username: applicantLogin[0], password: applicantLogin[1], role: "trainee"});
              console.log("created account")
+
+            // update firebase id
+            await NetworkManager.makeRequest(Endpoints.UpdateFirebaseId, {id: applicant?.submissionId, firebaseId: fid});
+            console.log("updated firebase id")
              
             // send email to reject applicant
             await NetworkManager.makeRequest(Endpoints.SendAcceptanceEmail, {email: email, name: applicant?.firstName + " " + applicant?.lastName, username: applicantLogin[0], password: applicantLogin[1]})
@@ -175,7 +179,7 @@ const Profile = () => {
 
             // move applicant in database
             await NetworkManager.makeRequest(Endpoints.UpdateStage, {id: applicant?.submissionId, stage: ApplicantStages.Accepted})
-            console.log('sent email')
+            console.log('updated stage')
 
             setShowModal(false);
             window.location.reload();
