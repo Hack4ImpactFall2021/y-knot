@@ -15,7 +15,7 @@ const MenteeInfoModal: React.FC<Props> = ({ name, onCloseModal }) => {
       <div className="modal-content">
 
       <div className="parent-guardian mentee-info-response-box">
-        <h1 className="mentee-info-response-title">Parent/Guardian"s Name</h1>
+        <h1 className="mentee-info-response-title">Parent/Guardian's Name</h1>
         <div className="mentee-info-response-body">
           <p className="mentee-info-response-text"></p>
         </div>
