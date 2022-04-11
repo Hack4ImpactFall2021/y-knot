@@ -20,6 +20,7 @@ export enum Endpoints{
     CreateNewUser,
     GetApplicant,
     GetApplicantForm,
+    GetAllMentees,
     UpdateNote,
     UploadFile,
     GetFiles,
@@ -63,6 +64,8 @@ class NetworkManger {
             return this.getApplicant(params.submissionId);
           case Endpoints.GetApplicantForm:
             return this.getApplicantForm(params.id);
+          case Endpoints.GetAllMentees:
+            return this.getAllMentees();
           case Endpoints.UpdateNote:
             return this.updateNote(params.note, params.id, params.stage);
           case Endpoints.UploadFile:
@@ -299,6 +302,28 @@ class NetworkManger {
           reject(error)
         });
       })
+    }
+
+    private getAllMentees(): Promise<any> {
+      return new Promise((resolve, reject) => {
+        const getForms : any = httpsCallable(functions, "getMenteeForms");
+
+        getAuth().currentUser?.getIdToken()
+        .then((idToken) => {
+          getForms({idToken: idToken})
+            .then( (response : any) => response.data)
+              .then((data: any) => {
+                if (data.responseCode != 200) {
+                  reject(new Error('invalid-id'))
+                } else {
+                  resolve(data);
+                }
+              })
+              .catch((error : any) => {
+                reject(error)
+              });
+            });
+          });
     }
 
     // note: note user has created
