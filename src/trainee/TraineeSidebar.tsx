@@ -1,20 +1,18 @@
 import React from 'react';
 
-import './Sidebar.css'
-import SidebarTile from './SidebarTile/SidebarTile';
+import SidebarTile from './TraineeSidebarTile';
 import logout from './assets/logout.png';
 import { useNavigate } from 'react-router-dom';
 
-export enum NavRoutes {Dashboard = "Dashboard", History = "History", Settings = "Settings", Home = "Home"}
+export enum NavRoutes { Home = "Home", Settings = "Settings", Profile = "Profile" }
 
 interface Props {
     selected: NavRoutes
 }
 
-const Sidebar: React.FC<Props> = ({selected}) => {
-
+const TraineeSidebar: React.FC<Props> = ({selected}) => {
     const navigate = useNavigate();
-    
+
     return (
         <div className='sidebar'>
             <div>
@@ -32,4 +30,4 @@ const Sidebar: React.FC<Props> = ({selected}) => {
     );
 }
 
-export default Sidebar;
+export default TraineeSidebar;

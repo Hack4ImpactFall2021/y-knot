@@ -10,8 +10,9 @@ import MentorInfo from "./Tabs/MentorInfo/MentorInfo";
 import Mentee from "./Tabs/Mentee/Mentee";
 
 import "./MentorProfile.css";
+import LogsReports from "./logs-and-reports/LogsReports";
 
-export enum Tabs { MentorInfo = "Your Profile" , MenteeProfile = "Mentee Profile" };
+export enum Tabs { MentorInfo = "Your Profile" , MenteeProfile = "Mentee Profile", LogsAndReports = "Logs & Reports" };
 
 const MentorProfile = () => {
   const navigate = useNavigate();
@@ -83,6 +84,10 @@ const MentorProfile = () => {
         return (
           <Mentee mentees={menteeList} />
         );
+      case Tabs.LogsAndReports:
+        return (
+          <LogsReports />
+        )
       default:
         return null;
     }

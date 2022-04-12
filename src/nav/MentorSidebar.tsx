@@ -1,26 +1,24 @@
 import React from 'react';
 
-import './Sidebar.css'
-import SidebarTile from './SidebarTile/SidebarTile';
+import SidebarTile from './MentorSidebarTile';
 import logout from './assets/logout.png';
 import { useNavigate } from 'react-router-dom';
 
-export enum NavRoutes {Dashboard = "Dashboard", History = "History", Settings = "Settings", Home = "Home"}
+export enum NavRoutes { Home = "Home", MentorSettings = "Settings", Resources = "Resources", Profile = "Profile" }
 
 interface Props {
     selected: NavRoutes
 }
 
-const Sidebar: React.FC<Props> = ({selected}) => {
-
+const MentorSidebar: React.FC<Props> = ({selected}) => {
     const navigate = useNavigate();
-    
+
     return (
         <div className='sidebar'>
             <div>
             {
                 Object.values(NavRoutes).map(route => {
-                    return (<SidebarTile key={route} route={route} selected={selected} />)
+                    return (<SidebarTile key={route} route={route} selected={selected} id="5188587455818895665"/>)
                 })
             }
             </div>
@@ -32,4 +30,4 @@ const Sidebar: React.FC<Props> = ({selected}) => {
     );
 }
 
-export default Sidebar;
+export default MentorSidebar;
