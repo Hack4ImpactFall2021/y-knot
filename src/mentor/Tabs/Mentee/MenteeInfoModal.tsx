@@ -24,37 +24,43 @@ const MenteeInfoModal: React.FC<Props> = ({ name, onCloseModal }) => {
       <div className="address mentee-info-response-box">
         <h1 className="mentee-info-response-title">Address</h1>
         <div className="address1">
-            <div className="response-body">
-                <p className="response-text"></p>
-                <p className="response-subtext">Street Address 1</p>
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">Street Address 1</p>
             </div>
         </div>
 
         <div className="address2">
-            <div className="response-body">
-                <p className="response-text"></p>
-                <p className="response-subtext">Street Address 2</p>
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">Street Address 2</p>
             </div>
         </div>
 
         <div className="city">
-            <div className="response-body">
-                <p className="response-text"></p>
-                <p className="response-subtext">City</p>
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">City</p>
             </div>
         </div>
 
         <div className="state">
-            <div className="response-body">
-                <p className="response-text"></p>
-                <p className="response-subtext">State</p>
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">State/Province/Region</p>
             </div>
         </div>
 
         <div className="zip-code">
-            <div className="response-body">
-                <p className="response-text"></p>
-                <p className="response-subtext">Zip Code</p>
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">Zip Code</p>
+            </div>
+        </div>
+        <div className="country">
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">Country</p>
             </div>
         </div>
       </div>
@@ -112,35 +118,35 @@ const MenteeInfoModal: React.FC<Props> = ({ name, onCloseModal }) => {
 
       <div className="assistance-areas mentee-info-response-box">
         <h1 className="mentee-info-response-title">This child is being referred for assistance in the following areas</h1>
-        <div className="mentee-info-response-body">
+        <div className="mentee-info-response-body-lg">
           <p className="mentee-info-response-text"></p>
         </div>
       </div>
 
       <div className="interests mentee-info-response-box">
         <h1 className="mentee-info-response-title">What particular interests, either in school or out, do you know this child has?</h1>
-        <div className="mentee-info-response-body">
+        <div className="mentee-info-response-body-lg">
           <p className="mentee-info-response-text"></p>
         </div>
       </div>
 
       <div className="strategies mentee-info-response-box">
         <h1 className="mentee-info-response-title">What strategies/learning models might be effective for a Mentor working with this child?</h1>
-        <div className="mentee-info-response-body">
+        <div className="mentee-info-response-body-lg">
           <p className="mentee-info-response-text"></p>
         </div>
       </div>
 
       <div className="subjects mentee-info-response-box">
         <h1 className="mentee-info-response-title">With what specific academic subjects, if any, does the child need assistance?</h1>
-        <div className="mentee-info-response-body">
+        <div className="mentee-info-response-body-lg">
           <p className="mentee-info-response-text"></p>
         </div>
       </div>
 
       <div className="additional-comments mentee-info-response-box">
         <h1 className="mentee-info-response-title">Additional Comments:</h1>
-        <div className="mentee-info-response-body">
+        <div className="mentee-info-response-body-lg">
           <p className="mentee-info-response-text"></p>
         </div>
       </div>
