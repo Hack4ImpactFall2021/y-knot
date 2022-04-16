@@ -1,0 +1,26 @@
+.admin-home {
+  background-color: #e5e5e5;
+  color: #10275b;
+  width: 100%;
+}
+.admin-home .wrapper {
+  margin: 0 20px;
+  height: 100%;
+}
+/* Heading */
+.admin-home .wrapper .heading-wrapper {
+  width: 100%;
+  height:10%;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-home .wrapper .heading-wrapper .header {
+  font-size: 2.25em;
+}
+
+/* Cards */
+
+/* Dashboard */

@@ -1,0 +1,14 @@
+.admin .logout-btn {
+  text-transform: uppercase;
+  padding: 30px;
+  border: none;
+  margin: 10px;
+  border-radius: 30px;
+  background-color: white;
+  color: #f27f1e;
+  border: 1px solid #f27f1e;
+}
+.admin .logout-btn:hover {
+  cursor: pointer;
+  background-color: #ffecdd;;
+}

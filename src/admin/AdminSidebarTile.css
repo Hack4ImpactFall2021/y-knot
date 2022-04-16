@@ -1,0 +1,39 @@
+.admin-sidebar-tile:first-child {
+  margin-top: 5em;
+}
+.admin-sidebar-tile {
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius: 35px 0 0 35px;
+  margin-left: 1.25em;
+  font-size: large;
+  font-weight:500;
+  color:#10275b;
+  border: 1px solid white;
+}
+.admin-sidebar-tile span {
+  display: flex;
+  justify-content: flex-start;
+}
+.admin-sidebar-tile span:hover {
+  border: dotted 1px solid red;
+}
+.admin-sidebar-tile.selected {
+  background-color: #10275b;
+  border: 1px solid #10275b;
+  color: white;
+}
+.admin-sidebar-tile:hover {
+  cursor: pointer;
+}
+
+/* TEMP STYLES */
+.admin-sidebar-tile:hover:not(.selected) {
+  /* border: 1px solid #10275b; */
+background-color: #f4f4f4;
+}
+.adming-sidebar-tile .logout-btn {
+  justify-self: flex-end;
+}
