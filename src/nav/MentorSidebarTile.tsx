@@ -39,14 +39,13 @@ const MentorSidebarTile: React.FC<Props> = ({route, selected, id}) => {
 
         switch (route) {
             case NavRoutes.Home:
-                navigate('/mentor/home')
+                navigate('/mentor')
                 break;
             case NavRoutes.MentorSettings:
                 navigate('/mentor/settings')
                 break;
-            /* PUT PATH FOR RESOURCES */
             case NavRoutes.Resources:
-                navigate('/mentor')
+                navigate('/mentor/resources')
                 break;
             case NavRoutes.Profile:
                 navigate('/mentor/' + id);
