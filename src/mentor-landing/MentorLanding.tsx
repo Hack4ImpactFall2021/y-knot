@@ -1,13 +1,14 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import "./MentorLanding.css";
 import logo from "../login/assets/logo.png";
 import mentoring from "./assets/mentoring_landing.jpg"
 import MentorSidebar, { NavRoutes } from '../nav/MentorSidebar';
+import MentorProfile from '../mentor/MentorProfile';
+
 interface Props {
-
-
+  
 };
 
 const MentorLanding: React.FC<Props> = () => {
@@ -25,9 +26,12 @@ const MentorLanding: React.FC<Props> = () => {
           <img className="mentoring-img" src={mentoring} alt="Mentoring Puzzle Piece"></img>
 
           <div className="mentoring-btn-wrapper">
-            <button className="mentoring-btn">
+            {/* needs to be updated with an id variable */}
+            <Link to="/mentor/5188587455818895665">
+              <button className="mentoring-btn">
                 Logs & Reports
-            </button>
+              </button>
+            </Link>
           </div>
 
           <div className="text-blurb">
