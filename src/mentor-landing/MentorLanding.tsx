@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import "./MentorLanding.css";
 import logo from "../login/assets/logo.png";
@@ -26,12 +26,10 @@ const MentorLanding: React.FC<Props> = () => {
           <img className="mentoring-img" src={mentoring} alt="Mentoring Puzzle Piece"></img>
 
           <div className="mentoring-btn-wrapper">
-          {/* ADD LINK TO LOGS AND REPORTS FOR BUTTON */}
-            <a target="_blank" href="https://y-knotinc.thinkific.com/">
-                <button className="mentoring-btn">
-                    Logs & Reports
-                </button>
-            </a>
+            <Link to="/mentor/logs"><button className="mentoring-btn">
+                Logs & Reports
+            </button>
+            </Link>
           </div>
 
           <div className="text-blurb">

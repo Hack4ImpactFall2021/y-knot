@@ -15,6 +15,7 @@ import MentorProfile from './mentor/MentorProfile';
 import MentorLanding from './mentor-landing/MentorLanding';
 import Trainee from "./trainee/Trainee";
 import MentorSettings from './settings/MentorSettings';
+import LogsReports from './mentor/logs-and-reports/LogsReports';
 
 const App = () => {
     
@@ -28,6 +29,7 @@ const App = () => {
                     <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
                     <Route path='/mentor' element={<RequireAuth children={<MentorLanding/>} />}/>
                     <Route path='/mentor/settings' element={<RequireAuth children={<MentorSettings/>} />}/>
+                    <Route path='/mentor/logs' element={<RequireAuth children={<LogsReports/>} />}/>
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
                     <Route path='/mentor/:id' element={<RequireAuth children={<MentorProfile />}/>} />
                     <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
