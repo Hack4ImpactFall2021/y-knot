@@ -1,0 +1,48 @@
+.person-tile {
+    background-color: #f4f4f4;
+    min-height: 90px;
+    max-height: 90px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 30px;
+  
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  
+    transition: 300ms all;
+  }
+  
+  .person-tile:hover {
+    background-color: #ececec;
+    cursor: pointer;
+  }
+  
+  .person-tile-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .person-name {
+    color: #10275b;
+    font-size: 1.5rem;
+    width: 500px;
+    overflow: auto;
+    white-space: nowrap;
+    margin-left: 30px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .person-name::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .arrow {
+    width: 34px;
+    height: 34px;
+  }
+  

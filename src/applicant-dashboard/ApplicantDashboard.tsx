@@ -40,7 +40,7 @@ const Dashboard = () => {
         let interviewingApplicantsTemp: Applicant[] = [];
         let backgroundCheckApplicantsTemp: Applicant[] = [];
 
-        applicants.forEach(applicant => {
+        applicants.forEach((applicant: Applicant) => {
           allApplicantsTemp.push(applicant);
 
           if (applicant.stage === ApplicantStages.New) {
