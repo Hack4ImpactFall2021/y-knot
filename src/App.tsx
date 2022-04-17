@@ -15,6 +15,7 @@ import MentorProfile from './mentor/MentorProfile';
 import MentorLanding from './mentor-landing/MentorLanding';
 import Trainee from "./trainee/Trainee";
 import MentorSettings from './settings/MentorSettings';
+import MentorResources from './mentor/MentorResources';
 import LogsReports from './mentor/logs-and-reports/LogsReports';
 
 const App = () => {
@@ -23,13 +24,11 @@ const App = () => {
         <AuthProvider>
             <Router>
                 <Routes>
-                    <Route path='/login' element={<Login/>}/>
+                <Route path='/login' element={<Login/>}/>
                     <Route path='/resetPassword' element={<ResetPassword/>}/>
                     <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
                     <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
-                    <Route path='/mentor' element={<RequireAuth children={<MentorLanding/>} />}/>
-                    <Route path='/mentor/settings' element={<RequireAuth children={<MentorSettings/>} />}/>
-                    <Route path='/mentor/logs' element={<RequireAuth children={<LogsReports/>} />}/>
+
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
                     <Route path='/mentor/:id' element={<RequireAuth children={<MentorProfile />}/>} />
                     <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
@@ -37,6 +36,10 @@ const App = () => {
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
                     {/* <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} /> */}
                     <Route path='/:id' element={<RequireAuth children={<TProfile/>}/>}/>
+                    {/* Mentor routes */}
+                    <Route path='/mentor' element={<RequireAuth children={<MentorLanding/>} />}/>
+                    <Route path='/mentor/settings' element={<RequireAuth children={<MentorSettings/>} />}/>
+                    <Route path='/mentor/resources' element={<RequireAuth children={<MentorResources/>} />}/>
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
                     
                 </Routes>
