@@ -1,11 +1,10 @@
 import React from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import "./MentorLanding.css";
 import logo from "../login/assets/logo.png";
 import mentoring from "./assets/mentoring_landing.jpg"
 import MentorSidebar, { NavRoutes } from '../nav/MentorSidebar';
-import LogsReports from "../mentor/logs-and-reports/LogsReports";
 interface Props {
 
 
@@ -26,10 +25,9 @@ const MentorLanding: React.FC<Props> = () => {
           <img className="mentoring-img" src={mentoring} alt="Mentoring Puzzle Piece"></img>
 
           <div className="mentoring-btn-wrapper">
-            <Link to="/mentor/logs"><button className="mentoring-btn">
+            <button className="mentoring-btn">
                 Logs & Reports
             </button>
-            </Link>
           </div>
 
           <div className="text-blurb">

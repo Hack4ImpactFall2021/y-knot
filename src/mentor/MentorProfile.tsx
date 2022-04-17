@@ -8,11 +8,11 @@ import close from "../profile/assets/close.png";
 
 import MentorInfo from "./Tabs/MentorInfo/MentorInfo";
 import Mentee from "./Tabs/Mentee/Mentee";
+import LogsReports from "./Tabs/LogsReports/LogsReports";
 
 import "./MentorProfile.css";
-import LogsReports from "./logs-and-reports/LogsReports";
 
-export enum Tabs { MentorInfo = "Your Profile" , MenteeProfile = "Mentee Profile", LogsAndReports = "Logs & Reports" };
+export enum Tabs { MentorInfo = "Your Profile" , MenteeProfile = "Mentee Profile", LogsAndReports = "Logs and Reports" };
 
 const MentorProfile = () => {
   const navigate = useNavigate();
@@ -87,7 +87,7 @@ const MentorProfile = () => {
       case Tabs.LogsAndReports:
         return (
           <LogsReports />
-        )
+        );
       default:
         return null;
     }
