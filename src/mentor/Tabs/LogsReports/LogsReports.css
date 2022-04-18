@@ -1,11 +1,10 @@
 .logs-reports-list {
-    background-color: #ececec;
     border-radius: 20px;
-    padding: 30px 20px;
     height: 90%;
-    display:inline-grid;
+    display:grid;
     gap: 50px 100px;
     overflow-y: scroll;
+    margin: 25px;
 }
 
 .a {
