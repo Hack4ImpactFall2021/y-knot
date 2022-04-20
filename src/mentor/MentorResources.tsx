@@ -46,10 +46,12 @@ const MentorResources: React.FC<Props> = () => {
                 If you are looking for a new museum, outdoor events, sporting events, or arts and crafts, the 
                 ACTIVITY GUIDE should help you come up with fun and innovative ways to spend time with your rambunctious mentee.
               </p>
-              <button className="resource-btn" style={{ backgroundColor: "#45963b" }}>
-                <img src={downloadIcon} alt=""/>
-                <p> ACTIVITY RESOURCE GUIDE </p>
-              </button>
+              <a target="_blank" href="https://www.yknotinc.org/_files/ugd/847801_c005ed89dbf54b4380d58ad5ab6bec3c.pdf">
+                <button className="resource-btn" style={{ backgroundColor: "#45963b" }}>
+                  <img src={downloadIcon} alt=""/>
+                  <p> ACTIVITY RESOURCE GUIDE </p>
+                </button>
+              </a>
             </div>
             <div className="resource-card" style={{ borderColor: "#2912be"}}>
               <h3>Mentor Guide</h3>
@@ -58,10 +60,12 @@ const MentorResources: React.FC<Props> = () => {
                 Can't quite remember something that was mentioned at New Mentor Training? 
                 Check out Y-KNOT Inc's Mentor Guide to overview the mentor role and responsibilities, FAQ, and more!
               </p>
-              <button className="resource-btn" style={{ backgroundColor: "#2912be"}}>
-                <img src={downloadIcon} alt=""/>
-                <p> MENTOR RESOURCE GUIDE </p>
-              </button>
+              <a target="_blank" href="https://www.yknotinc.org/_files/ugd/847801_c005ed89dbf54b4380d58ad5ab6bec3c.pdf">
+                <button className="resource-btn" style={{ backgroundColor: "#2912be"}}>
+                  <img src={downloadIcon} alt=""/>
+                  <p> MENTOR RESOURCE GUIDE </p>
+                </button>
+              </a>
             </div>
             <div className="resource-card" style={{ borderColor: "#f27f1e"}}>
               <h3>Mentor Re-Clearances</h3>
