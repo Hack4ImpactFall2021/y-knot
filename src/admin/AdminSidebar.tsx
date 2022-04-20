@@ -7,14 +7,11 @@ import applicants_active from "./assets/applicants_active.png";
 import applicants_inactive from "./assets/applicants_inactive.png";
 import settings_active from "./assets/settings_active.png";
 import settings_inactive from "./assets/settings_inactive.png";
-import timeline_active from "./assets/clock_active.png";
-import timeline_inactive from "./assets/clock_inactive.png";
 
 import AdminHome from "./AdminHome";
 import AdminTrainees from "./AdminTrainees";
 import AdminApplicants from "./AdminApplicants";
 import AdminSettings from "./AdminSettings";
-import AdminTimeline from "./AdminTimeline";
 
 //Sidebar imports
 import React from "react";
@@ -29,8 +26,7 @@ export enum NavRouteOptions {
   Home = "Home", 
   Trainee = "Trainee", 
   Applicants = "Applicants", 
-  Settings = "Settings", 
-  Timeline = "Timeline" 
+  Settings = "Settings"
 }
 
 interface SidebarTileInfo {
@@ -74,14 +70,6 @@ export const NavRoutes = {
     activeIcon: settings_active,
     inactiveIcon: settings_inactive,
     contentComponent: <AdminSettings/>
-  },
-  [NavRouteOptions.Timeline]: {
-    name: NavRouteOptions.Timeline,
-    route: "/admin/timeline",
-    label: "Timline",
-    activeIcon: timeline_active,
-    inactiveIcon: timeline_inactive,
-    contentComponent: <AdminTimeline/>
   }
 }
 

@@ -58,10 +58,6 @@ const App = () => {
             path={AdminNavRoutes[AdminNavRouteOptions.Settings].route} 
             element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Settings}/>}/>}
           />
-          <Route 
-            path={AdminNavRoutes[AdminNavRouteOptions.Timeline].route} 
-            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Timeline}/>}/>}
-          />
         </Routes>
       </Router>
     </AuthProvider>
