@@ -31,7 +31,6 @@ const App = () => {
           <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
           <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
           <Route path='/mentor' element={<RequireAuth children={<MentorLanding/>} />}/>
-          <Route path='/mentor/:id' element={<RequireAuth children={<LogsReports/>} />}/>
           <Route path='/history' element={<RequireAuth children={<History/>} />}/>
           <Route path='/mentor/:id' element={<RequireAuth children={<MentorProfile />}/>} />
           <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
