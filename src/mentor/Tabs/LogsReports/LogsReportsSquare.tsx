@@ -9,10 +9,12 @@ type Props = {
 }
 const LogsReportsSquare: React.FC<Props> = ({icon, title, text, color}) => {
     return (
-        <div style={{border: `2px solid ${color}`}} className="logs-reports-square">
-                <img style={{margin:"25px", float:"left"}} src={icon} />
-                <h3 className="logs-reports-title"> {title} </h3>
-                <p className="logs-reports-text"> {text} </p>
+        <div style={{border: `4px solid ${color}`}} className="logs-reports-square">
+          <div className="icon-title">
+            <img style={{margin:"25px"}} src={icon} />
+            <h1 className="logs-reports-title"> {title} </h1>
+          </div>
+          <p className="logs-reports-text"> {text} </p>
         </div>
     );
 }

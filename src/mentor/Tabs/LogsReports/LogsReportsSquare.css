@@ -1,12 +1,25 @@
 .logs-reports-square {
     transition: 300ms all;
-    width: 350px;
-    height: 250px;
-    text-align: center;
     background-color: white;
+    width: 20em;
+    height: 16em;
     margin: 4px 2px;
-    padding: 15px 32px;
+    padding: 10px 12px;
     border-radius: 15px;
+  }
+
+  .icon-title {
+    display: flex;
+    justify-content: space-around;
+    gap: 0.5em;
+  }
+
+  .icon-title .logs-reports-title {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    color: black;
+    font-size: 1.5em;
   }
   
   .logs-reports-square:hover {
@@ -14,18 +27,7 @@
     cursor: pointer;
   }
   
-  .logs-reports-title {
-    color: black;
-    display: block;
-    font-size: 22px;
-    margin-top: 40px;
-    margin-right: 10px;
-    margin-left: 2em;
-  }
-
   .logs-reports-text {
     color: black;
-    margin-top: 60px;
-    margin-left: 1.5em;
-    margin-right: 1.5em
+    margin: 0 1em;
   }
