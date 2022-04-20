@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AuthError } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 
 import './Settings.css';
 import TraineeSidebar, { NavRoutes } from '../nav/TraineeSidebar';
@@ -24,6 +25,22 @@ const Settings = () => {
 
   const [message, setMessage] = useState<[boolean, string]>([false, ""]);
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  
+  const [trainee, setTrainee] = useState<any>();
+
+  useEffect(() => {
+    getTrainee();
+ })
+
+ const getTrainee: VoidFunction = async () => {
+   try {
+       let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
+       snap = snap as QuerySnapshot<DocumentData>;
+       setTrainee(snap.docs[0].data());
+   } catch(err) {
+       console.log(err);
+   }
+ }
 
   const updateEmail = async () => {
     setIsDisabled(true);
@@ -159,7 +176,7 @@ const Settings = () => {
   return (
     <>
     <div className="settings">
-      <TraineeSidebar selected={NavRoutes.Settings}/>
+      <TraineeSidebar selected={NavRoutes.Settings} id={trainee.id}/>
       <div className="settings-container">
         {
           message![1].length > 0 ?

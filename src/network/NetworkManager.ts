@@ -1,6 +1,6 @@
 import { AuthError, User } from "@firebase/auth";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword, sendPasswordResetEmail} from "firebase/auth";
-import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy} from "firebase/firestore"
+import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot, QuerySnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy, limit} from "firebase/firestore"
 
 import { Applicant, ApplicantStages, JotformResponse } from "../utils/utils";
 import app, { db, storage } from "../config/firebase";
@@ -16,6 +16,7 @@ export enum Endpoints{
     CreateNewUser,
     GetApplicant,
     GetApplicantForm,
+    GetCurrentMentorOrTrainee,
     UpdateNote,
     UploadFile,
     GetFiles,
@@ -56,6 +57,8 @@ class NetworkManger {
             return this.updateUserEmail(params.email);
           case Endpoints.UpdatePassword:
             return this.updateUserPassword(params.password);
+          case Endpoints.GetCurrentMentorOrTrainee:
+            return this.getCurrentMentorOrTrainee();
           case Endpoints.CreateNewUser:
             return this.createNewUser(params.email, params.password);
           case Endpoints.GetApplicant:
@@ -295,6 +298,18 @@ class NetworkManger {
         })
         .catch(error => reject(error));
       })
+    }
+
+    private getCurrentMentorOrTrainee(): Promise<QuerySnapshot<DocumentData>> {
+      return new Promise((resolve, reject) => {
+        getDocs(query(collection(db, "applicants"), where("firebase_id", "==", getAuth().currentUser?.uid)))
+        .then(snap => {
+          resolve(snap);
+        })
+        .catch(error => {
+          reject(error)
+        })
+      });
     }
 
     // note: note user has created
