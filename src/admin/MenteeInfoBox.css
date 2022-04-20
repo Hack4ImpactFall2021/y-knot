@@ -1,0 +1,15 @@
+.mentee-info-box {
+  width: 250px;
+  height: 100px;
+  text-align: left;
+  background-color: #F4F4F4;
+  margin: 4px 4px;
+  margin-bottom: 30px;
+  padding: 20px 20px;
+  border-radius: 15px;
+}
+
+.mentee-info-text {
+  color: black;
+}
+
