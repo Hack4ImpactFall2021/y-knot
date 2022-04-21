@@ -6,14 +6,14 @@ interface Props {
     children: JSX.Element
 }
 
-const RequireAdminAuth:React.FC<Props> = ({ children }) => {
+const RequireMentorAuth:React.FC<Props> = ({ children }) => {
 
     const auth = useAuth();
-    if (!auth.user || auth.token.claims.role != "admin") {
-      return <Navigate to="/login" />;
+    if (!auth.user || auth.token.claims.role != "mentor") {
+        return <Navigate to="/login" />
     }
 
     return children;
   }
   
-export default RequireAdminAuth;
+export default RequireMentorAuth;

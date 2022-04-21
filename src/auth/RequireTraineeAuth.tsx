@@ -6,14 +6,14 @@ interface Props {
     children: JSX.Element
 }
 
-const RequireAdminAuth:React.FC<Props> = ({ children }) => {
+const RequireTraineeAuth:React.FC<Props> = ({ children }) => {
 
     const auth = useAuth();
-    if (!auth.user || auth.token.claims.role != "admin") {
+    if (!auth.user || auth.token.claims.role != "trainee") {
       return <Navigate to="/login" />;
     }
 
     return children;
   }
   
-export default RequireAdminAuth;
+export default RequireTraineeAuth;
