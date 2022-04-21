@@ -14,6 +14,7 @@ import MentorProfile from './mentor/MentorProfile';
 import MentorLanding from './mentor-landing/MentorLanding';
 import LogsReports from './logs-and-reports/LogsReports';
 import Trainee from "./trainee/Trainee";
+import MenteeProfile from './mentee/MenteeProfile';
 
 // Admin stuff
 import { NavRouteOptions as AdminNavRouteOptions } from "./admin/AdminSidebar";
@@ -33,6 +34,7 @@ const App = () => {
           <Route path='/mentor' element={<RequireAuth children={<MentorLanding/>} />}/>
           <Route path='/history' element={<RequireAuth children={<History/>} />}/>
           <Route path='/mentor/:id' element={<RequireAuth children={<MentorProfile />}/>} />
+          <Route path='/mentee/:id' element={<RequireAuth children={<MenteeProfile />}/>} />
           <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
           <Route path='/trainee/home' element={<RequireAuth children={<Trainee/>} />}/>
           <Route path='/history' element={<RequireAuth children={<History/>} />}/>

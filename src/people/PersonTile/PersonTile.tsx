@@ -14,9 +14,9 @@ const PersonTile: React.FC<Props> = ({person}) => {
     const navigate = useNavigate();
     const handleClick = () => {
         if (person.stage == ApplicantStages.New)
-            navigate('/mentor/' + person.submissionId)
+            navigate('/mentee/' + person.submissionId)
         else if (person.stage == ApplicantStages.Interviewing)
-            navigate('/mentor' + person.submissionId)
+            navigate('/mentor/' + person.submissionId)
     }
 
     // // if person is a mentor, then navigate to their profile
