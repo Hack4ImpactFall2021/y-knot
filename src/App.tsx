@@ -32,15 +32,12 @@ const App = () => {
                     <Route path='/' element={<RequireAdminAuth children={<Dashboard/>} />}/>
                     <Route path='/settings' element={<RequireAdminAuth children={<Settings/>} />}/>
                     <Route path='/trainee/home' element={<RequireTraineeAuth children={<Trainee/>} />}/>
-                    <Route path='/history' element={<RequireAdminAuth children={<History/>} />}/>
                     <Route path='/:id' element={<RequireAdminAuth children={<Profile/>}/>} />
                     <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
-                    <Route path='/settings' element={<RequireAuth children={<Settings/>} />}/>
 
                     <Route path='/history' element={<RequireAuth children={<History/>} />}/>
                     <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
                     <Route path='/trainee/home' element={<RequireAuth children={<Trainee/>} />}/>
-                    <Route path='/history' element={<RequireAuth children={<History/>} />}/>
                     {/* <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} /> */}
                     <Route path='/trainee/:id' element={<RequireAuth children={<TProfile/>}/>}/>
                     {/* Mentor routes */}
@@ -50,7 +47,6 @@ const App = () => {
                     <Route path='/mentor/:id' element={<RequireAuth children={<MentorProfile />}/>} />
                     <Route path='/trainee/settings' element={<RequireAuth children={<TraineeSettings/>} />}/>
                     <Route path='/trainee/home' element={<RequireAuth children={<Trainee/>} />}/>
-                    <Route path='/history' element={<RequireAuth children={<History/>} />}/>
                     <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
                     <Route path='/trainee/:id' element={<RequireAuth children={<TProfile/>}/>}/>
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
