@@ -18,7 +18,7 @@
     cursor: pointer;
   }
   
-  .profile-container {
+  .t-profile-container {
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -31,11 +31,11 @@
     -ms-overflow-style: none;
   }
   
-  .profile-container::-webkit-scrollbar {
+  .t-profile-container::-webkit-scrollbar {
     display: none;
   }
   
-  .profile-header {
+  .t-profile-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -43,13 +43,13 @@
     height: 90px;
     margin-top: 64px;
   }
-  .profile-header .profile-header-left {
+  .t-profile-header .t-profile-header-left {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
   
-  .profile-header .profile-header-left .name {
+  .t-profile-header .t-profile-header-left .name {
     color: #10275b;
     font-size: 40px;
     font-weight: bold;
@@ -61,13 +61,13 @@
     overflow: auto;
   }
   
-  .profile-header .profile-header-right {
+  .t-profile-header .t-profile-header-right {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
   
-  .profile-header .profile-header-right .button {
+  .t-profile-header .t-profile-header-right .button {
     width: 210px;
     height: 50px;
     font-weight: bold;
@@ -81,48 +81,29 @@
     border-radius: 20px;
   }
   
-  .profile-header .profile-header-right .button > img {
+  .t-profile-header .t-profile-header-right .button > img {
     width: 32px;
     height: 32px;
     margin-left: 20px;
   }
   
-  .profile-header .profile-header-right .accept {
-    background-color: #117a54;
-    margin-right: 40px;
-    transition: all 300ms;
-  }
-  .profile-header .profile-header-right .reject {
-    background-color: #f44250;
-    transition: all 300ms;
-  }
-  
-  .profile-header .profile-header-right .accept:hover {
-    background-color: #0c6846;
-    cursor: pointer;
-  }
-  .profile-header .profile-header-right .reject:hover {
-    background-color: #d03945;
-    cursor: pointer;
-  }
-  
-  .profile-tabs {
+  .t-profile-tabs {
     display: flex;
     flex-direction: row;
     margin-top: 20px;
   }
   
-  .profile-tabs .tab-title:hover {
+  .t-profile-tabs .tab-title:hover {
     cursor: pointer;
     color: black;
   }
   
-  .profile-tabs .tab-title {
+  .t-profile-tabs .tab-title {
     margin-right: 50px;
     font-size: 24px;
   }
   
-  .profile-tabs .selected {
+  .t-profile-tabs .selected {
     padding-bottom: 5px;
     border-bottom: 2px solid black;
   }

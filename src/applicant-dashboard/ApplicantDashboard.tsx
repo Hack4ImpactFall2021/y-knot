@@ -34,13 +34,13 @@ const Dashboard = () => {
         try {
             let applicants = await NetworkManager.makeRequest(Endpoints.GetAllApplicants);
             applicants = applicants as Applicant[];
-
+            
             let allApplicantsTemp: Applicant[] = [];
             let newApplicantsTemp: Applicant[] = [];
             let interviewingApplicantsTemp: Applicant[] = [];
             let backgroundCheckApplicantsTemp: Applicant[] = [];
 
-            applicants.forEach(applicant => {
+            applicants.forEach((applicant: Applicant) => {
                 allApplicantsTemp.push(applicant);
 
                 if (applicant.stage === ApplicantStages.New) {

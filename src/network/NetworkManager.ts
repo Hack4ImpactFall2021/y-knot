@@ -7,6 +7,7 @@ import app, {db, storage } from "../config/firebase";
 import secondaryApp from "../config/secondaryFirebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import UserInformation from "../profile/UserInformation/UserInformation";
 
 const functions = getFunctions();
 
@@ -20,6 +21,7 @@ export enum Endpoints{
     CreateNewUser,
     GetApplicant,
     GetApplicantForm,
+    GetAllMentees,
     UpdateNote,
     UploadFile,
     GetFiles,
@@ -35,9 +37,6 @@ export enum Endpoints{
     SendPasswordResetEmail,
     SendNewAccountCreatedEmail
 }
-
-const apiKey = "f6ab2830e4825fdc6f2757697e4215be";
-
 
 class NetworkManger {
     
@@ -68,6 +67,8 @@ class NetworkManger {
             return this.getApplicant(params.submissionId);
           case Endpoints.GetApplicantForm:
             return this.getApplicantForm(params.id);
+          case Endpoints.GetAllMentees:
+            return this.getAllMentees();
           case Endpoints.UpdateNote:
             return this.updateNote(params.note, params.id, params.stage);
           case Endpoints.UploadFile:
@@ -318,19 +319,44 @@ class NetworkManger {
     // returns the form submission associated with the id
     private getApplicantForm(id: string): Promise<JotformResponse> {
       return new Promise((resolve, reject) => {
-        const url = `https://api.jotform.com/submission/${id}?apiKey=${apiKey}`;
+        const getForm : any = httpsCallable(functions, "getApplicantForm");
 
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
+        getForm({"id": id})
+        .then( (response : any) => response.data)
+        .then((data: any) => {
+          console.log(data);
           if (data.responseCode != 200) {
             reject(new Error('invalid-id'))
           } else {
             resolve(data);
           }
         })
-        .catch(error => reject(error));
+        .catch((error : any) => {
+          reject(error)
+        });
       })
+    }
+
+    private getAllMentees(): Promise<any> {
+      return new Promise((resolve, reject) => {
+        const getForms : any = httpsCallable(functions, "getMenteeForms");
+
+        getAuth().currentUser?.getIdToken()
+        .then((idToken) => {
+          getForms({idToken: idToken})
+            .then( (response : any) => response.data)
+              .then((data: any) => {
+                if (data.responseCode != 200) {
+                  reject(new Error('invalid-id'))
+                } else {
+                  resolve(data);
+                }
+              })
+              .catch((error : any) => {
+                reject(error)
+              });
+            });
+          });
     }
 
     // note: note user has created
