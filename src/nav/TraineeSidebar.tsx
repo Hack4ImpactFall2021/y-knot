@@ -18,7 +18,7 @@ const TraineeSidebar: React.FC<Props> = ({selected}) => {
             <div>
             {
                 Object.values(NavRoutes).map(route => {
-                    return (<SidebarTile key={route} route={route} selected={selected} />)
+                    return (<SidebarTile key={route} route={route} selected={selected} id="5188581895814342158" />)
                 })
             }
             </div>
