@@ -340,7 +340,6 @@ class NetworkManger {
       })
     }
 
-<<<<<<< HEAD
     private getAllMentees(): Promise<any> {
       return new Promise((resolve, reject) => {
         const getForms : any = httpsCallable(functions, "getMenteeForms");
@@ -361,7 +360,8 @@ class NetworkManger {
               });
             });
           });
-=======
+    }
+    
     private getCurrentMentorOrTrainee(): Promise<QuerySnapshot<DocumentData>> {
       return new Promise((resolve, reject) => {
         getDocs(query(collection(db, "applicants"), where("firebase_id", "==", getAuth().currentUser?.uid)))
@@ -372,7 +372,6 @@ class NetworkManger {
           reject(error)
         })
       });
->>>>>>> trainee
     }
 
     // note: note user has created
