@@ -8,9 +8,10 @@ export enum NavRoutes { Home = "Home", Settings = "Settings", Profile = "Profile
 
 interface Props {
     selected: NavRoutes
+    id: string
 }
 
-const TraineeSidebar: React.FC<Props> = ({selected}) => {
+const TraineeSidebar: React.FC<Props> = ({selected, id}) => {
     const navigate = useNavigate();
 
     return (
@@ -18,7 +19,7 @@ const TraineeSidebar: React.FC<Props> = ({selected}) => {
             <div>
             {
                 Object.values(NavRoutes).map(route => {
-                    return (<SidebarTile key={route} route={route} selected={selected} id="5188581895814342158" />)
+                    return (<SidebarTile key={route} route={route} selected={selected} id={id} />)
                 })
             }
             </div>

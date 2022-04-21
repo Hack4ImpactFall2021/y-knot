@@ -1,6 +1,6 @@
 import { AuthError, User } from "@firebase/auth";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword, sendPasswordResetEmail} from "firebase/auth";
-import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy} from "firebase/firestore"
+import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot, QuerySnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy, limit} from "firebase/firestore"
 
 import { Applicant, ApplicantStages, JotformResponse } from "../utils/utils";
 import app, {db, storage } from "../config/firebase";
@@ -22,6 +22,7 @@ export enum Endpoints{
     GetApplicant,
     GetApplicantForm,
     GetAllMentees,
+    GetCurrentMentorOrTrainee,
     UpdateNote,
     UploadFile,
     GetFiles,
@@ -61,6 +62,8 @@ class NetworkManger {
             return this.updateUserEmail(params.email);
           case Endpoints.UpdatePassword:
             return this.updateUserPassword(params.password);
+          case Endpoints.GetCurrentMentorOrTrainee:
+            return this.getCurrentMentorOrTrainee();
           case Endpoints.CreateNewUser:
             return this.createNewUser(params.email, params.password, params.role);
           case Endpoints.GetApplicant:
@@ -337,6 +340,7 @@ class NetworkManger {
       })
     }
 
+<<<<<<< HEAD
     private getAllMentees(): Promise<any> {
       return new Promise((resolve, reject) => {
         const getForms : any = httpsCallable(functions, "getMenteeForms");
@@ -357,6 +361,18 @@ class NetworkManger {
               });
             });
           });
+=======
+    private getCurrentMentorOrTrainee(): Promise<QuerySnapshot<DocumentData>> {
+      return new Promise((resolve, reject) => {
+        getDocs(query(collection(db, "applicants"), where("firebase_id", "==", getAuth().currentUser?.uid)))
+        .then(snap => {
+          resolve(snap);
+        })
+        .catch(error => {
+          reject(error)
+        })
+      });
+>>>>>>> trainee
     }
 
     // note: note user has created

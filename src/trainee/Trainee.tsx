@@ -3,7 +3,9 @@ import React, { useState, useEffect } from 'react';
 import "./Trainee.css";
 import logo from '../login/assets/logo.png'
 import TraineeSidebar, { NavRoutes } from '../nav/TraineeSidebar';
+import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import ProgressBar from "./ProgressBar";
+import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 interface Props {
 
 
@@ -12,18 +14,29 @@ interface Props {
 const Trainee: React.FC<Props> = () => {
   const name = "Jason";
   const [percentCompleted, setPercentCompleted] = useState(75);
+  const [trainee, setTrainee] = useState<any>();
 
-  // useEffect(() => {
-  //   setPercentCompleted
-  // })
+  useEffect(() => {
+     getTrainee();
+  })
+
+  const getTrainee: VoidFunction = async () => {
+    try {
+        let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
+        snap = snap as QuerySnapshot<DocumentData>;
+        setTrainee(snap.docs[0].data());
+    } catch(err) {
+        console.log(err);
+    }
+  }
 
   return (
     <div className="dashboard trainee-dashboard"> 
-      <TraineeSidebar selected={NavRoutes.Home}/>
+      <TraineeSidebar selected={NavRoutes.Home} id={trainee?.submission_id}/>
       <div className="dashboard-container wrapper">
         <div className="trainee-landing">
           <div className="heading-wrapper">
-            <h1>Welcome, {name}!</h1>
+            <h1>Welcome, {trainee?.first_name}!</h1>
             <img src={logo} alt="Where is the logo?"/> 
           </div>
           <div className="progress-bar-wrapper"><ProgressBar fillAmount={percentCompleted}/></div>
