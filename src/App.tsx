@@ -13,7 +13,6 @@ import Login from './login/Login';
 import Profile from './profile/Profile';
 import TProfile from './trainee-profile/TProfile';
 import TraineeSettings from './settings/TraineeSettings'
-import History from './history/History';
 import ResetPassword from './login/ResetPassword/ResetPassword';
 import MentorProfile from './mentor/MentorProfile';
 import MentorLanding from './mentor-landing/MentorLanding';
@@ -31,26 +30,18 @@ const App = () => {
                     <Route path='/resetPassword' element={<ResetPassword/>}/>
                     <Route path='/' element={<RequireAdminAuth children={<Dashboard/>} />}/>
                     <Route path='/settings' element={<RequireAdminAuth children={<Settings/>} />}/>
-                    <Route path='/trainee/home' element={<RequireTraineeAuth children={<Trainee/>} />}/>
                     <Route path='/:id' element={<RequireAdminAuth children={<Profile/>}/>} />
-                    <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>
 
-                    <Route path='/history' element={<RequireAuth children={<History/>} />}/>
-                    <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
-                    <Route path='/trainee/home' element={<RequireAuth children={<Trainee/>} />}/>
-                    {/* <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} /> */}
-                    <Route path='/trainee/:id' element={<RequireAuth children={<TProfile/>}/>}/>
-                    {/* Mentor routes */}
-                    <Route path='/mentor' element={<RequireAuth children={<MentorLanding/>} />}/>
-                    <Route path='/mentor/settings' element={<RequireAuth children={<MentorSettings/>} />}/>
-                    <Route path='/mentor/resources' element={<RequireAuth children={<MentorResources/>} />}/>
-                    <Route path='/mentor/:id' element={<RequireAuth children={<MentorProfile />}/>} />
-                    <Route path='/trainee/settings' element={<RequireAuth children={<TraineeSettings/>} />}/>
-                    <Route path='/trainee/home' element={<RequireAuth children={<Trainee/>} />}/>
-                    <Route path='/:id' element={<RequireAuth children={<Profile/>}/>} />
-                    <Route path='/trainee/:id' element={<RequireAuth children={<TProfile/>}/>}/>
+                    <Route path='/trainee/home' element={<RequireTraineeAuth children={<Trainee/>} />}/>
+                    <Route path='/trainee/:id' element={<RequireTraineeAuth children={<TProfile/>}/>}/>
+                    <Route path='/trainee/settings' element={<RequireTraineeAuth children={<TraineeSettings/>} />}/>
+
+                    <Route path='/mentor' element={<RequireMentorAuth children={<MentorLanding/>} />}/>
+                    <Route path='/mentor/settings' element={<RequireMentorAuth children={<MentorSettings/>} />}/>
+                    <Route path='/mentor/resources' element={<RequireMentorAuth children={<MentorResources/>} />}/>
+                    <Route path='/mentor/:id' element={<RequireMentorAuth children={<MentorProfile />}/>} />
+
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
-                    
                 </Routes>
             </Router>
         </AuthProvider>

@@ -1,17 +1,8 @@
-<<<<<<< HEAD
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import "./Trainee.css";
-import logo from "../login/assets/logo.png";
-import TraineeSidebar, { NavRoutes } from './TraineeSidebar';
-=======
 import React, { useState, useEffect } from 'react';
 
 import "./Trainee.css";
 import logo from '../login/assets/logo.png'
 import TraineeSidebar, { NavRoutes } from '../nav/TraineeSidebar';
->>>>>>> trainee
 import ProgressBar from "./ProgressBar";
 interface Props {
 
@@ -20,15 +11,12 @@ interface Props {
 
 const Trainee: React.FC<Props> = () => {
   const name = "Jason";
-<<<<<<< HEAD
-=======
   const [percentCompleted, setPercentCompleted] = useState(75);
 
   // useEffect(() => {
   //   setPercentCompleted
   // })
 
->>>>>>> trainee
   return (
     <div className="dashboard trainee-dashboard"> 
       <TraineeSidebar selected={NavRoutes.Home}/>
@@ -38,11 +26,7 @@ const Trainee: React.FC<Props> = () => {
             <h1>Welcome, {name}!</h1>
             <img src={logo} alt="Where is the logo?"/> 
           </div>
-<<<<<<< HEAD
-          <div className="progress-bar-wrapper"><ProgressBar fillAmount={75}/></div>
-=======
           <div className="progress-bar-wrapper"><ProgressBar fillAmount={percentCompleted}/></div>
->>>>>>> trainee
             <div className="training-btn-wrapper">
             <a target="_blank" href="https://y-knotinc.thinkific.com/">
                 <button className="training-btn">
