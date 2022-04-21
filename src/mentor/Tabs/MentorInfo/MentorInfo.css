@@ -1,27 +1,29 @@
-.user-information {
-  background-color: #ececec;
-  margin-bottom: 20px;
-  width: 100%;
-  min-height: 668px;
-  max-height: 668px;
+.mentor-profile-form {
+  height: 90%;
+  overflow-y: scroll;
+  margin: 25px;
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: repeat(4, auto);
 }
 
-.user-information .response-box {
-  padding: 20px;
+.mentor-profile-form * {
+  border-radius: 0.5em;
+}
+
+.mentor-profile-form .response-box {
+  padding: 10px;
   height: fit-content;
 }
 
-.user-information .response-title {
+.mentor-profile-form .response-title {
   font-weight: 400;
   font-size: 20px;
   margin: 0px;
   margin-bottom: 15px;
 }
 
-.user-information .response-body {
+.mentor-profile-form .response-body {
   background-color: white;
   min-height: 45px;
   max-height: 45px;
@@ -36,15 +38,15 @@
   scrollbar-width: none; /* Firefox */
 }
 
-.user-information .response-body::-webkit-scrollbar {
+.mentor-profile-form .response-body::-webkit-scrollbar {
   display: none;
 }
 
-.user-information .response-text-lg {
+.mentor-profile-form .response-text-lg {
   white-space: nowrap;
 }
 
-.user-information .response-subtext {
+.mentor-profile-form .response-subtext {
   position: absolute;
   right: 10px;
   bottom: -10px;
@@ -53,74 +55,74 @@
   color: #8a8a8a;
 }
 
-.user-information .occupation {
+.mentor-profile-form .occupation {
   grid-column: 1/2;
   grid-row: 1/2;
 }
 
-.user-information .education {
+.mentor-profile-form .education {
   grid-column: 2/3;
   grid-row: 1/2;
 }
 
-.user-information .phone {
+.mentor-profile-form .phone {
   grid-column: 1/2;
   grid-row: 2/3;
 }
 
-.user-information .email {
+.mentor-profile-form .email {
   grid-column: 2/3;
   grid-row: 2/3;
 }
 
-.user-information .address {
+.mentor-profile-form .address {
   grid-column: 1/3;
   grid-row: 3/4;
 
   display: grid;
   grid-template-columns: 50% 50%;
-  grid-template-rows: 0.user-information .5fr repeat(4, 1fr);
+  grid-template-rows: 0.5fr repeat(4, 1fr);
   row-gap: 10px;
 }
 
-.user-information .address-title {
+.mentor-profile-form .address-title {
   grid-column: 1/2;
   grid-row: 1/2;
   margin-bottom: 0px;
 }
 
-.user-information .address1 {
+.mentor-profile-form .address1 {
   grid-column: 1/3;
   grid-row: 2/3;
   position: relative;
 }
 
-.user-information .address2 {
+.mentor-profile-form .address2 {
   grid-column: 1/3;
   grid-row: 3/4;
   position: relative;
 }
 
-.user-information .city {
+.mentor-profile-form .city {
   grid-column: 1/2;
   grid-row: 4/5;
   margin-right: 10px;
   position: relative;
 }
 
-.user-information .state {
+.mentor-profile-form .state {
   grid-column: 2/3;
   grid-row: 4/5;
   margin-left: 10px;
   position: relative;
 }
-.user-information .zip-code {
+.mentor-profile-form .zip-code {
   grid-column: 1/3;
   grid-row: 5/6;
   position: relative;
 }
 
-.user-information .background-check {
+.mentor-profile-form .background-check {
   grid-column: 1/3;
   grid-row: 4/5;
 }

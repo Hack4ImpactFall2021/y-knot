@@ -1,0 +1,24 @@
+.mentee-tile {
+  background-color: #f4f4f4;
+  border-radius: 15px;
+  border: 2px solid #c4c4c4;
+  width: 98%;
+  margin: 10px;
+  transition: 300ms all;
+}
+  
+.mentee-tile:first-child {
+  margin-top: 0;
+}
+
+.mentee-tile:hover {
+  background-color: hsl(0, 0%, 98%);
+  cursor: pointer;
+}
+  
+.mentee-name {
+  color: #45963b;
+  margin-left: 2em;
+}
+  
+  

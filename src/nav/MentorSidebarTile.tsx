@@ -6,17 +6,20 @@ import home_inactive from './assets/people_inactive.png';
 import settings_active from './assets/settings_active.png';
 import settings_inactive from './assets/settings_inactive.png';
 import profile_inactive from './assets/profile_inactive.png';
+import resources_active from './assets/resources_active.png';
+import resources_inactive from './assets/resources_inactive.png';
 
-import { NavRoutes } from './TraineeSidebar';
+import { NavRoutes } from './MentorSidebar';
 
 interface Props {
     route: NavRoutes,
-    selected: NavRoutes
+    selected: NavRoutes,
+    id: string
 }
 
 type routeToimageType = {[key in NavRoutes]: string}
 
-const TraineeSidebarTile: React.FC<Props> = ({route, selected}) => {
+const MentorSidebarTile: React.FC<Props> = ({route, selected, id}) => {
 
     const navigate = useNavigate();
     
@@ -24,7 +27,8 @@ const TraineeSidebarTile: React.FC<Props> = ({route, selected}) => {
 
     const routeToImage: routeToimageType = {
         [NavRoutes.Home]: isSelected ? home_active : home_inactive,
-        [NavRoutes.Settings]: isSelected ? settings_active : settings_inactive,
+        [NavRoutes.MentorSettings]: isSelected ? settings_active : settings_inactive,
+        [NavRoutes.Resources]: isSelected ? resources_active : resources_inactive,
         [NavRoutes.Profile]: profile_inactive
     }
 
@@ -35,13 +39,16 @@ const TraineeSidebarTile: React.FC<Props> = ({route, selected}) => {
 
         switch (route) {
             case NavRoutes.Home:
-                navigate('/trainee/home')
+                navigate('/mentor')
                 break;
-            case NavRoutes.Settings:
-                navigate('/settings')
+            case NavRoutes.MentorSettings:
+                navigate('/mentor/settings')
+                break;
+            case NavRoutes.Resources:
+                navigate('/mentor/resources')
                 break;
             case NavRoutes.Profile:
-                navigate('/');
+                navigate('/mentor/' + id);
                 break;
         }
     }
@@ -54,4 +61,4 @@ const TraineeSidebarTile: React.FC<Props> = ({route, selected}) => {
     );
 }
 
-export default TraineeSidebarTile;
+export default MentorSidebarTile;
