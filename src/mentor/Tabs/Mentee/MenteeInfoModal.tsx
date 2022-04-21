@@ -1,0 +1,165 @@
+
+import React, { useEffect, useState } from "react";
+
+import "./MenteeInfoModal.css";
+type Props = {
+  name: string
+  onCloseModal: () => void
+}
+
+const MenteeInfoModal: React.FC<Props> = ({ name, onCloseModal }) => {
+
+  /* RENDER FUNCTIONS */
+  const renderModalContent = () => {
+    return (
+      <div className="modal-content">
+
+      <div className="parent-guardian mentee-info-response-box">
+        <h1 className="mentee-info-response-title">Parent/Guardian's Name</h1>
+        <div className="mentee-info-response-body">
+          <p className="mentee-info-response-text"></p>
+        </div>
+      </div>
+
+      <div className="address mentee-info-response-box">
+        <h1 className="mentee-info-response-title">Address</h1>
+        <div className="address1">
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">Street Address 1</p>
+            </div>
+        </div>
+
+        <div className="address2">
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">Street Address 2</p>
+            </div>
+        </div>
+
+        <div className="city">
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">City</p>
+            </div>
+        </div>
+
+        <div className="state">
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">State/Province/Region</p>
+            </div>
+        </div>
+
+        <div className="zip-code">
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">Zip Code</p>
+            </div>
+        </div>
+        <div className="country">
+            <div className="mentee-info-response-body">
+                <p className="mentee-info-response-text"></p>
+                <p className="mentee-info-response-subtext">Country</p>
+            </div>
+        </div>
+      </div>
+
+      <div className="phone-age-grade">
+        <div className="phone mentee-info-response-box">
+          <h1 className="mentee-info-response-title">Phone Number</h1>
+          <div className="mentee-info-response-body">
+            <p className="mentee-info-response-text"></p>
+          </div>
+        </div>
+
+        <div className="age mentee-info-response-box">
+          <h1 className="mentee-info-response-title">Age</h1>
+          <div className="mentee-info-response-body">
+            <p className="mentee-info-response-text"></p>
+          </div>
+        </div>
+
+        <div className="grade mentee-info-response-box">
+          <h1 className="mentee-info-response-title">Grade</h1>
+          <div className="mentee-info-response-body">
+            <p className="mentee-info-response-text"></p>
+          </div>
+        </div>
+      </div>
+
+      <div className="email mentee-info-response-box">
+        <h1 className="mentee-info-response-title">Email</h1>
+        <div className="mentee-info-response-body">
+          <p className="mentee-info-response-text"></p>
+        </div>
+      </div>
+
+      <div className="school mentee-info-response-box">
+        <h1 className="mentee-info-response-title">School</h1>
+        <div className="mentee-info-response-body">
+          <p className="mentee-info-response-text"></p>
+        </div>
+      </div>
+
+      <div className="requested-by mentee-info-response-box">
+        <h1 className="mentee-info-response-title">Requested By</h1>
+        <div className="mentee-info-response-body">
+          <p className="mentee-info-response-text"></p>
+        </div>
+      </div>
+
+      <div className="position mentee-info-response-box">
+        <h1 className="mentee-info-response-title">Position</h1>
+        <div className="mentee-info-response-body">
+          <p className="mentee-info-response-text"></p>
+        </div>
+      </div>
+
+      <div className="assistance-areas mentee-info-response-box">
+        <h1 className="mentee-info-response-title">This child is being referred for assistance in the following areas</h1>
+        <div className="mentee-info-response-body-lg">
+          <p className="mentee-info-response-text"></p>
+        </div>
+      </div>
+
+      <div className="interests mentee-info-response-box">
+        <h1 className="mentee-info-response-title">What particular interests, either in school or out, do you know this child has?</h1>
+        <div className="mentee-info-response-body-lg">
+          <p className="mentee-info-response-text"></p>
+        </div>
+      </div>
+
+      <div className="strategies mentee-info-response-box">
+        <h1 className="mentee-info-response-title">What strategies/learning models might be effective for a Mentor working with this child?</h1>
+        <div className="mentee-info-response-body-lg">
+          <p className="mentee-info-response-text"></p>
+        </div>
+      </div>
+
+      <div className="subjects mentee-info-response-box">
+        <h1 className="mentee-info-response-title">With what specific academic subjects, if any, does the child need assistance?</h1>
+        <div className="mentee-info-response-body-lg">
+          <p className="mentee-info-response-text"></p>
+        </div>
+      </div>
+
+      <div className="additional-comments mentee-info-response-box">
+        <h1 className="mentee-info-response-title">Additional Comments:</h1>
+        <div className="mentee-info-response-body-lg">
+          <p className="mentee-info-response-text"></p>
+        </div>
+      </div>
+      </div>
+
+    );
+  }
+  return (
+    <div className="mentee-info-modal">
+      <h1 className="mentee-name">{name}</h1>
+      <span className="modal-close-btn" onClick={onCloseModal}>&times;</span>
+      {renderModalContent()}
+    </div>
+  );
+}
+export default MenteeInfoModal;
