@@ -22,6 +22,7 @@ export enum Endpoints{
     GetApplicant,
     GetApplicantForm,
     GetAllMentees,
+    GetMenteeForm,
     GetCurrentMentorOrTrainee,
     UpdateNote,
     UploadFile,
@@ -70,6 +71,8 @@ class NetworkManger {
             return this.getApplicant(params.submissionId);
           case Endpoints.GetApplicantForm:
             return this.getApplicantForm(params.id);
+          case Endpoints.GetMenteeForm:
+            return this.getMenteeForm(params.id);
           case Endpoints.GetAllMentees:
             return this.getAllMentees();
           case Endpoints.UpdateNote:
@@ -323,6 +326,26 @@ class NetworkManger {
     private getApplicantForm(id: string): Promise<JotformResponse> {
       return new Promise((resolve, reject) => {
         const getForm : any = httpsCallable(functions, "getApplicantForm");
+
+        getForm({"id": id})
+        .then( (response : any) => response.data)
+        .then((data: any) => {
+          console.log(data);
+          if (data.responseCode != 200) {
+            reject(new Error('invalid-id'))
+          } else {
+            resolve(data);
+          }
+        })
+        .catch((error : any) => {
+          reject(error)
+        });
+      })
+    }
+
+    private getMenteeForm(id: string): Promise<JotformResponse> {
+      return new Promise((resolve, reject) => {
+        const getForm : any = httpsCallable(functions, "getMenteeForm");
 
         getForm({"id": id})
         .then( (response : any) => response.data)
