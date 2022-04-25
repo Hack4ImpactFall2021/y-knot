@@ -22,6 +22,7 @@ export enum Endpoints{
     GetApplicant,
     GetApplicantForm,
     GetAllMentees,
+    SetRole,
     GetMenteeForm,
     GetCurrentMentorOrTrainee,
     UpdateNote,
@@ -75,6 +76,8 @@ class NetworkManger {
             return this.getMenteeForm(params.id);
           case Endpoints.GetAllMentees:
             return this.getAllMentees();
+          case Endpoints.SetRole:
+            return this.setRole(params.id, params.role);
           case Endpoints.UpdateNote:
             return this.updateNote(params.note, params.id, params.stage);
           case Endpoints.UploadFile:
@@ -292,6 +295,21 @@ class NetworkManger {
         
         })
       }); 
+    }
+
+    private setRole(id: string, role: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        const setRole = httpsCallable(functions, 'setUserRole');
+        getAuth().currentUser?.getIdToken().then((idToken) => {
+          setRole({uid: id, role: role, idToken: idToken}).then((response : any) => {
+            console.log("here2")
+            resolve();
+          }).catch((error) => {
+            console.log("here3")
+            reject();
+          });
+        });
+      });
     }
 
     // creates a new user in db

@@ -173,7 +173,7 @@ const Profile = () => {
             await NetworkManager.makeRequest(Endpoints.UpdateFirebaseId, {id: applicant?.submissionId, firebaseId: fid});
             console.log("updated firebase id")
              
-            // send email to reject applicant
+            // send email to accept applicant
             await NetworkManager.makeRequest(Endpoints.SendAcceptanceEmail, {email: email, name: applicant?.firstName + " " + applicant?.lastName, username: applicantLogin[0], password: applicantLogin[1]})
             console.log('sent email')
 
