@@ -30,9 +30,9 @@ const Settings = () => {
 
   useEffect(() => {
     getTrainee();
- })
+  }, []);
 
- const getTrainee: VoidFunction = async () => {
+ const getTrainee = async () => {
    try {
        let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
        snap = snap as QuerySnapshot<DocumentData>;
@@ -176,7 +176,7 @@ const Settings = () => {
   return (
     <>
     <div className="settings">
-      <TraineeSidebar selected={NavRoutes.Settings} id={trainee.id}/>
+      <TraineeSidebar selected={NavRoutes.Settings} id={trainee?.submission_id}/>
       <div className="settings-container">
         {
           message![1].length > 0 ?

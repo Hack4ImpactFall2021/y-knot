@@ -18,7 +18,7 @@ const Trainee: React.FC<Props> = () => {
 
   useEffect(() => {
      getTrainee();
-  })
+  }, []);
 
   const getTrainee: VoidFunction = async () => {
     try {

@@ -9,7 +9,7 @@ interface Props {
 const RequireTraineeAuth:React.FC<Props> = ({ children }) => {
 
     const auth = useAuth();
-    if (!auth.user || auth.token.claims.role != "trainee" || auth.token.claims.role != "admin") {
+    if (!auth.user || (auth.token.claims.role != "trainee" && auth.token.claims.role != "admin")) {
       return <Navigate to="/login" />;
     }
 

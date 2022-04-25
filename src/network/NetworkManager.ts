@@ -389,9 +389,11 @@ class NetworkManger {
       return new Promise((resolve, reject) => {
         getDocs(query(collection(db, "applicants"), where("firebase_id", "==", getAuth().currentUser?.uid)))
         .then(snap => {
+          console.log(snap.docs[0].data());
           resolve(snap);
         })
         .catch(error => {
+          console.log(error);
           reject(error)
         })
       });
