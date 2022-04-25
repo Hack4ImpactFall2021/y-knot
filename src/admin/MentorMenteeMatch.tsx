@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { MouseEventHandler, useState } from 'react';
+import {MentorForm} from '../utils/utils';
 
 import "./MentorMenteeMatch.css"
 import MenteeInfoBox from "./MenteeInfoBox"
 
-const mentorList = [
+
+
+const mentorList: MentorForm[] = [
   {
-      name: "Grace Ko"
-  },
-  {
-      name: "Angela Liu"
-  },
-  {
-      name: "Ash Genesan"
-  },
-  {
-      name: "Bobby Smith"
+      firstName: "Grace",
+      lastName: "Ko",
+      gender: "F",
+      age: 19,
+      schoolLevel: "High School",
+      describesYou: ["Outgoing", "Vibrant"],
+      interestsAndHobbies: ["Sports", "Reading"]
   }
 ];
 
 const MentorMenteeMatch = () => {
+
   return (
     <div className="mentor-mentee-match">
       <div className="mentor-mentee-match-header">
@@ -34,50 +35,26 @@ const MentorMenteeMatch = () => {
 
         <table className="mentor-table">
           <tr>
-            <th>Mentor</th>
-            <th>Mentees</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>School Level</th>
-            <th>Best Describes You</th>
-            <th>Interests and Hobbies</th>
+            <th className="mentor-table-header">Mentor</th>
+            <th className="mentor-table-header">Mentees</th>
+            <th className="mentor-table-header">Gender</th>
+            <th className="mentor-table-header">Age</th>
+            <th className="mentor-table-header">School Level</th>
+            <th className="mentor-table-header">Best Describes You</th>
+            <th className="mentor-table-header">Interests and Hobbies</th>
           </tr>
-          <tr>
-            <td className="mentor-table-cell">Grace Ko</td>
-            <td className="mentor-table-cell">3</td>
-            <td className="mentor-table-cell">F</td>
-            <td className="mentor-table-cell">19</td>
-            <td className="mentor-table-cell">High School</td>
-            <td className="mentor-table-cell"></td>
-            <td className="mentor-table-cell"></td>
-          </tr>
-          <tr>
-            <td className="mentor-table-cell">Angela Liu</td>
-            <td className="mentor-table-cell"></td>
-            <td className="mentor-table-cell">F</td>
-            <td className="mentor-table-cell">19</td>
-            <td className="mentor-table-cell">Elementary</td>
-            <td className="mentor-table-cell"></td>
-            <td className="mentor-table-cell"></td>
-          </tr>
-          <tr>
-            <td className="mentor-table-cell">Angela Liu</td>
-            <td className="mentor-table-cell"></td>
-            <td className="mentor-table-cell">F</td>
-            <td className="mentor-table-cell">19</td>
-            <td className="mentor-table-cell">Elementary</td>
-            <td className="mentor-table-cell"></td>
-            <td className="mentor-table-cell"></td>
-          </tr>
-          <tr>
-            <td className="mentor-table-cell">Bobby Smith</td>
-            <td className="mentor-table-cell"></td>
-            <td className="mentor-table-cell">M</td>
-            <td className="mentor-table-cell">25</td>
-            <td className="mentor-table-cell">Elementary</td>
-            <td className="mentor-table-cell"></td>
-            <td className="mentor-table-cell"></td>
-          </tr>
+          
+          {mentorList.map((mentor) => {
+              return <tr className="mentor-table-row-clickable">
+                <td className="mentor-table-cell mentor-table-cell-left">{mentor.firstName + " " + mentor.lastName}</td>
+                <td className="mentor-table-cell">3</td>
+                <td className="mentor-table-cell">F</td>
+                <td className="mentor-table-cell">19</td>
+                <td className="mentor-table-cell">High School</td>
+                <td className="mentor-table-cell"></td>
+                <td className="mentor-table-cell mentor-table-cell-right"></td>
+              </tr>;
+          })}
         </table>
     </div>
   );

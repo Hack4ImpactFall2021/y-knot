@@ -11,11 +11,32 @@
 
 .mentor-table {
   border-top: none;
+  width: 90%;
+  margin: 5%;
   border-spacing: 0;
 }
 
 .mentor-table-cell {
-  border: 0.4px black;
-  padding-left: 80px;
-  padding-right: 80px;
+  border: 0.4px solid gray;
+  width: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.mentor-table-cell-left {
+  border-left: 0.4px solid white;
+}
+
+.mentor-table-cell-right {
+  border-right: 0.4px solid white;
+}
+
+.mentor-table-header {
+  border-bottom: 4px solid black;
+  padding-bottom: 0.5%;
+}
+
+.mentor-table-row-clickable:hover{
+  background-color: lightgray;
+  cursor: pointer;
 }
