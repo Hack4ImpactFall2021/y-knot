@@ -176,7 +176,7 @@ const Settings = () => {
   return (
     <>
     <div className="settings">
-      <TraineeSidebar selected={NavRoutes.Settings} id={trainee?.submission_id}/>
+      <TraineeSidebar selected={NavRoutes.Settings}/>
       <div className="settings-container">
         {
           message![1].length > 0 ?

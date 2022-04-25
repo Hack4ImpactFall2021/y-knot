@@ -32,7 +32,7 @@ const Trainee: React.FC<Props> = () => {
 
   return (
     <div className="dashboard trainee-dashboard"> 
-      <TraineeSidebar selected={NavRoutes.Home} id={trainee?.submission_id}/>
+      <TraineeSidebar selected={NavRoutes.Home}/>
       <div className="dashboard-container wrapper">
         <div className="trainee-landing">
           <div className="heading-wrapper">
