@@ -4,7 +4,6 @@ import NetworkManager, { Endpoints } from '../../network/NetworkManager';
 import { Applicant, JotformResponse } from '../../utils/utils';
 import { Tabs } from '../TProfile';
 import TraineeProfile from '../YourProfilePage/TraineeProfile';
-import Training from '../TrainingPage/Training';
 
 type Props = {
     type: string,
@@ -48,8 +47,6 @@ const Content: React.FC<Props> = ({ type, data, applicant}) => {
         switch (type) {
             case Tabs.TraineeProfile:
                 return (<TraineeProfile data={data} />);
-            case Tabs.Training:
-                return (<Training/>);
             default:
                 return null;
         }
