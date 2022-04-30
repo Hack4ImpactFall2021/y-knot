@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
+import NetworkManager, { Endpoints } from '../network/NetworkManager';
+import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 import "./MentorLanding.css";
 import logo from "../login/assets/logo.png";
 import mentoring from "./assets/mentoring_landing.jpg"
@@ -13,13 +15,30 @@ interface Props {
 
 const MentorLanding: React.FC<Props> = () => {
   const name = "Jason";
+
+  const [trainee, setTrainee] = useState<any>();
+
+  useEffect(() => {
+     getMentor();
+  }, []);
+
+  const getMentor: VoidFunction = async () => {
+    try {
+        let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
+        snap = snap as QuerySnapshot<DocumentData>;
+        setTrainee(snap.docs[0].data());
+    } catch(err) {
+        console.log(err);
+    }
+  }
+
   return (
     <div className="dashboard mentor-dashboard"> 
       <MentorSidebar selected={NavRoutes.Home}/>
       <div className="dashboard-container wrapper">
         <div className="mentoring-landing">
           <div className="heading-wrapper">
-            <h1>Welcome, {name}!</h1>
+            <h1>Welcome, {trainee?.first_name}!</h1>
             <img src={logo} alt="Where is the logo?"/> 
           </div>
 

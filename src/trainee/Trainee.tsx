@@ -12,8 +12,6 @@ interface Props {
 };
 
 const Trainee: React.FC<Props> = () => {
-  const name = "Jason";
-  const [percentCompleted, setPercentCompleted] = useState(75);
   const [trainee, setTrainee] = useState<any>();
 
   useEffect(() => {
@@ -39,7 +37,7 @@ const Trainee: React.FC<Props> = () => {
             <h1>Welcome, {trainee?.first_name}!</h1>
             <img src={logo} alt="Where is the logo?"/> 
           </div>
-          <div className="progress-bar-wrapper"><ProgressBar fillAmount={percentCompleted}/></div>
+          <div className="progress-bar-wrapper"><ProgressBar fillAmount={75}/></div>
             <div className="training-btn-wrapper">
             <a target="_blank" href="https://y-knotinc.thinkific.com/">
                 <button className="training-btn">

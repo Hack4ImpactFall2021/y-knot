@@ -345,40 +345,45 @@ class NetworkManger {
       return new Promise((resolve, reject) => {
         const getForm : any = httpsCallable(functions, "getApplicantForm");
 
-        getForm({"id": id})
-        .then( (response : any) => response.data)
-        .then((data: any) => {
-          console.log(data);
-          if (data.responseCode != 200) {
-            reject(new Error('invalid-id'))
-          } else {
-            resolve(data);
-          }
+        getAuth().currentUser?.getIdToken()
+        .then((idToken) => {
+          getForm({"id": id, idToken: idToken}) 
+          .then( (response : any) => response.data)
+          .then((data: any) => {
+            console.log(data);
+            if (data.responseCode != 200) {
+              reject(new Error('invalid-id'))
+            } else {
+              resolve(data);
+            }
+          })
+          .catch((error : any) => {
+            reject(error)
+          });
         })
-        .catch((error : any) => {
-          reject(error)
-        });
       })
     }
 
     private getMenteeForm(id: string): Promise<JotformResponse> {
       return new Promise((resolve, reject) => {
         const getForm : any = httpsCallable(functions, "getMenteeForm");
-
-        getForm({"id": id})
-        .then( (response : any) => response.data)
-        .then((data: any) => {
-          console.log(data);
-          if (data.responseCode != 200) {
-            reject(new Error('invalid-id'))
-          } else {
-            resolve(data);
-          }
+        getAuth().currentUser?.getIdToken()
+        .then((idToken) => {
+          getForm({"id": id, "idToken": idToken})
+          .then( (response : any) => response.data)
+          .then((data: any) => {
+            console.log(data);
+            if (data.responseCode != 200) {
+              reject(new Error('invalid-id'))
+            } else {
+              resolve(data);
+            }
+          })
+          .catch((error : any) => {
+            reject(error)
+          });
         })
-        .catch((error : any) => {
-          reject(error)
-        });
-      })
+      });
     }
 
     private getAllMentees(): Promise<any> {
