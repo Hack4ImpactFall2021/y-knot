@@ -372,7 +372,6 @@ class NetworkManger {
           getForm({"id": id, "idToken": idToken})
           .then( (response : any) => response.data)
           .then((data: any) => {
-            console.log(data);
             if (data.responseCode != 200) {
               reject(new Error('invalid-id'))
             } else {

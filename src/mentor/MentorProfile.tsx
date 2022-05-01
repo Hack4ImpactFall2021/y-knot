@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { DocumentData, DocumentSnapshot } from "firebase/firestore";
+import { QuerySnapshot, DocumentData, DocumentSnapshot } from "firebase/firestore";
 import { useNavigate, useParams } from "react-router-dom";
 
 import NetworkManager, { Endpoints } from "../network/NetworkManager";
-import { Applicant, JotformResponse } from "../utils/utils";
+import { Applicant, JotformResponse, MenteeForm } from "../utils/utils";
 import close from "../profile/assets/close.png";
 
 import MentorInfo from "./Tabs/MentorInfo/MentorInfo";
@@ -19,14 +19,53 @@ const MentorProfile = () => {
   const { id } = useParams();
   const [applicant, setApplicant] = useState<Applicant | null>(null);
   const [formData, setFormData] = useState<JotformResponse | null>(null);
+  const [menteeList, setMenteeList] = useState<MenteeForm[]>([]);
 
   const [tab, setTab] = useState<string>(Tabs.MentorInfo);
 
   useEffect(() => {
     getApplicant();
     getApplicantForm();
+    getMentees();
   }, []);
 
+  const getMentees = async () => {
+    try {
+      let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
+      snap = snap as QuerySnapshot<DocumentData>;
+      const menteeIds = snap.docs[0].data().mentee_ids;
+      const menteeData = [];
+      for( let id of menteeIds ) {
+        let data = await NetworkManager.makeRequest(Endpoints.GetMenteeForm, {id: id});
+        data = data.content.answers;
+        let mentee : MenteeForm;
+        mentee = {
+          parentName: data['100']?.answer?.first + " " + data['100']?.answer?.last,
+          childName: data['103']?.answer?.first + " " + data['103']?.answer?.last,
+          streetAddress: data['3']?.answer,
+          city: data['4']?.answer,
+          state: data['5']?.answer,
+          zip: data['6']?.answer,
+          phoneNumber: data['7']?.answer,
+          age: data['9']?.answer,
+          gender: data['11']?.answer,
+          school: data['101']?.answer,
+          requestedBy: data['102']?.answer,
+          whyBenefit: data['109']?.answer,
+          subjects: data['110']?.answer,
+          otherComments: data['111']?.answer,
+          areas: data['105']?.answer,
+          interests: data['106']?.answer,
+          bestDescribes: data['107']?.answer,
+        };
+        menteeData.push(mentee);
+      }
+      console.log(menteeData);
+      setMenteeList(menteeData);
+    } catch (error) {
+
+    }
+  }
 
   const getApplicant = async () => {
     try {
@@ -74,7 +113,7 @@ const MentorProfile = () => {
     return tabs;
   }
 
-  const getTabContents = (tab: string, formData: JotformResponse | null, menteeList: { name: string }[]) => {
+  const getTabContents = (tab: string, formData: JotformResponse | null, menteeList: MenteeForm[]) => {
     switch (tab) {
       case Tabs.MentorInfo:
         return (
@@ -92,39 +131,6 @@ const MentorProfile = () => {
         return null;
     }
   }
-
-  const menteeList = [
-      {
-          name: "Jason Cavanaugh"
-      },
-      {
-          name: "Amanda Liu"
-      },
-      {
-          name: "Jason Cavanaugh"
-      },
-      {
-          name: "Amanda Liu"
-      },
-      {
-          name: "Jason Cavanaugh"
-      },
-      {
-          name: "Amanda Liu"
-      },
-      {
-          name: "Jason Cavanaugh"
-      },
-      {
-          name: "Amanda Liu"
-      },
-      {
-          name: "Jason Cavanaugh"
-      },
-      {
-          name: "Amanda Liu"
-      },
-  ];
 
   if (!applicant) {
     return (<div></div>);

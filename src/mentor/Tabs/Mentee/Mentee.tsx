@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import MenteeTabItem from "./MenteeTabItem";
 import MenteeInfoModal from "./MenteeInfoModal";
+import { MenteeForm } from "../../../utils/utils";
 
 import "./Mentee.css";
 type Props = {
-    mentees: any[]
+    mentees: MenteeForm[]
 }
 /*
 mentee -> list of mentee objects
@@ -13,28 +14,27 @@ mentee -> list of mentee objects
 
 */
 const Mentee: React.FC<Props> = ({ mentees }) => {
-  const [name, setModal] = useState("");
-
+  const [mentee, setModal] = useState<MenteeForm>();
 
   /* RENDER FUNCTIONS */
-  const renderModal = (name: string) => {
-    if (!name) return;
+  const renderModal = (mentee: MenteeForm | undefined) => {
+    if (!mentee) return;
     return (
       <MenteeInfoModal 
-        name={name}
-        onCloseModal={() => setModal("")}
+        mentee={mentee}
+        onCloseModal={() => setModal(undefined)}
       />
     );
   }
 
   return (
     <div className="mentee-list">
-      {renderModal(name)}
+      {renderModal(mentee)}
       {mentees.map((ment, idx) => 
         <MenteeTabItem 
           key={idx}
-          name={ment.name}
-          onClick={(name) => setModal(name)}
+          name={ment.childName}
+          onClick={() => setModal(ment)}
         />)
       }
     </div>

@@ -10,6 +10,25 @@ export const stagesToText: stagesToTextType = {
     [ApplicantStages.Rejected]: 'Rejected'
 }
 
+export type MenteeForm = {
+    parentName: string,
+    childName: string,
+    streetAddress: string,
+    city: string,
+    state: string,
+    zip: string,
+    phoneNumber: string,
+    age: string,
+    gender: string,
+    school: string,
+    requestedBy: string,
+    areas: string[],
+    interests: string[],
+    bestDescribes: string[],
+    whyBenefit: string,
+    subjects: string,
+    otherComments: string
+}
 
 export type Applicant = {
     firstName: string,
