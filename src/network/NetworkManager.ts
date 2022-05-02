@@ -8,6 +8,8 @@ import secondaryApp from "../config/secondaryFirebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import UserInformation from "../profile/UserInformation/UserInformation";
+import { resolve } from "dns";
+import { rejects } from "assert";
 
 const functions = getFunctions();
 
@@ -29,6 +31,7 @@ export enum Endpoints{
     UploadFile,
     GetFiles,
     GetLoginId,
+    MatchMentee,
     UpdateStage,
     UpdateFirebaseId,
     SendInterviewEmail,
@@ -60,6 +63,8 @@ class NetworkManger {
             return this.authenticateUser(params.email, params.password);
           case Endpoints.GetAllApplicants:
             return this.getAllApplicants();
+          case Endpoints.MatchMentee:
+            return this.matchMentee(params.menteeId, params.mentorId);
           case Endpoints.UpdateEmail:
             return this.updateUserEmail(params.email);
           case Endpoints.UpdatePassword:
@@ -336,6 +341,12 @@ class NetworkManger {
               reject(error);
             })
         })
+      });
+    }
+
+    private matchMentee(menteeId: string, mentorId: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        resolve();
       });
     }
 
