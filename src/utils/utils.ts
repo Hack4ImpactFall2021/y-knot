@@ -41,6 +41,31 @@ export type Applicant = {
     createdAt: string
 }
 
+export type Mentor = {
+    firstName: string,
+    lastName: string,
+    email: string,
+    phoneNumber: string,
+    stage: ApplicantStages,
+    submissionId: string,
+    notes?: string,
+    createdAt: string,
+    menteeIds: string[]
+    firebaseId: string
+}
+
+export type Trainee = {
+    firstName: string,
+    lastName: string,
+    email: string,
+    phoneNumber: string,
+    stage: ApplicantStages,
+    submissionId: string,
+    notes?: string,
+    createdAt: string,
+    firebaseId: string
+}
+
 export type JotformResponse = {
     responseCode: number,
     message: string,

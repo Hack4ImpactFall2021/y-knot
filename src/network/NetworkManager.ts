@@ -2,7 +2,7 @@ import { AuthError, User } from "@firebase/auth";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword, sendPasswordResetEmail} from "firebase/auth";
 import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot, QuerySnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy, limit} from "firebase/firestore"
 
-import { Applicant, ApplicantStages, JotformResponse } from "../utils/utils";
+import { Applicant, ApplicantStages, JotformResponse, Mentor, Trainee } from "../utils/utils";
 import app, {db, storage } from "../config/firebase";
 import secondaryApp from "../config/secondaryFirebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
@@ -18,6 +18,8 @@ export enum Endpoints{
     GetAllApplicants,
     GetAcceptedApplicants,
     GetRejectedApplicants,
+    GetTrainees,
+    GetMentors,
     UpdateEmail,
     UpdatePassword,
     CreateNewUser,
@@ -105,6 +107,10 @@ class NetworkManger {
               return this.sendAcceptanceEmail(params.email, params.name, params.username, params.password);
           case Endpoints.GetAcceptedApplicants:
               return this.getAcceptedApplicants();
+          case Endpoints.GetTrainees:
+              return this.getAllTrainees();
+          case Endpoints.GetMentors:
+              return this.getAllMentors
           case Endpoints.GetRejectedApplicants:
               return this.getRejectedApplicants();    
           case Endpoints.GetCalendlyLink:
@@ -224,6 +230,63 @@ class NetworkManger {
       })
     }
 
+    private getAllMentors(): Promise<Mentor[]> {
+      return new Promise((resolve, reject) => {
+        getDocs(query(collection(db, "applicants"), where("stage", "==", "MENTOR"), orderBy("createdAt", "desc")))
+        .then((docs) => {
+          let mentors: Mentor[] = [];
+          docs.forEach((doc) => {
+            let data = doc.data();
+            const mentor: Mentor = {
+              firstName: data.first_name,
+              lastName: data.last_name,
+              email: data.email,
+              phoneNumber: data.phone_number,
+              submissionId: data.submission_id,
+              stage: data.stage,
+              notes: data.notes,
+              createdAt: data.createdAt,
+              firebaseId: data.firebase_id,
+              menteeIds: data.mentee_ids
+            };
+            mentors.push(mentor);
+          });
+          resolve(mentors);
+        })
+        .catch((error) => {
+          reject(error);
+        })
+      })
+    }
+
+    private getAllTrainees(): Promise<Trainee[]> {
+      return new Promise((resolve, reject) => {
+        getDocs(query(collection(db, "applicants"), where("stage", "==", "TRAINEE"), orderBy("createdAt", "desc")))
+        .then((docs) => {
+          let trainees: Trainee[] = [];
+          docs.forEach((doc) => {
+            let data = doc.data();
+            const trainee: Trainee = {
+              firstName: data.first_name,
+              lastName: data.last_name,
+              email: data.email,
+              phoneNumber: data.phone_number,
+              submissionId: data.submission_id,
+              stage: data.stage,
+              notes: data.notes,
+              createdAt: data.createdAt,
+              firebaseId: data.firebase_id
+            };
+            trainees.push(trainee);
+          });
+          resolve(trainees);
+        })
+        .catch((error) => {
+          reject(error);
+        })
+      })
+    }
+
     private getRejectedApplicants(): Promise<Applicant []> {
       return new Promise((resolve, reject) => {
         getDocs(query(collection(db, "applicants"), where("stage", "==", "REJECTED"), orderBy("createdAt", "desc")))
@@ -307,10 +370,10 @@ class NetworkManger {
         const setRole = httpsCallable(functions, 'setUserRole');
         getAuth().currentUser?.getIdToken().then((idToken) => {
           setRole({uid: id, role: role, idToken: idToken}).then((response : any) => {
-            console.log("here2")
-            resolve();
+            updateDoc(doc(db, 'applicants', id), {stage: role.toUpperCase()})
+            .then(() => resolve())
+            .catch(error => reject(error));
           }).catch((error) => {
-            console.log("here3")
             reject();
           });
         });
