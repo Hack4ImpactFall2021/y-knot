@@ -14,7 +14,6 @@ interface Props {
 };
 
 const MentorLanding: React.FC<Props> = () => {
-  const name = "Jason";
 
   const [trainee, setTrainee] = useState<any>();
 
@@ -24,11 +23,11 @@ const MentorLanding: React.FC<Props> = () => {
 
   const getMentor: VoidFunction = async () => {
     try {
-        let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
-        snap = snap as QuerySnapshot<DocumentData>;
-        setTrainee(snap.docs[0].data());
+      let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
+      snap = snap as QuerySnapshot<DocumentData>;
+      setTrainee(snap.docs[0].data());
     } catch(err) {
-        console.log(err);
+      console.log(err);
     }
   }
 
