@@ -14,6 +14,7 @@
   justify-content: flex-start;
   gap: 1.25em;
 }
+
 /* Header */
 .admin-trainees .header-wrapper {
   padding-top: 5px;
@@ -25,7 +26,7 @@
   align-items: center;
 }
 
-/* Trainees */
+/* Trainees Dashboard */
 .admin-trainees 
 .trainee-dashboard  {
   border-radius: 15px;
@@ -34,7 +35,8 @@
   margin-left: 10px;
   height: 80vh;
 }
-/* Trainees Header (Title and Searchbar) */
+
+/* Trainees Dashboard -> Header */
 .admin-trainees 
 .trainee-dashboard 
 .header-wrapper {
@@ -44,11 +46,13 @@
   margin: 0 auto;
   height: 13%;
 }
-/* Trainee Header - Title */
+
+/* Trainees Dashboard -> Header -> Title */
 .admin-trainees .trainee-dashboard .header-wrapper h3 {
   font-size: 1.4em;
 }
-/* Trainee Header - Searchbar */
+
+/* Trainees Dashboard -> Header -> Searchbar */
 .admin-trainees 
 .trainee-dashboard 
 .header-wrapper
@@ -73,7 +77,7 @@
   opacity: 1.2;
 }
 
-/* Trainees List */
+/* Trainess Dashboard -> Trainees List */
 .admin-trainees 
 .trainee-dashboard 
 .trainee-list {
@@ -88,6 +92,7 @@
   flex-direction: column;
 }
 
+/* Trainess Dashboard -> Trainees List -> Trainees List Item */
 .admin-trainees 
 .trainee-dashboard 
 .trainee-list 
@@ -126,25 +131,4 @@
   margin: 0;
   font-size: 1.25em;
   font-weight: 700;
-}
-
-/* TEMPORARY STYLES */
-.admin-trainees:hover {
-  /* border: 1px dashed darkcyan; */
-}
-.admin-trainees .wrapper:hover {
-  /* border: 1px dashed aquamarine; */
-}
-.admin-trainees 
-.trainee-dashboard:hover {
-  /* border: 1px dashed orange; */
-
-}
-.admin-trainees .header-wrapper:hover {
-  /* border: 1px dashed salmon; */
-}
-.admin-trainees 
-.trainee-dashboard 
-.trainee-list {
-  /* border: 1px dashed red; */
 }

@@ -38,7 +38,7 @@ interface SidebarTileInfo {
   contentComponent: JSX.Element
 }
 
-export const NavRoutes = {
+export const NavRoutes: { [key in NavRouteOptions]: SidebarTileInfo}= {
   [NavRouteOptions.Home]: {
     name: NavRouteOptions.Home,
     route: "/admin",
@@ -70,13 +70,13 @@ export const NavRoutes = {
     activeIcon: settings_active,
     inactiveIcon: settings_inactive,
     contentComponent: <AdminSettings/>
-  }
+  },
 }
 
 //This is where the sidebar stuff actually starts
 interface Props {
-    selected: NavRouteOptions,
-    routes: NavRouteOptions[]
+  selected: NavRouteOptions,
+  routes: NavRouteOptions[]
 }
 
 const AdminSidebar: React.FC<Props> = ({ selected, routes }) => {
