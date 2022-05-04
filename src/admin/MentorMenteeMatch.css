@@ -4,11 +4,62 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+/* Header */
 .mentor-mentee-match-header {
-  margin-top: 80px;
-  margin-left: 50px;
+  padding: 50px 70px 0px 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
+
+/* Mentee Name */
+.mentee-name {
+  color: #10275b;
+}
+
+/* Assign Button */
+.assign-btn {
+  background-color: #98db5f;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  font-weight:500;
+  font-size: 1.1em;
+}
+
+.assign-btn:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.assign-icon {
+  width: 30px;
+  padding: 0 10px;
+}
+
+/* Mentee Info Box */
+.mentee-info-box {
+  background-color: #f4f4f4;
+  border-radius: 10px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content:flex-end;
+  padding-left: 20px;
+  margin-left: 70px;
+  border: 1px solid #8a8a8a;
+}
+.mentee-info-text {
+  margin: 10px 0px;
+  font-weight: 500;
+  color: black;
+}
+
+/* Mentor Table */
 .mentor-table {
   border-top: none;
   width: 90%;
@@ -16,20 +67,38 @@
   border-spacing: 0;
 }
 
+
 .mentor-table-cell {
-  border: 0.4px solid gray;
-  width: 10%;
-  padding-left: 5%;
-  padding-right: 5%;
+  border: 1px solid #cfcfcf;
+  padding: 10px 10px;
 }
 
 .mentor-table-cell-left {
-  border-left: 0.4px solid white;
+  border-left: none;
 }
 
 .mentor-table-cell-right {
-  border-right: 0.4px solid white;
+  border-right: none;
 }
+
+.mentor-table-cell .describes-you {
+  width: 100%;
+  display: flex;
+  gap: 0.25em;
+  flex-wrap: wrap;
+}
+
+.mentor-table-cell .describes-you .descriptor {
+  border-radius: 5px;
+  border: none;
+  background-color: #98db5f;
+  padding: 10px 20px;
+  flex-grow: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 
 .mentor-table-header {
   border-bottom: 4px solid black;
@@ -39,4 +108,8 @@
 .mentor-table-row-clickable:hover{
   background-color: lightgray;
   cursor: pointer;
+}
+
+.mentor-table-row.selected {
+  background-color: lightgray;
 }
