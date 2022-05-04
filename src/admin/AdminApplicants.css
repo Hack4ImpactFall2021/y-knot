@@ -131,9 +131,3 @@
   font-size: 1.25em;
   font-weight: 700;
 }
-/* Temporary styles */
-.admin-applicants 
-.applicant-stage-filters-wrapper
-.applicant-stage-filter:hover {
-  border: 1px dashed red;
-}

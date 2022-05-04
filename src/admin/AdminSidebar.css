@@ -10,15 +10,3 @@
 
 
 }
-
-
-
-
-/* Temporary styles */
-.admin .admin-sidebar:hover {
-  border: 1px dashed turquoise;
-}
-.admin .admin-sidebar .admin-sidebar-tiles:hover {
-  border: 1px dashed red;
-
-}
