@@ -1,9 +1,8 @@
+import Settings from "../settings/Settings";
 
 const AdminSettings = () => {
   return (
-    <div className="admin-settings">
-      Admin Settings
-    </div>
+    <Settings />
   );
 }
 

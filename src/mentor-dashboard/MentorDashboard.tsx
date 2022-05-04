@@ -74,7 +74,7 @@ const Dashboard = () => {
 
     return (
         <div className='dashboard'> 
-            <Sidebar selected={NavRoutes.Dashboard}/>
+            <Sidebar selected={NavRoutes.Home}/>
             <div className="dashboard-container">
                 <div className='dashboard-content'>
                     <h1>Dashboard</h1>

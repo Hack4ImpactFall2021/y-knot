@@ -14,7 +14,7 @@ const PersonTile: React.FC<Props> = ({person}) => {
     const navigate = useNavigate();
     const handleClick = () => {
         if (person.stage == ApplicantStages.New)
-            navigate('/mentee/' + person.submissionId)
+            navigate('/admin/matching')
         else if (person.stage == ApplicantStages.Interviewing)
             navigate('/mentor/' + person.submissionId)
     }

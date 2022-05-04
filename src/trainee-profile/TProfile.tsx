@@ -8,7 +8,7 @@ import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { Applicant, JotformResponse } from '../utils/utils';
 import close from '../profile/assets/close.png';
 
-export enum Tabs { TraineeProfile = "Your Profile" , Training = "Training"};
+export enum Tabs { TraineeProfile = "Your Profile"};
 
 const TProfile = () => {
     const navigate = useNavigate();

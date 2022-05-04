@@ -5,10 +5,10 @@ import SidebarTile from './SidebarTile/SidebarTile';
 import logout from './assets/logout.png';
 import { useNavigate } from 'react-router-dom';
 
-export enum NavRoutes {Dashboard = "Dashboard", History = "History", Settings = "Settings", Home = "Home"}
+export enum NavRoutes {Home = "Home", Trainees = "Trainees", Applicants = "Applicants", Settings = "Settings"}
 
 interface Props {
-    selected: NavRoutes
+    selected: NavRoutes 
 }
 
 const Sidebar: React.FC<Props> = ({selected}) => {

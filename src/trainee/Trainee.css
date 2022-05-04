@@ -15,7 +15,6 @@
   display: flex;
   justify-content: center;
 }
-<<<<<<< HEAD
 .thinkific-gif {
   height: auto;
   justify-content: center;
@@ -29,14 +28,11 @@
   display: flex;
   justify-content: flex-end;
 }
-=======
->>>>>>> admin-dashboard
 .progress-bar-wrapper {
   margin: 2em 0em;
   display: flex;
   justify-content: center;
 }
-<<<<<<< HEAD
 .first-time-msg {
   background-color: white;
   padding: 15px;
@@ -46,8 +42,6 @@
   margin: 2%;
   font-weight: bold;
 }
-=======
->>>>>>> admin-dashboard
 .training-btn {
   background-color: #0e204d;
   color: white;
@@ -60,10 +54,6 @@
   cursor: pointer;
   filter: brightness(1.2);
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> admin-dashboard
 .heading-wrapper {
   display: flex;
   justify-content: space-between;

@@ -24,10 +24,10 @@ const SidebarTile: React.FC<Props> = ({route, selected}) => {
     const isSelected: boolean = route === selected
 
     const routeToImage: routeToimageType = {
-        [NavRoutes.Dashboard]: isSelected ? dashboard_active : dashboard_inactive,
-        [NavRoutes.History]: isSelected ? history_active : history_inactive,
-        [NavRoutes.Settings]: isSelected ? settings_active: settings_inactive,
-        [NavRoutes.Home]: isSelected ? settings_active: settings_inactive
+        [NavRoutes.Home]: isSelected ? dashboard_active : dashboard_inactive,
+        [NavRoutes.Trainees]: isSelected ? history_active : history_inactive,
+        [NavRoutes.Applicants]: isSelected ? settings_active: settings_inactive,
+        [NavRoutes.Settings]: isSelected ? settings_active: settings_inactive
     }
 
 
@@ -36,19 +36,19 @@ const SidebarTile: React.FC<Props> = ({route, selected}) => {
         if (isSelected) return;
 
         switch (route) {
-            case NavRoutes.Dashboard:
+            case NavRoutes.Home:
+                navigate('/admin')
+                break;
+
+            case NavRoutes.Trainees:
+                navigate('/admin/trainees')
+                break;
+
+            case NavRoutes.Applicants:
                 navigate('/')
                 break;
-
-            case NavRoutes.History:
-                navigate('/history')
-                break;
-
             case NavRoutes.Settings:
-                navigate('/settings')
-                break;
-            case NavRoutes.Home:
-                navigate('/trainee/home');
+                navigate('/settings');
                 break;
         }
     }

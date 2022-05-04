@@ -70,7 +70,7 @@ const Login: React.FC<any> = () => {
       if (currentUser != null) {
         let token = await currentUser.getIdTokenResult();
         if (token.claims.role == "admin") {
-          navigate('/');
+          navigate('/admin');
         } else if (token.claims.role == "trainee") {
           navigate('/trainee/home');
         } else if (token.claims.role == "mentor") {

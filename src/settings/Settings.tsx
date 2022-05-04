@@ -159,7 +159,6 @@ const Settings = () => {
   return (
     <>
     <div className="settings">
-      <Sidebar selected={NavRoutes.Settings}/>
       <div className="settings-container">
         {
           message![1].length > 0 ?

@@ -73,10 +73,9 @@ const Dashboard = () => {
 
   return (
     <div className='dashboard'> 
-      <Sidebar selected={NavRoutes.Dashboard}/>
       <div className="dashboard-container">
         <div className='dashboard-content'>
-          <h1>Dashboard</h1>
+          <h1>Applicants</h1>
           <div className="dashboard-filters">
           <FilterButton key={'all_applicants'} type={null} count={allApplicants.length} onClick={() => handleFilterChange(null)} selected={null}/>
             {

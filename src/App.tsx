@@ -19,6 +19,14 @@ import MentorLanding from './mentor-landing/MentorLanding';
 import Trainee from "./trainee/Trainee";
 import MentorSettings from './settings/MentorSettings';
 import MentorResources from './mentor/MentorResources';
+import MentorMenteeMatch from "./admin/MentorMenteeMatch";
+import MenteeProfile from './mentee/MenteeProfile';
+
+// Admin stuff
+import { NavRouteOptions as AdminNavRouteOptions } from "./admin/AdminSidebar";
+import { NavRoutes as AdminNavRoutes } from "./admin/AdminSidebar";
+import Admin from "./admin/Admin";
+
 
 const App = () => {
     
@@ -40,6 +48,25 @@ const App = () => {
                     <Route path='/mentor/settings' element={<RequireMentorAuth children={<MentorSettings/>} />}/>
                     <Route path='/mentor/resources' element={<RequireMentorAuth children={<MentorResources/>} />}/>
                     <Route path='/mentor/:id' element={<RequireMentorAuth children={<MentorProfile />}/>} />
+
+                    <Route path='/admin/matching' element={<RequireAdminAuth children={<MentorMenteeMatch />}/>} />
+                    <Route
+            path={AdminNavRoutes[AdminNavRouteOptions.Home].route}
+            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Home}/>}/>}
+          />
+          <Route
+            path={AdminNavRoutes[AdminNavRouteOptions.Trainee].route}
+            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Trainee}/>}/>}
+          />
+          <Route
+            path={AdminNavRoutes[AdminNavRouteOptions.Applicants].route}
+            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Applicants}/>}/>}
+          />
+          <Route
+            path={AdminNavRoutes[AdminNavRouteOptions.Settings].route}
+            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Settings}/>}/>}
+          />
+
 
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
                 </Routes>

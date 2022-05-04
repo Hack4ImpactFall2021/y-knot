@@ -12,19 +12,12 @@ import { NavRoutes } from './TraineeSidebar';
 interface Props {
     route: NavRoutes,
     selected: NavRoutes
-<<<<<<< HEAD:src/nav/TraineeSidebarTile.tsx
     id: string 
-=======
->>>>>>> admin-dashboard:src/trainee/TraineeSidebarTile.tsx
 }
 
 type routeToimageType = {[key in NavRoutes]: string}
 
-<<<<<<< HEAD:src/nav/TraineeSidebarTile.tsx
 const TraineeSidebarTile: React.FC<Props> = ({route, selected, id}) => {
-=======
-const TraineeSidebarTile: React.FC<Props> = ({route, selected}) => {
->>>>>>> admin-dashboard:src/trainee/TraineeSidebarTile.tsx
 
     const navigate = useNavigate();
     
@@ -46,17 +39,10 @@ const TraineeSidebarTile: React.FC<Props> = ({route, selected}) => {
                 navigate('/trainee/home')
                 break;
             case NavRoutes.Settings:
-<<<<<<< HEAD:src/nav/TraineeSidebarTile.tsx
                 navigate('/trainee/settings')
                 break;
             case NavRoutes.Profile:
                 navigate('/trainee/' + id);
-=======
-                navigate('/settings')
-                break;
-            case NavRoutes.Profile:
-                navigate('/');
->>>>>>> admin-dashboard:src/trainee/TraineeSidebarTile.tsx
                 break;
         }
     }

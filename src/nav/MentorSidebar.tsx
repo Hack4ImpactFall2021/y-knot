@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import SidebarTile from './MentorSidebarTile';
 import logout from './assets/logout.png';
 import { useNavigate } from 'react-router-dom';
+import NetworkManager, { Endpoints } from '../network/NetworkManager';
+import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 
-<<<<<<< HEAD:src/nav/MentorSidebar.tsx
 export enum NavRoutes { Home = "Home", MentorSettings = "Settings", Resources = "Resources", Profile = "Profile" }
-=======
-export enum NavRoutes { Home = "Home", Settings = "Settings", Resources = "Resources", Profile = "Profile" }
->>>>>>> admin-dashboard:src/mentor-landing/MentorSidebar.tsx
 
 interface Props {
     selected: NavRoutes
@@ -17,16 +15,28 @@ interface Props {
 const MentorSidebar: React.FC<Props> = ({selected}) => {
     const navigate = useNavigate();
 
+    const [mentor, setMentor] = useState<any>();
+
+    useEffect(() => {
+        getMentor();
+     }, []);
+   
+     const getMentor: VoidFunction = async () => {
+       try {
+           let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
+           snap = snap as QuerySnapshot<DocumentData>;
+           setMentor(snap.docs[0].data());
+       } catch(err) {
+           console.log(err);
+       }
+     }
+
     return (
         <div className='sidebar'>
             <div>
             {
                 Object.values(NavRoutes).map(route => {
-<<<<<<< HEAD:src/nav/MentorSidebar.tsx
-                    return (<SidebarTile key={route} route={route} selected={selected} id="5188587455818895665"/>)
-=======
-                    return (<SidebarTile key={route} route={route} selected={selected} />)
->>>>>>> admin-dashboard:src/mentor-landing/MentorSidebar.tsx
+                    return (<SidebarTile key={route} route={route} selected={selected} id={mentor?.submission_id} />)
                 })
             }
             </div>

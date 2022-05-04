@@ -4,7 +4,6 @@ export enum PersonTypes {New = "NEW", Interviewing = "INTERVIEWING"}
 
 type stagesToTextType = {[key in ApplicantStages]: string}
 // temp for PersonTypeTile to display Mentor/Mentee
-type stagesToTextTypeMen = {[key in ApplicantStages]: string}
 
 export const stagesToText: stagesToTextType = {
     [ApplicantStages.BackgroundCheck]: 'Background Check',
@@ -68,6 +67,16 @@ export type Trainee = {
     notes?: string,
     createdAt: string,
     firebaseId: string
+}
+
+export type MentorForm = {
+    firstName: string,
+    lastName: string,
+    gender: string,
+    age: number,
+    schoolLevel: string,
+    describesYou: String[],
+    interestsAndHobbies: String[]
 }
 
 export type JotformResponse = {

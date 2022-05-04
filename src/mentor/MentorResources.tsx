@@ -58,7 +58,7 @@ const MentorResources: React.FC<Props> = () => {
               <p>
                 Need a refresher on a certain policy? 
                 Can't quite remember something that was mentioned at New Mentor Training? 
-                Check out Y-KNOT Inc's Mentor Guide to overview the mentor role and responsibilities, FAQ, and more!
+                Check out Y-KNOT Inc.'s Mentor Guide to overview the mentor role and responsibilities, FAQ, and more!
               </p>
               <a target="_blank" href="https://www.yknotinc.org/_files/ugd/847801_c005ed89dbf54b4380d58ad5ab6bec3c.pdf">
                 <button className="resource-btn" style={{ backgroundColor: "#2912be"}}>
@@ -70,7 +70,7 @@ const MentorResources: React.FC<Props> = () => {
             <div className="resource-card" style={{ borderColor: "#f27f1e"}}>
               <h3>Mentor Re-Clearances</h3>
               <p>
-                However long you've been a mentor with Y-KNOT Inc, all mentors must go through the re-clearance process every year. 
+                However long you've been a mentor with Y-KNOT Inc., all mentors must go through the re-clearance process every year. 
                 We will contact you directly if you are eligible for re-clearances and you will be required to submit the necessary clearances depending on what year of mentoring you are in. 
                 Please read the re-clearance policy to keep yourself up-to-date on what to expect, as well as the additional instructions to complete your re-clearances.
               </p>

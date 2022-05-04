@@ -1,5 +1,5 @@
 import React from 'react';
-import { ApplicantStages, stagesToTextMen } from '../../utils/utils';
+import { ApplicantStages, stagesToText } from '../../utils/utils';
 
 import "./PersonTypeTile.css";
 
@@ -21,7 +21,7 @@ const PersonTypeTile: React.FC<Props> = ({stage}) => {
 
     return (
         <div className='person-type-tile' style={{backgroundColor: stagesToColors[stage]}}>
-            <h1 className='label'>{stagesToTextMen[stage]}</h1>
+            <h1 className='label'>{stagesToText[stage]}</h1>
         </div>
     );
 }

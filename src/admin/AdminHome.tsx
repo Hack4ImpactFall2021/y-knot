@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "./AdminHome.css";
 
 import logo from "../login/assets/logo.png";
-import { ApplicantStages, Applicant, stagesToTextMen, PersonTypes} from '../utils/utils';
+import { ApplicantStages, Applicant, stagesToText, PersonTypes} from '../utils/utils';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import AdminFilterButton from './AdminFilterButton/AdminFilterButton';
 import PersonTile from '../people/PersonTile/PersonTile';
@@ -98,7 +98,7 @@ const AdminHome = () => {
           
           <div className='dashboard-applicants'>
               {filter ? 
-                  <h2>{stagesToTextMen[filter]}</h2>
+                  <h2>{stagesToText[filter]}</h2>
                   :
                   <h2>All Mentees and Mentors</h2>
               }

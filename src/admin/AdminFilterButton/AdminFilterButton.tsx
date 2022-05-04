@@ -3,7 +3,7 @@ import React from 'react';
 import './AdminFilterButton.css'
 import mentor from '../assets/mentor.png';
 import mentee from '../assets/mentee.png';
-import { PersonTypes, stagesToTextMen } from '../../utils/utils';
+import { PersonTypes, stagesToText } from '../../utils/utils';
 
 interface Props {
   type: PersonTypes | null,
@@ -40,7 +40,7 @@ const AdminFilterButton: React.FC<Props> = ({type, selected, count, onClick}) =>
             </div>
             {
                 type ? 
-                <h3 className='filter-text'>{stagesToTextMen[type]}</h3>
+                <h3 className='filter-text'>{stagesToText[type]}</h3>
                 :
                 <h3 className='filter-text'>All Applicants</h3>
 
