@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import './App.css';
 import { AuthProvider } from './auth/AuthProvider';
@@ -35,7 +35,7 @@ const App = () => {
                 <Routes>
                 <Route path='/login' element={<Login/>}/>
                     <Route path='/resetPassword' element={<ResetPassword/>}/>
-                    <Route path='/' element={<RequireAdminAuth children={<Dashboard/>} />}/>
+                    <Route path='/' element={<Navigate to="/login" />}/>
                     <Route path='/settings' element={<RequireAdminAuth children={<Settings/>} />}/>
                     <Route path='/:id' element={<RequireAdminAuth children={<Profile/>}/>} />
 
