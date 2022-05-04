@@ -12,9 +12,9 @@ import History from './history/History';
 import ResetPassword from './login/ResetPassword/ResetPassword';
 import MentorProfile from './mentor/MentorProfile';
 import MentorLanding from './mentor-landing/MentorLanding';
-import LogsReports from './logs-and-reports/LogsReports';
 import Trainee from "./trainee/Trainee";
 import MentorMenteeMatch from "./admin/MentorMenteeMatch";
+import MenteeProfile from './mentee/MenteeProfile';
 
 // Admin stuff
 import { NavRouteOptions as AdminNavRouteOptions } from "./admin/AdminSidebar";
