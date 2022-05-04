@@ -1,6 +1,10 @@
 export enum ApplicantStages {New = "NEW", Interviewing = "INTERVIEWING", BackgroundCheck = "BACKGROUND CHECK", Accepted = "ACCEPTED", Rejected = "REJECTED"};
+export enum PersonTypes {New = "NEW", Interviewing = "INTERVIEWING"}
+// {Mentor = "MENTOR", Mentee = "MENTEE"};
 
 type stagesToTextType = {[key in ApplicantStages]: string}
+// temp for PersonTypeTile to display Mentor/Mentee
+type stagesToTextTypeMen = {[key in ApplicantStages]: string}
 
 export const stagesToText: stagesToTextType = {
     [ApplicantStages.BackgroundCheck]: 'Background Check',

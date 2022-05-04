@@ -1,0 +1,52 @@
+/* .circular-progress-wrapper {
+  position: relative;
+  width: 2em;
+  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: white;
+} */
+
+.circular-progress {
+  position: relative;
+  margin-left: 10px;
+  width: 4.5em;
+  height: 4.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #f4f4f4;
+}
+.circular-progress .progress {
+  position: relative;
+  width: 4.5em;
+  height: 4.5em;
+}
+.circular-progress .progress circle {
+  width: 5px;
+  height: 5px;
+  fill: none;
+  stroke-width: 5;
+  stroke: black;
+  transform: translate(15px, 15px);
+  stroke-dasharray: 142;
+  stroke-dashoffset: 142; 
+  stroke-linecap: round;
+}
+.circular-progress .progress .bar {
+  stroke-dashoffset: 0;
+  stroke: #c4c4c4;
+}
+.circular-progress .progress .fill {
+  /* stroke-dashoffset: calc(142 - (142 *0) / 100); */
+  stroke: #10275b;
+}
+.circular-progress p.percentage {
+  position: absolute;
+  font-size: 0.75em !important; /* Need to work on scoping the CSS in Admin better */
+  top: 27px;
+  left: 22px;
+}

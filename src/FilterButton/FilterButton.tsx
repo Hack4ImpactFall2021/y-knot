@@ -10,10 +10,10 @@ import rejected from '../assets/rejected.png';
 import { ApplicantStages, stagesToText } from '../utils/utils';
 
 interface Props {
-    type: ApplicantStages | null,
-    onClick: VoidFunction,
-    count: Number,
-    selected: ApplicantStages | null
+  type: ApplicantStages | null,
+  onClick: VoidFunction,
+  count: Number,
+  selected: ApplicantStages | null
 }
 
 type filterToColorsType = {[key in ApplicantStages]: String}

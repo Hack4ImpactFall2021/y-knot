@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/nav/TraineeSidebar.tsx
 import React, { useEffect, useState } from 'react';
 
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
@@ -5,6 +6,13 @@ import SidebarTile from './TraineeSidebarTile';
 import logout from './assets/logout.png';
 import { useNavigate } from 'react-router-dom';
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
+=======
+import React from 'react';
+
+import SidebarTile from './TraineeSidebarTile';
+import logout from './assets/logout.png';
+import { useNavigate } from 'react-router-dom';
+>>>>>>> admin-dashboard:src/trainee/TraineeSidebar.tsx
 
 export enum NavRoutes { Home = "Home", Settings = "Settings", Profile = "Profile" }
 
@@ -15,6 +23,7 @@ interface Props {
 const TraineeSidebar: React.FC<Props> = ({selected}) => {
     const navigate = useNavigate();
 
+<<<<<<< HEAD:src/nav/TraineeSidebar.tsx
     const [trainee, setTrainee] = useState<any>();
 
     useEffect(() => {
@@ -31,12 +40,18 @@ const TraineeSidebar: React.FC<Props> = ({selected}) => {
        }
      }
 
+=======
+>>>>>>> admin-dashboard:src/trainee/TraineeSidebar.tsx
     return (
         <div className='sidebar'>
             <div>
             {
                 Object.values(NavRoutes).map(route => {
+<<<<<<< HEAD:src/nav/TraineeSidebar.tsx
                     return (<SidebarTile key={route} route={route} selected={selected} id={trainee?.submission_id} />)
+=======
+                    return (<SidebarTile key={route} route={route} selected={selected} />)
+>>>>>>> admin-dashboard:src/trainee/TraineeSidebar.tsx
                 })
             }
             </div>

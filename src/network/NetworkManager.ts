@@ -85,6 +85,8 @@ class NetworkManger {
             return this.getAllMentees();
           case Endpoints.SetRole:
             return this.setRole(params.id, params.role);
+          case Endpoints.GetAllMentees:
+            return this.getAllMentees();
           case Endpoints.UpdateNote:
             return this.updateNote(params.note, params.id, params.stage);
           case Endpoints.UploadFile:

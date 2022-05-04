@@ -13,13 +13,21 @@ import { NavRoutes } from './MentorSidebar';
 
 interface Props {
     route: NavRoutes,
+<<<<<<< HEAD:src/nav/MentorSidebarTile.tsx
     selected: NavRoutes,
     id: string
+=======
+    selected: NavRoutes
+>>>>>>> admin-dashboard:src/mentor-landing/MentorSidebarTile.tsx
 }
 
 type routeToimageType = {[key in NavRoutes]: string}
 
+<<<<<<< HEAD:src/nav/MentorSidebarTile.tsx
 const MentorSidebarTile: React.FC<Props> = ({route, selected, id}) => {
+=======
+const MentorSidebarTile: React.FC<Props> = ({route, selected}) => {
+>>>>>>> admin-dashboard:src/mentor-landing/MentorSidebarTile.tsx
 
     const navigate = useNavigate();
     
@@ -27,7 +35,11 @@ const MentorSidebarTile: React.FC<Props> = ({route, selected, id}) => {
 
     const routeToImage: routeToimageType = {
         [NavRoutes.Home]: isSelected ? home_active : home_inactive,
+<<<<<<< HEAD:src/nav/MentorSidebarTile.tsx
         [NavRoutes.MentorSettings]: isSelected ? settings_active : settings_inactive,
+=======
+        [NavRoutes.Settings]: isSelected ? settings_active : settings_inactive,
+>>>>>>> admin-dashboard:src/mentor-landing/MentorSidebarTile.tsx
         [NavRoutes.Resources]: isSelected ? resources_active : resources_inactive,
         [NavRoutes.Profile]: profile_inactive
     }
@@ -39,6 +51,7 @@ const MentorSidebarTile: React.FC<Props> = ({route, selected, id}) => {
 
         switch (route) {
             case NavRoutes.Home:
+<<<<<<< HEAD:src/nav/MentorSidebarTile.tsx
                 navigate('/mentor')
                 break;
             case NavRoutes.MentorSettings:
@@ -49,6 +62,19 @@ const MentorSidebarTile: React.FC<Props> = ({route, selected, id}) => {
                 break;
             case NavRoutes.Profile:
                 navigate('/mentor/' + id);
+=======
+                navigate('/trainee/home')
+                break;
+            case NavRoutes.Settings:
+                navigate('/settings')
+                break;
+            /* PUT PATH FOR RESOURCES */
+            case NavRoutes.Resources:
+                navigate('/')
+                break;
+            case NavRoutes.Profile:
+                navigate('/');
+>>>>>>> admin-dashboard:src/mentor-landing/MentorSidebarTile.tsx
                 break;
         }
     }

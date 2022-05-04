@@ -1,0 +1,24 @@
+.admin .admin-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  font-size: large;
+  font-weight:500;
+}
+
+.admin .admin-sidebar .admin-sidebar-tiles {
+
+
+}
+
+
+
+
+/* Temporary styles */
+/* .admin .admin-sidebar:hover {
+  border: 1px dashed turquoise;
+} */
+.admin .admin-sidebar .admin-sidebar-tiles:hover {
+  border: 1px dashed red;
+
+}
