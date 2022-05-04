@@ -20,7 +20,6 @@ import Trainee from "./trainee/Trainee";
 import MentorSettings from './settings/MentorSettings';
 import MentorResources from './mentor/MentorResources';
 import MentorMenteeMatch from "./admin/MentorMenteeMatch";
-import MenteeProfile from './mentee/MenteeProfile';
 
 // Admin stuff
 import { NavRouteOptions as AdminNavRouteOptions } from "./admin/AdminSidebar";
@@ -51,23 +50,21 @@ const App = () => {
 
                     <Route path='/admin/matching' element={<RequireAdminAuth children={<MentorMenteeMatch />}/>} />
                     <Route
-            path={AdminNavRoutes[AdminNavRouteOptions.Home].route}
-            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Home}/>}/>}
-          />
-          <Route
-            path={AdminNavRoutes[AdminNavRouteOptions.Trainee].route}
-            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Trainee}/>}/>}
-          />
-          <Route
-            path={AdminNavRoutes[AdminNavRouteOptions.Applicants].route}
-            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Applicants}/>}/>}
-          />
-          <Route
-            path={AdminNavRoutes[AdminNavRouteOptions.Settings].route}
-            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Settings}/>}/>}
-          />
-
-
+                      path={AdminNavRoutes[AdminNavRouteOptions.Home].route}
+                      element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Home}/>}/>}
+                    />
+                    <Route
+                      path={AdminNavRoutes[AdminNavRouteOptions.Trainee].route}
+                      element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Trainee}/>}/>}
+                    />
+                    <Route
+                      path={AdminNavRoutes[AdminNavRouteOptions.Applicants].route}
+                      element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Applicants}/>}/>}
+                    />
+                    <Route
+                      path={AdminNavRoutes[AdminNavRouteOptions.Settings].route}
+                      element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Settings}/>}/>}
+                    />
                     <Route path="*" element={<div>404 NOT FOUND</div>}/>
                 </Routes>
             </Router>
