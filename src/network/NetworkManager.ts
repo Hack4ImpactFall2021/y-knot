@@ -1,6 +1,6 @@
 import { AuthError, User } from "@firebase/auth";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword, sendPasswordResetEmail} from "firebase/auth";
-import {doc, collection, getDoc, getDocs, DocumentData, FirestoreError, DocumentSnapshot, QuerySnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy, limit} from "firebase/firestore"
+import {doc, collection, getDoc, getDocs, arrayUnion, DocumentData, FirestoreError, DocumentSnapshot, QuerySnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy, limit} from "firebase/firestore"
 
 import { Applicant, ApplicantStages, JotformResponse, Mentor, Trainee } from "../utils/utils";
 import app, {db, storage } from "../config/firebase";
@@ -409,7 +409,17 @@ class NetworkManger {
 
     private matchMentee(menteeId: string, mentorId: string): Promise<void> {
       return new Promise((resolve, reject) => {
-        resolve();
+        const user = getAuth(app).currentUser;
+        if (!user) {
+          reject();
+        }
+        this.getCurrentMentorOrTrainee().then((mentor) => {
+          updateDoc(doc(db, 'applicants', mentorId), {mentee_ids: arrayUnion(menteeId)})
+          .then(() => {
+            resolve();
+          })
+          .catch(error => reject(error));
+        });
       });
     }
 
