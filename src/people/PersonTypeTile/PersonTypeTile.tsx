@@ -21,7 +21,7 @@ const PersonTypeTile: React.FC<Props> = ({stage}) => {
 
     return (
         <div className='person-type-tile' style={{backgroundColor: stagesToColors[stage]}}>
-            <h1 className='label'>{stagesToText[stage]}</h1>
+            <h1 className='person-type-label'>{stagesToText[stage]}</h1>
         </div>
     );
 }
