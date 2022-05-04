@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useState } from 'react';
+import React, { MouseEventHandler, useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {MentorForm} from '../utils/utils';
 
@@ -8,6 +8,31 @@ import "./MentorMenteeMatch.css"
 
 
 
+/* To detect whether or not the user has clicked outside the mentor table. If they have, then
+that should deselect the currently selected mentor. This function (hook) takes
+in a function that is called when the user clicks outside of a DOM node. It also
+creates a reference to a generic DOM node that is returned. This returned reference 
+can be attached to whichever DOM node we want to register the on outside click event.  */
+const useClickOutside = (onClickOutside: () => void) => {
+   let domNode = useRef<HTMLTableElement>(null);
+
+   //Because I gave up on trying to get the types to work.
+   let handleClick = (e:any) => {
+      e.preventDefault();
+      if (domNode.current && !domNode.current.contains(e.target)) {
+         onClickOutside();
+      } 
+   }
+
+   useEffect(() => {
+      document.addEventListener("mousedown", handleClick);       
+      return () => document.removeEventListener("mousedown", handleClick);
+   }, []);
+
+   return domNode;
+}
+
+//Temporary mock of the data 
 const mentorList: MentorForm[] = [
   {
     firstName: "Grace",
@@ -40,8 +65,8 @@ const mentorList: MentorForm[] = [
 
 const MentorMenteeMatch = () => {
   const navigate = useNavigate();
-
   const [selectedMentor, setSelectedMentor] = useState(-1);
+  const ref = useClickOutside(() => setSelectedMentor(-1));
 
   return (
     <div className="mentor-mentee-match">
@@ -68,7 +93,7 @@ const MentorMenteeMatch = () => {
       </div>
       
       {/* Mentor Table */}
-      <table className="mentor-table">
+      <table className="mentor-table" ref={ref}>
         {/* Mentor Table Header */}
         <tr>
           <th className="mentor-table-header">Mentor</th>
