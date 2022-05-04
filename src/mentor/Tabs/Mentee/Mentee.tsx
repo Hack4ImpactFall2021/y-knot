@@ -7,12 +7,6 @@ import "./Mentee.css";
 type Props = {
     mentees: MenteeForm[]
 }
-/*
-mentee -> list of mentee objects
-{
-    name
-
-*/
 const Mentee: React.FC<Props> = ({ mentees }) => {
   const [mentee, setModal] = useState<MenteeForm>();
 
