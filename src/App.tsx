@@ -14,7 +14,7 @@ import MentorProfile from './mentor/MentorProfile';
 import MentorLanding from './mentor-landing/MentorLanding';
 import LogsReports from './logs-and-reports/LogsReports';
 import Trainee from "./trainee/Trainee";
-import MenteeProfile from './mentee/MenteeProfile';
+import MentorMenteeMatch from "./admin/MentorMenteeMatch";
 
 // Admin stuff
 import { NavRouteOptions as AdminNavRouteOptions } from "./admin/AdminSidebar";
@@ -27,6 +27,7 @@ const App = () => {
     <AuthProvider>
       <Router>
         <Routes>
+          <Route path='/admin/matching' element={<RequireAuth children={<MentorMenteeMatch/>} />}/>
           <Route path='/login' element={<Login/>}/>
           <Route path='/resetPassword' element={<ResetPassword/>}/>
           <Route path='/' element={<RequireAuth children={<Dashboard/>} />}/>

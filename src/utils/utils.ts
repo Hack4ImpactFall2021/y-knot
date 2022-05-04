@@ -59,6 +59,16 @@ export type Mentor = {
     createdAt: string
 }
 
+export type MentorForm = {
+    firstName: string,
+    lastName: string,
+    gender: string,
+    age: number,
+    schoolLevel: string,
+    describesYou: String[],
+    interestsAndHobbies: String[]
+}
+
 export type Person = 
     Mentor | Mentee
 
