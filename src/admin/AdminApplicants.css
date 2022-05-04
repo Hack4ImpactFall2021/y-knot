@@ -1,0 +1,139 @@
+.admin-applicants {
+  background-color: #f4f4f4;
+  color: #10275b;
+  width: 100%;
+  height: 100vh;
+}
+.admin-applicants .wrapper {
+  margin-left: 20px;
+  height: 100%;
+  width: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.25em;
+}
+/* Header */
+.admin-applicants .header-wrapper {
+  padding-top: 5px;
+  width: 99%;
+  height:10%;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-applicants 
+.applicant-stage-filters-wrapper {
+  display: flex;
+  margin-left: 10px;
+}
+.admin-applicants 
+.applicant-stage-filters-wrapper
+.filter-img {
+  width: 4em;
+}
+
+.admin-applicants 
+.applicants-dashboard  {
+  border-radius: 15px;
+  background-color: white;
+  width: 95%;
+  margin-left: 10px;
+  height: 80vh;
+}
+
+/* Trainees Dashboard -> Header */
+.admin-applicants 
+.applicants-dashboard 
+.header-wrapper {
+  display: flex;
+  color: #10275b;
+  width: 95%;
+  margin: 0 auto;
+  height: 13%;
+}
+/* Trainees Dashboard -> Header -> Title */
+.admin-applicants .applicants-dashboard .header-wrapper h3 {
+  font-size: 1.4em;
+}
+
+/* Trainees Dashboard -> Header -> Searchbar */
+.admin-applicants 
+.applicants-dashboard 
+.header-wrapper
+.applicants-list-searchbar {
+  border-radius: 30px;
+  border: 1px solid #8a8a8a;
+  color: #8a8a8a;
+  padding: 10px 20px;
+}
+.admin-applicants 
+.applicants-dashboard  hr {
+  background-color:#bababa;
+  width: 95%;
+  margin-top: 0;
+}
+
+.admin-applicants 
+.applicants-dashboard 
+.header-wrapper
+.applicants-list-searchbar:focus-visible {
+  border: 1px solid #8a8a8a;
+  outline: 1px solid #8a8a8a;
+  opacity: 1.2;
+}
+
+/* Trainess Dashboard -> Trainees List */
+.admin-applicants 
+.applicants-dashboard 
+.applicants-list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 95%;
+  margin: 0 auto;
+  padding: 0; /* idk why the padding isn't working */
+  height: 60vh; /* Likely not the best way to do this */
+  list-style-type: none;
+  display: flex; /* Probably unnecessary  */
+  flex-direction: column;
+}
+
+/* Trainess Dashboard -> Trainees List -> Trainees List Item */
+.admin-applicants 
+.applicants-dashboard 
+.applicants-list 
+.applicants-list-item {
+  border: 1px solid black;
+  width: 97%;
+  margin: 5px 0;
+  border-radius: 10px;
+  background-color: #f4f4f4 ;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
+  padding: 5px 20px;
+}
+.admin-applicants 
+.applicants-dashboard 
+.applicants-list 
+.applicants-list-item:hover {
+  filter: brightness(1.01);
+  cursor: pointer;
+}
+
+.admin-applicants 
+.applicants-dashboard 
+.applicants-list 
+.applicants-list-item p {
+  font-size: 1.25em;
+  font-weight: 700;
+}
+/* Temporary styles */
+.admin-applicants 
+.applicant-stage-filters-wrapper
+.applicant-stage-filter:hover {
+  border: 1px dashed red;
+}
