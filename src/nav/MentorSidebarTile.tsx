@@ -11,6 +11,8 @@ import resources_inactive from './assets/resources_inactive.png';
 
 import { NavRoutes } from './MentorSidebar';
 
+import "./SidebarTile/SidebarTile.css";
+
 interface Props {
     route: NavRoutes,
     selected: NavRoutes,

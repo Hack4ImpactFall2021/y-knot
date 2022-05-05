@@ -7,6 +7,8 @@ import settings_active from './assets/settings_active.png';
 import settings_inactive from './assets/settings_inactive.png';
 import profile_inactive from './assets/profile_inactive.png';
 
+import "./SidebarTile/SidebarTile.css";
+
 import { NavRoutes } from './TraineeSidebar';
 
 interface Props {

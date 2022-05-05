@@ -6,6 +6,8 @@ import logout from './assets/logout.png';
 import { useNavigate } from 'react-router-dom';
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 
+import "./Sidebar.css";
+
 export enum NavRoutes { Home = "Home", Settings = "Settings", Profile = "Profile" }
 
 interface Props {

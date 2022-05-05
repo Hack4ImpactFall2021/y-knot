@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 
+import "./Sidebar.css";
+
 export enum NavRoutes { Home = "Home", MentorSettings = "Settings", Resources = "Resources", Profile = "Profile" }
 
 interface Props {
