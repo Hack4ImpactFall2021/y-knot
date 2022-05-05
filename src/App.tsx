@@ -54,14 +54,15 @@ const App = () => {
           <Route path='/mentor/settings' element={<RequireMentorAuth children={<MentorSettings/>} />}/>
 
           {/* Admin */}
+          <Route path='/admin/:id' element={<RequireAdminAuth children={<Profile />}/>} />
           <Route path='/admin/matching' element={<RequireAdminAuth children={<MentorMenteeMatch />}/>} />
           <Route
             path={AdminNavRoutes[AdminNavRouteOptions.Home].route}
             element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Home}/>}/>}
           />
           <Route
-            path={AdminNavRoutes[AdminNavRouteOptions.Trainee].route}
-            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Trainee}/>}/>}
+            path={AdminNavRoutes[AdminNavRouteOptions.Assignments].route}
+            element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Assignments}/>}/>}
           />
           <Route
             path={AdminNavRoutes[AdminNavRouteOptions.Applicants].route}

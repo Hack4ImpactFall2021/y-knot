@@ -2,8 +2,7 @@
 import logo from "../login/assets/logo.png";
 
 import { useEffect, useState } from "react";
-import "./AdminTrainees.css"
-import { CircularProgressBar } from "./CircularProgressBar";
+import "./AdminAssignments.css"
 
 // Admin Home
 const AdminTrainees = () => {
@@ -47,34 +46,22 @@ const AdminTrainees = () => {
     setVisibleTrainees(newVisibleTrainees);
   }, [searchText]);
 
-
-  /* RENDER FUNCTIONS */
-  const getTraineeListItem = (trainee: Trainee, key: number) => {
-    return (
-      // Trainees List Item
-      <li key={key} className="trainee-list-item">
-        <CircularProgressBar fillAmount={trainee.progress} widthUnit="em" width={4.5}/>
-        <p>
-          {trainee.name}
-        </p>
-      </li>
-    );
-  }
-
   return (
     <div className="admin-trainees">
       <div className="wrapper">
         {/* Header */}
         <div className="header-wrapper">
-          <h1 className="header">Trainees</h1>
+          <h1 className="header">Assignments</h1>
           <img src={logo} alt="Where is the logo?"/> 
         </div>
+        {/* Trainees and Mentees Filters */}
+
         {/* Trainees Dashboard */}
         <div className="trainee-dashboard">
           {/* Header */}
           <div className="header-wrapper">
             {/* Title */}
-            <h3>All Trainees</h3>
+            <h3>All Trainees and Mentees</h3>
             {/* Searchbar */}
             <input 
               className="trainee-list-searchbar" 
@@ -87,7 +74,14 @@ const AdminTrainees = () => {
           <hr/>
           {/* Trainee List */}
           <ul className="trainee-list">
-            {visibleTrainees.map((trainee, idx) => getTraineeListItem(trainee, idx))}
+            {visibleTrainees.map((trainee, idx) => 
+              <li key={idx} className="trainee-list-item">
+                <div></div>
+                <p>
+                  {trainee.name}
+                </p>
+              </li>
+            )}
           </ul>
         </div>
       </div>

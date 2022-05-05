@@ -35,14 +35,15 @@ const TProfile = () => {
             if (snap.exists()) {
                 const data = snap.data();
                 setApplicant({
-                    firstName: data.first_name,
-                    lastName: data.last_name,
-                    email: data.email,
-                    phoneNumber: data.phone_number,
-                    stage: data.stage,
-                    submissionId: data.submission_id,
-                    notes: data.note || '',
-                    createdAt: data.createdAt
+                  type: "Applicant",
+                  firstName: data.first_name,
+                  lastName: data.last_name,
+                  email: data.email,
+                  phoneNumber: data.phone_number,
+                  stage: data.stage,
+                  submissionId: data.submission_id,
+                  notes: data.note || '',
+                  createdAt: data.createdAt
                 });
                 console.log(applicant);
                 setEmail(data.email);

@@ -1,0 +1,135 @@
+.admin-trainees {
+  background-color: #f4f4f4;
+  color: #10275b;
+  width: 100%;
+  height: 100vh;
+  width: 85%;
+  flex-grow: 1;
+}
+
+.admin-trainees .wrapper {
+  margin-left: 20px;
+  height: 100%;
+  width: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.25em;
+}
+
+/* Header */
+.admin-trainees .header-wrapper {
+  padding-top: 5px;
+  width: 99%;
+  height:10%;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Trainees Dashboard */
+.admin-trainees 
+.trainee-dashboard  {
+  border-radius: 15px;
+  background-color: white;
+  width: 95%;
+  margin-left: 10px;
+  height: 80vh;
+}
+
+/* Trainees Dashboard -> Header */
+.admin-trainees 
+.trainee-dashboard 
+.header-wrapper {
+  display: flex;
+  color: #10275b;
+  width: 95%;
+  margin: 0 auto;
+  height: 4em;
+}
+
+/* Trainees Dashboard -> Header -> Title */
+.admin-trainees .trainee-dashboard .header-wrapper h3 {
+  font-size: 1.4em;
+}
+
+/* Trainees Dashboard -> Header -> Searchbar */
+.admin-trainees 
+.trainee-dashboard 
+.header-wrapper
+.trainee-list-searchbar {
+  border-radius: 30px;
+  border: 1px solid #8a8a8a;
+  color: #8a8a8a;
+  padding: 10px 20px;
+}
+.admin-trainees 
+.trainee-dashboard 
+.header-wrapper
+.trainee-list-searchbar:focus-visible {
+  border: 1px solid #8a8a8a;
+  outline: 1px solid #8a8a8a;
+  opacity: 1.2;
+}
+.admin-trainees 
+.trainee-dashboard  hr {
+  background-color:#bababa;
+  width: 95%;
+  margin-top: 0;
+}
+
+/* Trainess Dashboard -> Trainees List */
+.admin-trainees 
+.trainee-dashboard 
+.trainee-list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 95%;
+  margin: 0 auto;
+  padding: 0; /* idk why the padding isn't working */
+  height: 60vh; /* Likely not the best way to do this */
+  list-style-type: none;
+  display: flex; /* Probably unnecessary  */
+  flex-direction: column;
+}
+
+/* Trainess Dashboard -> Trainees List -> Trainees List Item */
+.admin-trainees 
+.trainee-dashboard 
+.trainee-list 
+.trainee-list-item {
+  width: 99%;
+  margin: 5px 0;
+  border-radius: 10px;
+  background-color: #f4f4f4 ;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1em;
+}
+.admin-trainees 
+.trainee-dashboard 
+.trainee-list 
+.trainee-list-item:hover {
+  background-color: #ececec;
+  cursor: pointer;
+}
+
+.admin-trainees 
+.trainee-dashboard 
+.trainee-list 
+.trainee-list-item 
+.circular-progress-wrapper {
+  margin-left: 1.5em;
+}
+.admin-trainees 
+.trainee-dashboard 
+.trainee-list 
+.trainee-list-item p {
+  padding: 0;
+  margin: 0;
+  font-size: 1.25em;
+  font-weight: 700;
+}

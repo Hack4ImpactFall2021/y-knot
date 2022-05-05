@@ -17,7 +17,7 @@ const Admin : React.FC<Props>= ({ selected }) => {
       {/* Admin Sidebar -__- */}
       <AdminSidebar
         selected={selected}
-        routes={[NavRouteOptions.Home, NavRouteOptions.Trainee, NavRouteOptions.Applicants, NavRouteOptions.Settings]}
+        routes={[NavRouteOptions.Home, NavRouteOptions.Assignments, NavRouteOptions.Applicants, NavRouteOptions.Settings]}
       />
       {/* Admin Content */}
       {NavRoutes[selected].contentComponent}

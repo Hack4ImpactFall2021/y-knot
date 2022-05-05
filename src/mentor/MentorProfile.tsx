@@ -29,7 +29,7 @@ const MentorProfile = () => {
     getMentees();
   }, []);
 
-  const getMentees = async () => {
+  const getMentees: VoidFunction = async () => {
     try {
       let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
       snap = snap as QuerySnapshot<DocumentData>;
@@ -76,6 +76,7 @@ const MentorProfile = () => {
       }
       const data = snap.data();
       setApplicant({
+        type: "Applicant",
         firstName: data.first_name,
         lastName: data.last_name,
         email: data.email,
