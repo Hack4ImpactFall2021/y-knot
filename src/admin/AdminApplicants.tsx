@@ -49,6 +49,24 @@ const AdminApplicants = () => {
     return allApplicants.filter((a) => a.stage === filter).length; 
   }
 
+  const getColorForStage = (stage: ApplicantStages) => {
+    switch (stage) {
+      case ApplicantStages.Accepted:
+        return "green";
+      case ApplicantStages.Rejected:
+        return "red";
+      case ApplicantStages.New:
+        return "#f44250";
+      case ApplicantStages.BackgroundCheck:
+        return "#fcbb45";
+      case ApplicantStages.Interviewing:
+        return "#ff8427";
+      default:
+        return "";
+    }
+  }
+
+
   return (
     <div className="admin-applicants">
       <div className="wrapper">
@@ -59,6 +77,7 @@ const AdminApplicants = () => {
         </div>
         {/* Applicant Stage Filters */}
         <div className="applicant-stage-filters-wrapper">
+          {/* Applicant Stage Filter -> Total Applicants */}
           <div className={getClassNameForFilter("All Applicants")} onClick={() => setApplicantStageFilter("All Applicants")} style={{borderBottomColor: "#10275b"}}>
             <div className="filter-top">
               <img className="filter-img"src={all_applicants} alt=""/>
@@ -66,6 +85,7 @@ const AdminApplicants = () => {
             </div>
             <p>Total Applicants</p>
           </div>
+          {/* Applicant Stage Filter -> New Applicants */}
           <div className={getClassNameForFilter(ApplicantStages.New)} onClick={() => setApplicantStageFilter(ApplicantStages.New)} style={{borderBottomColor: "#f44250"}}>
             <div className="filter-top">
               <img className="filter-img" src={new_applicant} alt=""/>
@@ -73,6 +93,7 @@ const AdminApplicants = () => {
             </div>
             <p>New Applicants</p>
           </div>
+          {/* Applicant Stage Filter -> Interviewing */}
           <div className={getClassNameForFilter(ApplicantStages.Interviewing)} onClick={() => setApplicantStageFilter(ApplicantStages.Interviewing)} style={{borderBottomColor: "#ff8427"}}>
             <div className="filter-top">
               <img className="filter-img" src={interviewing} alt=""/>
@@ -80,6 +101,7 @@ const AdminApplicants = () => {
             </div>
             <p>Interviewing</p>
           </div>
+          {/* Applicant Stage Filter -> Background Check */}
           <div className={getClassNameForFilter(ApplicantStages.BackgroundCheck)} onClick={() => setApplicantStageFilter(ApplicantStages.BackgroundCheck)} style={{borderBottomColor: "#fcbb45"}}>
             <div className="filter-top">
               <img className="filter-img" src={background_check} alt=""/>
@@ -109,8 +131,8 @@ const AdminApplicants = () => {
           <ul className="applicants-list">
             {visibleApplicants.map((applicant, idx) => 
               <div key={idx} className="applicants-list-item">
-                <div className="applicant-stage">{applicant.stage}</div>
                 <p>{applicant.firstName + " " + applicant.lastName}</p>
+                <div className="applicant-stage" style={{backgroundColor: getColorForStage(applicant.stage)}}>{applicant.stage}</div>
               </div>
             )}
           </ul>

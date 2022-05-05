@@ -165,7 +165,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 1em;
+  gap: 2em;
 }
 .admin-applicants 
 .applicants-dashboard 
@@ -179,6 +179,18 @@
 .applicants-dashboard 
 .applicants-list 
 .applicants-list-item p {
-  font-size: 1.25em;
+  font-size: 1.3em;
   font-weight: 700;
+  margin-left: 15px;
+}
+
+.admin-applicants 
+.applicants-dashboard 
+.applicants-list 
+.applicants-list-item .applicant-stage {
+  padding: 3px 5px;
+  color: white;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 0.8em;
 }
