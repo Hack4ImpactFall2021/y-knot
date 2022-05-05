@@ -1,92 +1,125 @@
 
-import logo from "../login/assets/logo.png";
+import { useState, useEffect } from "react";
 
-import { useEffect, useState } from "react";
+import NetworkManager, { Endpoints } from "../network/NetworkManager";
+
+// Assets
+import logo from "../login/assets/logo.png";
+import all_applicants from '../assets/all.png';
+import new_applicant from '../assets/new.png';
+
 import "./AdminAssignments.css"
 
-// Admin Home
-const AdminTrainees = () => {
-  const allTrainees: Trainee[] = [
-    { name: "Jason Cavanaugh", progress: 12 },
-    { name: "Aayushi Roy", progress: 75 },
-    { name: "Amanda Liu", progress: 39 },
-    { name: "Luke Muratore", progress: 96 },
-    { name: "Jason Cavanaugh", progress: 12 },
-    { name: "Aayushi Roy", progress: 75 },
-    { name: "Amanda Liu", progress: 39 },
-    { name: "Luke Muratore", progress: 96 },
-    { name: "Jason Cavanaugh", progress: 12 },
-    { name: "Aayushi Roy", progress: 75 },
-    { name: "Amanda Liu", progress: 39 },
-    { name: "Luke Muratore", progress: 96 },
-    { name: "Jason Cavanaugh", progress: 12 },
-    { name: "Aayushi Roy", progress: 75 },
-    { name: "Amanda Liu", progress: 39 },
-    { name: "Luke Muratore", progress: 96 },
-    { name: "Jason Cavanaugh", progress: 12 },
-    { name: "Aayushi Roy", progress: 75 },
-    { name: "Amanda Liu", progress: 39 },
-    { name: "Luke Muratore", progress: 96 },
-    { name: "Jason Cavanaugh", progress: 12 },
-    { name: "Aayushi Roy", progress: 75 },
-    { name: "Amanda Liu", progress: 39 },
-    { name: "Luke Muratore", progress: 96 },
-  ];
+type PersonType = "Mentee" | "Trainee";
 
-  interface Trainee {
-    name: string,
-    progress: number
-  }
+const AdminHome = () => {
+  const [visiblePeople, setVisiblePeople] = useState<any[]>([]);
 
-  const [visibleTrainees, setVisibleTrainees] = useState<Trainee[]>(allTrainees);
+  const allPeople = [
+    {firstName: "Jason", lastName: "Cavanaugh", type: "Mentee"},
+    {firstName: "Peter", lastName: "Parker", type: "Mentee"},
+    {firstName: "Bruce", lastName: "Wayne", type: "Trainee"},
+    {firstName: "Jason", lastName: "Cavanaugh", type: "Mentee"},
+    {firstName: "Peter", lastName: "Parker", type: "Mentee"},
+    {firstName: "Bruce", lastName: "Wayne", type: "Trainee"},
+    {firstName: "Jason", lastName: "Cavanaugh", type: "Mentee"},
+    {firstName: "Peter", lastName: "Parker", type: "Mentee"},
+    {firstName: "Bruce", lastName: "Wayne", type: "Trainee"},
+  ]
+
+
+  //Filters
+  const [filter, setFilter] = useState<PersonType | "">("");
   const [searchText, setSearchText] = useState<string>("");
 
-  useEffect(() => {
-    const newVisibleTrainees = allTrainees.filter((trainee) => trainee.name.includes(searchText));
-    setVisibleTrainees(newVisibleTrainees);
-  }, [searchText]);
+  const onFilterChange = () => {
+    //Apply search bar filter
+    let newVisiblePeople = allPeople.filter((person) => person.firstName.includes(searchText) || person.lastName.includes(searchText));
+    //Apply applicant stage filter
+    if (filter !== "") {
+      newVisiblePeople = newVisiblePeople.filter((person) => person.type === filter);
+    }
+    setVisiblePeople(newVisiblePeople);
+  }
+  useEffect(onFilterChange, [filter, searchText])
+
+  const getClassNameForFilter = (newFilter: PersonType) => {
+    return newFilter === filter ? "person-filter selected" : "person-filter";
+  }
+
+  const getNumberOf = (type : PersonType) => {
+    return allPeople.filter((person) => person.type === type).length;
+  }
+
+  const getColorForPersonType = (stage: PersonType) => {
+    switch (stage) {
+      case "Trainee":
+        return "#1900b5";
+      case "Mentee":
+        return "#e06f10";
+      default:
+        return "";
+    }
+  }
 
   return (
-    <div className="admin-trainees">
+    <div className="admin-assignments">
       <div className="wrapper">
         {/* Header */}
         <div className="header-wrapper">
           <h1 className="header">Assignments</h1>
           <img src={logo} alt="Where is the logo?"/> 
         </div>
-        {/* Trainees and Mentees Filters */}
+        {/* Mentees Trainees Filters */}
+        <div className="trainees-mentees-filters-wrapper">
+          <div className={getClassNameForFilter("Trainee")} onClick={() => setFilter("Trainee")} style={{borderBottomColor: "#1900b5"}}>
+            <div className="filter-top">
+              <img className="filter-img"src={all_applicants} alt=""/>
+              <h3>{getNumberOf("Trainee")}</h3>
+            </div>
+            <p>Trainees</p>
+          </div>
+          <div className={getClassNameForFilter("Mentee")} onClick={() => setFilter("Mentee")} style={{borderBottomColor: "#e06f10"}}>
+            <div className="filter-top">
+              <img className="filter-img" src={new_applicant} alt=""/>
+              <h3>{getNumberOf("Mentee")}</h3>
+            </div>
+            <p>Mentees</p>
+          </div>
+        </div>
 
-        {/* Trainees Dashboard */}
-        <div className="trainee-dashboard">
+        {/* Mentors Trainees Dashboard */}
+        <div className="trainees-mentees-dashboard">
           {/* Header */}
           <div className="header-wrapper">
             {/* Title */}
-            <h3>All Trainees and Mentees</h3>
+            <h2>{filter === "" ? "All Mentors and Trainees" : filter + "s"}</h2>
             {/* Searchbar */}
             <input 
-              className="trainee-list-searchbar" 
+              className="trainees-mentees-list-searchbar" 
               type="text" 
               placeholder="Search..." 
               value={searchText} 
               onChange={(e) => setSearchText(e.target.value)}
             />
-          </div>
+          </div>  
           <hr/>
-          {/* Trainee List */}
-          <ul className="trainee-list">
-            {visibleTrainees.map((trainee, idx) => 
-              <li key={idx} className="trainee-list-item">
-                <div></div>
-                <p>
-                  {trainee.name}
-                </p>
-              </li>
-            )}
+          {/* Mentors and Trainees List */}
+          <ul className="trainees-mentees-list">
+            {visiblePeople.length > 0 ? visiblePeople.map((person, idx) => 
+              <div key={idx} className="trainees-mentees-list-item">
+                <p>{person.firstName + " " + person.lastName}</p>
+                <div className="person-type" style={{backgroundColor: getColorForPersonType(person.type)}}>{person.type}</div>
+              </div>)
+              :
+              <p>There are no trainees or mentees to display.</p>
+            }
           </ul>
         </div>
       </div>
     </div>  
   );
+  return <div></div>;
 }
 
-export default AdminTrainees;
+export default AdminHome;
