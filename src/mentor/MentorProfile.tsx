@@ -46,7 +46,7 @@ const MentorProfile = () => {
           city: data['4']?.answer,
           state: data['5']?.answer,
           zip: data['6']?.answer,
-          phoneNumber: data['7']?.answer,
+          phoneNumber: data['7']?.answer.full,
           age: data['9']?.answer,
           gender: data['11']?.answer,
           school: data['101']?.answer,
@@ -57,6 +57,8 @@ const MentorProfile = () => {
           areas: data['105']?.answer,
           interests: data['106']?.answer,
           bestDescribes: data['107']?.answer,
+          email: data['112']?.answer,
+          grade: data['113']?.answer
         };
         menteeData.push(mentee);
       }

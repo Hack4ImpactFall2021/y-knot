@@ -30,7 +30,9 @@ export type MenteeForm = {
     bestDescribes: string[],
     whyBenefit: string,
     subjects: string,
-    otherComments: string
+    otherComments: string,
+    email: string,
+    grade: string
 }
 
 export type Applicant = {

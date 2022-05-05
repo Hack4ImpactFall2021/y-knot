@@ -84,7 +84,7 @@ const MenteeInfoModal: React.FC<Props> = ({ mentee, onCloseModal }) => {
         <div className="grade mentee-info-response-box">
           <h1 className="mentee-info-response-title">Grade</h1>
           <div className="mentee-info-response-body">
-            <p className="mentee-info-response-text"></p>
+            <p className="mentee-info-response-text">{mentee.grade}</p>
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@ const MenteeInfoModal: React.FC<Props> = ({ mentee, onCloseModal }) => {
       <div className="email mentee-info-response-box">
         <h1 className="mentee-info-response-title">Email</h1>
         <div className="mentee-info-response-body">
-          <p className="mentee-info-response-text"></p>
+          <p className="mentee-info-response-text">{mentee.email}</p>
         </div>
       </div>
 
@@ -110,17 +110,10 @@ const MenteeInfoModal: React.FC<Props> = ({ mentee, onCloseModal }) => {
         </div>
       </div>
 
-      <div className="position mentee-info-response-box">
-        <h1 className="mentee-info-response-title">Position</h1>
-        <div className="mentee-info-response-body">
-          <p className="mentee-info-response-text"></p>
-        </div>
-      </div>
-
       <div className="assistance-areas mentee-info-response-box">
         <h1 className="mentee-info-response-title">This child is being referred for assistance in the following areas</h1>
         <div className="mentee-info-response-body-lg">
-          <p className="mentee-info-response-text">{mentee.whyBenefit}</p>
+          <p className="mentee-info-response-text">{mentee.areas.join(", ")}</p>
         </div>
       </div>
 
@@ -132,9 +125,9 @@ const MenteeInfoModal: React.FC<Props> = ({ mentee, onCloseModal }) => {
       </div>
 
       <div className="strategies mentee-info-response-box">
-        <h1 className="mentee-info-response-title">What strategies/learning models might be effective for a Mentor working with this child?</h1>
+        <h1 className="mentee-info-response-title">What words best describe the child?</h1>
         <div className="mentee-info-response-body-lg">
-          <p className="mentee-info-response-text"></p>
+          <p className="mentee-info-response-text">{mentee.bestDescribes.reduce((p, c, i) => {return i == 0 ? c : `${p}, ${c}`})}</p>
         </div>
       </div>
 
