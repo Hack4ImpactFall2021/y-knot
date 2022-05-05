@@ -129,12 +129,14 @@ const AdminApplicants = () => {
           <hr/>
           {/* Applicants List */}
           <ul className="applicants-list">
-            {visibleApplicants.map((applicant, idx) => 
+            {visibleApplicants.length > 0 ? visibleApplicants.map((applicant, idx) => 
               <div key={idx} className="applicants-list-item">
                 <p>{applicant.firstName + " " + applicant.lastName}</p>
                 <div className="applicant-stage" style={{backgroundColor: getColorForStage(applicant.stage)}}>{applicant.stage}</div>
-              </div>
-            )}
+              </div>)
+              :
+              <p>There are no applicants to display.</p>
+            }
           </ul>
         </div>
       </div>

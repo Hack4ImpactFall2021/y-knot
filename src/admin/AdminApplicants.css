@@ -42,7 +42,6 @@
 .admin-applicants 
 .applicant-stage-filters-wrapper
 .applicant-stage-filter {
-  border-bottom: 5px solid green;
   justify-content: space-around;
   flex-wrap: wrap;
   width: 14em;
@@ -137,7 +136,7 @@
   margin-top: 0;
 }
 
-/* Applicants Dashboard -> Trainees List */
+/* Applicants Dashboard -> Applicants List */
 .admin-applicants 
 .applicants-dashboard 
 .applicants-list {
@@ -152,7 +151,7 @@
   flex-direction: column;
 }
 
-/* Applicants Dashboard -> Trainees List -> Trainees List Item */
+/* Applicants Dashboard -> Applicants List -> Applicants List Item */
 .admin-applicants 
 .applicants-dashboard 
 .applicants-list 
