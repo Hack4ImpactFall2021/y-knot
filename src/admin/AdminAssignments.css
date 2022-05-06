@@ -13,29 +13,10 @@
   flex-direction: column;
   justify-content: flex-start;
   gap: 1.25em;
-  /* margin: 0 20px;
-  height: 100%;
-  padding: 32px;
-  padding-top: 16px;
-  min-width: 1120px;
-  max-width: 1120px;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  overflow: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none; */
 }
 
 /* Header */
 .admin-assignments .wrapper .header-wrapper {
-  /* width: 100%;
-  height:10%;
-  margin: 10px;
-  margin-left: 30px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center; */
   padding-top: 5px;
   width: 99%;
   height:10%;
@@ -45,9 +26,6 @@
   align-items: center;
 }
 
-/* .admin-assignments .wrapper .heading-wrapper .header {
-  font-size: 2.5em;
-} */
 
 /* Mentors and Trainees Filters */
 .admin-assignments 
@@ -110,16 +88,6 @@
 
 /* Trainees Mentees Dashboard */
 .admin-assignments .trainees-mentees-dashboard {
-  /* padding: 32px;
-  padding-top: 16px;
-  min-width: 1120px;
-  max-width: 1120px;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  overflow: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none; */
   border-radius: 15px;
   background-color: white;
   width: 95%;
@@ -128,18 +96,6 @@
   height: 58vh;
   flex-grow: 1;
 }
-/* .dashboard-content::-webkit-scrollbar { */
-/* .admin-assignments .dashboard::-webkit-scrollbar {
-  display: none;
-} */
-
-/* Filters
-.admin-assignments .dashboard-filters {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  column-gap: 1em;
-} */
 
 /* Mentors Trainees Dashboard -> Header */
 .admin-assignments 
@@ -238,4 +194,72 @@
   font-weight: 600;
   border-radius: 5px;
   font-size: 0.8em;
+}
+
+/* Trainee Assignment Modal */
+.modal-wrapper {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.trainee-assignment-modal {
+  /* Modal positioning */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Modal size */
+  width: 50%;
+  height: 50%;
+  border-radius: 1em;
+
+  /* Colors */
+  background-color: #ececec;
+
+  /* Modal fade in on open */
+  animation-name: modalopen;
+  animation-duration: 0.25s;
+
+  /* Modal content positioning */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.trainee-assignment-modal p {
+  font-size: 1.5em;
+}
+.trainee-assignment-modal .btn-wrappers {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+}
+.trainee-assignment-modal .cancel-btn, .confirm-btn {
+  border-radius: 35px;
+  font-size: 1.5em;
+  padding: 20px 40px;
+}
+.trainee-assignment-modal .cancel-btn {
+  color: #10275b;
+  border: 2px solid #10275b;
+}
+.trainee-assignment-modal .confirm-btn {
+  color:white;
+  border: none;
+  background-color:#10275b;
+}
+.trainee-assignment-modal .cancel-btn:hover, .confirm-btn:hover {
+  cursor: pointer;
+  filter: brightness(1.2);
+}
+@keyframes modalopen {
+  from { opacity: 0 }
+  to { opacity: 1 }
 }

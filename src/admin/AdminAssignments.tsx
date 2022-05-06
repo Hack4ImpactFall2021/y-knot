@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import NetworkManager, { Endpoints } from "../network/NetworkManager";
 
@@ -14,6 +15,8 @@ type PersonType = "Mentee" | "Trainee";
 
 const AdminHome = () => {
   const [visiblePeople, setVisiblePeople] = useState<any[]>([]);
+  const navigate = useNavigate();
+  const [assignmentModal, setAssignmentModal] = useState<any>(null);
 
   const allPeople = [
     {firstName: "Jason", lastName: "Cavanaugh", type: "Mentee"},
@@ -62,9 +65,39 @@ const AdminHome = () => {
     }
   }
 
+  const onClick = (person: any) => {
+    if (person.type === "Trainee") {
+      setAssignmentModal(person.firstName + " " + person.lastName);
+    } else if (person.type === "Mentee") {
+      navigate("/admin/matching");
+    }
+  }
+
+  const renderAssignmentModal = () => {
+    if (!assignmentModal) {
+      return;
+    }
+    console.log("Here");
+    return (
+      <div className="modal-wrapper">
+        <div className="trainee-assignment-modal">
+          <h1>Make Trainee a Mentor!</h1>
+          <p>Are you sure you wish to make {assignmentModal} into a Mentor?</p>
+          <div className="btn-wrappers">
+            <button className="cancel-btn" onClick={() => setAssignmentModal(null)}>Cancel</button>
+            {/* Until we figure out what we want to do here */}
+            <button className="confirm-btn"onClick={() => setAssignmentModal(null)} >Confirm</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="admin-assignments">
       <div className="wrapper">
+        {/* Assignment Modal for Trainee */}
+        {renderAssignmentModal()}
         {/* Header */}
         <div className="header-wrapper">
           <h1 className="header">Assignments</h1>
@@ -107,7 +140,7 @@ const AdminHome = () => {
           {/* Mentors and Trainees List */}
           <ul className="trainees-mentees-list">
             {visiblePeople.length > 0 ? visiblePeople.map((person, idx) => 
-              <div key={idx} className="trainees-mentees-list-item">
+              <div key={idx} className="trainees-mentees-list-item" onClick={() => onClick(person)}>
                 <p>{person.firstName + " " + person.lastName}</p>
                 <div className="person-type" style={{backgroundColor: getColorForPersonType(person.type)}}>{person.type}</div>
               </div>)
