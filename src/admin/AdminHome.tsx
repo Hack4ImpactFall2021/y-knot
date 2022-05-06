@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./AdminHome.css";
 
@@ -16,6 +17,7 @@ type PersonType = "Mentor" | "Trainee";
 const AdminHome = () => {
   const [allPeople, setAllPeople] = useState<(Mentor | Trainee)[]>([]);
   const [visiblePeople, setVisiblePeople] = useState<(Mentor | Trainee)[]>([]);
+  const navigate = useNavigate();
 
 
   // needs to be updated based on how mentor/mentee information is stored
@@ -66,6 +68,14 @@ const AdminHome = () => {
     }
   }
 
+  const onClick = (person: Mentor | Trainee) => {
+    if (person.type === "Mentor") {
+      navigate("/trainee/" + person.submissionId);
+    } else if (person.type === "Trainee") {
+      navigate("/mentor/" + person.submissionId);
+    }
+  }
+
   return (
     <div className="admin-home">
       <div className="wrapper">
@@ -111,7 +121,7 @@ const AdminHome = () => {
           {/* Mentors and Trainees List */}
           <ul className="mentors-trainees-list">
             {visiblePeople.length > 0 ? visiblePeople.map((person, idx) => 
-              <div key={idx} className="mentors-trainees-list-item">
+              <div key={idx} className="mentors-trainees-list-item" onClick={() => onClick(person)}>
                 <p>{person.firstName + " " + person.lastName}</p>
                 <div className="person-type" style={{backgroundColor: getColorForPersonType(person.type)}}>{person.type}</div>
               </div>)
