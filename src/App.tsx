@@ -26,6 +26,8 @@ import { NavRouteOptions as AdminNavRouteOptions } from "./admin/AdminSidebar";
 import { NavRoutes as AdminNavRoutes } from "./admin/AdminSidebar";
 import Admin from "./admin/Admin";
 
+import {Tabs as MentorProfileTabs} from "./mentor/MentorProfile";
+
 
 const App = () => {
     
@@ -46,7 +48,8 @@ const App = () => {
                     <Route path='/mentor' element={<RequireMentorAuth children={<MentorLanding/>} />}/>
                     <Route path='/mentor/settings' element={<RequireMentorAuth children={<MentorSettings/>} />}/>
                     <Route path='/mentor/resources' element={<RequireMentorAuth children={<MentorResources/>} />}/>
-                    <Route path='/mentor/:id' element={<RequireMentorAuth children={<MentorProfile />}/>} />
+                    <Route path='/mentor/:id' element={<RequireMentorAuth children={<MentorProfile defaultTab={MentorProfileTabs.MentorInfo}/>}/>} />
+                    <Route path='/mentor/:id/logsreports' element={<RequireMentorAuth children={<MentorProfile defaultTab={MentorProfileTabs.LogsAndReports}/>}/>} />
 
                     <Route path='/admin/matching' element={<RequireAdminAuth children={<MentorMenteeMatch />}/>} />
                     <Route

@@ -44,7 +44,7 @@ const MentorLanding: React.FC<Props> = () => {
           <img className="mentoring-img" src={mentoring} alt="Mentoring Puzzle Piece"></img>
 
           <div className="mentoring-btn-wrapper">
-            <Link to={"/mentor/" + mentor?.submission_id}>
+            <Link to={`/mentor/${mentor?.submission_id}/logsreports`}>
               <button className="mentoring-btn">
                 Logs & Reports
               </button>

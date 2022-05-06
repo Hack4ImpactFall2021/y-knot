@@ -14,14 +14,18 @@ import "./MentorProfile.css";
 
 export enum Tabs { MentorInfo = "Your Profile" , MenteeProfile = "Mentee Profile", LogsAndReports = "Logs and Reports" };
 
-const MentorProfile = () => {
+type Props = {
+  defaultTab: string
+}
+
+const MentorProfile: React.FC<Props> = ({defaultTab}) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [applicant, setApplicant] = useState<Applicant | null>(null);
   const [formData, setFormData] = useState<JotformResponse | null>(null);
   const [menteeList, setMenteeList] = useState<MenteeForm[]>([]);
 
-  const [tab, setTab] = useState<string>(Tabs.MentorInfo);
+  const [tab, setTab] = useState<string>(defaultTab);
 
   useEffect(() => {
     getApplicant();
