@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { Applicant, ApplicantStages } from '../utils/utils';
 
@@ -18,6 +19,8 @@ const AdminApplicants = () => {
   const [visibleApplicants, setVisibleApplicants] = useState<Applicant[]>([]);
   const [searchText, setSearchText] = useState<string>("");
   const [applicantStageFilter, setApplicantStageFilter] = useState<ApplicantStageFilter>("All Applicants");
+
+  const navigate = useNavigate();
 
   const getApplicants: VoidFunction = async () => {
     try {
@@ -64,6 +67,10 @@ const AdminApplicants = () => {
       default:
         return "";
     }
+  }
+
+  const onClick = (applicant: Applicant) => {
+    navigate("/admin/" + applicant.submissionId);
   }
 
 
@@ -130,7 +137,7 @@ const AdminApplicants = () => {
           {/* Applicants List */}
           <ul className="applicants-list">
             {visibleApplicants.length > 0 ? visibleApplicants.map((applicant, idx) => 
-              <div key={idx} className="applicants-list-item">
+              <div key={idx} className="applicants-list-item" onClick={() => onClick(applicant)}>
                 <p>{applicant.firstName + " " + applicant.lastName}</p>
                 <div className="applicant-stage" style={{backgroundColor: getColorForStage(applicant.stage)}}>{applicant.stage}</div>
               </div>)

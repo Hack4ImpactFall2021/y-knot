@@ -77,7 +77,6 @@ const AdminHome = () => {
     if (!assignmentModal) {
       return;
     }
-    console.log("Here");
     return (
       <div className="modal-wrapper">
         <div className="trainee-assignment-modal">
