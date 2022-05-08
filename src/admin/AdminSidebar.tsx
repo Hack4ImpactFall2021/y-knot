@@ -1,4 +1,6 @@
 //All this has to do with the routing and should probably be in some other file. 
+
+//Active and inactive icons for the sidebar
 import home_active from "./assets/home_active.png";
 import home_inactive from "./assets/home_inactive.png";
 import trainee_active from "./assets/trainee_active.png";
@@ -8,8 +10,9 @@ import applicants_inactive from "./assets/applicants_inactive.png";
 import settings_active from "./assets/settings_active.png";
 import settings_inactive from "./assets/settings_inactive.png";
 
+//Content components
 import AdminHome from "./AdminHome";
-import AdminTrainees from "./AdminTrainees";
+import AdminAssignments from "./AdminAssignments";
 import AdminApplicants from "./AdminApplicants";
 import AdminSettings from "./AdminSettings";
 
@@ -24,7 +27,7 @@ import { LogoutButton } from "./LogoutButton";
 
 export enum NavRouteOptions { 
   Home = "Home", 
-  Trainee = "Trainee", 
+  Assignments = "Assignments",
   Applicants = "Applicants", 
   Settings = "Settings"
 }
@@ -38,7 +41,7 @@ interface SidebarTileInfo {
   contentComponent: JSX.Element
 }
 
-export const NavRoutes = {
+export const NavRoutes: { [key in NavRouteOptions]: SidebarTileInfo}= {
   [NavRouteOptions.Home]: {
     name: NavRouteOptions.Home,
     route: "/admin",
@@ -47,13 +50,13 @@ export const NavRoutes = {
     inactiveIcon: home_inactive,
     contentComponent: <AdminHome/>
   },
-  [NavRouteOptions.Trainee]: {
-    name: NavRouteOptions.Trainee,
-    route: "/admin/trainee",
-    label: "Trainee",
+  [NavRouteOptions.Assignments]: {
+    name: NavRouteOptions.Assignments,
+    route: "/admin/assignments",
+    label: "Assignments",
     activeIcon: trainee_active,
     inactiveIcon: trainee_inactive,
-    contentComponent: <AdminTrainees/>
+    contentComponent: <AdminAssignments/>
   },
   [NavRouteOptions.Applicants]: {
     name: NavRouteOptions.Applicants,
@@ -70,17 +73,16 @@ export const NavRoutes = {
     activeIcon: settings_active,
     inactiveIcon: settings_inactive,
     contentComponent: <AdminSettings/>
-  }
+  },
 }
 
 //This is where the sidebar stuff actually starts
 interface Props {
-    selected: NavRouteOptions,
-    routes: NavRouteOptions[]
+  selected: NavRouteOptions,
+  routes: NavRouteOptions[]
 }
 
 const AdminSidebar: React.FC<Props> = ({ selected, routes }) => {
-
   return (
     <div className="admin-sidebar">
       {routes.map((curRoute, idx) => <AdminSidebarTile key={idx} selected={curRoute === selected} {...NavRoutes[curRoute]} />)}

@@ -1,0 +1,265 @@
+.admin-assignments {
+  background-color: #f4f4f4;
+  color: #10275b;
+  height: 100vh;
+  width: 85%;
+  flex-grow: 1;
+}
+.admin-assignments .wrapper {
+  margin-left: 20px;
+  height: 100%;
+  width: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.25em;
+}
+
+/* Header */
+.admin-assignments .wrapper .header-wrapper {
+  padding-top: 5px;
+  width: 99%;
+  height:10%;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+/* Mentors and Trainees Filters */
+.admin-assignments 
+.trainees-mentees-filters-wrapper {
+  display: flex;
+  margin-left: 10px;
+  gap: 1.5em;
+  height: 8.2em;
+}
+
+.admin-assignments 
+.trainees-mentees-filters-wrapper 
+.filter-img {
+  width: 4em;
+  flex-shrink: 0;
+}
+.admin-assignments 
+.trainees-mentees-filters-wrapper 
+.person-filter {
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 14em;
+  background-color: white;
+  border: none;
+  border-radius: 0 0 10px 10px;
+  border-bottom: 18px solid;
+}
+
+.admin-assignments 
+.trainees-mentees-filters-wrapper 
+.person-filter:hover, .person-filter.selected {
+  cursor: pointer;
+  filter: drop-shadow(0px 10px 3px #c4c4c4);
+  transition: 300ms filter linear;
+}
+.admin-assignments 
+.trainees-mentees-filters-wrapper 
+.person-filter 
+.filter-top {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1em;
+  margin: 10px 15px;
+}
+.admin-assignments 
+.trainees-mentees-filters-wrapper 
+.person-filter
+.filter-top h3 {
+  font-size: 2em;
+  margin: 0;
+}
+.admin-assignments 
+.trainees-mentees-filters-wrapper 
+.person-filter p {
+  font-size: 1.2em;
+  font-weight: 500;
+  margin: 0px 15px;
+}
+
+/* Trainees Mentees Dashboard */
+.admin-assignments .trainees-mentees-dashboard {
+  border-radius: 15px;
+  background-color: white;
+  width: 95%;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  height: 58vh;
+  flex-grow: 1;
+}
+
+/* Mentors Trainees Dashboard -> Header */
+.admin-assignments 
+.trainees-mentees-dashboard
+.header-wrapper {
+  display: flex;
+  color: #10275b;
+  width: 95%;
+  margin: 0 auto;
+  height: 4em;
+}
+
+/* Mentors Trainees Dashboard -> Header -> Title */
+.admin-assignments .trainees-mentees-dashboard .header-wrapper h3 {
+  font-size: 1.4em;
+}
+
+/* Mentors Trainees Dashboard -> Header -> Searchbar */
+.admin-assignments 
+.trainees-mentees-dashboard 
+.header-wrapper
+.trainees-mentees-list-searchbar {
+  border-radius: 30px;
+  border: 1px solid #8a8a8a;
+  color: #8a8a8a;
+  padding: 10px 20px;
+}
+.admin-assignments 
+.trainees-mentees-dashboard 
+.header-wrapper
+.trainees-mentees-list-searchbar:focus-visible {
+  border: 1px solid #8a8a8a;
+  outline: 1px solid #8a8a8a;
+  opacity: 1.2;
+}
+
+.admin-assignments 
+.trainees-mentees-dashboard  hr {
+  background-color:#bababa;
+  width: 95%;
+  margin-top: 0;
+}
+/* Mentors Trainees Dashboard -> List */
+.admin-assignments 
+.trainees-mentees-dashboard 
+.trainees-mentees-list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 95%;
+  margin: 0 auto;
+  padding: 0; /* idk why the padding isn't working */
+  height: calc(100% - 6em);
+  list-style-type: none;
+  display: flex; /* Probably unnecessary  */
+  flex-direction: column;
+}
+
+/* Mentors Trainees Dashboard -> Mentors Trainees List -> Mentors Trainees List Item */
+.admin-assignments 
+.trainees-mentees-dashboard 
+.trainees-mentees-list 
+.trainees-mentees-list-item {
+  width: 99%;
+  margin: 5px 0;
+  border-radius: 10px;
+  background-color: #f4f4f4 ;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2em;
+}
+.admin-assignments 
+.trainees-mentees-dashboard 
+.trainees-mentees-list
+.trainees-mentees-list-item:hover {
+  background-color: #ececec;
+  cursor: pointer;
+}
+
+.admin-assignments 
+.trainees-mentees-dashboard 
+.trainees-mentees-list
+.trainees-mentees-list-item p {
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-left: 15px;
+}
+.admin-assignments 
+.trainees-mentees-dashboard 
+.trainees-mentees-list
+.trainees-mentees-list-item 
+.person-type {
+  padding: 3px 5px;
+  color: white;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 0.8em;
+}
+
+/* Trainee Assignment Modal */
+.modal-wrapper {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.trainee-assignment-modal {
+  /* Modal positioning */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Modal size */
+  width: 50%;
+  height: 50%;
+  border-radius: 1em;
+
+  /* Colors */
+  background-color: #ececec;
+
+  /* Modal fade in on open */
+  animation-name: modalopen;
+  animation-duration: 0.25s;
+
+  /* Modal content positioning */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.trainee-assignment-modal p {
+  font-size: 1.5em;
+}
+.trainee-assignment-modal .btn-wrappers {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+}
+.trainee-assignment-modal .cancel-btn, .confirm-btn {
+  border-radius: 35px;
+  font-size: 1.5em;
+  padding: 20px 40px;
+}
+.trainee-assignment-modal .cancel-btn {
+  color: #10275b;
+  border: 2px solid #10275b;
+}
+.trainee-assignment-modal .confirm-btn {
+  color:white;
+  border: none;
+  background-color:#10275b;
+}
+.trainee-assignment-modal .cancel-btn:hover, .confirm-btn:hover {
+  cursor: pointer;
+  filter: brightness(1.2);
+}
+@keyframes modalopen {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}

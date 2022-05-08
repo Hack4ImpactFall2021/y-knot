@@ -36,6 +36,7 @@ export type MenteeForm = {
 }
 
 export type Applicant = {
+    type: "Applicant",
     firstName: string,
     lastName: string,
     email: string,
@@ -47,6 +48,7 @@ export type Applicant = {
 }
 
 export type Mentor = {
+    type: "Mentor",
     firstName: string,
     lastName: string,
     email: string,
@@ -60,6 +62,7 @@ export type Mentor = {
 }
 
 export type Trainee = {
+    type: "Trainee",
     firstName: string,
     lastName: string,
     email: string,

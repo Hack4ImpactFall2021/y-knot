@@ -1,5 +1,5 @@
 .admin-home {
-  background-color: #e5e5e5;
+  /* background-color: #e5e5e5;
   color: #10275b;
   width: 100%;
   display: flex;
@@ -9,10 +9,22 @@
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   background-color: #f4f4f4;
   flex: 1;
-  justify-content: center;
+  justify-content: center; */
+  background-color: #f4f4f4;
+  color: #10275b;
+  height: 100vh;
+  width: 85%;
+  flex-grow: 1;
 }
 .admin-home .wrapper {
-  margin: 0 20px;
+  margin-left: 20px;
+  height: 100%;
+  width: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.25em;
+  /* margin: 0 20px;
   height: 100%;
   padding: 32px;
   padding-top: 16px;
@@ -23,26 +35,93 @@
   flex-direction: column;
   overflow: auto;
   scrollbar-width: none;
-  -ms-overflow-style: none;
+  -ms-overflow-style: none; */
 }
-/* Heading */
-.admin-home .wrapper .heading-wrapper {
-  width: 100%;
+
+/* Header */
+.admin-home .wrapper .header-wrapper {
+  /* width: 100%;
   height:10%;
   margin: 10px;
   margin-left: 30px;
   display: flex;
   justify-content: space-between;
+  align-items: center; */
+  padding-top: 5px;
+  width: 99%;
+  height:10%;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
-.admin-home .wrapper .heading-wrapper .header {
+/* .admin-home .wrapper .heading-wrapper .header {
   font-size: 2.5em;
+} */
+
+/* Mentors and Trainees Filters */
+.admin-home 
+.mentors-trainees-filters-wrapper {
+  display: flex;
+  margin-left: 10px;
+  gap: 1.5em;
+  height: 8.2em;
 }
 
-/* Dashboard */
-.dashboard-content {
-  padding: 32px;
+.admin-home 
+.mentors-trainees-filters-wrapper 
+.filter-img {
+  width: 4em;
+  flex-shrink: 0;
+}
+.admin-home 
+.mentors-trainees-filters-wrapper 
+.person-filter {
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 14em;
+  background-color: white;
+  border: none;
+  border-radius: 0 0 10px 10px;
+  border-bottom: 18px solid;
+}
+
+.admin-home 
+.mentors-trainees-filters-wrapper 
+.person-filter:hover, .person-filter.selected {
+  cursor: pointer;
+  filter: drop-shadow(0px 10px 3px #c4c4c4);
+  transition: 300ms filter linear;
+}
+.admin-home 
+.mentors-trainees-filters-wrapper 
+.person-filter 
+.filter-top {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1em;
+  margin: 10px 15px;
+}
+.admin-home 
+.mentors-trainees-filters-wrapper 
+.person-filter
+.filter-top h3 {
+  font-size: 2em;
+  margin: 0;
+}
+.admin-home 
+.mentors-trainees-filters-wrapper 
+.person-filter p {
+  font-size: 1.2em;
+  font-weight: 500;
+  margin: 0px 15px;
+}
+
+/* mentors-trainees-dashboard */
+.admin-home .mentors-trainees-dashboard {
+  /* padding: 32px;
   padding-top: 16px;
   min-width: 1120px;
   max-width: 1120px;
@@ -51,33 +130,123 @@
   flex-direction: column;
   overflow: auto;
   scrollbar-width: none;
-  -ms-overflow-style: none;
+  -ms-overflow-style: none; */
+  border-radius: 15px;
+  background-color: white;
+  width: 95%;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  height: 58vh;
+  flex-grow: 1;
 }
-.dashboard-content::-webkit-scrollbar {
+/* .dashboard-content::-webkit-scrollbar { */
+/* .admin-home .dashboard::-webkit-scrollbar {
   display: none;
-}
+} */
 
-.dashboard-filters {
+/* Filters
+.admin-home .dashboard-filters {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   column-gap: 1em;
-}
+} */
 
-.dashboard-applicants {
-  margin-top: 2rem;
-  background-color: white;
-  color: black;
-  padding: 2rem;
-  padding-top: 1rem;
-  border-radius: 20px;
-  min-height: 560px;
-  max-height: 560px;
-}
-
-.dashboard-applicants > .tiles {
-  min-height: 460px;
-  max-height: 460px;
-  overflow: auto;
+/* Mentors Trainees Dashboard -> Header */
+.admin-home 
+.mentors-trainees-dashboard
+.header-wrapper {
+  display: flex;
   color: #10275b;
+  width: 95%;
+  margin: 0 auto;
+  height: 4em;
+}
+
+/* Mentors Trainees Dashboard -> Header -> Title */
+.admin-home .mentors-trainees-dashboard .header-wrapper h3 {
+  font-size: 1.4em;
+}
+
+/* Mentors Trainees Dashboard -> Header -> Searchbar */
+.admin-home 
+.mentors-trainees-dashboard 
+.header-wrapper
+.mentors-trainees-list-searchbar {
+  border-radius: 30px;
+  border: 1px solid #8a8a8a;
+  color: #8a8a8a;
+  padding: 10px 20px;
+}
+.admin-home 
+.mentors-trainees-dashboard 
+.header-wrapper
+.mentors-trainees-list-searchbar:focus-visible {
+  border: 1px solid #8a8a8a;
+  outline: 1px solid #8a8a8a;
+  opacity: 1.2;
+}
+
+.admin-home 
+.mentors-trainees-dashboard  hr {
+  background-color:#bababa;
+  width: 95%;
+  margin-top: 0;
+}
+/* Mentors Trainees Dashboard -> List */
+.admin-home 
+.mentors-trainees-dashboard 
+.mentors-trainees-list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 95%;
+  margin: 0 auto;
+  padding: 0; /* idk why the padding isn't working */
+  height: calc(100% - 6em);
+  list-style-type: none;
+  display: flex; /* Probably unnecessary  */
+  flex-direction: column;
+}
+
+/* Mentors Trainees Dashboard -> Mentors Trainees List -> Mentors Trainees List Item */
+.admin-home 
+.mentors-trainees-dashboard 
+.mentors-trainees-list 
+.mentors-trainees-list-item {
+  width: 99%;
+  margin: 5px 0;
+  border-radius: 10px;
+  background-color: #f4f4f4 ;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2em;
+}
+.admin-home 
+.mentors-trainees-dashboard 
+.mentors-trainees-list
+.mentors-trainees-list-item:hover {
+  background-color: #ececec;
+  cursor: pointer;
+}
+
+.admin-home 
+.mentors-trainees-dashboard 
+.mentors-trainees-list
+.mentors-trainees-list-item p {
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-left: 15px;
+}
+.admin-home 
+.mentors-trainees-dashboard 
+.mentors-trainees-list
+.mentors-trainees-list-item 
+.person-type {
+  padding: 3px 5px;
+  color: white;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 0.8em;
 }

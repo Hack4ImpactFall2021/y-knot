@@ -1,0 +1,195 @@
+.admin-applicants {
+  background-color: #f4f4f4;
+  color: #10275b;
+  height: 100vh;
+  width: 85%;
+  flex-grow: 1;
+}
+.admin-applicants .wrapper {
+  margin-left: 20px;
+  height: 100%;
+  width: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.25em;
+}
+/* Header */
+.admin-applicants .header-wrapper {
+  padding-top: 5px;
+  width: 99%;
+  height:10%;
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* Applicant Stage Filters */
+.admin-applicants 
+.applicant-stage-filters-wrapper {
+  display: flex;
+  margin-left: 10px;
+  gap: 1.5em;
+  height: 8.2em;
+}
+
+.admin-applicants 
+.applicant-stage-filters-wrapper
+.filter-img {
+  width: 4em;
+  flex-shrink: 0;
+}
+.admin-applicants 
+.applicant-stage-filters-wrapper
+.applicant-stage-filter {
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 14em;
+  background-color: white;
+  border: none;
+  border-radius: 0 0 10px 10px;
+  border-bottom: 18px solid;
+}
+
+.admin-applicants 
+.applicant-stage-filters-wrapper
+.applicant-stage-filter:hover, .applicant-stage-filter.selected {
+  cursor: pointer;
+  filter: drop-shadow(0px 10px 3px #c4c4c4);
+  transition: 300ms filter linear;
+}
+.admin-applicants 
+.applicant-stage-filters-wrapper
+.applicant-stage-filter 
+.filter-top {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1em;
+  margin: 10px 15px;
+}
+.admin-applicants 
+.applicant-stage-filters-wrapper
+.applicant-stage-filter 
+.filter-top h3 {
+  font-size: 2em;
+  margin: 0;
+}
+.admin-applicants 
+.applicant-stage-filters-wrapper
+.applicant-stage-filter p {
+  font-size: 1.2em;
+  font-weight: 500;
+  margin: 0px 15px;
+}
+
+/* Applicants Dashboard */
+.admin-applicants 
+.applicants-dashboard  {
+  border-radius: 15px;
+  background-color: white;
+  width: 95%;
+  margin-left: 10px;
+  margin-bottom: 20px;
+  height: 58vh;
+  flex-grow: 1;
+}
+
+/* Applicants Dashboard -> Header */
+.admin-applicants 
+.applicants-dashboard 
+.header-wrapper {
+  display: flex;
+  color: #10275b;
+  width: 95%;
+  margin: 0 auto;
+  height: 4em;
+}
+
+/* Applicants Dashboard -> Header -> Title */
+.admin-applicants .applicants-dashboard .header-wrapper h3 {
+  font-size: 1.4em;
+}
+
+/* Applicants Dashboard -> Header -> Searchbar */
+.admin-applicants 
+.applicants-dashboard 
+.header-wrapper
+.applicants-list-searchbar {
+  border-radius: 30px;
+  border: 1px solid #8a8a8a;
+  color: #8a8a8a;
+  padding: 10px 20px;
+}
+.admin-applicants 
+.applicants-dashboard 
+.header-wrapper
+.applicants-list-searchbar:focus-visible {
+  border: 1px solid #8a8a8a;
+  outline: 1px solid #8a8a8a;
+  opacity: 1.2;
+}
+.admin-applicants 
+.applicants-dashboard  hr {
+  background-color:#bababa;
+  width: 95%;
+  margin-top: 0;
+}
+
+/* Applicants Dashboard -> Applicants List */
+.admin-applicants 
+.applicants-dashboard 
+.applicants-list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  width: 95%;
+  margin: 0 auto;
+  padding: 0; /* idk why the padding isn't working */
+  height: calc(100% - 6em);
+  list-style-type: none;
+  display: flex; /* Probably unnecessary  */
+  flex-direction: column;
+}
+
+/* Applicants Dashboard -> Applicants List -> Applicants List Item */
+.admin-applicants 
+.applicants-dashboard 
+.applicants-list 
+.applicants-list-item {
+  width: 99%;
+  margin: 5px 0;
+  border-radius: 10px;
+  background-color: #f4f4f4 ;
+  border: none;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2em;
+}
+.admin-applicants 
+.applicants-dashboard 
+.applicants-list 
+.applicants-list-item:hover {
+  background-color: #ececec;
+  cursor: pointer;
+}
+
+.admin-applicants 
+.applicants-dashboard 
+.applicants-list 
+.applicants-list-item p {
+  font-size: 1.3em;
+  font-weight: 700;
+  margin-left: 15px;
+}
+
+.admin-applicants 
+.applicants-dashboard 
+.applicants-list 
+.applicants-list-item .applicant-stage {
+  padding: 3px 5px;
+  color: white;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 0.8em;
+}

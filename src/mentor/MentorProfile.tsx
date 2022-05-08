@@ -33,11 +33,11 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
     getMentees();
   }, []);
 
-  const getMentees = async () => {
+  const getMentees: VoidFunction = async () => {
     try {
-      let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
+      let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, { submissionId: id });
       snap = snap as QuerySnapshot<DocumentData>;
-      const menteeIds = snap.docs[0].data().mentee_ids;
+      const menteeIds = snap.data()?.mentee_ids;
       const menteeData = [];
       for( let id of menteeIds ) {
         let data = await NetworkManager.makeRequest(Endpoints.GetMenteeForm, {id: id});
@@ -82,6 +82,7 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
       }
       const data = snap.data();
       setApplicant({
+        type: "Applicant",
         firstName: data.first_name,
         lastName: data.last_name,
         email: data.email,
