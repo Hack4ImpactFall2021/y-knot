@@ -70,9 +70,9 @@ const AdminHome = () => {
 
   const onClick = (person: Mentor | Trainee) => {
     if (person.type === "Mentor") {
-      navigate("/trainee/" + person.submissionId);
-    } else if (person.type === "Trainee") {
       navigate("/mentor/" + person.submissionId);
+    } else if (person.type === "Trainee") {
+      navigate("/trainee/" + person.submissionId);
     }
   }
 

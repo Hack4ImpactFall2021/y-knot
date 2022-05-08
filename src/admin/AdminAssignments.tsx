@@ -125,7 +125,7 @@ const AdminHome = () => {
           {/* Header */}
           <div className="header-wrapper">
             {/* Title */}
-            <h2>{filter === "" ? "All Mentors and Trainees" : filter + "s"}</h2>
+            <h2>{filter === "" ? "All Mentees and Trainees" : filter + "s"}</h2>
             {/* Searchbar */}
             <input 
               className="trainees-mentees-list-searchbar" 
