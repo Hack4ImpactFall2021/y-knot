@@ -54,6 +54,16 @@
   padding: 0.5em 1.5em;
   font-size: 1.2em;
 }
+
+.training-btn-finished {
+  background-color: #7b7b7b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5em 1.5em;
+  font-size: 1.2em;
+}
+
 .training-btn:hover {
   cursor: pointer;
   filter: brightness(1.2);

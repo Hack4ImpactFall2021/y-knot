@@ -28,6 +28,7 @@ export enum Endpoints{
   GetAllMentees,
   SetRole,
   GetMenteeForm,
+  TrainingComplete,
   GetCurrentMentorOrTrainee,
   UpdateNote,
   UploadFile,
@@ -73,6 +74,8 @@ class NetworkManger {
           return this.updateUserPassword(params.password);
         case Endpoints.GetCurrentMentorOrTrainee:
           return this.getCurrentMentorOrTrainee();
+        case Endpoints.TrainingComplete:
+          return this.trainingComplete(params.email, params.id);
         case Endpoints.CreateNewUser:
           return this.createNewUser(params.email, params.password, params.role);
         case Endpoints.GetApplicant:
@@ -171,6 +174,19 @@ class NetworkManger {
         } else
           reject("error");
       }
+    });
+  }
+
+  private trainingComplete(email: string, id: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      // TODO send email
+      //  https://us-central1-yknot-ats.cloudfunctions.net/sendInterviewEmail
+
+      updateDoc(doc(db, 'applicants', id), {training_complete: true}).then(() => {
+        resolve();
+      }).catch(() => {
+        reject();
+      });
     });
   }
 

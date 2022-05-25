@@ -6,12 +6,11 @@ import TraineeSidebar, { NavRoutes } from '../nav/TraineeSidebar';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 interface Props {
-
-
 };
 
 const Trainee: React.FC<Props> = () => {
   const [trainee, setTrainee] = useState<any>();
+  const [finished, setFinished] = useState<boolean>(false);
 
   useEffect(() => {
      getTrainee();
@@ -22,8 +21,22 @@ const Trainee: React.FC<Props> = () => {
         let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
         snap = snap as QuerySnapshot<DocumentData>;
         setTrainee(snap.docs[0].data());
+
+        if (trainee?.training_complete) {
+          setFinished(true);
+        }
+
     } catch(err) {
         console.log(err);
+    }
+  }
+
+  const finishedTraining: VoidFunction = async () => {
+    try {
+      //await NetworkManager.makeRequest(Endpoints.TrainingComplete);
+      setFinished(true);
+    } catch(err) {
+      console.log(err);
     }
   }
 
@@ -61,11 +74,15 @@ const Trainee: React.FC<Props> = () => {
                 Before you are matched with a mentee you are required to complete the mandatory mentor training located in our mentor portal. 
               </h2>
               <div className="finished-training-btn-wrapper">
-                <a target="_blank" href="https://y-knotinc.thinkific.com/">
-                    <button className="training-btn">
-                        Click When Finished Training
-                    </button>
-                </a>
+                  { !finished ? 
+                  <button onClick={() => {finishedTraining()}} className="training-btn">
+                      Click When Finished Training
+                  </button>
+                  :
+                  <button className="training-btn-finished">
+                      Waiting for confirmation of completion...
+                  </button>
+                  }
               </div>  
           </div>    
         </div>
