@@ -43,6 +43,7 @@ export enum Endpoints{
   SendBackgroundCheckEmail,
   SendRejectionEmail,
   SendAcceptanceEmail,
+  SendMenteeMatchEmail,
   GetCalendlyLink,
   GetScheduledInterview,
   SendPasswordResetEmail,
@@ -114,6 +115,10 @@ class NetworkManger {
             return this.sendRejectionEmail(params.email, params.name);
         case Endpoints.SendAcceptanceEmail:
             return this.sendAcceptanceEmail(params.email, params.name, params.username, params.password);
+        case Endpoints.SendMenteeMatchEmail:
+            return this.sendMenteeMatchEmail(params.email, params.menteeName, params.characteristic1,
+              params.characteristic2, params.characteristic3, params.menteeAge, params.menteeGrade,
+              params.menteeSchool, params.parentName, params.phoneNumber, params.menteeEmail);
         case Endpoints.GetAcceptedApplicants:
             return this.getAcceptedApplicants();
         case Endpoints.GetTrainees:
@@ -654,6 +659,22 @@ class NetworkManger {
       .catch(error => reject(error));
     });
   }
+
+  private sendMenteeMatchEmail(email: string, menteeName: string, characteristic1: string,
+    characteristic2: string, characteristic3: string, menteeAge: string, menteeGrade: string,
+    menteeSchool: string, parentName: string, phoneNumber: string, menteeEmail: string): Promise<void> {
+      return new Promise((resolve, reject) => {
+        fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendAcceptanceEmail?email=${email}
+          &menteeName=${menteeName}&characteristic1=${characteristic1}&characteristic2=${characteristic2}
+          &characteristic3=${characteristic3}&menteeAge=${menteeAge}&menteeGrade=${menteeGrade}
+          &menteeSchool=${menteeSchool}&parentName=${parentName}&phoneNumber=${phoneNumber}
+          &menteeEmail=${menteeEmail}`)
+        .then(() => {
+          resolve();
+        })
+        .catch(error => reject(error));
+      });
+    }
 
   private getCalendlyLink(): Promise<string> {
     return new Promise((resolve, reject) => {
