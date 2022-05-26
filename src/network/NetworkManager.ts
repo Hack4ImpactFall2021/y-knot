@@ -38,6 +38,8 @@ export enum Endpoints{
   UpdateStage,
   UpdateFirebaseId,
   SendInterviewEmail,
+  SendTrainingCompletedEmail,
+  SendTrainingCompletedInternalEmail,
   SendBackgroundCheckEmail,
   SendRejectionEmail,
   SendAcceptanceEmail,
@@ -101,7 +103,11 @@ class NetworkManger {
         case Endpoints.GetLoginId:
           return this.getLoginId();
         case Endpoints.SendInterviewEmail:
-          return this.sendInterviewEmail(params.email, params.url);
+          return this.sendInterviewEmail(params.email, params.url);  
+        case Endpoints.SendTrainingCompletedEmail:
+          return this.sendTrainingCompletedEmail(params.email, params.name);
+        case Endpoints.SendTrainingCompletedInternalEmail:
+          return this.sendTrainingCompletedInternalEmail(params.name);
         case Endpoints.SendBackgroundCheckEmail:
             return this.sendBackgroundCheckEmail(params.email);
         case Endpoints.SendRejectionEmail:
@@ -592,6 +598,26 @@ class NetworkManger {
   private sendInterviewEmail(email: string, url: string): Promise<void> {
     return new Promise((resolve, reject) => {
       fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendInterviewEmail?email=${email}&url=${encodeURIComponent(url)}`)
+      .then(() => {
+        resolve();
+      })
+      .catch(error => reject(error));
+    })
+  }
+
+  private sendTrainingCompletedEmail(email: string, name: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendTrainingCompletedEmail?email=${email}&name=${name}`)
+      .then(() => {
+        resolve();
+      })
+      .catch(error => reject(error));
+    })
+  }
+
+  private sendTrainingCompletedInternalEmail(name: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendTrainingCompletedInternalEmail?name=${name}`)
       .then(() => {
         resolve();
       })
