@@ -1,35 +1,38 @@
-import React, { MouseEventHandler, useState, useRef, useEffect } from 'react';
+import React, { MouseEventHandler, useState, useRef, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {MentorForm} from '../utils/utils';
+import { MentorForm } from '../utils/utils';
 
 import assign_icon from "./assets/assign_mentee_icon.png";
 import close from "../profile/assets/close.png";
 import "./MentorMenteeMatch.css"
 
 
-
-/* To detect whether or not the user has clicked outside the mentor table. If they have, then
-that should deselect the currently selected mentor. This function (hook) takes
-in a function that is called when the user clicks outside of a DOM node. It also
-creates a reference to a generic DOM node that is returned. This returned reference 
-can be attached to whichever DOM node we want to register the on outside click event.  */
 const useClickOutside = (onClickOutside: () => void) => {
-   let domNode = useRef<HTMLTableElement>(null);
+  //Super jank
+  const first = useRef<any>(null);
+  const second = useRef<any>(null);
+  const third = useRef<any>(null);
 
-   //Because I gave up on trying to get the types to work.
-   let handleClick = (e:any) => {
+  const clickedOutsideDomNodes = (e:any) => {
+    let clickedFirst = first.current && first.current.contains(e.target);
+    let clickedSecond = second.current && second.current.contains(e.target);
+    let clickedThird = third.current && third.current.contains(e.target);
+    return !clickedFirst && !clickedSecond && !clickedThird;
+  }
+  //Because I gave up on trying to get the types to work.
+  const handleClick = (e:any) => {
       e.preventDefault();
-      if (domNode.current && !domNode.current.contains(e.target)) {
+      if (clickedOutsideDomNodes(e)) {
          onClickOutside();
       } 
-   }
+  }
 
-   useEffect(() => {
-      document.addEventListener("mousedown", handleClick);       
-      return () => document.removeEventListener("mousedown", handleClick);
-   }, []);
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick);       
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
 
-   return domNode;
+  return [first, second, third];
 }
 
 //Temporary mock of the data 
@@ -66,12 +69,39 @@ const mentorList: MentorForm[] = [
 const MentorMenteeMatch = () => {
   const navigate = useNavigate();
   const [selectedMentor, setSelectedMentor] = useState(-1);
-  const ref = useClickOutside(() => setSelectedMentor(-1));
+  const [assignMenteeToMentorModal, setAssignMenteeToMentorModal] = useState<MentorForm | null>(null);
+  const refs = useClickOutside(() => setSelectedMentor(-1));
+
+  const onAssignMenteeToMentor = () => {
+    if (selectedMentor == -1) return;
+    setAssignMenteeToMentorModal(mentorList[selectedMentor]);
+  }
+  
+  //RENDER FUNCTIONS
+  const renderAssignMentorToMenteeModal = () => {
+    if (!assignMenteeToMentorModal) {
+      return;
+    }
+
+    return (
+      <div className="modal-wrapper">
+        <div className="trainee-assignment-modal">
+          <h1>Assign Mentee to Mentor</h1>
+          <p>Are you sure you wish to assign {assignMenteeToMentorModal.firstName} {assignMenteeToMentorModal.lastName} to Alice Jones? {/* Have to change this obviously */}</p>
+          <div className="btn-wrappers">
+            <button className="cancel-btn" onClick={() => setAssignMenteeToMentorModal(null)}>Cancel</button>
+            {/* Until we figure out what we want to do here */}
+            <button className="confirm-btn"onClick={() => setAssignMenteeToMentorModal(null)} >Confirm</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="mentor-mentee-match">
       {/* Close Button */}
-      <img className='exit-btn' src={close} onClick={() => navigate(-1)} />
+      <img className='exit-btn' ref={refs[0]} src={close} onClick={() => navigate(-1)} />
       {/* Header */}
       <div className="mentor-mentee-match-header">
         {/* Mentee Name */}
@@ -79,11 +109,22 @@ const MentorMenteeMatch = () => {
           {'Alice'} {'Jones'}
         </h1>
         {/* Assign Button */}
-        <button className="assign-btn" style={{backgroundColor: `${selectedMentor  !== -1 ? "#98db5f" : "grey"}`}}>
+        <button 
+          className="assign-btn" 
+          ref={refs[1]}
+          style={{
+            backgroundColor: `${selectedMentor  !== -1 ? "#98db5f" : "grey"}`,
+            cursor: `${selectedMentor  !== -1 ? "pointer" : "default"}`
+          }}
+          onClick={onAssignMenteeToMentor}
+        >
           <img className="assign-icon" src={assign_icon} alt=""/>
           Assign
         </button>
       </div>
+      
+      {/* Assign Modal */}
+      {renderAssignMentorToMenteeModal()}
 
       {/* Mentee Info Box */}
       <div className="mentee-info-box">
@@ -93,7 +134,7 @@ const MentorMenteeMatch = () => {
       </div>
       
       {/* Mentor Table */}
-      <table className="mentor-table" ref={ref}>
+      <table className="mentor-table" ref={refs[2]}>
         {/* Mentor Table Header */}
         <tr>
           <th className="mentor-table-header">Mentor</th>

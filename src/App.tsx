@@ -29,7 +29,7 @@ import { NavRouteOptions as AdminNavRouteOptions } from "./admin/AdminSidebar";
 import { NavRoutes as AdminNavRoutes } from "./admin/AdminSidebar";
 import Admin from "./admin/Admin";
 
-import {Tabs as MentorProfileTabs} from "./mentor/MentorProfile";
+import { Tabs as MentorProfileTabs } from "./mentor/MentorProfile";
 
 
 const App = () => {
