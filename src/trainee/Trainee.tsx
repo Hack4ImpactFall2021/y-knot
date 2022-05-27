@@ -22,7 +22,7 @@ const Trainee: React.FC<Props> = () => {
         snap = snap as QuerySnapshot<DocumentData>;
         setTrainee(snap.docs[0].data());
 
-        if (trainee?.training_complete) {
+        if (snap.docs[0].data()?.training_complete) {
           setFinished(true);
         }
 
@@ -33,7 +33,8 @@ const Trainee: React.FC<Props> = () => {
 
   const finishedTraining: VoidFunction = async () => {
     try {
-      //await NetworkManager.makeRequest(Endpoints.TrainingComplete);
+      await NetworkManager.makeRequest(Endpoints.SetTrainingComplete, {id: trainee?.submission_id});
+      await NetworkManager.makeRequest(Endpoints.SendTrainingCompletedInternalEmail, {name: `${trainee?.first_name} ${trainee?.last_name}`});
       setFinished(true);
     } catch(err) {
       console.log(err);

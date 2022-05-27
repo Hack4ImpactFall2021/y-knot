@@ -61,6 +61,15 @@ export type Mentor = {
     firebaseId: string
 }
 
+export type AssignmentsTabPerson = {
+    firstName: string,
+    lastName: string,
+    submissionId: string,
+    type: string,
+    firebaseId: string,
+    email: string
+}
+
 export type Trainee = {
     type: "Trainee",
     firstName: string,

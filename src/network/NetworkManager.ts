@@ -2,7 +2,7 @@ import { AuthError, User } from "@firebase/auth";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, getAuth, updateEmail, updatePassword, sendPasswordResetEmail} from "firebase/auth";
 import {doc, collection, getDoc, getDocs, arrayUnion, DocumentData, FirestoreError, DocumentSnapshot, QuerySnapshot, setDoc, updateDoc, deleteDoc, query, where, orderBy, limit} from "firebase/firestore"
 
-import { Applicant, ApplicantStages, JotformResponse, Mentor, Trainee } from "../utils/utils";
+import { Applicant, ApplicantStages, JotformResponse, Mentor, Trainee, AssignmentsTabPerson } from "../utils/utils";
 import app, {db, storage } from "../config/firebase";
 import secondaryApp from "../config/secondaryFirebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
@@ -28,7 +28,9 @@ export enum Endpoints{
   GetAllMentees,
   SetRole,
   GetMenteeForm,
-  TrainingComplete,
+  SetTrainingComplete,
+  GetUnassignedMentees,
+  GetFinishedTrainees,
   GetCurrentMentorOrTrainee,
   UpdateNote,
   UploadFile,
@@ -73,12 +75,16 @@ class NetworkManger {
           return this.matchMentee(params.menteeId, params.mentorId);
         case Endpoints.UpdateEmail:
           return this.updateUserEmail(params.email);
+        case Endpoints.GetFinishedTrainees:
+          return this.getFinishedTrainees();
+        case Endpoints.GetUnassignedMentees:
+          return this.getUnassignedMentees();
         case Endpoints.UpdatePassword:
           return this.updateUserPassword(params.password);
         case Endpoints.GetCurrentMentorOrTrainee:
           return this.getCurrentMentorOrTrainee();
-        case Endpoints.TrainingComplete:
-          return this.trainingComplete(params.email, params.id);
+        case Endpoints.SetTrainingComplete:
+          return this.setTrainingComplete(params.id);
         case Endpoints.CreateNewUser:
           return this.createNewUser(params.email, params.password, params.role);
         case Endpoints.GetApplicant:
@@ -90,7 +96,7 @@ class NetworkManger {
         case Endpoints.GetAllMentees:
           return this.getAllMentees();
         case Endpoints.SetRole:
-          return this.setRole(params.id, params.role);
+          return this.setRole(params.id, params.firebaseId, params.role);
         case Endpoints.UpdateNote:
           return this.updateNote(params.note, params.id, params.stage);
         case Endpoints.UploadFile:
@@ -155,7 +161,52 @@ class NetworkManger {
     })
   }
 
-  
+  private getFinishedTrainees(): Promise<AssignmentsTabPerson[]> {
+    return new Promise((resolve, reject) => {
+      getDocs(query(collection(db, "applicants"), where("training_complete", "==", true), where("stage", "==", "TRAINEE")))
+      .then((docs) => {
+        let people: AssignmentsTabPerson[] = [];
+        docs.forEach((doc) => {
+          let data = doc.data();
+          let person: AssignmentsTabPerson = {
+            firstName: data.first_name,
+            lastName: data.last_name,
+            submissionId: data.submission_id,
+            type: "Trainee",
+            firebaseId: data.firebase_id,
+            email: data.email
+          }
+
+          people.push(person);          
+        })
+
+        resolve(people);
+      }).catch((error) => reject(error))
+    });
+  }
+
+  private getUnassignedMentees(): Promise<AssignmentsTabPerson[]> {
+    return new Promise((resolve, reject) => {
+      getDocs(query(collection(db, "mentees")))
+      .then((docs) => {
+        let people: AssignmentsTabPerson[] = [];
+        docs.forEach((doc) => {
+          let data = doc.data();
+          let person: AssignmentsTabPerson = {
+            firstName: data.first_name,
+            lastName: data.last_name,
+            submissionId: data.submission_id,
+            type: "Mentee",
+            firebaseId: "",
+            email: ""
+          }
+          people.push(person);
+        })
+
+        resolve(people);
+      }).catch((error) => reject(error))
+    });
+  }
 
   // signs in user using email and password
   // email: email address
@@ -188,11 +239,8 @@ class NetworkManger {
     });
   }
 
-  private trainingComplete(email: string, id: string): Promise<void> {
+  private setTrainingComplete(id: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      // TODO send email
-      //  https://us-central1-yknot-ats.cloudfunctions.net/sendInterviewEmail
-
       updateDoc(doc(db, 'applicants', id), {training_complete: true}).then(() => {
         resolve();
       }).catch(() => {
@@ -397,11 +445,11 @@ class NetworkManger {
     }); 
   }
 
-  private setRole(id: string, role: string): Promise<void> {
+  private setRole(id: string, firebaseId: string, role: string): Promise<void> {
     return new Promise((resolve, reject) => {
       const setRole = httpsCallable(functions, 'setUserRole');
       getAuth().currentUser?.getIdToken().then((idToken) => {
-        setRole({uid: id, role: role, idToken: idToken}).then((response : any) => {
+        setRole({uid: firebaseId, role: role, idToken: idToken}).then((response : any) => {
           updateDoc(doc(db, 'applicants', id), {stage: role.toUpperCase()})
           .then(() => resolve())
           .catch(error => reject(error));

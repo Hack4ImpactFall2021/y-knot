@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { AssignmentsTabPerson } from "../utils/utils";
 
 import NetworkManager, { Endpoints } from "../network/NetworkManager";
 
@@ -14,22 +15,41 @@ import "./AdminAssignments.css"
 type PersonType = "Mentee" | "Trainee";
 
 const AdminHome = () => {
-  const [visiblePeople, setVisiblePeople] = useState<any[]>([]);
+  const [visiblePeople, setVisiblePeople] = useState<AssignmentsTabPerson[]>([]);
+  const [allPeople, setAllPeople] = useState<AssignmentsTabPerson[]>([]);
+  const [mentees, setMentees] = useState<AssignmentsTabPerson[]>([]);
+  const [trainees, setTrainees] = useState<AssignmentsTabPerson[]>([]);
   const navigate = useNavigate();
-  const [assignmentModal, setAssignmentModal] = useState<any>(null);
+  const [assignmentModal, setAssignmentModal] = useState<AssignmentsTabPerson>();
 
-  const allPeople = [
-    {firstName: "Jason", lastName: "Cavanaugh", type: "Mentee"},
-    {firstName: "Peter", lastName: "Parker", type: "Mentee"},
-    {firstName: "Bruce", lastName: "Wayne", type: "Trainee"},
-    {firstName: "Jason", lastName: "Cavanaugh", type: "Mentee"},
-    {firstName: "Peter", lastName: "Parker", type: "Mentee"},
-    {firstName: "Bruce", lastName: "Wayne", type: "Trainee"},
-    {firstName: "Jason", lastName: "Cavanaugh", type: "Mentee"},
-    {firstName: "Peter", lastName: "Parker", type: "Mentee"},
-    {firstName: "Bruce", lastName: "Wayne", type: "Trainee"},
-  ]
+  useEffect(() => {
+    getPeople();
+  }, []);
 
+  const getPeople: VoidFunction = async () => {
+    try {
+      let menteesResult = await NetworkManager.makeRequest(Endpoints.GetUnassignedMentees);
+      let traineesResult = await NetworkManager.makeRequest(Endpoints.GetFinishedTrainees);
+
+      console.log(menteesResult);
+      console.log(traineesResult);
+
+      setMentees(menteesResult);
+      setTrainees(traineesResult);
+
+      let visiblePeeps = menteesResult.concat(traineesResult);
+      visiblePeeps = visiblePeeps.sort((a: AssignmentsTabPerson,b: AssignmentsTabPerson) => a.firstName.localeCompare(b.firstName));
+
+      setAllPeople(visiblePeeps);
+
+      setVisiblePeople(visiblePeeps);
+
+      setFilter("");
+
+    } catch (err) {
+      console.log(err);
+    }
+  } 
 
   //Filters
   const [filter, setFilter] = useState<PersonType | "">("");
@@ -37,7 +57,7 @@ const AdminHome = () => {
 
   const onFilterChange = () => {
     //Apply search bar filter
-    let newVisiblePeople = allPeople.filter((person) => person.firstName.includes(searchText) || person.lastName.includes(searchText));
+    let newVisiblePeople = allPeople?.filter((person) => person.firstName.includes(searchText) || person.lastName.includes(searchText));
     //Apply applicant stage filter
     if (filter !== "") {
       newVisiblePeople = newVisiblePeople.filter((person) => person.type === filter);
@@ -51,7 +71,7 @@ const AdminHome = () => {
   }
 
   const getNumberOf = (type : PersonType) => {
-    return allPeople.filter((person) => person.type === type).length;
+    return type == "Mentee" ? mentees.length : trainees.length;
   }
 
   const getColorForPersonType = (stage: PersonType) => {
@@ -65,27 +85,41 @@ const AdminHome = () => {
     }
   }
 
-  const onClick = (person: any) => {
+  const onClick = (person: AssignmentsTabPerson) => {
     if (person.type === "Trainee") {
-      setAssignmentModal(person.firstName + " " + person.lastName);
+      setAssignmentModal(person);
     } else if (person.type === "Mentee") {
       navigate("/admin/matching");
     }
   }
 
+  const makeTraineeIntoMentor = async (trainee: AssignmentsTabPerson) => {
+    try {
+      if (trainee?.type == "Trainee" && trainee?.firebaseId.length != 0 && trainee?.email.length != 0) {
+
+        await NetworkManager.makeRequest(Endpoints.SetRole, {id: trainee.submissionId, firebaseId: trainee.firebaseId, role: "mentor"});
+        await NetworkManager.makeRequest(Endpoints.SendTrainingCompletedEmail, {email: trainee.email, name: `${trainee.firstName} ${trainee.lastName}`})
+      
+        getPeople();
+      }
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   const renderAssignmentModal = () => {
-    if (!assignmentModal) {
+    if (assignmentModal == undefined) {
       return;
     }
     return (
       <div className="modal-wrapper">
         <div className="trainee-assignment-modal">
           <h1>Make Trainee a Mentor!</h1>
-          <p>Are you sure you wish to make {assignmentModal} into a Mentor?</p>
+          <p>Are you sure you wish to make {`${assignmentModal?.firstName} ${assignmentModal?.lastName}`} into a Mentor?</p>
           <div className="btn-wrappers">
-            <button className="cancel-btn" onClick={() => setAssignmentModal(null)}>Cancel</button>
+            <button className="cancel-btn" onClick={() => setAssignmentModal(undefined)}>Cancel</button>
             {/* Until we figure out what we want to do here */}
-            <button className="confirm-btn"onClick={() => setAssignmentModal(null)} >Confirm</button>
+            <button className="confirm-btn"onClick={() => {setAssignmentModal(undefined); makeTraineeIntoMentor(assignmentModal)}} >Confirm</button>
           </div>
         </div>
       </div>
@@ -141,7 +175,7 @@ const AdminHome = () => {
             {visiblePeople.length > 0 ? visiblePeople.map((person, idx) => 
               <div key={idx} className="trainees-mentees-list-item" onClick={() => onClick(person)}>
                 <p>{person.firstName + " " + person.lastName}</p>
-                <div className="person-type" style={{backgroundColor: getColorForPersonType(person.type)}}>{person.type}</div>
+                <div className="person-type" style={{backgroundColor: getColorForPersonType(person.type as PersonType)}}>{person.type}</div>
               </div>)
               :
               <p>There are no trainees or mentees to display.</p>
