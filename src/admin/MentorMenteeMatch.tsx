@@ -86,7 +86,7 @@ const MentorMenteeMatch = () => {
     return (
       <div className="modal-wrapper">
         <div className="trainee-assignment-modal">
-          <h1>Assign Mentee to Mentor</h1>
+          <h1>Assign Mentor to Mentee</h1>
           <p>Are you sure you wish to assign {assignMenteeToMentorModal.firstName} {assignMenteeToMentorModal.lastName} to Alice Jones? {/* Have to change this obviously */}</p>
           <div className="btn-wrappers">
             <button className="cancel-btn" onClick={() => setAssignMenteeToMentorModal(null)}>Cancel</button>
