@@ -10,7 +10,11 @@ import logo from "../login/assets/logo.png";
 import all_applicants from '../assets/all.png';
 import new_applicant from '../assets/new.png';
 
+import "../SidebarAndContent.css";
 import "./AdminAssignments.css"
+import Sidebar from "../widgets/Sidebar";
+import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
+import Loading from "../auth/Loading";
 
 type PersonType = "Mentee" | "Trainee";
 
@@ -22,12 +26,15 @@ const AdminHome = () => {
   const navigate = useNavigate();
   const [assignmentModal, setAssignmentModal] = useState<AssignmentsTabPerson>();
 
+  const [isContentLoading, setIsContentLoading] = useState<Boolean>(false);
+
   useEffect(() => {
     getPeople();
   }, []);
 
   const getPeople: VoidFunction = async () => {
     try {
+      setIsContentLoading(true);
       let menteesResult = await NetworkManager.makeRequest(Endpoints.GetUnassignedMentees);
       let traineesResult = await NetworkManager.makeRequest(Endpoints.GetFinishedTrainees);
 
@@ -46,6 +53,7 @@ const AdminHome = () => {
 
       setFilter("");
 
+      setIsContentLoading(false);
     } catch (err) {
       console.log(err);
     }
@@ -89,12 +97,15 @@ const AdminHome = () => {
     if (person.type === "Trainee") {
       setAssignmentModal(person);
     } else if (person.type === "Mentee") {
-      navigate("/admin/matching");
+      navigate("/admin/matching/" + person.submissionId);
     }
   }
 
   const makeTraineeIntoMentor = async (trainee: AssignmentsTabPerson) => {
     try {
+      setAssignmentModal(undefined);
+      setIsContentLoading(true);
+
       if (trainee?.type == "Trainee" && trainee?.firebaseId.length != 0 && trainee?.email.length != 0) {
 
         await NetworkManager.makeRequest(Endpoints.SetRole, {id: trainee.submissionId, firebaseId: trainee.firebaseId, role: "mentor"});
@@ -102,8 +113,9 @@ const AdminHome = () => {
       
         getPeople();
       }
+      setIsContentLoading(false);
     } catch(err) {
-      console.log(err);
+      console.error(err);
     }
   }
 
@@ -119,73 +131,88 @@ const AdminHome = () => {
           <div className="btn-wrappers">
             <button className="cancel-btn" onClick={() => setAssignmentModal(undefined)}>Cancel</button>
             {/* Until we figure out what we want to do here */}
-            <button className="confirm-btn"onClick={() => {setAssignmentModal(undefined); makeTraineeIntoMentor(assignmentModal)}} >Confirm</button>
+            <button className="confirm-btn"onClick={() => {makeTraineeIntoMentor(assignmentModal)}}>Confirm</button>
           </div>
         </div>
       </div>
     );
   }
 
-  return (
-    <div className="admin-assignments">
-      <div className="wrapper">
-        {/* Assignment Modal for Trainee */}
-        {renderAssignmentModal()}
-        {/* Header */}
-        <div className="header-wrapper">
-          <h1 className="header">Assignments</h1>
-          <img src={logo} alt="Where is the logo?"/> 
-        </div>
-        {/* Mentees Trainees Filters */}
-        <div className="trainees-mentees-filters-wrapper">
-          <div className={getClassNameForFilter("Trainee")} onClick={() => setFilter("Trainee")} style={{borderBottomColor: "#1900b5"}}>
-            <div className="filter-top">
-              <img className="filter-img"src={all_applicants} alt=""/>
-              <h3>{getNumberOf("Trainee")}</h3>
-            </div>
-            <p>Trainees</p>
-          </div>
-          <div className={getClassNameForFilter("Mentee")} onClick={() => setFilter("Mentee")} style={{borderBottomColor: "#e06f10"}}>
-            <div className="filter-top">
-              <img className="filter-img" src={new_applicant} alt=""/>
-              <h3>{getNumberOf("Mentee")}</h3>
-            </div>
-            <p>Mentees</p>
-          </div>
-        </div>
+  const getSidebarTiles = () => {
+    const routes = ["/admin/home", "/admin/assignments", "/admin/applicants", "/admin/settings"];
+    const ret = [];
+    for (let i = 0; i < routes.length; i++) {
+      const cur = { ...AdminSidebarTiles[i], route: routes[i] };
+      ret.push(cur);
+    }
+    return ret;
+  }
 
-        {/* Mentors Trainees Dashboard */}
-        <div className="trainees-mentees-dashboard">
+  return (
+    <div className="sidebar-and-content" >
+      {/* Sidebar */}
+      <Sidebar selected={AdminSidebarOptions.Assignments} sidebarTiles={getSidebarTiles()} />
+      <div className="admin-assignments" style={{position: "relative"}}>
+        {!isContentLoading ?
+        (<div className="wrapper">
+          {/* Assignment Modal for Trainee */}
+          {renderAssignmentModal()}
           {/* Header */}
           <div className="header-wrapper">
-            {/* Title */}
-            <h2>{filter === "" ? "All Mentees and Trainees" : filter + "s"}</h2>
-            {/* Searchbar */}
-            <input 
-              className="trainees-mentees-list-searchbar" 
-              type="text" 
-              placeholder="Search..." 
-              value={searchText} 
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-          </div>  
-          <hr/>
-          {/* Mentors and Trainees List */}
-          <ul className="trainees-mentees-list">
-            {visiblePeople.length > 0 ? visiblePeople.map((person, idx) => 
-              <div key={idx} className="trainees-mentees-list-item" onClick={() => onClick(person)}>
-                <p>{person.firstName + " " + person.lastName}</p>
-                <div className="person-type" style={{backgroundColor: getColorForPersonType(person.type as PersonType)}}>{person.type}</div>
-              </div>)
-              :
-              <p>There are no trainees or mentees to display.</p>
-            }
-          </ul>
-        </div>
+            <h1 className="header">Assignments</h1>
+            <img src={logo} alt="Where is the logo?"/> 
+          </div>
+          {/* Mentees Trainees Filters */}
+          <div className="trainees-mentees-filters-wrapper">
+            <div className={getClassNameForFilter("Trainee")} onClick={() => setFilter("Trainee")} style={{ borderBottomColor: "#1900b5" }}>
+              <div className="filter-top">
+                <img className="filter-img"src={all_applicants} alt=""/>
+                <h3>{getNumberOf("Trainee")}</h3>
+              </div>
+              <p>Trainees</p>
+            </div>
+            <div className={getClassNameForFilter("Mentee")} onClick={() => setFilter("Mentee")} style={{ borderBottomColor: "#e06f10" }}>
+              <div className="filter-top">
+                <img className="filter-img" src={new_applicant} alt=""/>
+                <h3>{getNumberOf("Mentee")}</h3>
+              </div>
+              <p>Mentees</p>
+            </div>
+          </div>
+
+          {/* Mentors Trainees Dashboard */}
+          <div className="trainees-mentees-dashboard">
+            {/* Header */}
+            <div className="header-wrapper">
+              {/* Title */}
+              <h2>{filter === "" ? "All Mentees and Trainees" : filter + "s"}</h2>
+              {/* Searchbar */}
+              <input 
+                className="trainees-mentees-list-searchbar" 
+                type="text" 
+                placeholder="Search..." 
+                value={searchText} 
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </div>  
+            <hr/>
+            {/* Mentors and Trainees List */}
+            <ul className="trainees-mentees-list">
+              {visiblePeople.length > 0 ? visiblePeople.map((person, idx) => 
+                <div key={idx} className="trainees-mentees-list-item" onClick={() => onClick(person)}>
+                  <p>{person.firstName + " " + person.lastName}</p>
+                  <div className="person-type" style={{backgroundColor: getColorForPersonType(person.type as PersonType)}}>{person.type}</div>
+                </div>)
+                :
+                <p>There are no trainees or mentees to display.</p>
+              }
+            </ul>
+          </div>
+        </div>) : <Loading/> } 
       </div>
-    </div>  
+    </div>
   );
-  return <div></div>;
+
 }
 
 export default AdminHome;

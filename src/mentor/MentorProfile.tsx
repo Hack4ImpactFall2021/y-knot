@@ -20,7 +20,7 @@ type Props = {
 
 const MentorProfile: React.FC<Props> = ({defaultTab}) => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { mentorId } = useParams();
   const [applicant, setApplicant] = useState<Applicant | null>(null);
   const [formData, setFormData] = useState<JotformResponse | null>(null);
   const [menteeList, setMenteeList] = useState<MenteeForm[]>([]);
@@ -32,14 +32,16 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
     getApplicantForm();
     getMentees();
   }, []);
+  
 
   const getMentees: VoidFunction = async () => {
     try {
-      let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, { submissionId: id });
+      let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, { submissionId: mentorId });
+      console.log(snap);
       snap = snap as QuerySnapshot<DocumentData>;
       const menteeIds = snap.data()?.mentee_ids;
       const menteeData = [];
-      for( let id of menteeIds ) {
+      for(let id of menteeIds ) {
         let data = await NetworkManager.makeRequest(Endpoints.GetMenteeForm, {id: id});
         data = data.content.answers;
         let mentee : MenteeForm;
@@ -69,16 +71,17 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
       console.log(menteeData);
       setMenteeList(menteeData);
     } catch (error) {
-
+      console.error(error);
     }
   }
 
   const getApplicant = async () => {
     try {
-      let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, { submissionId: id });
+      console.log(mentorId);
+      let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, { submissionId: mentorId });
       snap = snap as DocumentSnapshot<DocumentData>
       if (!snap.exists()) {
-          throw new Error("not-found")
+        throw new Error("not-found")
       }
       const data = snap.data();
       setApplicant({
@@ -92,16 +95,16 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
         notes: data.note || "",
         createdAt: data.createdAt
       });
-      console.log(applicant);
+      console.error(applicant);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
   }
 
   const getApplicantForm = async () => {
     try {
-      let data = await NetworkManager.makeRequest(Endpoints.GetApplicantForm, { id: id });
-      setFormData(data as JotformResponse);
+      // let data = await NetworkManager.makeRequest(Endpoints.GetApplicantForm, { id: mentorId });
+      // setFormData(data as JotformResponse);
     } catch (error) {
       console.log(error);
     }
@@ -140,7 +143,7 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
   }
 
   if (!applicant) {
-    return (<div></div>);
+    return (<div>Uhoh</div>);
   }
   return (
     <div className="mentor-profile">

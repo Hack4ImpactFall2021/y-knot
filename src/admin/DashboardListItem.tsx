@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 Generic component for list item in a dashboard list
 ____________________________________________
 | 
-| label (e.g. Applicant stage)   Title (e.g. Name of applicant)
+|  Title (e.g. Name of applicant) label (e.g. Applicant stage)
 |
 ---------------------------------------------
 

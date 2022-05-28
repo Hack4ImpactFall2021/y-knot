@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from './AuthProvider';
+import { useAuth, AuthProvider } from './AuthProvider';
 
 interface Props {
   children: JSX.Element
@@ -12,7 +12,7 @@ const RequireAdminAuth:React.FC<Props> = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  return children;
+  return <AuthProvider children={children}/>;
 }
   
 export default RequireAdminAuth;

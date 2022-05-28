@@ -11,6 +11,8 @@ import interviewing from '../assets/interviewing.png';
 import background_check from '../assets/background_check.png';
 
 import "./AdminApplicants.css";
+import Sidebar from "../widgets/Sidebar";
+import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
 
 type ApplicantStageFilter = ApplicantStages.New | ApplicantStages.Interviewing | ApplicantStages.BackgroundCheck | "All Applicants";
 
@@ -70,81 +72,94 @@ const AdminApplicants = () => {
   }
 
   const onClick = (applicant: Applicant) => {
-    navigate("/admin/" + applicant.submissionId);
+    navigate("/admin/applicants/" + applicant.submissionId);
   }
 
+  const getSidebarTiles = () => {
+    const routes = ["/admin/home", "/admin/assignments", "/admin/applicants", "/admin/settings"];
+    const ret = [];
+    for (let i = 0; i < routes.length; i++) {
+      const cur = { ...AdminSidebarTiles[i], route: routes[i] };
+      ret.push(cur);
+    }
+    return ret;
+  }
 
   return (
-    <div className="admin-applicants">
-      <div className="wrapper">
-        {/* Header */}
-        <div className="header-wrapper">
-          <h1 className="header">Applicants</h1>
-          <img src={logo} alt="Where is the logo?"/> 
-        </div>
-        {/* Applicant Stage Filters */}
-        <div className="applicant-stage-filters-wrapper">
-          {/* Applicant Stage Filter -> Total Applicants */}
-          <div className={getClassNameForFilter("All Applicants")} onClick={() => setApplicantStageFilter("All Applicants")} style={{borderBottomColor: "#10275b"}}>
-            <div className="filter-top">
-              <img className="filter-img"src={all_applicants} alt=""/>
-              <h3>{allApplicants.length}</h3>
-            </div>
-            <p>Total Applicants</p>
-          </div>
-          {/* Applicant Stage Filter -> New Applicants */}
-          <div className={getClassNameForFilter(ApplicantStages.New)} onClick={() => setApplicantStageFilter(ApplicantStages.New)} style={{borderBottomColor: "#f44250"}}>
-            <div className="filter-top">
-              <img className="filter-img" src={new_applicant} alt=""/>
-              <h3>{getNumberOfApplicants(ApplicantStages.New)}</h3>
-            </div>
-            <p>New Applicants</p>
-          </div>
-          {/* Applicant Stage Filter -> Interviewing */}
-          <div className={getClassNameForFilter(ApplicantStages.Interviewing)} onClick={() => setApplicantStageFilter(ApplicantStages.Interviewing)} style={{borderBottomColor: "#ff8427"}}>
-            <div className="filter-top">
-              <img className="filter-img" src={interviewing} alt=""/>
-              <h3>{getNumberOfApplicants(ApplicantStages.Interviewing)}</h3>
-            </div>
-            <p>Interviewing</p>
-          </div>
-          {/* Applicant Stage Filter -> Background Check */}
-          <div className={getClassNameForFilter(ApplicantStages.BackgroundCheck)} onClick={() => setApplicantStageFilter(ApplicantStages.BackgroundCheck)} style={{borderBottomColor: "#fcbb45"}}>
-            <div className="filter-top">
-              <img className="filter-img" src={background_check} alt=""/>
-              <h3>{getNumberOfApplicants(ApplicantStages.BackgroundCheck)}</h3>
-            </div>
-            <p>Background Check</p>
-          </div>
-        </div>
-
-        {/* Dashboard */}
-        <div className="applicants-dashboard">
+    <div className="sidebar-and-content">
+      {/* Sidebar */}
+      <Sidebar selected={AdminSidebarOptions.Applicants} sidebarTiles={getSidebarTiles()} />
+      <div className="admin-applicants">
+        <div className="wrapper">
           {/* Header */}
           <div className="header-wrapper">
-            {/* Title */}
-            <h3>Applicants</h3>
-            {/* Searchbar */}
-            <input 
-              className="applicants-list-searchbar" 
-              type="text" 
-              placeholder="Search..." 
-              value={searchText} 
-              onChange={(e) => setSearchText(e.target.value)}
-            />
+            <h1 className="header">Applicants</h1>
+            <img src={logo} alt="Where is the logo?"/> 
           </div>
-          <hr/>
-          {/* Applicants List */}
-          <ul className="applicants-list">
-            {visibleApplicants.length > 0 ? visibleApplicants.map((applicant, idx) => 
-              <div key={idx} className="applicants-list-item" onClick={() => onClick(applicant)}>
-                <p>{applicant.firstName + " " + applicant.lastName}</p>
-                <div className="applicant-stage" style={{backgroundColor: getColorForStage(applicant.stage)}}>{applicant.stage}</div>
-              </div>)
-              :
-              <p>There are no applicants to display.</p>
-            }
-          </ul>
+          {/* Applicant Stage Filters */}
+          <div className="applicant-stage-filters-wrapper">
+            {/* Applicant Stage Filter -> Total Applicants */}
+            <div className={getClassNameForFilter("All Applicants")} onClick={() => setApplicantStageFilter("All Applicants")} style={{borderBottomColor: "#10275b"}}>
+              <div className="filter-top">
+                <img className="filter-img"src={all_applicants} alt=""/>
+                <h3>{allApplicants.length}</h3>
+              </div>
+              <p>Total Applicants</p>
+            </div>
+            {/* Applicant Stage Filter -> New Applicants */}
+            <div className={getClassNameForFilter(ApplicantStages.New)} onClick={() => setApplicantStageFilter(ApplicantStages.New)} style={{borderBottomColor: "#f44250"}}>
+              <div className="filter-top">
+                <img className="filter-img" src={new_applicant} alt=""/>
+                <h3>{getNumberOfApplicants(ApplicantStages.New)}</h3>
+              </div>
+              <p>New Applicants</p>
+            </div>
+            {/* Applicant Stage Filter -> Interviewing */}
+            <div className={getClassNameForFilter(ApplicantStages.Interviewing)} onClick={() => setApplicantStageFilter(ApplicantStages.Interviewing)} style={{borderBottomColor: "#ff8427"}}>
+              <div className="filter-top">
+                <img className="filter-img" src={interviewing} alt=""/>
+                <h3>{getNumberOfApplicants(ApplicantStages.Interviewing)}</h3>
+              </div>
+              <p>Interviewing</p>
+            </div>
+            {/* Applicant Stage Filter -> Background Check */}
+            <div className={getClassNameForFilter(ApplicantStages.BackgroundCheck)} onClick={() => setApplicantStageFilter(ApplicantStages.BackgroundCheck)} style={{borderBottomColor: "#fcbb45"}}>
+              <div className="filter-top">
+                <img className="filter-img" src={background_check} alt=""/>
+                <h3>{getNumberOfApplicants(ApplicantStages.BackgroundCheck)}</h3>
+              </div>
+              <p>Background Check</p>
+            </div>
+          </div>
+
+          {/* Dashboard */}
+          <div className="applicants-dashboard">
+            {/* Header */}
+            <div className="header-wrapper">
+              {/* Title */}
+              <h3>Applicants</h3>
+              {/* Searchbar */}
+              <input 
+                className="applicants-list-searchbar" 
+                type="text" 
+                placeholder="Search..." 
+                value={searchText} 
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </div>
+            <hr/>
+            {/* Applicants List */}
+            <ul className="applicants-list">
+              {visibleApplicants.length > 0 ? visibleApplicants.map((applicant, idx) => 
+                <div key={idx} className="applicants-list-item" onClick={() => onClick(applicant)}>
+                  <p>{applicant.firstName + " " + applicant.lastName}</p>
+                  <div className="applicant-stage" style={{backgroundColor: getColorForStage(applicant.stage)}}>{applicant.stage}</div>
+                </div>)
+                :
+                <p>There are no applicants to display.</p>
+              }
+            </ul>
+          </div>
         </div>
       </div>
     </div>

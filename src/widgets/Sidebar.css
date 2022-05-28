@@ -1,0 +1,13 @@
+.sidebar-and-content .jason-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  font-size: large;
+  font-weight:500;
+  width: 13em;
+}
+
+.sidebar-and-content .jason-sidebar .jason-sidebar-tiles {
+
+
+}

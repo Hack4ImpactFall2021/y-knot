@@ -1,0 +1,19 @@
+.jason-sidebar .logout-btn {
+  text-transform: uppercase;
+  padding: 30px 30px;
+  border: none;
+  margin: 10px;
+  border-radius: 30px;
+  background-color: white;
+  color: #f27f1e;
+  border: 1px solid #f27f1e;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.logout-btn:hover {
+  cursor: pointer;
+  background-color: #ffecdd;;
+}

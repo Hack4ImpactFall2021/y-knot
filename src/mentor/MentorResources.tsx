@@ -16,7 +16,6 @@ interface Props {
 const MentorResources: React.FC<Props> = () => {
   return (
     <div className="dashboard mentor-dashboard"> 
-      <MentorSidebar selected={NavRoutes.Resources}/>
       <div className="dashboard-container wrapper">
         <div className="mentoring-resources">
           <div className="header-wrapper">

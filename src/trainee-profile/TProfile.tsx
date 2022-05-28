@@ -7,6 +7,7 @@ import Content from './Content/Content';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { Applicant, JotformResponse } from '../utils/utils';
 import close from '../profile/assets/close.png';
+import { useAuth } from '../auth/AuthProvider';
 
 export enum Tabs { TraineeProfile = "Your Profile"};
 
@@ -14,17 +15,18 @@ const TProfile = () => {
     const navigate = useNavigate();
     const { id } = useParams();
     const [applicant, setApplicant] = useState<Applicant | null>(null);
+    const user = useAuth();
     const [data, setData] = useState<JotformResponse | null>(null);
     const [email, setEmail] = useState<string>("");
     const [applicantLogin, setApplicantLogin] = useState<[string, string]>(["", ""]);
 
     const [tab, setTab] = useState<string>(Tabs.TraineeProfile);
 
-    
+    console.log(user);
 
     useEffect(() => {
-        getApplicant();
-        getApplicantForm();
+      getApplicant();
+      getApplicantForm();
     }, []);
 
 

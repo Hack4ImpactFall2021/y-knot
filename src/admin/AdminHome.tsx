@@ -13,11 +13,21 @@ import logo from "../login/assets/logo.png";
 import all_applicants from '../assets/all.png';
 import new_applicant from '../assets/new.png';
 
+import { useAuth } from "../auth/AuthProvider";
+
+import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
+import Sidebar from "../widgets/Sidebar";
+
+import "../SidebarAndContent.css";
+
 type PersonType = "Mentor" | "Trainee";
 const AdminHome = () => {
   const [allPeople, setAllPeople] = useState<(Mentor | Trainee)[]>([]);
+  const user = useAuth();
   const [visiblePeople, setVisiblePeople] = useState<(Mentor | Trainee)[]>([]);
   const navigate = useNavigate();
+
+  console.log(user);
 
 
   // needs to be updated based on how mentor/mentee information is stored
@@ -68,7 +78,7 @@ const AdminHome = () => {
     }
   }
 
-  const onClick = (person: Mentor | Trainee) => {
+  const onClickMentorTraineeListItem = (person: Mentor | Trainee) => {
     if (person.type === "Mentor") {
       navigate("/mentor/" + person.submissionId);
     } else if (person.type === "Trainee") {
@@ -76,62 +86,77 @@ const AdminHome = () => {
     }
   }
 
-  return (
-    <div className="admin-home">
-      <div className="wrapper">
-        {/* Header */}
-        <div className="header-wrapper">
-          <h1 className="header">Home</h1>
-          <img src={logo} alt="Where is the logo?"/> 
-        </div>
-        {/* Mentors and Trainees Filters */}
-        <div className="mentors-trainees-filters-wrapper">
-          <div className={getClassNameForFilter("Mentor")} onClick={() => setFilter("Mentor")} style={{borderBottomColor: "#6d9d3d"}}>
-            <div className="filter-top">
-              <img className="filter-img"src={all_applicants} alt=""/>
-              <h3>{getNumberOf("Mentor")}</h3>
-            </div>
-            <p>Mentors</p>
-          </div>
-          <div className={getClassNameForFilter("Trainee")} onClick={() => setFilter("Trainee")} style={{borderBottomColor: "#1900b5"}}>
-            <div className="filter-top">
-              <img className="filter-img" src={new_applicant} alt=""/>
-              <h3>{getNumberOf("Trainee")}</h3>
-            </div>
-            <p>Trainees</p>
-          </div>
-        </div>
+  const getSidebarTiles = () => {
+    const routes = ["/admin/home", "/admin/assignments", "/admin/applicants", "/admin/settings"];
+    const ret = [];
+    for (let i = 0; i < routes.length; i++) {
+      const cur = { ...AdminSidebarTiles[i], route: routes[i] };
+      ret.push(cur);
+    }
+    return ret;
+  }
 
-        {/* Mentors Trainees Dashboard */}
-        <div className="mentors-trainees-dashboard">
+  return (
+    <div className="sidebar-and-content">
+      {/* Sidebar */}
+      <Sidebar selected={AdminSidebarOptions.Home} sidebarTiles={getSidebarTiles()} />
+      {/* Content */}
+      <div className="admin-home">
+        <div className="wrapper">
           {/* Header */}
           <div className="header-wrapper">
-            {/* Title */}
-            <h2>{filter === "" ? "All Mentors and Trainees" : filter + "s"}</h2>
-            {/* Searchbar */}
-            <input 
-              className="mentors-trainees-list-searchbar" 
-              type="text" 
-              placeholder="Search..." 
-              value={searchText} 
-              onChange={(e) => setSearchText(e.target.value)}
-            />
-          </div>  
-          <hr/>
-          {/* Mentors and Trainees List */}
-          <ul className="mentors-trainees-list">
-            {visiblePeople.length > 0 ? visiblePeople.map((person, idx) => 
-              <div key={idx} className="mentors-trainees-list-item" onClick={() => onClick(person)}>
-                <p>{person.firstName + " " + person.lastName}</p>
-                <div className="person-type" style={{backgroundColor: getColorForPersonType(person.type)}}>{person.type}</div>
-              </div>)
-              :
-              <p>There are no trainees or mentors to display.</p>
-            }
-          </ul>
+            <h1 className="header">Home</h1>
+            <img src={logo} alt="Where is the logo?"/> 
+          </div>
+          {/* Mentors and Trainees Filters */}
+          <div className="mentors-trainees-filters-wrapper">
+            <div className={getClassNameForFilter("Mentor")} onClick={() => setFilter("Mentor")} style={{ borderBottomColor: "#6d9d3d" }}>
+              <div className="filter-top">
+                <img className="filter-img"src={all_applicants} alt=""/>
+                <h3>{getNumberOf("Mentor")}</h3>
+              </div>
+              <p>Mentors</p>
+            </div>
+            <div className={getClassNameForFilter("Trainee")} onClick={() => setFilter("Trainee")} style={{ borderBottomColor: "#1900b5" }}>
+              <div className="filter-top">
+                <img className="filter-img" src={new_applicant} alt=""/>
+                <h3>{getNumberOf("Trainee")}</h3>
+              </div>
+              <p>Trainees</p>
+            </div>
+          </div>
+
+          {/* Mentors Trainees Dashboard */}
+          <div className="mentors-trainees-dashboard">
+            {/* Header */}
+            <div className="header-wrapper">
+              {/* Title */}
+              <h2>{filter === "" ? "All Mentors and Trainees" : filter + "s"}</h2>
+              {/* Searchbar */}
+              <input 
+                className="mentors-trainees-list-searchbar" 
+                type="text" 
+                placeholder="Search..." 
+                value={searchText} 
+                onChange={(e) => setSearchText(e.target.value)}
+              />
+            </div>  
+            <hr/>
+            {/* Mentors and Trainees List */}
+            <ul className="mentors-trainees-list">
+              {visiblePeople.length > 0 ? visiblePeople.map((person, idx) => 
+                <div key={idx} className="mentors-trainees-list-item" onClick={() => onClickMentorTraineeListItem(person)}>
+                  <p>{person.firstName + " " + person.lastName}</p>
+                  <div className="person-type" style={{ backgroundColor: getColorForPersonType(person.type) }}>{person.type}</div>
+                </div>)
+                :
+                <p>There are no trainees or mentors to display.</p>
+              }
+            </ul>
+          </div>
         </div>
-      </div>
-    </div>  
+      </div>  
+    </div>
   );
 }
 
