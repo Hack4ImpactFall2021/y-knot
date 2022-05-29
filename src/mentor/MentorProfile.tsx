@@ -50,7 +50,7 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
           city: data['4']?.answer,
           state: data['5']?.answer,
           zip: data['6']?.answer,
-          phoneNumber: data['7']?.answer.full,
+          phoneNumber: data['7']?.answer,
           age: data['9']?.answer,
           gender: data['11']?.answer,
           school: data['101']?.answer,
@@ -66,7 +66,6 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
         };
         menteeData.push(mentee);
       }
-      console.log(menteeData);
       setMenteeList(menteeData);
     } catch (error) {
 

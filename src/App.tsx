@@ -58,7 +58,7 @@ const App = () => {
 
           {/* Admin */}
           <Route path='/admin/:id' element={<RequireAdminAuth children={<Profile />}/>} />
-          <Route path='/admin/matching' element={<RequireAdminAuth children={<MentorMenteeMatch />}/>} />
+          <Route path='/admin/matching/:id' element={<RequireAdminAuth children={<MentorMenteeMatch />}/>} />
           <Route
             path={AdminNavRoutes[AdminNavRouteOptions.Home].route}
             element={<RequireAuth children={<Admin selected={AdminNavRouteOptions.Home}/>}/>}

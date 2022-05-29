@@ -57,7 +57,11 @@ export type Mentor = {
     submissionId: string,
     notes?: string,
     createdAt: string,
-    menteeIds: string[]
+    agePreference: string,
+    bestDescribes: string[],
+    interestsAndHobbies: string[],
+    canHaveManyMentees: string,
+    menteeIds: string[],
     firebaseId: string
 }
 
@@ -90,7 +94,8 @@ export type MentorForm = {
     age: number,
     schoolLevel: string,
     describesYou: String[],
-    interestsAndHobbies: String[]
+    interestsAndHobbies: String[],
+    submissionId: string
 }
 
 export type JotformResponse = {

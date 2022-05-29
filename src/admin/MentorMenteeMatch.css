@@ -23,6 +23,7 @@
   background-color: #98db5f;
   color: white;
   border: none;
+  cursor: "pointer";
   border-radius: 30px;
   padding: 10px 30px;
   display: flex;
@@ -34,6 +35,24 @@
 .assign-btn:hover {
   cursor: pointer;
   opacity: 0.8;
+}
+
+.assign-btn.unclickable:hover {
+  cursor: default;
+  opacity: .8;
+}
+
+.assign-btn.unclickable {
+  background-color: #D1D1D1;
+  color: white;
+  cursor: default;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 30px;
+  display: flex;
+  align-items: center;
+  font-weight:500;
+  font-size: 1.1em;
 }
 
 .assign-icon {
@@ -69,7 +88,7 @@
 
 
 .mentor-table-cell {
-  border: 1px solid #cfcfcf;
+  border: 1px solid #c4c4c4;
   padding: 10px 10px;
 }
 
@@ -106,10 +125,10 @@
 }
 
 .mentor-table-row-clickable:hover{
-  background-color: lightgray;
+  background-color: #f4f4f4;
   cursor: pointer;
 }
 
-.mentor-table-row.selected {
-  background-color: lightgray;
+.mentor-table-row-clickable.selected {
+  background-color: #E5E5E5;
 }

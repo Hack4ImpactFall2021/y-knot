@@ -89,7 +89,7 @@ const AdminHome = () => {
     if (person.type === "Trainee") {
       setAssignmentModal(person);
     } else if (person.type === "Mentee") {
-      navigate("/admin/matching");
+      navigate(`/admin/matching/${person.submissionId}`);
     }
   }
 

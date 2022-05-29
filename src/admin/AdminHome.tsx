@@ -23,8 +23,8 @@ const AdminHome = () => {
   // needs to be updated based on how mentor/mentee information is stored
   const getPeople: VoidFunction = async () => {
     try {
-      let mentors = await NetworkManager.makeRequest(Endpoints.GetMentors);
-      let trainees = await NetworkManager.makeRequest(Endpoints.GetTrainees);
+      let mentors = await NetworkManager.makeRequest(Endpoints.GetAllMentors);
+      let trainees = await NetworkManager.makeRequest(Endpoints.GetAllTrainees);
       let allPeeps = mentors.concat(trainees);
       setAllPeople(allPeeps);
       setVisiblePeople(allPeeps);
