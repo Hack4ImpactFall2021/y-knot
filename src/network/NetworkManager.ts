@@ -675,11 +675,12 @@ class NetworkManger {
 
   private sendTrainingCompletedInternalEmail(name: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendTrainingCompletedInternalEmail?name=${name}`)
-      .then(() => {
+      // TEMPORARY, turned off reminder email
+      //fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendTrainingCompletedInternalEmail?name=${name}`)
+      //.then(() => {
         resolve();
-      })
-      .catch(error => reject(error));
+      //})
+      //.catch(error => reject(error));
     })
   }
 
