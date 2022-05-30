@@ -218,7 +218,7 @@ const MentorMenteeMatch = () => {
               </td>
               <td className="mentor-table-cell">
                 <div>
-                  {mentor.agePreference}
+                  {mentor.agePreference?.join(", ")}
                 </div>
               </td>
               <td className="mentor-table-cell">

@@ -57,7 +57,7 @@ export type Mentor = {
     submissionId: string,
     notes?: string,
     createdAt: string,
-    agePreference: string,
+    agePreference: string[],
     bestDescribes: string[],
     interestsAndHobbies: string[],
     canHaveManyMentees: string,
