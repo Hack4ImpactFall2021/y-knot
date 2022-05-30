@@ -173,7 +173,7 @@ const Profile = () => {
           console.log('sent email')
 
           // move applicant in database
-          await NetworkManager.makeRequest(Endpoints.UpdateStage, {id: applicant?.submissionId, stage: ApplicantStages.Accepted})
+          await NetworkManager.makeRequest(Endpoints.SetRole, {id: applicant?.submissionId, firebaseId: fid, role: "trainee"})
           console.log('updated stage')
 
           setShowModal(false);
