@@ -47,11 +47,16 @@
   border-radius: 40px 0 0 40px;
   margin-left: 20px;
 }
+
+.sidebar-tile.selected:hover {
+  cursor: default;
+}
+
 .sidebar-tile:hover:not(.selected) {
-  /* background-color: #f4f4f4; */
   background-color: hsl(222, 70%, 97%);
   cursor: pointer;
 }
+
 .sidebar-tile.selected {
   background-color: #10275b;
   color:white;

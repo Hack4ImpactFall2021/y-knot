@@ -1,0 +1,18 @@
+.not-found {
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  height: 100vh;
+}
+.go-back-btn {
+  border-radius: 10px; 
+  background-color: #10275b; 
+  color: white; 
+  font-weight: 600; 
+  border: none; 
+  padding: 10px 0px;
+}
+.go-back-btn:hover {
+  cursor: pointer;
+  filter: brightness(1.2);
+}

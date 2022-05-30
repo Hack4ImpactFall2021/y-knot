@@ -32,6 +32,8 @@ import AdminAssignments from "./admin/AdminAssignments";
 import AdminApplicants from "./admin/AdminApplicants";
 import AdminSettings from "./admin/AdminSettings";
 
+import NotFound from "./auth/NotFound";
+
 const App = () => {
   return (
     <AuthProvider>
@@ -44,47 +46,47 @@ const App = () => {
 
           {/* Trainee */}
           <Route
-            path={"/trainee/home"}
+            path="/trainee/home"
             element={<RequireTraineeAuth children={<TraineeHome selected={TraineeSidebarOptions.Home}/>} /> }
           />
           <Route
-            path={"/trainee/profile/:id"}
+            path="/trainee/profile/:id"
             element={<RequireTraineeAuth children={<TProfile />} />}
           />
           <Route
-            path={"/trainee/settings"}
+            path="/trainee/settings"
             element={<RequireTraineeAuth children={<div></div>} /> }
           />
 
           {/* Mentor */}
           <Route
-            path={"/mentor/home"}
+            path="/mentor/home"
             element={<RequireMentorAuth children={<MentorHome />}/>} 
           />
           <Route
-            path={"/mentor/profile/:mentorId"}
+            path="/mentor/profile/:mentorId"
             element={<RequireMentorAuth children={<MentorProfile defaultTab="Your Profile"/>}/>} 
           />
           <Route
-            path={"/mentor/profile/:mentorId/logsreports"}
+            path="/mentor/profile/:mentorId/logsreports"
             element={<RequireMentorAuth children={<MentorProfile defaultTab="Logs and Reports"/>}/>} 
           />
           <Route
-            path={"/mentor/resources"}
+            path="/mentor/resources"
             element={<RequireMentorAuth children={<MentorResources /> }/>}
           />
           <Route
-            path={"/mentor/settings"}
+            path="/mentor/settings"
             element={<RequireMentorAuth children={<MentorSettings />}/>}
           />
 
           {/* Admin */}
           <Route
-            path={"/admin/home"}
+            path="/admin/home"
             element={<RequireAdminAuth children={<AdminHome/>} />}
           />
           <Route
-            path={"/admin/assignments"}
+            path="/admin/assignments"
             element={<RequireAdminAuth children={<AdminAssignments />}/>}
           />
           <Route
@@ -92,7 +94,7 @@ const App = () => {
             element={<RequireAdminAuth children={<MentorMenteeMatch/>}/>}
           />
           <Route
-            path={"/admin/applicants"}
+            path="/admin/applicants"
             element={<RequireAdminAuth children={<AdminApplicants/>}/>}
           />
           <Route
@@ -100,10 +102,10 @@ const App = () => {
             element={<RequireAdminAuth children={<Profile/>}/>}
           />
           <Route
-            path={"/admin/settings"}
+            path="/admin/settings"
             element={<RequireAdminAuth children={<AdminSettings/>}/>}
           /> 
-          <Route path="*" element={<div>404 NOT FOUND</div>} />
+          <Route path="*" element={<NotFound/>} />
         </Routes>
       </Router>
     </AuthProvider>
