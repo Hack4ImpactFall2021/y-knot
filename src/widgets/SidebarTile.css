@@ -1,7 +1,8 @@
-.jason-sidebar-tile:first-child {
+/*
+.sidebar-tile:first-child {
   margin-top: 5em;
 }
-.jason-sidebar-tile {
+.sidebar-tile {
   padding: 1em;
   display: flex;
   align-items: center;
@@ -13,25 +14,52 @@
   color:#10275b;
   border: 1px solid white;
 }
-.jason-sidebar-tile span {
+.sidebar-tile span {
   display: flex;
   justify-content: flex-start;
 }
-.jason-sidebar-tile span:hover {
+.sidebar-tile span:hover {
   border: dotted 1px solid red;
 }
-.jason-sidebar-tile.selected {
+.sidebar-tile.selected {
   background-color: #10275b;
   border: 1px solid #10275b;
   color: white;
 }
-.jason-sidebar-tile:hover {
+.sidebar-tile:hover {
   cursor: pointer;
 }
 
-.jason-sidebar-tile:hover:not(.selected) {
+.sidebar-tile:hover:not(.selected) {
   background-color: #f4f4f4;
 }
-.jason-sidebar-tile .logout-btn {
+.sidebar-tile .logout-btn {
   justify-self: flex-end;
+}
+
+*/
+.sidebar-tile {
+  display: flex;
+  gap: 1em;
+  padding: 1em;
+  align-items: center;
+  color: #10275b;
+  border-radius: 40px 0 0 40px;
+  margin-left: 20px;
+}
+.sidebar-tile:hover:not(.selected) {
+  /* background-color: #f4f4f4; */
+  background-color: hsl(222, 70%, 97%);
+  cursor: pointer;
+}
+.sidebar-tile.selected {
+  background-color: #10275b;
+  color:white;
+}
+
+.sidebar-tile .img-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 60px;
+
 }

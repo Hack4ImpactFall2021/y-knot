@@ -6,7 +6,7 @@ export const LogoutButton = () => {
   const navigate = useNavigate();
   return (
     <button className="logout-btn" onClick={() => navigate("/login")}>
-      <img src={logout} alt="logout.png"/>
+      <img src={logout} alt="logout"/>
       Logout
     </button>
   );

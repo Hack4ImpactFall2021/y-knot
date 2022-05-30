@@ -4,15 +4,17 @@ import { LogoutButton } from "./LogoutButton";
 import { NavRouteOptions, SidebarTileInfo } from "../SidebarAndContent";
 import { SidebarTile } from "./SidebarTile";
 
+import "./Sidebar.css";
 
 interface Props {
   selected: any,
   sidebarTiles: any
 }
 
+
 const Sidebar: React.FC<Props> = ({ selected, sidebarTiles }) => {
   return (
-    <div className="jason-sidebar">
+    <div className="sidebar">
       {sidebarTiles.map((tile:any, idx:any) => {
         return (
           <SidebarTile
@@ -25,19 +27,6 @@ const Sidebar: React.FC<Props> = ({ selected, sidebarTiles }) => {
           />
         );
       })}
-      {/* {Object.values(sidebarTiles).map((curTile, idx) => {
-        const { route, label, activeIcon, inactiveIcon, ...rest } = curTile;
-        return (
-          <SidebarTile 
-            key={idx} 
-            selected={curTile.name === selected} 
-            route={route}
-            label={label}
-            activeIcon={activeIcon}
-            inactiveIcon={inactiveIcon}
-          />
-        );
-      })} */}
       <LogoutButton/>
     </div>  
   );

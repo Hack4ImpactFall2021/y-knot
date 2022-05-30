@@ -1,13 +1,14 @@
-.sidebar-and-content .jason-sidebar {
+.sidebar {
   display: flex;
   flex-direction: column;
   gap: 1em;
   font-size: large;
-  font-weight:500;
-  width: 13em;
+  font-weight: 500;
+  width: 14em;
+  margin-top: 5em;
+  margin-bottom: 2em;
 }
 
-.sidebar-and-content .jason-sidebar .jason-sidebar-tiles {
-
-
+.sidebar .logout-btn {
+  margin-top: auto;
 }

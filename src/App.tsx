@@ -1,9 +1,7 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 import "./App.css";
 
-import Settings from "./settings/Settings";
 import Login from "./login/Login";
 import Profile from "./profile/Profile";
 import TProfile from "./trainee-profile/TProfile";
@@ -16,14 +14,7 @@ import MentorResources from "./mentor/MentorResources";
 import MentorMenteeMatch from "./admin/MentorMenteeMatch";
 
 import SidebarAndContent from "./SidebarAndContent";
-import {
-  AdminSidebarTiles,
-  AdminSidebarOptions,
-} from "./admin/AdminSidebarInfo";
-import {
-  TraineeSidebarTiles,
-  TraineeSidebarOptions,
-} from "./trainee/TraineeSidebarInfo";
+import { TraineeSidebarOptions, } from "./trainee/TraineeSidebarInfo";
 import {
   MentorSidebarTiles,
   MentorSidebarOptions,
@@ -31,15 +22,9 @@ import {
 
 // Authentication
 import { AuthProvider } from "./auth/AuthProvider";
-import RequireAuth from "./auth/RequireAuth";
 import RequireAdminAuth from "./auth/RequireAdminAuth";
 import RequireMentorAuth from "./auth/RequireMentorAuth";
 import RequireTraineeAuth from "./auth/RequireTraineeAuth";
-
-// Admin stuff
-//import { NavRouteOptions as AdminNavRouteOptions } from "./admin/AdminSidebar";
-import { NavRoutes as AdminNavRoutes } from "./admin/AdminSidebar";
-import Admin from "./admin/Admin";
 
 
 import AdminHome from "./admin/AdminHome";
