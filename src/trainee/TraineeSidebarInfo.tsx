@@ -24,12 +24,14 @@ export enum TraineeSidebarOptions {
 export const TraineeSidebarTiles: SidebarTileInfo[] = [
    {
     name: TraineeSidebarOptions.Home,
+    route: "/trainee/home",
     label: "Home",
     activeIcon: home_active,
     inactiveIcon: home_inactive,
   },
   {
     name: TraineeSidebarOptions.Profile,
+    route: "/trainee/profile/",
     label: "Profile",
     activeIcon: profile_active,
     //None of these are actually used since the profile doesn't redirect to a SidebarAndContent component
@@ -37,6 +39,7 @@ export const TraineeSidebarTiles: SidebarTileInfo[] = [
   },
   {
     name: TraineeSidebarOptions.Settings,
+    route: "/trainee/settings",
     label: "Settings",
     activeIcon: settings_active,
     inactiveIcon: settings_inactive,

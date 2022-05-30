@@ -26,24 +26,28 @@ export enum MentorSidebarOptions {
 export const MentorSidebarTiles: SidebarTileInfo[] = [
   {
     name: MentorSidebarOptions.Home,
+    route: "/mentor/home",
     label: "Home",
     activeIcon: home_active,
     inactiveIcon: home_inactive,
   },
   {
     name: MentorSidebarOptions.Profile,
+    route: "/mentor/profile/",
     label: "Profile",
     activeIcon: profile_active,
     inactiveIcon: profile_inactive,
   },
   {
     name: MentorSidebarOptions.Resources,
+    route: "/mentor/resources",
     label: "Resources",
     activeIcon: resources_active,
     inactiveIcon: resources_inactive,
   },
   {
     name: MentorSidebarOptions.Settings,
+    route: "/mentor/settings",
     label: "Settings",
     activeIcon: settings_active,
     inactiveIcon: settings_inactive,

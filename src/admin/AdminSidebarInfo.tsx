@@ -17,27 +17,32 @@ export enum AdminSidebarOptions {
   Settings = "Settings"
 }
 
+//All of the routes on the admin sidebar tiles can be hard-coded since they don't depend on any dynamic values
 export const AdminSidebarTiles: SidebarTileInfo[] = [
   {
     name: AdminSidebarOptions.Home,
+    route: "/admin/home/",
     label: "Home",
     activeIcon: home_active,
     inactiveIcon: home_inactive,
   },
   {
     name: AdminSidebarOptions.Assignments,
+    route: "/admin/assignments",
     label: "Assignments",
     activeIcon: trainee_active,
     inactiveIcon: trainee_inactive,
   },
   {
     name: AdminSidebarOptions.Applicants,
+    route: "/admin/applicants",
     label: "Applicants",
     activeIcon: applicants_active,
     inactiveIcon: applicants_inactive,
   },
   {
     name: AdminSidebarOptions.Settings,
+    route: "/admin/settings",
     label: "Settings",
     activeIcon: settings_active,
     inactiveIcon: settings_inactive,

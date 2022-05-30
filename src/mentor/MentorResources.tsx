@@ -12,27 +12,17 @@ import NetworkManager, { Endpoints } from "../network/NetworkManager";
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 import { MentorSidebarOptions, MentorSidebarTiles } from "./MentorSidebarInfo";
 import Sidebar from "../widgets/Sidebar";
+import { useMentorContext } from "../auth/RequireMentorAuth";
 interface Props {
 
 
 };
 
 const MentorResources: React.FC<Props> = () => {
-  const [mentor, setMentor] = useState<any>();
-
-  const getMentor: VoidFunction = async () => {
-    try {
-      let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
-      snap = snap as QuerySnapshot<DocumentData>;
-      setMentor(snap.docs[0].data());
-    } catch(err) {
-      console.log(err);
-    }
-  }
-  useEffect(getMentor, []);
+  const mentor = useMentorContext();
 
   const getSidebarTiles = () => {
-    const routes = ["/mentor/home", "/mentor/profile/" + mentor?.submission_id, "/mentor/resources/", "/mentor/settings"];
+    const routes = ["/mentor/home", "/mentor/profile/" + mentor.submissionId, "/mentor/resources/", "/mentor/settings"];
     const ret = [];
     for (let i = 0; i < routes.length; i++) {
       const cur = { ...MentorSidebarTiles[i], route: routes[i] };

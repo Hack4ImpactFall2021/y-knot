@@ -7,31 +7,28 @@ import Sidebar from "./widgets/Sidebar";
 
 import "./SidebarAndContent.css";
 
+
+export type NavRouteOptions = AdminSidebarOptions | MentorSidebarOptions | TraineeSidebarOptions;
 interface Props {
-  selected: NavRouteOptions,
-  sidebarTiles: { [key in NavRouteOptions]?: SidebarTileInfo }
+  selectedTile: NavRouteOptions,
+  sidebarTiles: SidebarTileInfo[],
+  contentComponent: JSX.Element
 }
 
 export interface SidebarTileInfo {
   name: NavRouteOptions,
-  /* All of these only matter for the sidebar tiles that redirect to a SidebarAndContent type component.
-   * There are a few sidebars that redirect to their own pages (e.g. mentor profile and trainee profile). Those
-   * sidebar tiles really only need the route. */
+  route: string, 
   label: string, 
   activeIcon: string,
   inactiveIcon: string, 
 }
 
-export type NavRouteOptions = AdminSidebarOptions | MentorSidebarOptions | TraineeSidebarOptions;
 
-const SidebarAndContent : React.FC<Props>= ({ selected, sidebarTiles}) => {
+const SidebarAndContent : React.FC<Props>= ({ selectedTile, sidebarTiles, contentComponent }) => {
   return (
     <div className="sidebar-and-content">
-      {/* Sidebar */}
-      <Sidebar selected={selected} sidebarTiles={sidebarTiles} />
-      {/* Content */}
-      {/* {sidebarTiles[selected]!.contentComponent}  */}
-      {/* In hindsight, maybe this wasn't very well thought out. This is what happens when you are a TS novice */}
+      <Sidebar selected={selectedTile} sidebarTiles={sidebarTiles} />
+      {contentComponent}
     </div>
   );
 }

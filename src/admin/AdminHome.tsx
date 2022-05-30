@@ -14,9 +14,8 @@ import all_applicants from '../assets/all.png';
 import new_applicant from '../assets/new.png';
 
 import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
-import Sidebar from "../widgets/Sidebar";
 
-import "../SidebarAndContent.css";
+import SidebarAndContent from "../SidebarAndContent";
 
 type PersonType = "Mentor" | "Trainee";
 const AdminHome = () => {
@@ -24,9 +23,6 @@ const AdminHome = () => {
   const [visiblePeople, setVisiblePeople] = useState<(Mentor | Trainee)[]>([]);
   const navigate = useNavigate();
 
-
-
-  // needs to be updated based on how mentor/mentee information is stored
   const getPeople: VoidFunction = async () => {
     try {
       let mentors = await NetworkManager.makeRequest(Endpoints.GetMentors);
@@ -35,7 +31,7 @@ const AdminHome = () => {
       setAllPeople(allPeeps);
       setVisiblePeople(allPeeps);
     } catch(err) {
-      console.log(err);
+      console.error(err);
     }
   }
   useEffect(getPeople, []);
@@ -82,21 +78,9 @@ const AdminHome = () => {
     }
   }
 
-  const getSidebarTiles = () => {
-    const routes = ["/admin/home", "/admin/assignments", "/admin/applicants", "/admin/settings"];
-    const ret = [];
-    for (let i = 0; i < routes.length; i++) {
-      const cur = { ...AdminSidebarTiles[i], route: routes[i] };
-      ret.push(cur);
-    }
-    return ret;
-  }
-
-  return (
-    <div className="sidebar-and-content">
-      {/* Sidebar */}
-      <Sidebar selected={AdminSidebarOptions.Home} sidebarTiles={getSidebarTiles()} />
-      {/* Content */}
+  //RENDER FUNCTIONS
+  const getAdminHomeContentComponent = () => {
+    return (
       <div className="admin-home">
         <div className="wrapper">
           {/* Header */}
@@ -152,7 +136,15 @@ const AdminHome = () => {
           </div>
         </div>
       </div>  
-    </div>
+    );
+  }
+
+  return (
+    <SidebarAndContent
+      selectedTile={AdminSidebarOptions.Home}
+      sidebarTiles={AdminSidebarTiles}
+      contentComponent={getAdminHomeContentComponent()}
+    />
   );
 }
 

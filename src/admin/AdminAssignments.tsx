@@ -15,6 +15,7 @@ import "./AdminAssignments.css"
 import Sidebar from "../widgets/Sidebar";
 import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
 import Loading from "../auth/Loading";
+import SidebarAndContent from "../SidebarAndContent";
 
 type PersonType = "Mentee" | "Trainee";
 
@@ -102,21 +103,21 @@ const AdminHome = () => {
   }
 
   const makeTraineeIntoMentor = async (trainee: AssignmentsTabPerson) => {
+    setAssignmentModal(undefined);
+    setIsContentLoading(true);
     try {
-      setAssignmentModal(undefined);
-      setIsContentLoading(true);
 
       if (trainee?.type == "Trainee" && trainee?.firebaseId.length != 0 && trainee?.email.length != 0) {
 
-        await NetworkManager.makeRequest(Endpoints.SetRole, {id: trainee.submissionId, firebaseId: trainee.firebaseId, role: "mentor"});
+        await NetworkManager.makeRequest(Endpoints.SetRole, { id: trainee.submissionId, firebaseId: trainee.firebaseId, role: "mentor" });
         await NetworkManager.makeRequest(Endpoints.SendTrainingCompletedEmail, {email: trainee.email, name: `${trainee.firstName} ${trainee.lastName}`})
       
         getPeople();
       }
-      setIsContentLoading(false);
     } catch(err) {
       console.error(err);
     }
+    setIsContentLoading(false);
   }
 
   const renderAssignmentModal = () => {
@@ -138,21 +139,10 @@ const AdminHome = () => {
     );
   }
 
-  const getSidebarTiles = () => {
-    const routes = ["/admin/home", "/admin/assignments", "/admin/applicants", "/admin/settings"];
-    const ret = [];
-    for (let i = 0; i < routes.length; i++) {
-      const cur = { ...AdminSidebarTiles[i], route: routes[i] };
-      ret.push(cur);
-    }
-    return ret;
-  }
-
-  return (
-    <div className="sidebar-and-content" >
-      {/* Sidebar */}
-      <Sidebar selected={AdminSidebarOptions.Assignments} sidebarTiles={getSidebarTiles()} />
-      <div className="admin-assignments" style={{position: "relative"}}>
+  const getAdminAssignmentsContentComponent = () => {
+      //position relative for the loader
+    return (
+      <div className="admin-assignments" style={{ position: "relative" }}>
         {!isContentLoading ?
         (<div className="wrapper">
           {/* Assignment Modal for Trainee */}
@@ -209,9 +199,16 @@ const AdminHome = () => {
             </ul>
           </div>
         </div>) : <Loading/> } 
-      </div>
-    </div>
-  );
+      </div>);
+  }
+
+  return (
+    <SidebarAndContent
+      selectedTile={AdminSidebarOptions.Assignments}
+      sidebarTiles={AdminSidebarTiles}
+      contentComponent={getAdminAssignmentsContentComponent()}
+    />
+  )
 
 }
 

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import "./App.css";
 
@@ -15,10 +15,6 @@ import MentorMenteeMatch from "./admin/MentorMenteeMatch";
 
 import SidebarAndContent from "./SidebarAndContent";
 import { TraineeSidebarOptions, } from "./trainee/TraineeSidebarInfo";
-import {
-  MentorSidebarTiles,
-  MentorSidebarOptions,
-} from "./mentor/MentorSidebarInfo";
 
 // Authentication
 import { AuthProvider } from "./auth/AuthProvider";
@@ -46,7 +42,7 @@ const App = () => {
 
           {/* Trainee */}
           <Route
-            path={"/trainee/home"}
+            path="/trainee/home"
             element={<RequireTraineeAuth children={<TraineeHome selected={TraineeSidebarOptions.Home}/>} /> }
           />
           <Route
@@ -97,10 +93,12 @@ const App = () => {
             path="/admin/applicants"
             element={<RequireAdminAuth children={<AdminApplicants/>}/>}
           />
+          {/* Admin view into trainee profile */}
           <Route
             path="/admin/trainee/:traineeId"
             element={<RequireAdminAuth children={<TProfile/>}/>}
           />
+          {/* Admin view into mentor profile */}
           <Route
             path="/admin/mentor/:mentorId"
             element={<RequireAdminAuth children={<MentorProfile defaultTab="Your Profile"/>}/>}
