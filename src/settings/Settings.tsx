@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import { AuthError } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { AuthError } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
-import './Settings.css';
-import TextField from './TextField/TextField';
-import Button from './Button/Button';
-import NetworkManager, { Endpoints } from '../network/NetworkManager';
-import Popup from './Popup/Popup';
+import error from "./assets/error.png";
+import success from "./assets/success.png";
+import close from "./assets/close.png";
+
+import "./Settings.css";
+import TextField from "./TextField/TextField";
+import Button from "./Button/Button";
+import NetworkManager, { Endpoints } from "../network/NetworkManager";
+import Popup from "./Popup/Popup";
 
 
 const Settings = () => {
@@ -68,7 +72,7 @@ const Settings = () => {
     setIsDisabled(true);
     setMessage([false, ""]);
 
-    if (!(password === confirmPassword)) {
+    if (password !== confirmPassword) {
       setMessage([true, "Passwords do not match."]);
       setIsDisabled(false);
       return;
@@ -154,57 +158,68 @@ const Settings = () => {
     }
   }
 
+  //RENDER FUNCTIONS
+  const renderStatusMessage = () => {
+    const isError = message[0];
+    const statusMessage = message[1];
+    if (statusMessage.length === 0) 
+      return;
 
+    return (
+      <div className="status-msg-container">
+        <img className="status-icon" src={isError ? error: success}/>
+        <p className="popup-text">{statusMessage}</p>
+        <img className="status-close-btn" src={close} onClick={() => setMessage([false, ""])}/>
+      </div>
+    );
+  }
 
   return (
-    <>
     <div className="settings">
       <div className="settings-container">
-        {
-          message![1].length > 0 ?
-          <Popup isError={message![0]} text={message![1]} setText={setMessage}/>
-          : null      
-        }
+        {renderStatusMessage()}
         <div className="settings-content">
-        <h1 className="settings-title">Settings</h1>
+          {/* Header */}
+          <h1 className="settings-title">Settings</h1>
 
-        <div className="settings-box">
-          <h2>Update Email Address</h2>
-          <hr />
-          <div className="main">
-            <TextField label="Email Address" value={email} onChange={val => setEmail(val)}/>
-            <Button label="Change Email Address" onClick={!isDisabled ? updateEmail : () => {}}/>
-          </div>
-        </div>
- 
-        <div className="settings-box">
-          <h2>Update Password</h2>
-          <hr />
-          <div className="main">
-            <div className="two">
-            <TextField label="New Password" hasHover value={password} onChange={val => setPassword(val)}/>
-            <TextField label="Confirm New Password" value={confirmPassword} onChange={val => setConfirmPassword(val)}/>
+          {/* Update Email */}
+          <div className="settings-box">
+            <h2>Update Email Address</h2>
+            <hr />
+            <div className="main">
+              <TextField label="Email Address" value={email} onChange={val => setEmail(val)}/>
+              <Button label="Change Email Address" onClick={!isDisabled ? updateEmail : () => {}}/>
             </div>
-            <Button label="Change Password" onClick={!isDisabled ? updatePassword: () => {}}/>
           </div>
-        </div>
 
-        <div className="settings-box">
-          <h2>Create New Account</h2>
-          <hr />
-          <div className="main">
-            <div className="two">
-            <TextField label="Email Address" value={newEmail} onChange={val => setNewEmail(val)}/>
-            <TextField label="Password" hasHover value={newPassword} onChange={val => setNewPassword(val)}/>
+          {/* Update Password */}
+          <div className="settings-box">
+            <h2>Update Password</h2>
+            <hr />
+            <div className="main">
+              <div className="two">
+              <TextField label="New Password" hasHover value={password} onChange={val => setPassword(val)}/>
+              <TextField label="Confirm New Password" value={confirmPassword} onChange={val => setConfirmPassword(val)}/>
+              </div>
+              <Button label="Change Password" onClick={!isDisabled ? updatePassword: () => {}}/>
             </div>
-            <Button label="Create Account" onClick={!isDisabled ? createNewUser : () => {}}/>
+          </div>
+
+          {/* Create New Account */}
+          <div className="settings-box">
+            <h2>Create New Account</h2>
+            <hr />
+            <div className="main">
+              <div className="two">
+              <TextField label="Email Address" value={newEmail} onChange={val => setNewEmail(val)}/>
+              <TextField label="Password" hasHover value={newPassword} onChange={val => setNewPassword(val)}/>
+              </div>
+              <Button label="Create Account" onClick={!isDisabled ? createNewUser : () => {}}/>
+            </div>
           </div>
         </div>
-
-      </div>
       </div>
     </div>
-    </>
   );
 };
 

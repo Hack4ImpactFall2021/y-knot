@@ -201,7 +201,7 @@ const AdminHome = () => {
               {visiblePeople.length > 0 ? visiblePeople.map((person, idx) => 
                 <div key={idx} className="trainees-mentees-list-item" onClick={() => onClick(person)}>
                   <p>{person.firstName + " " + person.lastName}</p>
-                  <div className="person-type" style={{backgroundColor: getColorForPersonType(person.type as PersonType)}}>{person.type}</div>
+                  <div className="person-type" style={{ backgroundColor: getColorForPersonType(person.type as PersonType) }}>{person.type}</div>
                 </div>)
                 :
                 <p>There are no trainees or mentees to display.</p>

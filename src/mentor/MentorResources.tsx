@@ -32,7 +32,7 @@ const MentorResources: React.FC<Props> = () => {
   useEffect(getMentor, []);
 
   const getSidebarTiles = () => {
-    const routes = ["/mentor/home", "/mentor/profile/" + mentor.submission_id, "/mentor/resources/", "/mentor/settings"];
+    const routes = ["/mentor/home", "/mentor/profile/" + mentor?.submission_id, "/mentor/resources/", "/mentor/settings"];
     const ret = [];
     for (let i = 0; i < routes.length; i++) {
       const cur = { ...MentorSidebarTiles[i], route: routes[i] };
@@ -40,8 +40,6 @@ const MentorResources: React.FC<Props> = () => {
     }
     return ret;
   }
-
-  if (!mentor) return <div></div>;
 
   return (
     <div className="sidebar-and-content">
@@ -104,7 +102,6 @@ const MentorResources: React.FC<Props> = () => {
                   We will contact you directly if you are eligible for re-clearances and you will be required to submit the necessary clearances depending on what year of mentoring you are in. 
                   Please read the re-clearance policy to keep yourself up-to-date on what to expect, as well as the additional instructions to complete your re-clearances.
                 </p>
-                {/* <button className="resource-btn">GET IT ON Google Play</button> */}
               </div>
               <div className="resource-card" style={{  borderColor: "#f1da63"}}>
                 <h3>Mandated Reporter</h3>
@@ -117,7 +114,6 @@ const MentorResources: React.FC<Props> = () => {
                   If you believe you need to make a call to the hotline, please do so ASAP and inform your Mentoring Support Specialist immediately. 
                   If you need assistance, please call BEST Kids at 202-397-3272.m a paragraph. Click here to add your own text and edit me. It's easy.
                 </p>
-                {/* <button className="resource-btn">GET IT ON Google Play</button> */}
               </div>
             </div>  
           </div>

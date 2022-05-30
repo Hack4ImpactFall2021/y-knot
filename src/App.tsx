@@ -46,7 +46,7 @@ const App = () => {
 
           {/* Trainee */}
           <Route
-            path="/trainee/home"
+            path={"/trainee/home"}
             element={<RequireTraineeAuth children={<TraineeHome selected={TraineeSidebarOptions.Home}/>} /> }
           />
           <Route
@@ -90,12 +90,20 @@ const App = () => {
             element={<RequireAdminAuth children={<AdminAssignments />}/>}
           />
           <Route
-            path="/admin/matching/:id"
+            path="/admin/matching/:menteeId"
             element={<RequireAdminAuth children={<MentorMenteeMatch/>}/>}
           />
           <Route
             path="/admin/applicants"
             element={<RequireAdminAuth children={<AdminApplicants/>}/>}
+          />
+          <Route
+            path="/admin/trainee/:traineeId"
+            element={<RequireAdminAuth children={<TProfile/>}/>}
+          />
+          <Route
+            path="/admin/mentor/:mentorId"
+            element={<RequireAdminAuth children={<MentorProfile defaultTab="Your Profile"/>}/>}
           />
           <Route
             path="/admin/applicants/:id"

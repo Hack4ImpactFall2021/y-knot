@@ -13,8 +13,6 @@ import logo from "../login/assets/logo.png";
 import all_applicants from '../assets/all.png';
 import new_applicant from '../assets/new.png';
 
-import { useAuth } from "../auth/AuthProvider";
-
 import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
 import Sidebar from "../widgets/Sidebar";
 
@@ -23,11 +21,9 @@ import "../SidebarAndContent.css";
 type PersonType = "Mentor" | "Trainee";
 const AdminHome = () => {
   const [allPeople, setAllPeople] = useState<(Mentor | Trainee)[]>([]);
-  const user = useAuth();
   const [visiblePeople, setVisiblePeople] = useState<(Mentor | Trainee)[]>([]);
   const navigate = useNavigate();
 
-  console.log(user);
 
 
   // needs to be updated based on how mentor/mentee information is stored
@@ -80,9 +76,9 @@ const AdminHome = () => {
 
   const onClickMentorTraineeListItem = (person: Mentor | Trainee) => {
     if (person.type === "Mentor") {
-      navigate("/mentor/" + person.submissionId);
+      navigate("/admin/mentor/" + person.submissionId);
     } else if (person.type === "Trainee") {
-      navigate("/trainee/" + person.submissionId);
+      navigate("/admin/trainee/" + person.submissionId);
     }
   }
 

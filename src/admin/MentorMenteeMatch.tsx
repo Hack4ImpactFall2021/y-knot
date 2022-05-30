@@ -1,11 +1,12 @@
 import React, { MouseEventHandler, useState, useRef, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { MentorForm } from '../utils/utils';
+import { useNavigate, useParams } from 'react-router-dom';
+import { MentorForm, JotformResponse, Mentor } from '../utils/utils';
 
 import assign_icon from "./assets/assign_mentee_icon.png";
 import close from "../profile/assets/close.png";
 import "./MentorMenteeMatch.css"
-
+import NetworkManager, { Endpoints } from '../network/NetworkManager';
+import Loading from '../auth/Loading';
 
 const useClickOutside = (onClickOutside: () => void) => {
   //Super jank
@@ -66,12 +67,72 @@ const mentorList: MentorForm[] = [
   },
 ];
 
+interface Mentee {
+  firstName: string,
+  lastName: string,
+  gender: "Male" | "Female",
+  age: string,
+  grade: string
+}
+
 const MentorMenteeMatch = () => {
   const navigate = useNavigate();
+  const { menteeId } = useParams();
+  const [mentee, setMentee] = useState<Mentee | null>(null);
   const [selectedMentor, setSelectedMentor] = useState(-1);
   const [assignMenteeToMentorModal, setAssignMenteeToMentorModal] = useState<MentorForm | null>(null);
+  const [mentors, setMentors] = useState<Mentor[]>([]);
   const refs = useClickOutside(() => setSelectedMentor(-1));
 
+  useEffect(() => {
+    getMentee();
+    getMentors();
+  }, [])
+
+  const getMentee: VoidFunction = async () => {
+    try {
+      const data = await NetworkManager.makeRequest(Endpoints.GetMenteeForm, { id: menteeId });
+      const menteeFormResponse = data.content.answers;
+      const answers: any = Object.values(menteeFormResponse);
+      const menteeData: Mentee = { firstName: "", lastName: "", gender: "Male", age: "", grade: "" };
+      //Grab the relevant fields off of the form
+      for (const ans of answers) {
+        switch (ans["name"]) {
+          case "childsName":
+            menteeData.firstName = ans["answer"].first;
+            menteeData.lastName = ans["answer"].last;
+            break;
+          case "age":
+            menteeData.age = ans["answer"];
+            break;
+          case "gender":
+            menteeData.gender = ans["answer"];
+            break;
+          case "grade":
+            menteeData.grade = ans["answer"];
+            break;
+          default:
+            break;
+        }
+      } 
+      setMentee(menteeData);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
+  }
+  
+
+  const getMentors = async () => {
+    try {
+      let mentors = await NetworkManager.makeRequest(Endpoints.GetMentors);
+      console.log(mentors);
+    } catch (e) {
+      console.error(e);
+      return;
+    }
+
+  }
   const onAssignMenteeToMentor = () => {
     if (selectedMentor == -1) return;
     setAssignMenteeToMentorModal(mentorList[selectedMentor]);
@@ -98,15 +159,19 @@ const MentorMenteeMatch = () => {
     );
   }
 
+  if (!mentee || !mentors) {
+    return <Loading/>
+  }
+
   return (
     <div className="mentor-mentee-match">
       {/* Close Button */}
-      <img className='exit-btn' ref={refs[0]} src={close} onClick={() => navigate(-1)} />
+      <img className='exit-btn' ref={refs[0]} src={close} onClick={() => navigate("/admin/assignments")} />
       {/* Header */}
       <div className="mentor-mentee-match-header">
         {/* Mentee Name */}
         <h1 className="mentee-name">
-          {'Alice'} {'Jones'}
+          {mentee.firstName} {mentee.lastName}
         </h1>
         {/* Assign Button */}
         <button 
@@ -128,30 +193,33 @@ const MentorMenteeMatch = () => {
 
       {/* Mentee Info Box */}
       <div className="mentee-info-box">
-        <p className="mentee-info-text"> Gender: F</p>
-        <p className="mentee-info-text"> Age: 20 </p>
-        <p className="mentee-info-text"> Grade: 2 </p>
+        <p className="mentee-info-text"> Gender: {mentee.gender}</p>
+        <p className="mentee-info-text"> Age: {mentee.age}</p>
+        <p className="mentee-info-text"> Grade: {mentee.grade}</p>
       </div>
       
       {/* Mentor Table */}
       <table className="mentor-table" ref={refs[2]}>
         {/* Mentor Table Header */}
-        <tr>
-          <th className="mentor-table-header">Mentor</th>
-          <th className="mentor-table-header">Mentees</th>
-          <th className="mentor-table-header">Gender</th>
-          <th className="mentor-table-header">Age</th>
-          <th className="mentor-table-header">School Level</th>
-          <th className="mentor-table-header">Best Describes You</th>
-          <th className="mentor-table-header">Interests and Hobbies</th>
-        </tr>
-        
+        <thead>
+          <tr>
+            <th className="mentor-table-header">Mentor</th>
+            <th className="mentor-table-header">Mentees</th>
+            <th className="mentor-table-header">Gender</th>
+            <th className="mentor-table-header">Age</th>
+            <th className="mentor-table-header">School Level</th>
+            <th className="mentor-table-header">Best Describes You</th>
+            <th className="mentor-table-header">Interests and Hobbies</th>
+          </tr>
+        </thead>
+        <tbody>
         {/* Mentor List */}
         {mentorList.map((mentor, idx) => 
             <tr 
-              key={idx} className="mentor-table-row-clickable" 
+              key={idx} 
+              className="mentor-table-row-clickable" 
               onClick={() => setSelectedMentor(idx)} 
-              style={{backgroundColor: `${selectedMentor === idx ? "lightgray" : "white"}`}}
+              style={{ backgroundColor: `${selectedMentor === idx ? "lightgray" : "white"}` }}
             >
               <td className="mentor-table-cell mentor-table-cell-left">
                 <div>
@@ -178,16 +246,17 @@ const MentorMenteeMatch = () => {
               </td>
               <td className="mentor-table-cell">
                 <div className="describes-you">
-                  {mentor.describesYou.map((elem) => <div className="descriptor">{elem}</div>)}
+                  {mentor.describesYou.map((elem, i) => <div key={i} className="descriptor">{elem}</div>)}
                 </div>
               </td>
               <td className="mentor-table-cell mentor-table-cell-right">
                 <div className="describes-you">
-                  {mentor.interestsAndHobbies.map((elem) => <div className="descriptor">{elem}</div>)}
+                  {mentor.interestsAndHobbies.map((elem, i) => <div key={i} className="descriptor">{elem}</div>)}
                 </div>
               </td>
             </tr>
-        )}
+          )}
+        </tbody>
       </table>
     </div>
   );

@@ -143,8 +143,8 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
     }
   }
 
-  if (!applicant) {
-    return <Loading/>
+  if (!applicant || !menteeList || !formData) {
+    return <Loading/>;
   }
   return (
     <div className="mentor-profile">

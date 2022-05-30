@@ -13,11 +13,7 @@ interface Props {
 
 const Popup: React.FC<Props> = ({isError, text, setText}) => {
     return (
-        <div className='popup-container'>
-            <img className='popup-img' src={isError ? error: success}/>
-            <p className='popup-text'>{text}</p>
-            <img className='popup-img close-btn' src={close} onClick={() => setText([false, ""])}/>
-        </div>
+    <div></div>
     );
 }
 
