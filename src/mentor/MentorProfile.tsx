@@ -11,6 +11,7 @@ import Mentee from "./Tabs/Mentee/Mentee";
 import LogsReports from "./Tabs/LogsReports/LogsReports";
 
 import "./MentorProfile.css";
+import Loading from "../auth/Loading";
 
 export enum Tabs { MentorInfo = "Your Profile" , MenteeProfile = "Mentee Profile", LogsAndReports = "Logs and Reports" };
 
@@ -95,16 +96,16 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
         notes: data.note || "",
         createdAt: data.createdAt
       });
-      console.error(applicant);
+      console.log(applicant);
     } catch (error) {
-        console.error(error);
+        console.log(error);
     }
   }
 
   const getApplicantForm = async () => {
     try {
-      // let data = await NetworkManager.makeRequest(Endpoints.GetApplicantForm, { id: mentorId });
-      // setFormData(data as JotformResponse);
+      let data = await NetworkManager.makeRequest(Endpoints.GetApplicantForm, { id: mentorId });
+      setFormData(data as JotformResponse);
     } catch (error) {
       console.log(error);
     }
@@ -143,7 +144,7 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
   }
 
   if (!applicant) {
-    return (<div>Uhoh</div>);
+    return <Loading/>
   }
   return (
     <div className="mentor-profile">

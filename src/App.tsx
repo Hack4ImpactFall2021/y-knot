@@ -14,7 +14,7 @@ import MentorHome from "./mentor/MentorHome";
 import MentorProfile from "./mentor/MentorProfile";
 import MentorLanding from "./mentor-landing/MentorLanding";
 import TraineeHome from "./trainee/TraineeHome";
-import MentorSettings from "./settings/MentorSettings";
+import MentorSettings from "./mentor/MentorSettings";
 import MentorResources from "./mentor/MentorResources";
 import MentorMenteeMatch from "./admin/MentorMenteeMatch";
 
@@ -81,7 +81,11 @@ const App = () => {
           />
           <Route
             path={"/mentor/profile/:mentorId"}
-            element={<RequireMentorAuth children={<MentorProfile defaultTab="jason"/>}/>} 
+            element={<RequireMentorAuth children={<MentorProfile defaultTab="Your Profile"/>}/>} 
+          />
+          <Route
+            path={"/mentor/profile/:mentorId/logsreports"}
+            element={<RequireMentorAuth children={<MentorProfile defaultTab="Logs and Reports"/>}/>} 
           />
           <Route
             path={"/mentor/resources"}

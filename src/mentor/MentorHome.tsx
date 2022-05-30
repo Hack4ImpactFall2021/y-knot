@@ -5,7 +5,7 @@ import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 import "./MentorHome.css";
 import logo from "../login/assets/logo.png";
-import mentoring from "./assets/mentoring_landing.jpg"
+import mentoring from "./assets/mentoring-landing.png"
 import MentorSidebar, { NavRoutes } from '../nav/MentorSidebar';
 import MentorProfile from '../mentor/MentorProfile';
 import { useAuth } from '../auth/AuthProvider';
@@ -32,7 +32,7 @@ const MentorHome = () => {
   useEffect(getMentor, []);
 
   const getSidebarTiles = () => {
-    const routes = ["/mentor/home", "/mentor/profile/" + mentor.submission_id, "/mentor/settings"];
+    const routes = ["/mentor/home", "/mentor/profile/" + mentor?.submission_id, "/mentor/resources", "/mentor/settings"];
     const ret = [];
     for (let i = 0; i < routes.length; i++) {
       const cur = { ...MentorSidebarTiles[i], route: routes[i] };
@@ -41,25 +41,25 @@ const MentorHome = () => {
     return ret;
   }
 
-  if (!mentor) { 
-    return <Loading/>
-  }
-
   return (
   <div className="sidebar-and-content">
     <Sidebar selected={MentorSidebarOptions.Home} sidebarTiles={getSidebarTiles()} />
-    <div className="dashboard mentor-dashboard"> 
-      <div className="dashboard-container wrapper">
+    <div className="mentor-home" style={{ position: "relative" }}> 
+      {mentor ? (
+      <div className="wrapper">
         <div className="mentoring-landing">
-          <div className="heading-wrapper">
-            <h1>Welcome, {mentor?.first_name}!</h1>
+          {/* Header */}
+          <div className="header-wrapper">
+            <h1 className="header">Welcome, {mentor.first_name}!</h1>
             <img src={logo} alt="Where is the logo?"/> 
           </div>
 
-          <img className="mentoring-img" src={mentoring} alt="Mentoring Puzzle Piece"></img>
+          {/* Mentoring Image */}
+          <img className="mentoring-img" src={mentoring} alt="Mentoring Puzzle Piece"/>
 
+          {/* Logs and Reports Button */}
           <div className="mentoring-btn-wrapper">
-            <Link to={"/mentor/" + mentor?.submission_id}>
+            <Link to={`/mentor/profile/${mentor.submission_id}/logsreports`}>
               <button className="mentoring-btn">
                 Logs & Reports
               </button>
@@ -73,7 +73,7 @@ const MentorHome = () => {
             </h2>
           </div>  
         </div>
-      </div>
+      </div>) : <Loading/>}
     </div>
   </div>
   );

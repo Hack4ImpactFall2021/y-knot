@@ -1,0 +1,10 @@
+.mentor-settings * {
+  border-radius: 15px;
+}
+.mentor-settings {
+  background-color: #f4f4f4;
+  color: #10275b;
+  height: 100vh;
+  width: 85%;
+  flex-grow: 1;
+}
