@@ -7,7 +7,6 @@ import "./MentorResources.css";
 import logo from "../login/assets/logo.png";
 import googleIcon from "./assets/google_logo.png";
 import downloadIcon from "./assets/download.png";
-import MentorSidebar, { NavRoutes } from "../nav/MentorSidebar";
 import NetworkManager, { Endpoints } from "../network/NetworkManager";
 
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';

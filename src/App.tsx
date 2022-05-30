@@ -3,16 +3,13 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 import "./App.css";
 
-import Dashboard from "./applicant-dashboard/ApplicantDashboard";
 import Settings from "./settings/Settings";
 import Login from "./login/Login";
 import Profile from "./profile/Profile";
 import TProfile from "./trainee-profile/TProfile";
-import TraineeSettings from "./settings/TraineeSettings";
 import ResetPassword from "./login/ResetPassword/ResetPassword";
 import MentorHome from "./mentor/MentorHome";
 import MentorProfile from "./mentor/MentorProfile";
-import MentorLanding from "./mentor-landing/MentorLanding";
 import TraineeHome from "./trainee/TraineeHome";
 import MentorSettings from "./mentor/MentorSettings";
 import MentorResources from "./mentor/MentorResources";
@@ -71,7 +68,7 @@ const App = () => {
           />
           <Route
             path={"/trainee/settings"}
-            element={<RequireTraineeAuth children={<TraineeSettings />} /> }
+            element={<RequireTraineeAuth children={<div></div>} /> }
           />
 
           {/* Mentor */}

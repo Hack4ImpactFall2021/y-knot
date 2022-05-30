@@ -3,7 +3,6 @@ import { AuthError } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 import './Settings.css';
-import Sidebar, { NavRoutes } from '../nav/Sidebar';
 import TextField from './TextField/TextField';
 import Button from './Button/Button';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
@@ -128,6 +127,7 @@ const Settings = () => {
       setIsDisabled(false);
       return;
     } 
+    const a = 0;
 
     try {
       await NetworkManager.makeRequest(Endpoints.CreateNewUser, {email: newEmail, password: newPassword, role: "admin"});

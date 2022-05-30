@@ -6,7 +6,6 @@ import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 import "./MentorHome.css";
 import logo from "../login/assets/logo.png";
 import mentoring from "./assets/mentoring-landing.png"
-import MentorSidebar, { NavRoutes } from '../nav/MentorSidebar';
 import MentorProfile from '../mentor/MentorProfile';
 import { useAuth } from '../auth/AuthProvider';
 
@@ -15,6 +14,8 @@ import Sidebar from "../widgets/Sidebar";
 import { MentorSidebarTiles, MentorSidebarOptions } from "./MentorSidebarInfo";
 import Loading from '../auth/Loading';
 
+
+const a = 0;
 
 const MentorHome = () => {
 

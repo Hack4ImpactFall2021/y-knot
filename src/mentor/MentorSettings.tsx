@@ -3,7 +3,6 @@ import { AuthError } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
 //import './Settings.css';
-import MentorSidebar, { NavRoutes } from '../nav/MentorSidebar';
 import TextField from '../settings/TextField/TextField';
 import Button from '../settings/Button/Button';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
