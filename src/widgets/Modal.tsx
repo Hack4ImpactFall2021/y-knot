@@ -23,5 +23,3 @@ export const Modal = React.forwardRef<any, Props>(({ title, content, onConfirm, 
     </div>
   );
 });
-
-// export default React.forwardRef(Modal);

@@ -12,7 +12,7 @@ import { QuerySnapshot, DocumentData, enableMultiTabIndexedDbPersistence } from 
 import { Modal } from '../widgets/Modal';
 
 
-
+type MentorWithMatches = Mentor & { matches: number };
 const useClickOutside = (onClickOutside: () => void) => {
   //Super jank
   const first = useRef<any>(null);
@@ -84,14 +84,57 @@ const MentorMenteeMatch = () => {
         grade: data['113']?.answer
       };
 
+      console.log(newMentee);
       setMentee(newMentee);
     } catch (error) {
       console.log(error);
     }
   }
 
+  const getMentorsSortedByMatches = (mentors: Mentor[]) => {
+    const mentorsWithMatches = mentors.map((mentor) => {
+      let matches = 0;
+      //age preference
+      if (mentee?.age) {
+        const menteeAge = parseInt(mentee.age, 10);
+        for (const mentorAgePreference of mentor.agePreference) {
+          const matchesElementary = mentorAgePreference === "Elementary" && menteeAge < 12;
+          const matchesMiddleSchool = mentorAgePreference === "Middle School" && menteeAge >= 12 && menteeAge < 14;
+          const matchesHighSchool = mentorAgePreference === "High School" && menteeAge >= 14 && menteeAge < 18;
+          if (matchesElementary || matchesHighSchool || matchesMiddleSchool) {
+            matches++;
+            break;
+          }
+        }
+      }
+      //interests and hobbies
+      if (mentee?.interests) {
+        matches += mentor.interestsAndHobbies.filter(interest => mentee.interests.includes(interest)).length;
+      }
+      //best describes
+      if (mentee?.bestDescribes) {
+        matches += mentor.bestDescribes.filter(interest => mentee.bestDescribes.includes(interest)).length;
+      }
+      console.log(mentor.firstName);
+      console.log(matches);
+      return { ...mentor, matches: matches };
+
+    });
+    //Return mentors sorted in descending order by matches (so the mentor with the most matches will be at the top of the list)
+    return mentorsWithMatches.sort((a : MentorWithMatches , b : MentorWithMatches) => {
+      if (a.menteeIds && a.menteeIds.length > 0 && !a.canHaveManyMentees) {
+        return 1;
+      } else if (b.menteeIds && b.menteeIds.length > 0 && !b.canHaveManyMentees) {
+        return -1;
+      } else {
+        return b.matches - a.matches
+      }
+    });
+  }
+
   const getMentors = async () => {
-    let data = await NetworkManager.makeRequest(Endpoints.GetAllMentors);
+    const data : Mentor[] = await NetworkManager.makeRequest(Endpoints.GetAllMentors);
+    console.log(data);
     setMentors(data);
   }
 
@@ -148,10 +191,55 @@ const MentorMenteeMatch = () => {
     );
   }
 
+  const renderMentorList = (mentors: MentorWithMatches[]) => {
+    if (mentors == undefined || mentors.length == 0) {
+      return (
+        <tr>There are no mentors to display</tr>
+      );
+    }
+
+    return mentors.map((mentor, idx) => 
+      <tr 
+        key={idx} className={`mentor-table-row-clickable ${selectedMentor === idx ? "selected" : ""}`} 
+        onClick={() => setSelectedMentor(idx)}
+      >
+        <td className="mentor-table-cell mentor-table-cell-left">
+          <div>
+            {mentor.firstName + " " + mentor.lastName}
+          </div>
+        </td>
+        <td className="mentor-table-cell">
+          <div>{mentor?.menteeIds?.length || 0}</div>
+        </td>
+        <td className="mentor-table-cell">
+          <div>
+            {mentor.canHaveManyMentees}
+          </div>
+        </td>
+        <td className="mentor-table-cell">
+          <div>
+            {mentor.agePreference?.join(", ")}
+          </div>
+        </td>
+        <td className="mentor-table-cell">
+          <div className="describes-you">
+            {mentor.bestDescribes?.map((elem, i) => <div key={i} className="descriptor">{elem}</div>)}
+          </div>
+        </td>
+        <td className="mentor-table-cell mentor-table-cell-right">
+          <div className="interests-hobbies">
+            {mentor.interestsAndHobbies?.map((elem, i) => <div key={i} className="descriptor">{elem}</div>)}
+          </div>
+        </td>
+      </tr>
+    );
+  }
+
   if (!mentee || !mentors) {
     return <Loading/>
   }
-
+  
+  const sortedMentorList = getMentorsSortedByMatches(mentors);
   return (
     <div className="mentor-mentee-match">
       {/* Close Button */}
@@ -160,7 +248,7 @@ const MentorMenteeMatch = () => {
       <div className="mentor-mentee-match-header">
         {/* Mentee Name */}
         <h1 className="mentee-name">
-          {mentee?.childName}
+          {mentee.childName}
         </h1>
         {/* Assign Button */}
         <button 
@@ -199,44 +287,7 @@ const MentorMenteeMatch = () => {
         
         {/* Mentor List */}
         <tbody>
-        {mentors == undefined || mentors.length == 0 ? 
-        <tr>There are no mentors to display</tr>
-        : 
-        mentors.map((mentor, idx) => 
-            <tr 
-              key={idx} className={`mentor-table-row-clickable ${selectedMentor === idx ? "selected" : ""}`} 
-              onClick={() => setSelectedMentor(idx)}
-            >
-              <td className="mentor-table-cell mentor-table-cell-left">
-                <div>
-                  {mentor.firstName + " " + mentor.lastName}
-                </div>
-              </td>
-              <td className="mentor-table-cell">
-                <div>{mentor?.menteeIds?.length || 0}</div>
-              </td>
-              <td className="mentor-table-cell">
-                <div>
-                  {mentor.canHaveManyMentees}
-                </div>
-              </td>
-              <td className="mentor-table-cell">
-                <div>
-                  {mentor.agePreference?.join(", ")}
-                </div>
-              </td>
-              <td className="mentor-table-cell">
-                <div className="describes-you">
-                  {mentor.bestDescribes?.map((elem, i) => <div key={i} className="descriptor">{elem}</div>)}
-                </div>
-              </td>
-              <td className="mentor-table-cell mentor-table-cell-right">
-                <div className="describes-you">
-                  {mentor.interestsAndHobbies?.map((elem, i) => <div key={i} className="descriptor">{elem}</div>)}
-                </div>
-              </td>
-            </tr>
-        )}
+          {renderMentorList(sortedMentorList)}
         </tbody>
       </table>
     </div>
