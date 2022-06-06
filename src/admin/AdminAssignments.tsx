@@ -16,6 +16,7 @@ import Sidebar from "../widgets/Sidebar";
 import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
 import Loading from "../widgets/Loading";
 import SidebarAndContent from "../SidebarAndContent";
+import { Modal } from "../widgets/Modal";
 
 type PersonType = "Mentee" | "Trainee";
 
@@ -122,17 +123,12 @@ const AdminHome = () => {
       return;
     }
     return (
-      <div className="modal-wrapper">
-        <div className="trainee-assignment-modal">
-          <h1>Make Trainee a Mentor!</h1>
-          <p>Are you sure you wish to make {`${assignmentModal?.firstName} ${assignmentModal?.lastName}`} into a Mentor?</p>
-          <div className="btn-wrappers">
-            <button className="cancel-btn" onClick={() => setAssignmentModal(undefined)}>Cancel</button>
-            {/* Until we figure out what we want to do here */}
-            <button className="confirm-btn"onClick={() => {makeTraineeIntoMentor(assignmentModal)}}>Confirm</button>
-          </div>
-        </div>
-      </div>
+      <Modal 
+        title="Make Trainee a Mentor!"
+        content={`Are you sure you wish to make ${assignmentModal?.firstName} ${assignmentModal?.lastName} into a Mentor?`}
+        onConfirm={() => makeTraineeIntoMentor(assignmentModal)}
+        onCancel={() => setAssignmentModal(undefined)}
+      />
     );
   }
 

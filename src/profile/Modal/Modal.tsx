@@ -33,7 +33,7 @@ const Modal: React.FC<Props> = ({firstname, lastname, action, email, setEmail, s
     }, [username, password]);
 
     return (
-        <div className='modal'>
+        <div className='profile-modal'>
             <div className='modal-container'>
                 {
                     isLoading ? 

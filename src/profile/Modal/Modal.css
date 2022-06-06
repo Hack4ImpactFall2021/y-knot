@@ -1,4 +1,4 @@
-.modal {
+.profile-modal {
   background-color: rgba(179, 179, 179, 0.5);
   position: absolute;
   display: flex;
@@ -12,6 +12,7 @@
   z-index: 100;
 }
 
+.profile-modal 
 .modal-container {
   background-color: white;
   opacity: 1;
@@ -23,6 +24,7 @@
   position: relative;
 }
 
+.profile-modal 
 .modal-spinner {
   position: absolute;
   overflow: hidden;
@@ -31,6 +33,7 @@
   left: 0;
   right: 0;
 }
+.profile-modal 
 .modal-spinner > img {
   position: absolute;
   width: 640px; /* width of container */
@@ -38,22 +41,26 @@
   object-fit: cover;
 }
 
+.profile-modal 
 .modal-title {
   font-size: 32px;
   margin: 0px;
 }
 
+.profile-modal 
 .modal-message {
   font-size: 24px;
   font-weight: 400;
   margin: 40px 0px;
 }
 
+.profile-modal 
 .modal-message-text {
   font-size: 30px;
   line-height: 140%;
 }
 
+.profile-modal 
 .modal-message-email {
   display: flex;
   flex-direction: row;
@@ -63,15 +70,19 @@
   padding: 20px 10px;
 }
 
+.profile-modal 
 .modal-message-email > input[type="email"] {
   width: 100%;
   height: 25px;
   margin: 0px 20px;
 }
+
+.profile-modal 
 .modal-message-email-button {
   margin-left: 0px;
 }
 
+.profile-modal 
 .modal-message-login {
   margin-top: 20px;
   background-color: rgb(237, 237, 237);
@@ -81,6 +92,8 @@
   align-items: flex-start;
   justify-content: center;
 }
+
+.profile-modal 
 .modal-message-login-box {
   display: flex;
   flex-direction: row;
@@ -90,12 +103,14 @@
   justify-content: space-between;
 }
 
+.profile-modal 
 .modal-message-login-box > input {
   margin: 0px 20px;
   min-width: 400px;
   height: 25px;
 }
 
+.profile-modal 
 .modal-buttons-container {
   display: flex;
   justify-content: space-between;
@@ -103,6 +118,7 @@
   margin-top: 10px;
 }
 
+.profile-modal 
 .modal-button {
   width: 200px;
   height: 50px;
@@ -113,24 +129,29 @@
   transition: all 300ms;
 }
 
+.profile-modal 
 .modal-button:disabled {
   pointer-events: none;
   background-color: gray;
 }
 
+.profile-modal 
 .modal-accept {
   background-color: #117a54;
 }
 
+.profile-modal 
 .modal-reject {
   background-color: #f44250;
 }
 
+.profile-modal 
 .modal-accept:hover {
   background-color: #0b553a;
   cursor: pointer;
 }
 
+.profile-modal 
 .modal-reject:hover {
   background-color: #d13643;
   cursor: pointer;

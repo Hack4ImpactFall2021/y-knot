@@ -1,0 +1,68 @@
+.modal-wrapper {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal {
+  /* Modal positioning */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Modal size */
+  width: 50%;
+  height: 50%;
+  border-radius: 1em;
+
+  /* Colors */
+  background-color: #ececec;
+
+  /* Modal fade in on open */
+  animation-name: modalopen;
+  animation-duration: 0.25s;
+
+  /* Modal content positioning */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.modal p {
+  font-size: 1.5em;
+  margin: 1em 2em;
+  text-align: center;
+}
+.modal .btn-wrappers {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+}
+.modal .cancel-btn, .confirm-btn {
+  border-radius: 35px;
+  font-size: 1.5em;
+  padding: 20px 40px;
+}
+.modal .cancel-btn {
+  color: #10275b;
+  border: 2px solid #10275b;
+}
+.modal .confirm-btn {
+  color:white;
+  border: none;
+  background-color:#10275b;
+}
+.modal .cancel-btn:hover, .confirm-btn:hover {
+  cursor: pointer;
+  filter: brightness(1.2);
+}
+@keyframes modalopen {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}

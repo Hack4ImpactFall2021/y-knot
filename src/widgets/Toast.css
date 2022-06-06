@@ -1,7 +1,6 @@
 .toast {
   position: absolute;
   border-radius: 10px;
-  /* animation: toast-in-top 6s linear forwards; */
   animation-name: toast-in-top;
   animation-timing-function: linear;
   animation-fill-mode: forwards;
@@ -24,7 +23,6 @@
   color: #45963b; 
 }
 .toast.error {
-  /* border: 1px solid #b50311; */
   color: #b50311;
   background-color: hsl(356, 61%, 86%);
 }

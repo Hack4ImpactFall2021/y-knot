@@ -9,6 +9,8 @@ import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import Loading from '../widgets/Loading';
 
 import { QuerySnapshot, DocumentData, enableMultiTabIndexedDbPersistence } from 'firebase/firestore';
+import { Modal } from '../widgets/Modal';
+
 
 
 const useClickOutside = (onClickOutside: () => void) => {
@@ -49,12 +51,6 @@ const MentorMenteeMatch = () => {
   const [mentee, setMentee] = useState<MenteeForm>();
   const [mentors, setMentors] = useState<Mentor[]>();
   const refs = useClickOutside(() => setSelectedMentor(-1));
-
-  const onAssignMenteeToMentor = () => {
-    if (selectedMentor == -1) return;
-    if (!mentors) return;
-    setAssignMenteeToMentorModal(mentors[selectedMentor]);
-  }
 
   useEffect(() => {
     getMentee();
@@ -99,10 +95,18 @@ const MentorMenteeMatch = () => {
     setMentors(data);
   }
 
+  const onAssignMenteeToMentor = () => {
+    if (selectedMentor == -1) return;
+    if (!mentors) return;
+    setAssignMenteeToMentorModal(mentors[selectedMentor]);
+  }
+
+
   const assignConfirmed: VoidFunction = async () => {
     if (!mentors || selectedMentor == -1 || !mentee || !mentors[selectedMentor]) {
       return;
     }
+
     let mentor = mentors[selectedMentor];
     let numChars = mentee?.bestDescribes?.length || 0;
     try {
@@ -134,16 +138,13 @@ const MentorMenteeMatch = () => {
     }
 
     return (
-      <div className="modal-wrapper" ref={refs[3]}>
-        <div className="trainee-assignment-modal">
-          <h1>Assign Mentee to Mentor</h1>
-          <p>Are you sure you wish to assign {mentee?.childName} to {assignMenteeToMentorModal.firstName} {assignMenteeToMentorModal.lastName}?</p>
-          <div className="btn-wrappers">
-            <button className="cancel-btn" onClick={() => setAssignMenteeToMentorModal(null)}>Cancel</button>
-            <button className="confirm-btn"onClick={() => {assignConfirmed()}} >Confirm</button>
-          </div>
-        </div>
-      </div>
+      <Modal 
+        ref={refs[3]}
+        title="Assign Mentee to Mentor"
+        content={`Are you sure you wish to assign ${mentee?.childName} to ${assignMenteeToMentorModal.firstName} ${assignMenteeToMentorModal.lastName}?`}
+        onConfirm={() => {assignConfirmed()}}
+        onCancel={() => setAssignMenteeToMentorModal(null)}
+      />
     );
   }
 
@@ -226,12 +227,12 @@ const MentorMenteeMatch = () => {
               </td>
               <td className="mentor-table-cell">
                 <div className="describes-you">
-                  {mentor.bestDescribes?.map((elem) => <div className="descriptor">{elem}</div>)}
+                  {mentor.bestDescribes?.map((elem, i) => <div key={i} className="descriptor">{elem}</div>)}
                 </div>
               </td>
               <td className="mentor-table-cell mentor-table-cell-right">
                 <div className="describes-you">
-                  {mentor.interestsAndHobbies?.map((elem) => <div className="descriptor">{elem}</div>)}
+                  {mentor.interestsAndHobbies?.map((elem, i) => <div key={i} className="descriptor">{elem}</div>)}
                 </div>
               </td>
             </tr>
