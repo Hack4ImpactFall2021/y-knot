@@ -81,6 +81,16 @@ const App = () => {
             path="/admin/home"
             element={<RequireAdminAuth children={<AdminHome/>} />}
           />
+          {/* Admin view into trainee profile */}
+          <Route
+            path="/admin/trainee/:traineeId"
+            element={<RequireAdminAuth children={<TProfile/>}/>}
+          />
+          {/* Admin view into mentor profile */}
+          <Route
+            path="/admin/mentor/:mentorId"
+            element={<RequireAdminAuth children={<MentorProfile defaultTab="Your Profile"/>}/>}
+          />
           <Route
             path="/admin/assignments"
             element={<RequireAdminAuth children={<AdminAssignments />}/>}
@@ -92,16 +102,6 @@ const App = () => {
           <Route
             path="/admin/applicants"
             element={<RequireAdminAuth children={<AdminApplicants/>}/>}
-          />
-          {/* Admin view into trainee profile */}
-          <Route
-            path="/admin/trainee/:traineeId"
-            element={<RequireAdminAuth children={<TProfile/>}/>}
-          />
-          {/* Admin view into mentor profile */}
-          <Route
-            path="/admin/mentor/:mentorId"
-            element={<RequireAdminAuth children={<MentorProfile defaultTab="Your Profile"/>}/>}
           />
           <Route
             path="/admin/applicants/:id"

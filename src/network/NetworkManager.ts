@@ -835,7 +835,7 @@ class NetworkManager {
       )
         .then((response) => response.json())
         .then((data) => {
-          if (data["collection"].length > 0) {
+          if (data["collection"] && data["collection"].length > 0) {
             resolve(new Date(data["collection"][0]["start_time"]));
           } else {
             reject();
