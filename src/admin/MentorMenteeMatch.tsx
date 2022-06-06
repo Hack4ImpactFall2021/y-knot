@@ -122,6 +122,7 @@ const MentorMenteeMatch = () => {
     });
     //Return mentors sorted in descending order by matches (so the mentor with the most matches will be at the top of the list)
     return mentorsWithMatches.sort((a : MentorWithMatches , b : MentorWithMatches) => {
+      //If a mentor already has an assigned mentee and cannot have multiple mentees, we want them to show up at the bottom of the list
       if (a.menteeIds && a.menteeIds.length > 0 && !a.canHaveManyMentees) {
         return 1;
       } else if (b.menteeIds && b.menteeIds.length > 0 && !b.canHaveManyMentees) {
@@ -190,6 +191,14 @@ const MentorMenteeMatch = () => {
       />
     );
   }
+  const getClassNameForTrait = (propertyType : "bestDescribes" | "interests", trait : string) => {
+    let className = "trait";
+    if (mentee && mentee[propertyType] && mentee[propertyType].indexOf(trait) !== -1) {
+      className += " match";
+    }
+    console.log(className);
+    return className;
+  }
 
   const renderMentorList = (mentors: MentorWithMatches[]) => {
     if (mentors == undefined || mentors.length == 0) {
@@ -223,12 +232,12 @@ const MentorMenteeMatch = () => {
         </td>
         <td className="mentor-table-cell">
           <div className="describes-you">
-            {mentor.bestDescribes?.map((elem, i) => <div key={i} className="descriptor">{elem}</div>)}
+            {mentor.bestDescribes?.map((elem, i) => <div key={i} className={getClassNameForTrait("bestDescribes", elem)}>{elem}</div>)}
           </div>
         </td>
         <td className="mentor-table-cell mentor-table-cell-right">
           <div className="interests-hobbies">
-            {mentor.interestsAndHobbies?.map((elem, i) => <div key={i} className="descriptor">{elem}</div>)}
+            {mentor.interestsAndHobbies?.map((elem, i) => <div key={i} className={getClassNameForTrait("interests", elem)}>{elem}</div>)}
           </div>
         </td>
       </tr>
@@ -236,7 +245,7 @@ const MentorMenteeMatch = () => {
   }
 
   if (!mentee || !mentors) {
-    return <Loading/>
+    return <Loading/>;
   }
   
   const sortedMentorList = getMentorsSortedByMatches(mentors);
