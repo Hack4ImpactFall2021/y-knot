@@ -2,7 +2,7 @@ import { getAuth, onAuthStateChanged } from '@firebase/auth';
 import React, { createContext, useContext, useEffect, useState} from 'react';
 import app from '../config/firebase';
 
-import Loading from "./Loading";
+import Loading from "../widgets/Loading";
 
 interface Props {
   children: JSX.Element

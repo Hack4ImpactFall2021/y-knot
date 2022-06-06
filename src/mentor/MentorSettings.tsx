@@ -7,14 +7,21 @@ import TextField from '../settings/TextField/TextField';
 import Button from '../settings/Button/Button';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import Popup from '../settings/Popup/Popup';
+import Toast from "../widgets/Toast";
 
-import "../SidebarAndContent.css";
+import Sidebar from "../widgets/Sidebar";
+import SidebarAndContent from "../SidebarAndContent";
+import Loading from "../widgets/Loading";
+
 import "./MentorSettings.css";
 
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 import { MentorSidebarOptions, MentorSidebarTiles } from './MentorSidebarInfo';
-import Sidebar from '../widgets/Sidebar';
+import { useMentorContext } from "../auth/RequireMentorAuth";
 
+
+
+const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 const MentorSettings = () => {
 
   const [email, setEmail] = useState<string>("");
@@ -23,152 +30,83 @@ const MentorSettings = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const [message, setMessage] = useState<[boolean, string]>([false, ""]);
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  const [isContentLoading, setIsContentLoading] = useState<boolean>(false);
+
+
+  const mentor = useMentorContext();
 
   const updateEmail = async () => {
-    setIsDisabled(true);
     setMessage([false, ""]);
+    console.log("update email");
 
 
-    const regexp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
+    const regexp = EMAIL_REGEX;
     if (!regexp.test(email)) {
       setMessage([true, "Email address is invalid."]);
-      setIsDisabled(false);
+      console.log("invalid email");
       return;
     } else if (email.trim().length === 0) {
       setMessage([true, "Email address is blank."]);
-      setIsDisabled(false);
       return;
     }
-    
+
+    setIsContentLoading(true);
     try {
       await NetworkManager.makeRequest(Endpoints.UpdateEmail, {email: email});
       setEmail("");
-      setMessage([false, "Successfully updated email"]);
-      setIsDisabled(false);
+      setMessage([false, "Successfully updated email."]);
       console.log("updated email")
-
     } catch (error) {
       if ((error as AuthError).code === "auth/requires-recent-login") {
         console.log(error);
         setMessage([true, "Log out and log back in then try again."]);
-        setIsDisabled(false);
       } else if ((error as AuthError).code === "auth/email-already-in-use") {
         console.log(error);
         setMessage([true, "Email is already in use."]);
-        setIsDisabled(false);
       } else {
         console.log(error);
         setMessage([true, "Oops, something went wrong. Please try again later."]);
-        setIsDisabled(false);
       }
     }
+    setIsContentLoading(false);
   }
 
   const updatePassword = async () => {
-    setIsDisabled(true);
     setMessage([false, ""]);
 
     if (password !== confirmPassword) {
       setMessage([true, "Passwords do not match."]);
-      setIsDisabled(false);
       return;
     } else if (password.trim().length === 0 || confirmPassword.trim().length === 0) {
       setMessage([true, "Password cannot be blank."]);
-      setIsDisabled(false);
       return;
     } else if (password.length < 6) {
       setMessage([true, "Password must be longer than 6 characters."]);
-      setIsDisabled(false);
       return;
     }
 
+    setIsContentLoading(true);
     try {
       await NetworkManager.makeRequest(Endpoints.UpdatePassword, {password: password});
       setPassword("");
       setConfirmPassword("");
-      setMessage([false, "Successfully updated password"]);
-      setIsDisabled(false);
+      setMessage([false, "Successfully updated password."]);
       console.log("updated password");
-      
     } catch (error) {
       if ((error as AuthError).code === "auth/requires-recent-login") {
         console.log(error);
         setMessage([true, "Log out and log back in then try again."]);
-        setIsDisabled(false);
       } else {
         console.log(error);
         setMessage([true, "Oops, something went wrong. Please try again later."]);
-        setIsDisabled(false);
       }
     }
+    setIsContentLoading(false);
   }
 
-  // const createNewUser = async () => {
-  //   setMessage([false, ""]);
-  //   setIsDisabled(true);
-
-  //   if (newEmail.trim().length === 0 ) {
-  //     setMessage([true, "Email address is blank."]);
-  //     setIsDisabled(false);
-  //     return;
-  //   } else if (newPassword.trim().length === 0) {
-  //     setMessage([true, "Password cannot be blank."]);
-  //     setIsDisabled(false);
-  //   } else if (newPassword.length < 6) {
-  //     setMessage([true, "Password must be longer than 6 characters."]);
-  //     setIsDisabled(false);
-  //     return;
-  //   }
-
-
-  //   const regexp = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-  //   if (!regexp.test(newEmail)) {
-  //     setMessage([true, "Email address is invalid."]);
-  //     setIsDisabled(false);
-  //     return;
-  //   } 
-
-  //   try {
-  //     await NetworkManager.makeRequest(Endpoints.CreateNewUser, {email: newEmail, password: newPassword});
-  //     await NetworkManager.makeRequest(Endpoints.SendNewAccountCreatedEmail, {email: newEmail, password: newPassword})
-  //     setNewEmail("");
-  //     setNewPassword("");
-  //     setMessage([false, "Created new user"]);
-  //     setIsDisabled(false);
-  //     console.log("Created new user with email and password");
-  //   } catch (error) {
-  //     if ((error as AuthError).code === "auth/requires-recent-login") {
-  //       console.log(error);
-  //       setMessage([true, "Log out and log back in then try again."]);
-  //       setIsDisabled(false);
-  //     }  else if ((error as AuthError).code === "auth/email-already-in-use") {
-  //       console.log(error);
-  //       setMessage([true, "Email is already in use."]);
-  //       setIsDisabled(false);
-  //     } else {
-  //       console.log(error);
-  //       setMessage([true, "Oops, something went wrong. Please try again later."]);
-  //       setIsDisabled(false);
-  //     }
-  //   }
-  // }
-
-  const [mentor, setMentor] = useState<any>();
-
-  const getMentor: VoidFunction = async () => {
-    try {
-      let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
-      snap = snap as QuerySnapshot<DocumentData>;
-      setMentor(snap.docs[0].data());
-    } catch(err) {
-      console.log(err);
-    }
-  }
-  useEffect(getMentor, []);
 
   const getSidebarTiles = () => {
-    const routes = ["/mentor/home", "/mentor/profile/" + mentor?.submission_id, "/mentor/resources/", "/mentor/settings"];
+    const routes = ["/mentor/home", "/mentor/profile/" + mentor.submissionId, "/mentor/resources/", "/mentor/settings/"];
     const ret = [];
     for (let i = 0; i < routes.length; i++) {
       const cur = { ...MentorSidebarTiles[i], route: routes[i] };
@@ -176,41 +114,73 @@ const MentorSettings = () => {
     }
     return ret;
   }
+  
+  const getMentorSettingsContentComponent = () => {
+    return (
+      <div className="mentor-settings" style={{ position: "relative" }}>
+        {!isContentLoading ? (
+        <div className="wrapper">
+          {message[1].length > 0 && 
+            <Toast 
+              isError={message[0]} 
+              message={message[1]} 
+              onDelete={() => setMessage([false, ""])} 
+              timeout={4000}
+            />}
 
+          {/* Header */}
+          <div className="header-wrapper">
+            <h1>Settings</h1>
+          </div>
 
-  return (
-    <div className="sidebar-and-content">
-      <Sidebar selected={MentorSidebarOptions.Settings} sidebarTiles={getSidebarTiles()} /> 
-      <div className="mentor-settings">
-        <div className="settings-container">
-          {message[1].length > 0 ?  <Popup isError={message[0]} text={message[1]} setText={setMessage}/> : null}
-          <div className="settings-content">
-            <h1 className="settings-title">Settings</h1>
-
+          <div className="settings">
+            {/* Update Email */}
             <div className="settings-box">
-              <h2>Update Email Address</h2>
+              <h2 className="title">Update Email Address</h2>
               <hr />
-              <div className="main">
-                <TextField label="Email Address" value={email} onChange={val => setEmail(val)}/>
-                <Button label="Change Email Address" onClick={!isDisabled ? updateEmail : () => {}}/>
+              <div className="content">
+                <div className="input-wrapper">
+                  <h3>New Email Address</h3> 
+                  <input type="text" onChange={(e) => setEmail(e.target.value)}/>
+                </div>
+                <button className="settings-btn" onClick={() => updateEmail()}>
+                  Change Email Address
+                </button>
               </div>
             </div>
   
+            {/* Update Password */}
             <div className="settings-box">
-              <h2>Update Password</h2>
+              <h2 className="title">Update Password</h2>
               <hr />
-              <div className="main">
-                <div className="two">
-                <TextField label="New Password" hasHover value={password} onChange={val => setPassword(val)}/>
-                <TextField label="Confirm New Password" value={confirmPassword} onChange={val => setConfirmPassword(val)}/>
+              <div className="content">
+                <div style={{ display: "flex", flexDirection: "column", flexGrow: "1" }}>
+                  <div className="input-wrapper">
+                    <h3>New Password</h3> 
+                    <input type="password" onChange={(e) => setPassword(e.target.value)}/>
+                  </div>
+                  <div className="input-wrapper" >
+                    <h3>Confirm New Password</h3> 
+                    <input type="password" onChange={(e) => setConfirmPassword(e.target.value)}/>
+                  </div>
                 </div>
-                <Button label="Change Password" onClick={!isDisabled ? updatePassword: () => {}}/>
+                <button className="settings-btn" onClick={() => updatePassword()}>
+                  Change Password
+                </button>
               </div>
             </div>
           </div>
-        </div>
-    </div>
-    </div>
+        </div>) : <Loading/>}
+      </div>
+    );
+  }
+
+  return (
+    <SidebarAndContent
+      selectedTile={MentorSidebarOptions.Settings}
+      sidebarTiles={getSidebarTiles()}
+      contentComponent={getMentorSettingsContentComponent()}
+    />
   );
 };
 

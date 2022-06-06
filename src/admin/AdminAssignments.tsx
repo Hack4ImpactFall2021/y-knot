@@ -14,7 +14,7 @@ import "../SidebarAndContent.css";
 import "./AdminAssignments.css"
 import Sidebar from "../widgets/Sidebar";
 import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
-import Loading from "../auth/Loading";
+import Loading from "../widgets/Loading";
 import SidebarAndContent from "../SidebarAndContent";
 
 type PersonType = "Mentee" | "Trainee";
@@ -27,20 +27,17 @@ const AdminHome = () => {
   const navigate = useNavigate();
   const [assignmentModal, setAssignmentModal] = useState<AssignmentsTabPerson>();
 
-  const [isContentLoading, setIsContentLoading] = useState<Boolean>(false);
+  const [isContentLoading, setIsContentLoading] = useState<Boolean>(true);
 
   useEffect(() => {
     getPeople();
   }, []);
 
   const getPeople: VoidFunction = async () => {
+    setIsContentLoading(true);
     try {
-      setIsContentLoading(true);
       let menteesResult = await NetworkManager.makeRequest(Endpoints.GetUnassignedMentees);
       let traineesResult = await NetworkManager.makeRequest(Endpoints.GetFinishedTrainees);
-
-      console.log(menteesResult);
-      console.log(traineesResult);
 
       setMentees(menteesResult);
       setTrainees(traineesResult);
@@ -54,10 +51,10 @@ const AdminHome = () => {
 
       setFilter("");
 
-      setIsContentLoading(false);
     } catch (err) {
       console.log(err);
     }
+    setIsContentLoading(false);
   } 
 
   //Filters
@@ -140,7 +137,7 @@ const AdminHome = () => {
   }
 
   const getAdminAssignmentsContentComponent = () => {
-      //position relative for the loader
+    //position relative for the loader
     return (
       <div className="admin-assignments" style={{ position: "relative" }}>
         {!isContentLoading ?
@@ -208,8 +205,7 @@ const AdminHome = () => {
       sidebarTiles={AdminSidebarTiles}
       contentComponent={getAdminAssignmentsContentComponent()}
     />
-  )
-
+  );
 }
 
 export default AdminHome;

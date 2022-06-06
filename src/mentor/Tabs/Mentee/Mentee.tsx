@@ -24,12 +24,14 @@ const Mentee: React.FC<Props> = ({ mentees }) => {
   return (
     <div className="mentee-list">
       {renderModal(mentee)}
-      {mentees.map((ment, idx) => 
+      {mentees && mentees.length > 0 ? mentees.map((ment, idx) => 
         <MenteeTabItem 
           key={idx}
           name={ment.childName}
           onClick={() => setModal(ment)}
-        />)
+        />) 
+        :
+        <p>No mentees to display</p>
       }
     </div>
   )

@@ -13,6 +13,8 @@ import background_check from '../assets/background_check.png';
 import "./AdminApplicants.css";
 import Sidebar from "../widgets/Sidebar";
 import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
+import SidebarAndContent from "../SidebarAndContent";
+import Loading from "../widgets/Loading";
 
 type ApplicantStageFilter = ApplicantStages.New | ApplicantStages.Interviewing | ApplicantStages.BackgroundCheck | "All Applicants";
 
@@ -21,10 +23,12 @@ const AdminApplicants = () => {
   const [visibleApplicants, setVisibleApplicants] = useState<Applicant[]>([]);
   const [searchText, setSearchText] = useState<string>("");
   const [applicantStageFilter, setApplicantStageFilter] = useState<ApplicantStageFilter>("All Applicants");
+  const [isContentLoading, setIsContentLoading] = useState<boolean>(true);
 
   const navigate = useNavigate();
 
   const getApplicants: VoidFunction = async () => {
+    setIsContentLoading(true);
     try {
       let applicants: Applicant[] = await NetworkManager.makeRequest(Endpoints.GetAllApplicants);
       setAllApplicants(applicants);
@@ -32,6 +36,7 @@ const AdminApplicants = () => {
     } catch(err) {
       console.log(err);
     }
+    setIsContentLoading(false);
   }
   useEffect(getApplicants, []);
 
@@ -75,22 +80,11 @@ const AdminApplicants = () => {
     navigate("/admin/applicants/" + applicant.submissionId);
   }
 
-  const getSidebarTiles = () => {
-    const routes = ["/admin/home", "/admin/assignments", "/admin/applicants", "/admin/settings"];
-    const ret = [];
-    for (let i = 0; i < routes.length; i++) {
-      const cur = { ...AdminSidebarTiles[i], route: routes[i] };
-      ret.push(cur);
-    }
-    return ret;
-  }
-
-  return (
-    <div className="sidebar-and-content">
-      {/* Sidebar */}
-      <Sidebar selected={AdminSidebarOptions.Applicants} sidebarTiles={getSidebarTiles()} />
-      <div className="admin-applicants">
-        <div className="wrapper">
+  const getAdminApplicantsContentComponent = () => {
+    return (
+      <div className="admin-applicants" style={{ position: "relative" }}>
+        {!isContentLoading ?
+        (<div className="wrapper">
           {/* Header */}
           <div className="header-wrapper">
             <h1 className="header">Applicants</h1>
@@ -160,9 +154,17 @@ const AdminApplicants = () => {
               }
             </ul>
           </div>
-        </div>
+        </div>) : <Loading/>}
       </div>
-    </div>
+    );
+  }
+
+  return (
+    <SidebarAndContent
+      selectedTile={AdminSidebarOptions.Applicants}
+      sidebarTiles={AdminSidebarTiles}
+      contentComponent={getAdminApplicantsContentComponent()}
+    />
   );
 }
 

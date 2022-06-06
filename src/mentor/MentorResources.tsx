@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import "../SidebarAndContent.css";
 import "./MentorResources.css";
 
 import logo from "../login/assets/logo.png";
@@ -13,6 +12,7 @@ import { QuerySnapshot, DocumentData } from 'firebase/firestore';
 import { MentorSidebarOptions, MentorSidebarTiles } from "./MentorSidebarInfo";
 import Sidebar from "../widgets/Sidebar";
 import { useMentorContext } from "../auth/RequireMentorAuth";
+import SidebarAndContent from "../SidebarAndContent";
 interface Props {
 
 
@@ -30,13 +30,11 @@ const MentorResources: React.FC<Props> = () => {
     }
     return ret;
   }
-
-  return (
-    <div className="sidebar-and-content">
-      <Sidebar selected={MentorSidebarOptions.Resources} sidebarTiles={getSidebarTiles()} />
-      <div className="dashboard mentor-dashboard"> 
-        <div className="dashboard-container wrapper">
-          <div className="mentoring-resources">
+  
+  const getMentorResourcesContentComponent = () => {
+    return (
+      <div className="mentor-resources"> 
+        <div className="wrapper">
             <div className="header-wrapper">
               <h1>Resources</h1>
               <img src={logo} alt="Where is the logo?"/> 
@@ -106,10 +104,17 @@ const MentorResources: React.FC<Props> = () => {
                 </p>
               </div>
             </div>  
-          </div>
         </div>
       </div>
-    </div>  
+    );
+  }
+
+  return (
+    <SidebarAndContent
+      selectedTile={MentorSidebarOptions.Resources}
+      sidebarTiles={getSidebarTiles()}
+      contentComponent={getMentorResourcesContentComponent()}
+    />
   );
 }
 

@@ -1,24 +1,24 @@
-.mentor-settings * {
+.admin-settings * {
   border-radius: 15px;
 }
 
-.mentor-settings {
+.admin-settings {
   background-color: #f4f4f4;
   color: #10275b;
   height: 100vh;
   width: 85%;
   flex-grow: 1;
 }
-.mentor-settings hr {
+.admin-settings hr {
   background-color: #f4f4f4;
   height: 3px;
   border-radius: 0;
   border-left: none;
   border-right: none;
-margin: 0;
+  margin: 0;
 }
 
-.mentor-settings 
+.admin-settings 
 .wrapper {
   margin-left: 20px;
   height: 100%;
@@ -28,7 +28,7 @@ margin: 0;
   justify-content: flex-start;
 }
 
-.mentor-settings 
+.admin-settings 
 .wrapper 
 .header-wrapper {
   padding-top: 5px;
@@ -39,38 +39,42 @@ margin: 0;
   justify-content: space-between;
   align-items: center;
 }
-.mentor-settings 
+.admin-settings 
 .wrapper 
 .settings {
   margin-right: 20px;
   height: 85vh;
+  overflow-y: scroll;
 }
 
-.mentor-settings 
+.admin-settings 
 .settings-box {
-  margin: 2em 0.25em;
+  margin: 2em 0.5em;
   background-color: white;
 }
-
-.mentor-settings 
+.admin-settings
+.settings-box:first-child {
+  margin-top: 0;
+}
+.admin-settings 
 .settings-box 
 .title {
   padding: 0.75em 1em;
   margin: 0;
 }
-.mentor-settings 
+.admin-settings 
 .settings-box 
 .content {
   display: flex;
   gap: 3em;
   padding: 1em;
 }
-.mentor-settings 
+.admin-settings 
 .settings-box 
 .content .input-wrapper {
   flex-grow: 1;
 }
-.mentor-settings 
+.admin-settings 
 .settings 
 .settings-box 
 .content .input-wrapper h3 {

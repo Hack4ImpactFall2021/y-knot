@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import {Navigate} from 'react-router-dom';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { useAuth } from './AuthProvider';
-import Loading from './Loading';
+import Loading from '../widgets/Loading';
 
 interface MentorContextType {
   submissionId: any

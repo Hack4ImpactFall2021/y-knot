@@ -16,9 +16,10 @@ const MentorHome = () => {
 
   const getSidebarTiles = () => {
     const newMentorSidebarTiles = MentorSidebarTiles.slice();
+    console.log(mentor.submissionId);
     for (let i = 0; i < newMentorSidebarTiles.length; i++) {
       if (newMentorSidebarTiles[i].name === MentorSidebarOptions.Profile) {
-        newMentorSidebarTiles[i] = { ...newMentorSidebarTiles[i], route: newMentorSidebarTiles[i] + mentor.submissionId };
+        newMentorSidebarTiles[i] = { ...newMentorSidebarTiles[i], route: newMentorSidebarTiles[i].route + mentor.submissionId };
       }
     }
     return newMentorSidebarTiles;
@@ -65,7 +66,6 @@ const MentorHome = () => {
       sidebarTiles={getSidebarTiles()}
       contentComponent={getMentorHomeContentComponent()}
     />
-
   );
 }
 

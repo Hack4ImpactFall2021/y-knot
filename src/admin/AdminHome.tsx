@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./AdminHome.css";
 
-import { Mentor, PersonTypes, Trainee } from '../utils/utils';
+import { Mentor, Trainee } from '../utils/utils';
 
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import PersonTile from '../people/PersonTile/PersonTile';
@@ -16,23 +16,27 @@ import new_applicant from '../assets/new.png';
 import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
 
 import SidebarAndContent from "../SidebarAndContent";
+import Loading from "../widgets/Loading";
 
 type PersonType = "Mentor" | "Trainee";
 const AdminHome = () => {
   const [allPeople, setAllPeople] = useState<(Mentor | Trainee)[]>([]);
   const [visiblePeople, setVisiblePeople] = useState<(Mentor | Trainee)[]>([]);
+  const [isContentLoading, setIsContentLoading] = useState<boolean>(true);
   const navigate = useNavigate();
 
   const getPeople: VoidFunction = async () => {
+    setIsContentLoading(true);
     try {
-      let mentors = await NetworkManager.makeRequest(Endpoints.GetMentors);
-      let trainees = await NetworkManager.makeRequest(Endpoints.GetTrainees);
+      let mentors = await NetworkManager.makeRequest(Endpoints.GetAllMentors);
+      let trainees = await NetworkManager.makeRequest(Endpoints.GetAllTrainees);
       let allPeeps = mentors.concat(trainees);
       setAllPeople(allPeeps);
       setVisiblePeople(allPeeps);
     } catch(err) {
       console.error(err);
     }
+    setIsContentLoading(false);
   }
   useEffect(getPeople, []);
 
@@ -81,8 +85,9 @@ const AdminHome = () => {
   //RENDER FUNCTIONS
   const getAdminHomeContentComponent = () => {
     return (
-      <div className="admin-home">
-        <div className="wrapper">
+      <div className="admin-home" style={{ position: "relative"}}>
+        {!isContentLoading ? 
+        (<div className="wrapper">
           {/* Header */}
           <div className="header-wrapper">
             <h1 className="header">Home</h1>
@@ -134,7 +139,7 @@ const AdminHome = () => {
               }
             </ul>
           </div>
-        </div>
+        </div>) : <Loading/>}
       </div>  
     );
   }

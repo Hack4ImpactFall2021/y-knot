@@ -18,8 +18,8 @@ export enum Endpoints {
   GetAllApplicants,
   GetAcceptedApplicants,
   GetRejectedApplicants,
-  GetTrainees,
-  GetMentors,
+  GetAllTrainees,
+  GetAllMentors,
   UpdateEmail,
   UpdatePassword,
   CreateNewUser,
@@ -123,12 +123,12 @@ class NetworkManager {
         case Endpoints.SendMenteeMatchEmail:
             return this.sendMenteeMatchEmail(params.email, params.menteeName, params.characteristic1,
               params.characteristic2, params.characteristic3, params.menteeAge, params.menteeGrade,
-              params.menteeSchool, params.parentName, params.phoneNumber, params.menteeEmail);
+              params.menteeSchool, params.parentName, params.phoneNumber, params.menteeEmail, params.mentorName);
         case Endpoints.GetAcceptedApplicants:
             return this.getAcceptedApplicants();
-        case Endpoints.GetTrainees:
+        case Endpoints.GetAllTrainees:
             return this.getAllTrainees();
-        case Endpoints.GetMentors:
+        case Endpoints.GetAllMentors:
             return this.getAllMentors();
         case Endpoints.GetRejectedApplicants:
             return this.getRejectedApplicants();    
@@ -188,7 +188,7 @@ class NetworkManager {
 
   private getUnassignedMentees(): Promise<AssignmentsTabPerson[]> {
     return new Promise((resolve, reject) => {
-      getDocs(query(collection(db, "mentees")))
+      getDocs(query(collection(db, "mentees"), where("matched","==",false)))
       .then((docs) => {
         let people: AssignmentsTabPerson[] = [];
         docs.forEach((doc) => {
@@ -319,39 +319,38 @@ class NetworkManager {
 
   private getAllMentors(): Promise<Mentor[]> {
     return new Promise((resolve, reject) => {
-      getDocs(
-        query(
-          collection(db, "applicants"),
-          where("stage", "==", "MENTOR"),
-          orderBy("createdAt", "desc")
-        )
-      )
-        .then((docs) => {
-          let mentors: Mentor[] = [];
-          docs.forEach((doc) => {
-            let data = doc.data();
-            const mentor: Mentor = {
-              type: "Mentor",
-              firstName: data.first_name,
-              lastName: data.last_name,
-              email: data.email,
-              phoneNumber: data.phone_number,
-              submissionId: data.submission_id,
-              stage: data.stage,
-              notes: data.notes,
-              createdAt: data.createdAt,
-              firebaseId: data.firebase_id,
-              menteeIds: data.mentee_ids,
-            };
-            mentors.push(mentor);
-          });
-          resolve(mentors);
-        })
-        .catch((error) => {
-          reject(error);
+      getDocs(query(collection(db, "applicants"), where("stage", "==", "MENTOR"), orderBy("createdAt", "desc")))
+      .then((docs) => {
+        let mentors: Mentor[] = [];
+        docs.forEach((doc) => {
+          let data = doc.data();
+          const mentor: Mentor = {
+            type: "Mentor",
+            firstName: data.first_name,
+            lastName: data.last_name,
+            email: data.email,
+            phoneNumber: data.phone_number,
+            submissionId: data.submission_id,
+            stage: data.stage,
+            notes: data.notes,
+            createdAt: data.createdAt,
+            firebaseId: data.firebase_id,
+            menteeIds: data.mentee_ids,
+            canHaveManyMentees: data.can_have_multiple_mentees,
+            bestDescribes: data.best_describes,
+            interestsAndHobbies: data.interests_hobbies,
+            agePreference: data.age_preference
+          };
+          mentors.push(mentor);
         });
-    });
+        resolve(mentors);
+      })
+      .catch((error) => {
+        reject(error);
+      })
+    })
   }
+
 
   private getAllTrainees(): Promise<Trainee[]> {
     return new Promise((resolve, reject) => {
@@ -531,15 +530,14 @@ class NetworkManager {
       if (!user) {
         reject();
       }
-      this.getCurrentMentorOrTrainee().then((mentor) => {
-        updateDoc(doc(db, "applicants", mentorId), {
-          mentee_ids: arrayUnion(menteeId),
+      updateDoc(doc(db, 'applicants', mentorId), {mentee_ids: arrayUnion(menteeId)})
+        .then(() => {
+          updateDoc(doc(db, 'mentees', menteeId), {matched: true})
         })
-          .then(() => {
-            resolve();
-          })
-          .catch((error) => reject(error));
-      });
+        .then(() => {
+          resolve();
+        })
+        .catch(error => reject(error));
     });
   }
 
@@ -728,11 +726,12 @@ class NetworkManager {
 
   private sendTrainingCompletedInternalEmail(name: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendTrainingCompletedInternalEmail?name=${name}`)
-      .then(() => {
+      // TEMPORARY, turned off reminder email
+      //fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendTrainingCompletedInternalEmail?name=${name}`)
+      //.then(() => {
         resolve();
-      })
-      .catch(error => reject(error));
+      //})
+      //.catch(error => reject(error));
     })
   }
 
@@ -779,13 +778,13 @@ class NetworkManager {
 
   private sendMenteeMatchEmail(email: string, menteeName: string, characteristic1: string,
     characteristic2: string, characteristic3: string, menteeAge: string, menteeGrade: string,
-    menteeSchool: string, parentName: string, phoneNumber: string, menteeEmail: string): Promise<void> {
+    menteeSchool: string, parentName: string, phoneNumber: string, menteeEmail: string, mentorName: string): Promise<void> {
       return new Promise((resolve, reject) => {
-        fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendAcceptanceEmail?email=${email}
+        fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendMenteeMatchEmail?email=${email}
           &menteeName=${menteeName}&characteristic1=${characteristic1}&characteristic2=${characteristic2}
           &characteristic3=${characteristic3}&menteeAge=${menteeAge}&menteeGrade=${menteeGrade}
           &menteeSchool=${menteeSchool}&parentName=${parentName}&phoneNumber=${phoneNumber}
-          &menteeEmail=${menteeEmail}`)
+          &menteeEmail=${menteeEmail}&mentorName=${mentorName}`)
         .then(() => {
           resolve();
         })
