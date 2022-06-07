@@ -53,3 +53,13 @@ export const MentorSidebarTiles: SidebarTileInfo[] = [
     inactiveIcon: settings_inactive,
   },
 ]
+
+export const getMentorSidebarTiles = (mentorSubmissionId : any) => {
+    const routes = ["/mentor/home", "/mentor/profile/" + mentorSubmissionId, "/mentor/resources/", "/mentor/settings/"];
+    const ret = [];
+    for (let i = 0; i < routes.length; i++) {
+      const cur = { ...MentorSidebarTiles[i], route: routes[i] };
+      ret.push(cur);
+    }
+    return ret;
+}

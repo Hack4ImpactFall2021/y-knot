@@ -16,7 +16,7 @@ import Loading from "../widgets/Loading";
 import "./MentorSettings.css";
 
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
-import { MentorSidebarOptions, MentorSidebarTiles } from './MentorSidebarInfo';
+import { getMentorSidebarTiles, MentorSidebarOptions, MentorSidebarTiles } from './MentorSidebarInfo';
 import { useMentorContext } from "../auth/RequireMentorAuth";
 
 
@@ -24,6 +24,7 @@ import { useMentorContext } from "../auth/RequireMentorAuth";
 const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
 const MentorSettings = () => {
 
+  const mentor = useMentorContext();
   const [email, setEmail] = useState<string>("");
 
   const [password, setPassword] = useState<string>("");
@@ -31,9 +32,6 @@ const MentorSettings = () => {
 
   const [message, setMessage] = useState<[boolean, string]>([false, ""]);
   const [isContentLoading, setIsContentLoading] = useState<boolean>(false);
-
-
-  const mentor = useMentorContext();
 
   const updateEmail = async () => {
     setMessage([false, ""]);
@@ -104,17 +102,6 @@ const MentorSettings = () => {
     setIsContentLoading(false);
   }
 
-
-  const getSidebarTiles = () => {
-    const routes = ["/mentor/home", "/mentor/profile/" + mentor.submissionId, "/mentor/resources/", "/mentor/settings/"];
-    const ret = [];
-    for (let i = 0; i < routes.length; i++) {
-      const cur = { ...MentorSidebarTiles[i], route: routes[i] };
-      ret.push(cur);
-    }
-    return ret;
-  }
-  
   const getMentorSettingsContentComponent = () => {
     return (
       <div className="mentor-settings" style={{ position: "relative" }}>
@@ -178,7 +165,7 @@ const MentorSettings = () => {
   return (
     <SidebarAndContent
       selectedTile={MentorSidebarOptions.Settings}
-      sidebarTiles={getSidebarTiles()}
+      sidebarTiles={getMentorSidebarTiles(mentor.submissionId)}
       contentComponent={getMentorSettingsContentComponent()}
     />
   );

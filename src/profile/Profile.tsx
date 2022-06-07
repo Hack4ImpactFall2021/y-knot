@@ -35,15 +35,9 @@ const Profile = () => {
   const [data, setData] = useState<JotformResponse | null>(null);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [action, setAction] = useState<Actions>(Actions.MoveToInterviewStage);
-  const [popupMessage, setPopupMessage] = useState<[boolean, string]>([
-    false,
-    "",
-  ]);
+  const [popupMessage, setPopupMessage] = useState<[boolean, string]>([false, ""]);
   const [email, setEmail] = useState<string>("");
-  const [applicantLogin, setApplicantLogin] = useState<[string, string]>([
-    "",
-    "",
-  ]);
+  const [applicantLogin, setApplicantLogin] = useState<[string, string]>(["", ""]);
   const [interviewTime, setInterviewTime] = useState<Date | null>(null);
 
   const [tab, setTab] = useState<string>(Tabs.UserInformation);
@@ -68,31 +62,28 @@ const Profile = () => {
 
   const getApplicant = async () => {
     try {
-      let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, {
-        submissionId: id,
-      });
+      let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, { submissionId: id, });
       snap = snap as DocumentSnapshot<DocumentData>;
-      if (snap.exists()) {
-        const data = snap.data();
-        setApplicant({
-          type: "Applicant",
-          firstName: data.first_name,
-          lastName: data.last_name,
-          email: data.email,
-          phoneNumber: data.phone_number,
-          stage: data.stage,
-          submissionId: data.submission_id,
-          notes: data.note || "",
-          createdAt: data.createdAt,
-        });
-        console.log(applicant);
-        setEmail(data.email);
-
-        if (data.stage != ApplicantStages.New) {
-          getInterviewTime(data.email);
-        }
-      } else {
+      if (!snap.exists()) {
         throw new Error("not-found");
+      }
+      const data = snap.data();
+      setApplicant({
+        type: "Applicant",
+        firstName: data.first_name,
+        lastName: data.last_name,
+        email: data.email,
+        phoneNumber: data.phone_number,
+        stage: data.stage,
+        submissionId: data.submission_id,
+        notes: data.note || "",
+        createdAt: data.createdAt,
+      });
+      console.log(applicant);
+      setEmail(data.email);
+
+      if (data.stage != ApplicantStages.New) {
+        getInterviewTime(data.email);
       }
     } catch (error) {
       console.log(error);
@@ -287,6 +278,7 @@ const Profile = () => {
 
   return (
     <div className="profile">
+      {/* Move to next stage modal */}
       {showModal ? (
         <Modal
           firstname={applicant.firstName}
@@ -299,6 +291,7 @@ const Profile = () => {
           reject={() => setShowModal(false)}
         />
       ) : null}
+      {/* Popup */}
       {popupMessage![1].length > 0 ? (
         <Popup
           isError={popupMessage![0]}
@@ -306,6 +299,7 @@ const Profile = () => {
           setText={setPopupMessage}
         />
       ) : null}
+      {/* Close button */}
       <img className="exit-btn" src={close} onClick={() => navigate(-1)} />
       <div className="profile-container">
         <div className="profile-header">
