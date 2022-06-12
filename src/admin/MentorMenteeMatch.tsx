@@ -279,6 +279,12 @@ const MentorMenteeMatch = () => {
         <p className="mentee-info-text"> Age: {mentee.age}</p>
         <p className="mentee-info-text"> Grade: {mentee.grade} </p>
       </div>
+
+      <div>
+        *Note: A green box indicates a matching characteristic between 
+        the mentor and mentee, while a gray box indicates a characteristic that
+        does not match. 
+      </div>
       
       {/* Mentor Table */}
       <table className="mentor-table" ref={refs[2]}>
