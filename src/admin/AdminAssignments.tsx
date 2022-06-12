@@ -8,7 +8,7 @@ import NetworkManager, { Endpoints } from "../network/NetworkManager";
 // Assets
 import logo from "../login/assets/logo.png";
 import all_applicants from '../assets/all.png';
-import new_applicant from '../assets/new.png';
+import new_applicant from '../assets/new_blue.png';
 
 import "../SidebarAndContent.css";
 import "./AdminAssignments.css"

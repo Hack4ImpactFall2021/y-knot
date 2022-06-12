@@ -11,7 +11,7 @@ import PersonTile from '../people/PersonTile/PersonTile';
 // Assets
 import logo from "../login/assets/logo.png";
 import all_applicants from '../assets/all.png';
-import new_applicant from '../assets/new.png';
+import new_applicant from '../assets/new_blue.png';
 
 import { AdminSidebarOptions, AdminSidebarTiles } from "./AdminSidebarInfo";
 
