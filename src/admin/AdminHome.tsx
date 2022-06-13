@@ -46,7 +46,7 @@ const AdminHome = () => {
 
   const onFilterChange = () => {
     //Apply search bar filter
-    let newVisiblePeople = allPeople.filter((person) => person.firstName.includes(searchText) || person.lastName.includes(searchText));
+    let newVisiblePeople = allPeople.filter((person) => (person.firstName + " " + person.lastName).toLowerCase().includes(searchText.toLowerCase()));
     //Apply applicant stage filter
     if (filter !== "") {
       newVisiblePeople = newVisiblePeople.filter((person) => person.type === filter);

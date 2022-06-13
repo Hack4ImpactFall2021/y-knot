@@ -42,7 +42,7 @@ const AdminApplicants = () => {
 
   const onFilterChange = () => {
     //Apply search bar filter
-    let newVisibleApplicants = allApplicants.filter((applicant) => applicant.firstName.includes(searchText) || applicant.lastName.includes(searchText));
+    let newVisibleApplicants = allApplicants.filter((applicant) => (applicant.firstName + " " + applicant.lastName).toLowerCase().includes(searchText.toLowerCase()));
     //Apply applicant stage filter
     if (applicantStageFilter !== "All Applicants") {
       newVisibleApplicants = newVisibleApplicants.filter((applicant) => applicant.stage === applicantStageFilter);
