@@ -18,6 +18,12 @@
   color: #10275b;
 }
 
+.note-text {
+  font-size: 80%;
+  font-style: italic;
+  margin-left: 70px;
+}
+
 /* Assign Button */
 .assign-btn {
   background-color: #98db5f;
