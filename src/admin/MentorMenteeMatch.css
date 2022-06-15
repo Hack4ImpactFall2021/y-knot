@@ -86,6 +86,13 @@
   border-spacing: 0;
 }
 
+.green-gray-box-note {
+  border-top: none;
+  width: 90%;
+  margin: 5%;
+  border-spacing: 0;
+}
+
 
 .mentor-table-cell {
   border: 1px solid #c4c4c4;
