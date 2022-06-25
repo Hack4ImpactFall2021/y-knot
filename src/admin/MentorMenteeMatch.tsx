@@ -282,8 +282,11 @@ const MentorMenteeMatch = () => {
 
       <div className="green-gray-box-note">
         <strong>Note: </strong>A green box indicates a matching characteristic between 
+        <p className="note-text">
+        *Note: A green box indicates a matching characteristic between 
         the mentor and mentee, while a gray box indicates a characteristic that
-        does not match. 
+        does not match.
+        </p>
       </div>
       
       {/* Mentor Table */}

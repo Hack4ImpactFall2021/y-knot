@@ -46,7 +46,7 @@ const AdminHome = () => {
 
   const onFilterChange = () => {
     //Apply search bar filter
-    let newVisiblePeople = allPeople.filter((person) => person.firstName.includes(searchText) || person.lastName.includes(searchText));
+    let newVisiblePeople = allPeople.filter((person) => (person.firstName + " " + person.lastName).toLowerCase().includes(searchText.toLowerCase()));
     //Apply applicant stage filter
     if (filter !== "") {
       newVisiblePeople = newVisiblePeople.filter((person) => person.type === filter);
@@ -132,7 +132,7 @@ const AdminHome = () => {
               {visiblePeople.length > 0 ? visiblePeople.map((person, idx) => 
                 <div key={idx} className="mentors-trainees-list-item" onClick={() => onClickMentorTraineeListItem(person)}>
                   <p>{person.firstName + " " + person.lastName}</p>
-                  <div className="person-type" style={{ backgroundColor: getColorForPersonType(person.type) }}>{person.type}</div>
+                  <div className="person-type" style={{ backgroundColor: getColorForPersonType(person.type) }}>{person.type.toUpperCase()}</div>
                 </div>)
                 :
                 <p>There are no trainees or mentors to display.</p>
