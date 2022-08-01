@@ -234,7 +234,8 @@ const Profile = () => {
       console.log("updated stage");
 
       setShowModal(false);
-      window.location.reload();
+      navigate('/admin/home');
+      
     } catch (error) {
       if (error === "invalid-email") {
         setPopupMessage([true, "Email Adddress in Invalid."]);
