@@ -46,12 +46,12 @@ const App = () => {
             element={<RequireTraineeAuth children={<TraineeHome selected={TraineeSidebarOptions.Home}/>} /> }
           />
           <Route
-            path="/trainee/profile/:id"
+            path="/trainee/profile/:traineeId"
             element={<RequireTraineeAuth children={<TProfile />} />}
           />
           <Route
             path="/trainee/settings"
-            element={<RequireTraineeAuth children={<div></div>} /> }
+            element={<RequireTraineeAuth children={<MentorSettings />} /> }
           />
 
           {/* Mentor */}

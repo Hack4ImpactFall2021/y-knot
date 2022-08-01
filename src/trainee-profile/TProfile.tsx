@@ -7,22 +7,18 @@ import Content from './Content/Content';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { Applicant, JotformResponse } from '../utils/utils';
 import close from '../profile/assets/close.png';
-import { useAuth } from '../auth/AuthProvider';
 
 export enum Tabs { TraineeProfile = "Your Profile"};
 
 const TProfile = () => {
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { traineeId } = useParams();
     const [applicant, setApplicant] = useState<Applicant | null>(null);
-    const user = useAuth();
     const [data, setData] = useState<JotformResponse | null>(null);
     const [email, setEmail] = useState<string>("");
     const [applicantLogin, setApplicantLogin] = useState<[string, string]>(["", ""]);
 
     const [tab, setTab] = useState<string>(Tabs.TraineeProfile);
-
-    console.log(user);
 
     useEffect(() => {
       getApplicant();
@@ -32,7 +28,7 @@ const TProfile = () => {
 
     const getApplicant = async () => {
         try {
-            let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, { submissionId: id });
+            let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, { submissionId: traineeId });
             snap = snap as DocumentSnapshot<DocumentData>
             if (snap.exists()) {
                 const data = snap.data();
@@ -60,7 +56,7 @@ const TProfile = () => {
 
     const getApplicantForm = async () => {
         try {
-            let data = await NetworkManager.makeRequest(Endpoints.GetApplicantForm, { id: id });
+            let data = await NetworkManager.makeRequest(Endpoints.GetApplicantForm, { id: traineeId });
             setData(data as JotformResponse);
         } catch (error) {
             console.log(error);

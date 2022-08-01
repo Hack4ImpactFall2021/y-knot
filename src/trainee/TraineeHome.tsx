@@ -28,7 +28,7 @@ const TraineeHome: React.FC<Props> = ({ selected }) => {
   useEffect(getTrainee, []);
   
   const getSidebarTiles = () => {
-    const routes = ["/trainee/home", "/trainee/profile/" + trainee.submission_id, "/trainee/settings"];
+    const routes = ["/trainee/home", "/trainee/profile/" + trainee?.submission_id, "/trainee/settings"];
     const ret = [];
     for (let i = 0; i < routes.length; i++) {
       const cur = { ...TraineeSidebarTiles[i], route: routes[i] };

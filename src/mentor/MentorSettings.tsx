@@ -106,7 +106,7 @@ const MentorSettings = () => {
 
 
   const getSidebarTiles = () => {
-    const routes = ["/mentor/home", "/mentor/profile/" + mentor.submissionId, "/mentor/resources/", "/mentor/settings/"];
+    const routes = ["/mentor/home", "/mentor/profile/" + mentor?.submissionId, "/mentor/resources/", "/mentor/settings/"];
     const ret = [];
     for (let i = 0; i < routes.length; i++) {
       const cur = { ...MentorSidebarTiles[i], route: routes[i] };
