@@ -10,17 +10,10 @@ type Props = {
 const Application: React.FC<Props> = ({ data }) => {
 
     const response = data['content']['answers'];
+    console.log(data);
 
     return (
         <div className='user-application'>
-            <div className='response'>
-                <h1 className='response-title'>Based from your choices above, please describe the areas which you can be helpful of in providing mentoring.</h1>
-                <div className='response-body-lg'>
-                    <p className='response-text-lg'>
-                        {response['13']['answer']}
-                    </p>
-                </div>
-            </div>
 
             <div className='response'>
                 <h1 className='response-title'>Is there any characteristic in a mentee that you may be uncomfortable handling? Please specify.</h1>
@@ -35,7 +28,7 @@ const Application: React.FC<Props> = ({ data }) => {
                 <h1 className='response-title'>Can you be a mentor for more than one person at the same time?</h1>
                 <div className='response-body-lg'>
                     <p className='response-text-lg'>
-                        {response['15']['answer']}
+                        {response['39']['answer']}
                     </p>
                 </div>
             </div>
@@ -43,19 +36,19 @@ const Application: React.FC<Props> = ({ data }) => {
             <div className='response'>
                 <h1 className='response-title'>Days Available</h1>
                 <div className='response-body'>
-                    <input type='checkbox' disabled checked={response['12']['answer'] && response['12']['answer']['0']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['40']['answer']['0']} />
                     <p className='radio-text'>Monday</p>
-                    <input type='checkbox' disabled checked={response['12']['answer'] && response['12']['answer']['1']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['1']} />
                     <p className='radio-text'>Tuesday</p>
-                    <input type='checkbox' disabled checked={response['12']['answer'] && response['12']['answer']['2']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['2']} />
                     <p className='radio-text'>Wednesday</p>
-                    <input type='checkbox' disabled checked={response['12']['answer'] && response['12']['answer']['3']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['3']} />
                     <p className='radio-text'>Thursday</p>
-                    <input type='checkbox' disabled checked={response['12']['answer'] && response['12']['answer']['4']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['4']} />
                     <p className='radio-text'>Friday</p>
-                    <input type='checkbox' disabled checked={response['12']['answer'] && response['12']['answer']['5']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['5']} />
                     <p className='radio-text'>Saturday</p>
-                    <input type='checkbox' disabled checked={response['12']['answer'] && response['12']['answer']['6']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['6']} />
                     <p className='radio-text'>Sunday</p>
                 </div>
             </div>
