@@ -6,13 +6,14 @@ import "./Profile.css";
 import Content from "./Content/Content";
 import NetworkManager, { Endpoints } from "../network/NetworkManager";
 import { Applicant, ApplicantStages, JotformResponse } from "../utils/utils";
-import ApplicantStageTile from "../applicants/ApplicantStageTile/ApplicantStageTile";
+import ApplicantStageTile from "../applicants-old/ApplicantStageTile/ApplicantStageTile";
 import accept from "./assets/check-circle.png";
 import reject from "./assets/x-circle.png";
 import close from "./assets/close.png";
 import next from "./assets/next.png";
 import Modal from "./Modal/Modal";
 import Popup from "../settings/Popup/Popup";
+import Toast from "../widgets/Toast";
 
 export enum Tabs {
   UserInformation = "User Information",
@@ -40,7 +41,7 @@ const Profile = () => {
   const [applicantLogin, setApplicantLogin] = useState<[string, string]>(["", ""]);
   const [interviewTime, setInterviewTime] = useState<Date | null>(null);
 
-  const [tab, setTab] = useState<string>(Tabs.UserInformation);
+  const [tab, setTab] = useState<Tabs>(Tabs.UserInformation);
 
   useEffect(() => {
     getApplicant();
@@ -102,10 +103,7 @@ const Profile = () => {
   };
 
   const handleClick = () => {
-    if (
-      action === Actions.MoveToInterviewStage ||
-      action === Actions.MoveToBackgroundCheckStage
-    ) {
+    if (action === Actions.MoveToInterviewStage || action === Actions.MoveToBackgroundCheckStage) {
       moveToNextStage();
     } else if (action === Actions.Accept) {
       acceptApplicant();
@@ -128,20 +126,13 @@ const Profile = () => {
         url = url.concat(
           `?name=${applicant?.firstName}%20${applicant?.lastName}&email=${email}`
         );
-        console.log("calendly url: ");
-        console.log(url);
+        console.log(`calendly url: ${url}`);
         // send email w/ interview
-        await NetworkManager.makeRequest(Endpoints.SendInterviewEmail, {
-          email: email,
-          url: url,
-        });
+        await NetworkManager.makeRequest(Endpoints.SendInterviewEmail, { email: email, url: url });
         console.log("sent email");
 
         // move user in database
-        await NetworkManager.makeRequest(Endpoints.UpdateStage, {
-          id: applicant?.submissionId,
-          stage: nextStage,
-        });
+        await NetworkManager.makeRequest(Endpoints.UpdateStage, { id: applicant?.submissionId, stage: nextStage });
         console.log("updated db");
         setShowModal(false);
         window.location.reload();
@@ -275,110 +266,139 @@ const Profile = () => {
   if (!applicant) {
     return null;
   }
+  
+  // RENDER FUNCTIONS
+  const renderAdvancementModal = () => {
+    if (!showModal) {
+      return null;
+    }
+
+    return (
+      <Modal
+        firstname={applicant.firstName}
+        lastname={applicant.lastName}
+        action={action}
+        email={applicant.email}
+        setEmail={setEmail}
+        setApplicantLogin={setApplicantLogin}
+        accept={handleClick}
+        reject={() => setShowModal(false)}
+      />
+    );
+  }
+
+  const renderPopup = () => {
+    if (popupMessage[1].length === 0) {
+      return null;
+    }
+
+    return (
+      <Toast
+        isError={popupMessage![0]}
+        message={popupMessage![1]}
+        timeout={4000}
+        onDelete={() => setPopupMessage([false, ""])}
+      />
+    );
+  }
+
+  const getAdvancementButton = () => {
+    if (applicant.stage === ApplicantStages.BackgroundCheck) {
+      //This is the last stage, so we want to render the accept button
+      return (
+        <button
+          className="button accept"
+          onClick={() => {
+            setShowModal(true);
+            setAction(Actions.Accept);
+          }}
+        >
+          Accept <img src={accept} />
+        </button>
+      );
+    } else {
+      //Otherwise, we render the next stage button
+      return (
+        <button
+          className="button accept"
+          onClick={() => {
+            setShowModal(true);
+            if (applicant.stage === ApplicantStages.New) {
+              setAction(Actions.MoveToInterviewStage);
+            } else if (applicant.stage === ApplicantStages.Interviewing) {
+              setAction(Actions.MoveToBackgroundCheckStage);
+            }
+          }}
+        >
+            Next Stage <img src={next} />
+        </button>
+      );
+    }
+  }
+
+  const renderAdvancementAndRejectionButtons = () => {
+    if (applicant.stage === ApplicantStages.Accepted || applicant.stage === ApplicantStages.Rejected) {
+      return null;
+    }
+    return (
+      <div className="profile-header-right">
+        {/* Advancement */}
+        {getAdvancementButton()}
+        {/* Rejection */}
+        <button
+          className="button reject"
+          onClick={() => {
+            setShowModal(true);
+            setAction(Actions.Reject);
+          }}
+        >
+            Reject <img src={reject} />
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <div className="profile">
-      {/* Move to next stage modal */}
-      {showModal ? (
-        <Modal
-          firstname={applicant.firstName}
-          lastname={applicant.lastName}
-          action={action}
-          email={applicant.email}
-          setEmail={setEmail}
-          setApplicantLogin={setApplicantLogin}
-          accept={handleClick}
-          reject={() => setShowModal(false)}
-        />
-      ) : null}
+    <div className="applicant-profile">
+      {/* Modal for moving the applicant to the next stage or accepting them. */}
+      {renderAdvancementModal()}
       {/* Popup */}
-      {popupMessage![1].length > 0 ? (
-        <Popup
-          isError={popupMessage![0]}
-          text={popupMessage![1]}
-          setText={setPopupMessage}
-        />
-      ) : null}
-      {/* Close button */}
+      {renderPopup()}
+      {/* Close Button */}
       <img className="exit-btn" src={close} onClick={() => navigate(-1)} />
-      <div className="profile-container">
         <div className="profile-header">
           <div className="profile-header-left">
+            {/* Applicant Name */}
             <h1 className="name">
               {applicant.firstName} {applicant.lastName}
             </h1>
+            {/* Stage */}
             <ApplicantStageTile stage={applicant.stage} maximized />
           </div>
-          {applicant.stage === ApplicantStages.Accepted ||
-          applicant.stage === ApplicantStages.Rejected ? null : (
-            <div className="profile-header-right">
-              {applicant.stage === ApplicantStages.BackgroundCheck ? (
-                <button
-                  className="button accept"
-                  onClick={() => {
-                    setShowModal(true);
-                    setAction(Actions.Accept);
-                  }}
-                >
-                  <>
-                    Accept <img src={accept} />
-                  </>
-                </button>
-              ) : (
-                <button
-                  className="button accept"
-                  onClick={() => {
-                    setShowModal(true);
-                    if (applicant.stage === ApplicantStages.New) {
-                      setAction(Actions.MoveToInterviewStage);
-                    } else if (
-                      applicant.stage === ApplicantStages.Interviewing
-                    ) {
-                      setAction(Actions.MoveToBackgroundCheckStage);
-                    }
-                  }}
-                >
-                  <>
-                    Next Stage <img src={next} />
-                  </>
-                </button>
-              )}
-
-              <button
-                className="button reject"
-                onClick={() => {
-                  setShowModal(true);
-                  setAction(Actions.Reject);
-                }}
-              >
-                <>
-                  Reject <img src={reject} />
-                </>
-              </button>
-            </div>
-          )}
+          {/* Accept Reject */}
+          {renderAdvancementAndRejectionButtons()}
         </div>
 
+        {/* Tabs */}
         <div className="profile-tabs">
-          {Object.values(Tabs).map((curr) => {
-            return (
-              <h1
-                key={curr}
-                className={curr === tab ? "tab-title selected" : "tab-title"}
-                onClick={(e) => setTab(e.currentTarget.innerHTML)}
-              >
-                {curr}
-              </h1>
-            );
-          })}
+          {Object.values(Tabs).map((curr, idx) => (
+            <h1
+              key={idx}
+              className={curr === tab ? "tab-title selected" : "tab-title"}
+              onClick={() => setTab(curr)}
+            >
+              {curr}
+            </h1>))}
         </div>
-        <Content
-          type={tab}
-          data={data}
-          applicant={applicant}
-          interviewTime={interviewTime}
-        />
-      </div>
+        {/* Content */}
+        <div style={{position: "relative", height: "68vh"}}>
+          <Content
+            type={tab}
+            data={data}
+            applicant={applicant}
+            interviewTime={interviewTime}
+          />
+        </div>
     </div>
   );
 };
