@@ -726,12 +726,11 @@ class NetworkManager {
 
   private sendTrainingCompletedInternalEmail(name: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      // TEMPORARY, turned off reminder email
-      //fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendTrainingCompletedInternalEmail?name=${name}`)
-      //.then(() => {
+      fetch(`https://us-central1-yknot-ats.cloudfunctions.net/sendTrainingCompletedInternalEmail?name=${name}`)
+      .then(() => {
         resolve();
-      //})
-      //.catch(error => reject(error));
+      })
+      .catch(error => reject(error));
     })
   }
 
@@ -794,16 +793,9 @@ class NetworkManager {
 
   private getCalendlyLink(): Promise<string> {
     return new Promise((resolve, reject) => {
-      fetch("https://api.calendly.com/scheduling_links", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2F1dGguY2FsZW5kbHkuY29tIiwiaWF0IjoxNjQyMzc5MjM2LCJqdGkiOiIxOTk0MmMzYy0xMDJmLTQ0YjItYjhiMS1jZGI1YTBmYWJlYjEiLCJ1c2VyX3V1aWQiOiIzMmMyMTYwYS1hZTE1LTRkZjktODcwYS04MTEwYjFlMjE1ZWIifQ.lMg4C_d0LSHHwpr8PpJ49Eak3H40_ADETFmf26IF7F8",
-        },
-        body: '{"max_event_count":1,"owner":"https://api.calendly.com/event_types/3e3396ae-a291-413f-a15e-1d6145122f4b","owner_type":"EventType"}',
-      })
-        .then((response) => response.json())
+      const calendlyLinkFunc = httpsCallable(functions, "getCalendlyLink")
+      calendlyLinkFunc()
+        .then((response: any) => response.data)
         .then((data) => {
           if (data && data["resource"] && data["resource"]["booking_url"]) {
             console.log(data["resource"]["booking_url"]);
@@ -820,20 +812,9 @@ class NetworkManager {
   private getScheduledInterview(email: string): Promise<Date> {
     return new Promise((resolve, reject) => {
       console.log("checking if interview has been scheduled");
-      fetch(
-        `https://api.calendly.com/scheduled_events?organization=https%3A%2F%2Fapi.calendly.com%2Forganizations%2Fee36aaac-f13d-40aa-8bf4-cafcadc3e0da&invitee_email=${encodeURIComponent(
-          email
-        )}&status=active&sort=start_time%3Aasc&count=1`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2F1dGguY2FsZW5kbHkuY29tIiwiaWF0IjoxNjQyMzc5MjM2LCJqdGkiOiIxOTk0MmMzYy0xMDJmLTQ0YjItYjhiMS1jZGI1YTBmYWJlYjEiLCJ1c2VyX3V1aWQiOiIzMmMyMTYwYS1hZTE1LTRkZjktODcwYS04MTEwYjFlMjE1ZWIifQ.lMg4C_d0LSHHwpr8PpJ49Eak3H40_ADETFmf26IF7F8",
-          },
-        }
-      )
-        .then((response) => response.json())
+      const interviewFunc = httpsCallable(functions, "getScheduledInterview")
+      interviewFunc({email: email})
+        .then((response: any) => response.data)
         .then((data) => {
           if (data["collection"] && data["collection"].length > 0) {
             resolve(new Date(data["collection"][0]["start_time"]));

@@ -202,8 +202,7 @@ const Profile = () => {
     try {
       // create trainee account
       const fid = await NetworkManager.makeRequest(Endpoints.CreateNewUser, {
-        email: email,
-        username: applicantLogin[0],
+        email: applicantLogin[0],
         password: applicantLogin[1],
         role: "trainee",
       });
