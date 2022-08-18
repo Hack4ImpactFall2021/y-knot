@@ -15,7 +15,7 @@ export enum Tabs {
 
 const TProfile = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { traineeId } = useParams();
   const [applicant, setApplicant] = useState<Applicant | null>(null);
   const user = useAuth();
   const [data, setData] = useState<JotformResponse | null>(null);
