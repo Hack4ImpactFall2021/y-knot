@@ -1,59 +1,32 @@
-import React, { useState, useEffect } from 'react';
-
-import Sidebar from "../widgets/Sidebar";
-
 import "./TraineeHome.css";
 import logo from '../login/assets/logo.png'
-import NetworkManager, { Endpoints } from '../network/NetworkManager';
-import { QuerySnapshot, DocumentData } from 'firebase/firestore';
-import { NavRouteOptions, SidebarTileInfo } from "../SidebarAndContent";
+import SidebarAndContent, { NavRouteOptions, SidebarTileInfo } from "../SidebarAndContent";
 
-import { TraineeSidebarTiles } from "./TraineeSidebarInfo";
+import { getTraineeSidebarTiles, TraineeSidebarOptions } from "./TraineeSidebarInfo";
+import { useTraineeContext } from '../auth/RequireTraineeAuth';
 
-interface Props {
-  selected: NavRouteOptions,
-}
-const TraineeHome: React.FC<Props> = ({ selected }) => {
-  const [trainee, setTrainee] = useState<any>();
+const TraineeHome = () => {
+  const trainee = useTraineeContext();
 
-  const getTrainee: VoidFunction = async () => {
-    try {
-      let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
-      snap = snap as QuerySnapshot<DocumentData>;
-      setTrainee(snap.docs[0].data());
-    } catch(err) {
-      console.log(err);
-    }
-  }
-  useEffect(getTrainee, []);
-  
-  const getSidebarTiles = () => {
-    const routes = ["/trainee/home", "/trainee/profile/" + trainee?.submission_id, "/trainee/settings"];
-    const ret = [];
-    for (let i = 0; i < routes.length; i++) {
-      const cur = { ...TraineeSidebarTiles[i], route: routes[i] };
-      ret.push(cur);
-    }
-    return ret;
-  }
-
-  return (
-    <div className="sidebar-and-content">
-      {/* <Loader open={trainee}/> */}
-      <Sidebar selected={selected} sidebarTiles={getSidebarTiles()} />
-      <div className="dashboard trainee-dashboard"> 
-        <div className="dashboard-container wrapper">
+  const getTraineeHomeContentComponent = () => {
+    return (
+      <div className="trainee-home"> 
+        <div className="wrapper">
           <div className="trainee-landing">
-            <div className="heading-wrapper">
-              <h1>Welcome, {trainee?.first_name}!</h1>
+            {/* Header */}
+            <div className="header-wrapper">
+              <h1>Welcome, {trainee.firstName}!</h1>
               <img src={logo} alt="Where is the logo?"/> 
             </div>
+            {/* First time users message */}
             <div className="first-time-msg">
               First-time users ONLY: Please create an account using your Y-KNOT Inc. username and password.
             </div>
+            {/* Thinkific Gif */}
             <div className="thinkific-gif">
               <img className="thinkific-gif-img" src="https://support.thinkific.com/hc/article_attachments/360042089974/5d3734ac5ee60.gif" alt = "Thinkific"/>
             </div>
+            {/* Go to Training Button */}
             <div className="training-btn-wrapper">
               <div>
                 <a target="_blank" href="https://y-knotinc.thinkific.com/">
@@ -63,6 +36,7 @@ const TraineeHome: React.FC<Props> = ({ selected }) => {
                 </a>
               </div>
             </div>
+            {/* Welcome to Y-KNOT text */}
             <div className="text-blurb">
               <h2>
                 Welcome to Y-KNOT Inc. We are excited that you have found it in your heart to give back. We don't take it lightly
@@ -83,7 +57,15 @@ const TraineeHome: React.FC<Props> = ({ selected }) => {
           </div>
         </div>
       </div>
-    </div>
+    );
+  };
+
+  return (
+    <SidebarAndContent
+      selectedTile={TraineeSidebarOptions.Home}
+      sidebarTiles={getTraineeSidebarTiles(trainee.submissionId)}
+      contentComponent={getTraineeHomeContentComponent()}
+    />
   );
 }
 

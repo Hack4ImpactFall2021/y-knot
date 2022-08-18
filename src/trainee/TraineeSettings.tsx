@@ -1,30 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AuthError } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
 
-//import './Settings.css';
-import TextField from '../settings/TextField/TextField';
-import Button from '../settings/Button/Button';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
-import Popup from '../settings/Popup/Popup';
 import Toast from "../widgets/Toast";
 
-import Sidebar from "../widgets/Sidebar";
 import SidebarAndContent from "../SidebarAndContent";
 import Loading from "../widgets/Loading";
 
-import "./MentorSettings.css";
+import "./TraineeSettings.css";
 
-import { QuerySnapshot, DocumentData } from 'firebase/firestore';
-import { getMentorSidebarTiles, MentorSidebarOptions, MentorSidebarTiles } from './MentorSidebarInfo';
-import { useMentorContext } from "../auth/RequireMentorAuth";
+import { getTraineeSidebarTiles, TraineeSidebarOptions } from './TraineeSidebarInfo';
+import { useTraineeContext } from '../auth/RequireTraineeAuth';
 
 
 
 const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/
-const MentorSettings = () => {
+const TraineeSettings = () => {
 
-  const mentor = useMentorContext();
+  const trainee = useTraineeContext();
   const [email, setEmail] = useState<string>("");
 
   const [password, setPassword] = useState<string>("");
@@ -102,9 +95,9 @@ const MentorSettings = () => {
     setIsContentLoading(false);
   }
 
-  const getMentorSettingsContentComponent = () => {
+  const getTraineeSettingsContentComponent = () => {
     return (
-      <div className="mentor-settings" style={{ position: "relative" }}>
+      <div className="trainee-settings" style={{ position: "relative" }}>
         {!isContentLoading ? (
         <div className="wrapper">
           {message[1].length > 0 && 
@@ -164,11 +157,11 @@ const MentorSettings = () => {
 
   return (
     <SidebarAndContent
-      selectedTile={MentorSidebarOptions.Settings}
-      sidebarTiles={getMentorSidebarTiles(mentor.submissionId)}
-      contentComponent={getMentorSettingsContentComponent()}
+      selectedTile={TraineeSidebarOptions.Settings}
+      sidebarTiles={getTraineeSidebarTiles(trainee.submissionId)}
+      contentComponent={getTraineeSettingsContentComponent()}
     />
   );
 };
 
-export default MentorSettings;
+export default TraineeSettings;

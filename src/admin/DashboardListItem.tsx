@@ -18,7 +18,7 @@ type Props = {
   onClick: VoidFunction
 }
 
-const PersonTile: React.FC<Props> = ({label, title, onClick}) => {
+const PersonTile: React.FC<Props> = ({ label, title, onClick }) => {
   return (
     <div className="dashboard-list-item" onClick={onClick}>
       <div className="label">{label}</div>
