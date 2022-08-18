@@ -90,7 +90,7 @@ const MentorResources: React.FC<Props> = () => {
                 <p>
                   This hotline is the gateway to protection and help for child victims and those at risk up to age 18 in the District of Columbia. 
                   If you believe you need to make a call to the hotline, please do so ASAP and inform your Mentoring Support Specialist immediately. 
-                  If you need assistance, please call BEST Kids at 202-397-3272.m a paragraph. Click here to add your own text and edit me. It's easy.
+                  If you need assistance, please call BEST Kids at 202-397-3272.
                 </p>
               </div>
             </div>  

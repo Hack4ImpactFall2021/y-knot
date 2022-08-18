@@ -391,7 +391,7 @@ const Profile = () => {
             </h1>))}
         </div>
         {/* Content */}
-        <div style={{position: "relative", height: "68vh"}}>
+        <div className="content-box">
           <Content
             type={tab}
             data={data}
