@@ -126,13 +126,19 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
   const getTabContents = (tab: string, formData: JotformResponse | null, menteeList: MenteeForm[]) => {
     switch (tab) {
       case Tabs.MentorInfo:
-        return (
-          formData && <MentorInfo data={formData} />
-        );
+        if (!applicant || !formData)
+          return (<Loading />);
+        else
+          return (
+            formData && <MentorInfo data={formData} />
+          );
       case Tabs.MenteeProfile:
-        return (
-          <Mentee mentees={menteeList} />
-        );
+        if (!menteeList)
+            return (<Loading />);
+        else
+          return (
+            <Mentee mentees={menteeList} />
+          );
       case Tabs.LogsAndReports:
         return (
           <LogsReports />

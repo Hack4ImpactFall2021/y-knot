@@ -50,11 +50,13 @@ const MentorMenteeMatch = () => {
   const [assignMenteeToMentorModal, setAssignMenteeToMentorModal] = useState<Mentor | null>(null);
   const [mentee, setMentee] = useState<MenteeForm>();
   const [mentors, setMentors] = useState<Mentor[]>();
+  const [notWaitingForEndpoints, setNotWaitingForEndpoints] = useState<boolean>();
   const refs = useClickOutside(() => setSelectedMentor(-1));
 
   useEffect(() => {
     getMentee();
     getMentors();
+    setNotWaitingForEndpoints(true);
   }, []);
 
   const getMentee = async () => {
@@ -154,6 +156,7 @@ const MentorMenteeMatch = () => {
     let mentor = mentors[selectedMentor];
     let numChars = mentee?.bestDescribes?.length || 0;
     try {
+      setNotWaitingForEndpoints(false);
       await NetworkManager.makeRequest(Endpoints.MatchMentee, {menteeId: menteeId, mentorId: mentor.submissionId});
       await NetworkManager.makeRequest(Endpoints.SendMenteeMatchEmail, {
         email: mentor.email, 
@@ -244,7 +247,7 @@ const MentorMenteeMatch = () => {
     );
   }
 
-  if (!mentee || !mentors) {
+  if (!mentee || !mentors || !notWaitingForEndpoints) {
     return <Loading/>;
   }
   
@@ -279,7 +282,6 @@ const MentorMenteeMatch = () => {
         <p className="mentee-info-text"> Age: {mentee.age}</p>
         <p className="mentee-info-text"> Grade: {mentee.grade} </p>
       </div>
-
       <div className="green-gray-box-note">
         <strong>Note: </strong>A green box indicates a matching characteristic between 
         <p className="note-text">
