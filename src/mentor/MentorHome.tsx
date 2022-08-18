@@ -7,23 +7,12 @@ import mentoring from "./assets/mentoring-landing.png"
 import Sidebar from "../widgets/Sidebar";
 import SidebarAndContent from "../SidebarAndContent";
 
-import { MentorSidebarTiles, MentorSidebarOptions } from "./MentorSidebarInfo";
+import { getMentorSidebarTiles, MentorSidebarTiles, MentorSidebarOptions } from "./MentorSidebarInfo";
 import { useMentorContext } from '../auth/RequireMentorAuth';
 
 const MentorHome = () => {
 
   const mentor = useMentorContext();
-
-  const getSidebarTiles = () => {
-    const newMentorSidebarTiles = MentorSidebarTiles.slice();
-    console.log(mentor.submissionId);
-    for (let i = 0; i < newMentorSidebarTiles.length; i++) {
-      if (newMentorSidebarTiles[i].name === MentorSidebarOptions.Profile) {
-        newMentorSidebarTiles[i] = { ...newMentorSidebarTiles[i], route: newMentorSidebarTiles[i].route + mentor.submissionId };
-      }
-    }
-    return newMentorSidebarTiles;
-  }
 
   const getMentorHomeContentComponent = () => {
     return (
@@ -63,7 +52,7 @@ const MentorHome = () => {
   return (
     <SidebarAndContent
       selectedTile={MentorSidebarOptions.Home}
-      sidebarTiles={getSidebarTiles()}
+      sidebarTiles={getMentorSidebarTiles(mentor.submissionId)}
       contentComponent={getMentorHomeContentComponent()}
     />
   );

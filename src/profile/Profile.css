@@ -1,11 +1,13 @@
-.profile {
+.applicant-profile {
+  border: 1px solid red;
   display: flex;
-  height: 100vh;
-  background-color: white;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 4em;
 }
+
+/* Close Button */
+.applicant-profile 
 .exit-btn {
   position: absolute;
   top: 20px;
@@ -13,83 +15,73 @@
   width: 53px;
   height: 53px;
 }
-
+.applicant-profile 
 .exit-btn:hover {
   cursor: pointer;
+  opacity: 0.8;
 }
 
-.profile-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin-left: 50px;
-  margin-right: 50px;
-  min-width: 1250px;
-  max-width: 1250px;
-  overflow: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.profile-container::-webkit-scrollbar {
-  display: none;
-}
-
+/* Header */
+.applicant-profile 
 .profile-header {
+  color: #10275b;
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  height: 90px;
-  margin-top: 64px;
+  width: 85%;
 }
-.profile-header .profile-header-left {
+/* Header -> Applicant Name and Stage */
+.applicant-profile 
+.profile-header 
+.profile-header-left {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  gap: 2.5em;
 }
 
 .profile-header .profile-header-left .name {
-  color: #10275b;
   font-size: 40px;
+  margin: 0;
   font-weight: bold;
-  margin-right: 20px;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  max-width: 360px;
+  max-width: 350px;
   white-space: nowrap;
-  overflow: auto;
+  padding-bottom: 2px;
+  overflow-x: scroll;
+}
+.profile-header .profile-header-left .name::-webkit-scrollbar {
+  height: 10px;
 }
 
-.profile-header .profile-header-right {
+/* Header -> NextStage/Accept and Reject */
+.profile-header 
+.profile-header-right {
   display: flex;
-  flex-direction: row;
   align-items: center;
+  gap: 1.5em;
 }
 
-.profile-header .profile-header-right .button {
-  width: 210px;
-  height: 50px;
+.profile-header 
+.profile-header-right 
+.button {
+  width: 8em;
+  height: 2.25em;
   font-weight: bold;
   color: white;
-  font-size: 24px;
+  font-size: 1.5em;
   border: none;
+  border-radius: 20px;
+
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
-  border-radius: 20px;
+  gap: 0.25em;
 }
 
 .profile-header .profile-header-right .button > img {
-  width: 32px;
-  height: 32px;
-  margin-left: 20px;
+  width: 1.5em;
 }
 
 .profile-header .profile-header-right .accept {
   background-color: #117a54;
-  margin-right: 40px;
   transition: all 300ms;
 }
 .profile-header .profile-header-right .reject {
@@ -106,23 +98,37 @@
   cursor: pointer;
 }
 
+/* Tabs */
+.applicant-profile
 .profile-tabs {
+  color: #10275b;
+  margin-top: 2em;
+  /* border: 1px solid red; */
+  width: 85%;
   display: flex;
-  flex-direction: row;
-  margin-top: 20px;
+  justify-content: space-between;
 }
 
-.profile-tabs .tab-title:hover {
+.profile-tabs .tab-title.selected:hover {
+  cursor: default;
+}
+.profile-tabs .tab-title:not(.selected):hover {
   cursor: pointer;
-  color: black;
+  /* filter: brightness(1.2); */
+  background-color: #e8f0ff;
+  border-radius: 5px;
 }
 
 .profile-tabs .tab-title {
-  margin-right: 50px;
-  font-size: 24px;
+  font-size: 1.5em;
+  padding: 0.25em 1em;
 }
 
 .profile-tabs .selected {
-  padding-bottom: 5px;
-  border-bottom: 2px solid black;
+  /* padding-bottom: 5px; */
+  /* border-bottom: 2px solid #10275b; */
+  /* background-color: #bed2fd; */
+  background-color: #d6e2ff;
+  border-radius: 5px;
+  padding: 0.25em 1em;
 }

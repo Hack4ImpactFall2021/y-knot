@@ -13,9 +13,6 @@ import MentorSettings from "./mentor/MentorSettings";
 import MentorResources from "./mentor/MentorResources";
 import MentorMenteeMatch from "./admin/MentorMenteeMatch";
 
-import SidebarAndContent from "./SidebarAndContent";
-import { TraineeSidebarOptions, } from "./trainee/TraineeSidebarInfo";
-
 // Authentication
 import { AuthProvider } from "./auth/AuthProvider";
 import RequireAdminAuth from "./auth/RequireAdminAuth";
@@ -29,6 +26,7 @@ import AdminApplicants from "./admin/AdminApplicants";
 import AdminSettings from "./admin/AdminSettings";
 
 import NotFound from "./auth/NotFound";
+import TraineeSettings from './trainee/TraineeSettings';
 
 const App = () => {
   return (
@@ -43,7 +41,7 @@ const App = () => {
           {/* Trainee */}
           <Route
             path="/trainee/home"
-            element={<RequireTraineeAuth children={<TraineeHome selected={TraineeSidebarOptions.Home}/>} /> }
+            element={<RequireTraineeAuth children={<TraineeHome />} /> }
           />
           <Route
             path="/trainee/profile/:id"
@@ -51,7 +49,7 @@ const App = () => {
           />
           <Route
             path="/trainee/settings"
-            element={<RequireTraineeAuth children={<div></div>} /> }
+            element={<RequireTraineeAuth children={<TraineeSettings />} /> }
           />
 
           {/* Mentor */}

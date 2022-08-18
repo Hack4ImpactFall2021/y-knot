@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import magnifying_glass from "./magnifying_glass.png";
+import magnifying_glass from "./assets/magnifying_glass.png";
 
 import "./NotFound.css";
 

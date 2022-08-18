@@ -1,6 +1,6 @@
 import { DocumentData, QuerySnapshot } from 'firebase/firestore';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import {Navigate} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import NetworkManager, { Endpoints } from '../network/NetworkManager';
 import { useAuth } from './AuthProvider';
 import Loading from '../widgets/Loading';

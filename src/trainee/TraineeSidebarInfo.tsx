@@ -33,8 +33,8 @@ export const TraineeSidebarTiles: SidebarTileInfo[] = [
     name: TraineeSidebarOptions.Profile,
     route: "/trainee/profile/",
     label: "Profile",
-    activeIcon: profile_active,
     //None of these are actually used since the profile doesn't redirect to a SidebarAndContent component
+    activeIcon: profile_active,
     inactiveIcon: profile_inactive,
   },
   {
@@ -45,3 +45,13 @@ export const TraineeSidebarTiles: SidebarTileInfo[] = [
     inactiveIcon: settings_inactive,
   }
 ]
+
+export const getTraineeSidebarTiles = (traineeSubmissionId : any) => {
+    const routes = ["/trainee/home", "/trainee/profile/" + traineeSubmissionId, "/trainee/settings/"];
+    const ret = [];
+    for (let i = 0; i < routes.length; i++) {
+      const cur = { ...TraineeSidebarTiles[i], route: routes[i] };
+      ret.push(cur);
+    }
+    return ret;
+}

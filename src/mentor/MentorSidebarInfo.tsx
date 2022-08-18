@@ -8,12 +8,6 @@ import resources_inactive from "./assets/resources_inactive.png";
 import settings_active from "../admin/assets/settings_active.png";
 import settings_inactive from "../admin/assets/settings_inactive.png";
 
-//Content components
-import MentorHome from "./MentorHome";
-import MentorProfile from "./MentorProfile";
-import MentorResources from "./MentorResources";
-import AdminSettings from "../admin/AdminSettings";
-
 import { SidebarTileInfo } from "../SidebarAndContent";
 
 export enum MentorSidebarOptions { 
@@ -53,3 +47,13 @@ export const MentorSidebarTiles: SidebarTileInfo[] = [
     inactiveIcon: settings_inactive,
   },
 ]
+
+export const getMentorSidebarTiles = (mentorSubmissionId : any) => {
+    const routes = ["/mentor/home", "/mentor/profile/" + mentorSubmissionId, "/mentor/resources/", "/mentor/settings/"];
+    const ret = [];
+    for (let i = 0; i < routes.length; i++) {
+      const cur = { ...MentorSidebarTiles[i], route: routes[i] };
+      ret.push(cur);
+    }
+    return ret;
+}

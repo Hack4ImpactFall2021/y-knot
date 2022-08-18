@@ -9,7 +9,7 @@ import downloadIcon from "./assets/download.png";
 import NetworkManager, { Endpoints } from "../network/NetworkManager";
 
 import { QuerySnapshot, DocumentData } from 'firebase/firestore';
-import { MentorSidebarOptions, MentorSidebarTiles } from "./MentorSidebarInfo";
+import { getMentorSidebarTiles, MentorSidebarOptions, MentorSidebarTiles } from "./MentorSidebarInfo";
 import Sidebar from "../widgets/Sidebar";
 import { useMentorContext } from "../auth/RequireMentorAuth";
 import SidebarAndContent from "../SidebarAndContent";
@@ -21,16 +21,6 @@ interface Props {
 const MentorResources: React.FC<Props> = () => {
   const mentor = useMentorContext();
 
-  const getSidebarTiles = () => {
-    const routes = ["/mentor/home", "/mentor/profile/" + mentor.submissionId, "/mentor/resources/", "/mentor/settings"];
-    const ret = [];
-    for (let i = 0; i < routes.length; i++) {
-      const cur = { ...MentorSidebarTiles[i], route: routes[i] };
-      ret.push(cur);
-    }
-    return ret;
-  }
-  
   const getMentorResourcesContentComponent = () => {
     return (
       <div className="mentor-resources"> 
@@ -112,7 +102,7 @@ const MentorResources: React.FC<Props> = () => {
   return (
     <SidebarAndContent
       selectedTile={MentorSidebarOptions.Resources}
-      sidebarTiles={getSidebarTiles()}
+      sidebarTiles={getMentorSidebarTiles(mentor.submissionId)}
       contentComponent={getMentorResourcesContentComponent()}
     />
   );
