@@ -66,7 +66,7 @@ const MentorResources: React.FC<Props> = () => {
                   Can't quite remember something that was mentioned at New Mentor Training? 
                   Check out Y-KNOT Inc.'s Mentor Guide to overview the mentor role and responsibilities, FAQ, and more!
                 </p>
-                <a target="_blank" href="https://www.yknotinc.org/_files/ugd/847801_c005ed89dbf54b4380d58ad5ab6bec3c.pdf">
+                <a target="_blank" href="https://www.yknotinc.org/_files/ugd/847801_9ae651b63e4f41cea700b95220c25a15.pdf">
                   <button className="resource-btn" style={{ backgroundColor: "#2912be"}}>
                     <img src={downloadIcon} alt=""/>
                     <p> MENTOR RESOURCE GUIDE </p>
