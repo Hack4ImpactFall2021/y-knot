@@ -1,12 +1,25 @@
 import "./TraineeHome.css";
 import logo from '../login/assets/logo.png'
 import SidebarAndContent, { NavRouteOptions, SidebarTileInfo } from "../SidebarAndContent";
+import NetworkManager, { Endpoints } from '../network/NetworkManager';
+import { useState } from 'react';
 
 import { getTraineeSidebarTiles, TraineeSidebarOptions } from "./TraineeSidebarInfo";
 import { useTraineeContext } from '../auth/RequireTraineeAuth';
 
 const TraineeHome = () => {
   const trainee = useTraineeContext();
+  const [finished, setFinished] = useState<boolean>(false);
+
+  const finishedTraining: VoidFunction = async () => {
+    try {
+      await NetworkManager.makeRequest(Endpoints.SetTrainingComplete, {id: trainee?.submissionId});
+      await NetworkManager.makeRequest(Endpoints.SendTrainingCompletedInternalEmail, {name: `${trainee?.firstName} ${trainee?.lastName}`});
+      setFinished(true);
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
   const getTraineeHomeContentComponent = () => {
     return (
@@ -47,11 +60,15 @@ const TraineeHome = () => {
                 Before you are matched with a mentee you are required to complete the mandatory mentor training located in our mentor portal. 
               </h2>
               <div className="finished-training-btn-wrapper">
-                <a target="_blank" href="https://y-knotinc.thinkific.com/">
-                  <button className="training-btn">
-                    Click When Finished Training
+                  { !finished ? 
+                  <button onClick={() => {finishedTraining()}} className="training-btn">
+                      Click When Finished Training
                   </button>
-                </a>
+                  :
+                  <button className="training-btn-finished">
+                      Waiting for confirmation of completion...
+                  </button>
+                  }
               </div>  
             </div>    
           </div>
