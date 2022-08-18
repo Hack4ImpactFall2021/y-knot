@@ -26,29 +26,30 @@ const Application: React.FC<Props> = ({ data }) => {
 
             <div className='response'>
                 <h1 className='response-title'>Can you be a mentor for more than one person at the same time?</h1>
-                <div className='response-body-lg'>
-                    <p className='response-text-lg'>
-                        {response['39']['answer']}
-                    </p>
+                <div className='response-body'>
+                    <input type='radio' disabled checked={response['39']['answer'] === 'Yes'} />
+                    <p className='radio-text'>Yes</p>
+                    <input type='radio' disabled checked={response['39']['answer'] === 'No'} />
+                    <p className='radio-text'>No</p>
                 </div>
             </div>
 
             <div className='response'>
                 <h1 className='response-title'>Days Available</h1>
                 <div className='response-body'>
-                    <input type='checkbox' disabled checked={response['43']['answer'] && response['40']['answer']['0']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer'].includes('Monday')} />
                     <p className='radio-text'>Monday</p>
-                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['1']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer'].includes('Tuesday')} />
                     <p className='radio-text'>Tuesday</p>
-                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['2']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer'].includes('Wednesday')} />
                     <p className='radio-text'>Wednesday</p>
-                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['3']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer'].includes('Thursday')} />
                     <p className='radio-text'>Thursday</p>
-                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['4']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer'].includes('Friday')} />
                     <p className='radio-text'>Friday</p>
-                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['5']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer'].includes('Saturday')} />
                     <p className='radio-text'>Saturday</p>
-                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer']['6']} />
+                    <input type='checkbox' disabled checked={response['43']['answer'] && response['43']['answer'].includes('Sunday')} />
                     <p className='radio-text'>Sunday</p>
                 </div>
             </div>
