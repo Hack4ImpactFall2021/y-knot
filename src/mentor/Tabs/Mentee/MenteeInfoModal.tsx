@@ -152,7 +152,7 @@ const MenteeInfoModal: React.FC<Props> = ({ mentee, onCloseModal }) => {
   }
   return (
     <div className="mentee-info-modal">
-      <h1 className="mentee-name">{}</h1>
+      <h1 className="mentee-name">{mentee?.childName}</h1>
       <span className="modal-close-btn" onClick={onCloseModal}>&times;</span>
       {renderModalContent()}
     </div>
