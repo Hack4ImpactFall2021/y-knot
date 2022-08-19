@@ -62,7 +62,6 @@ const Login: React.FC<any> = () => {
     // make network request to authenticate user
     try {
       let currentUser = await NetworkManager.makeRequest(Endpoints.AuthenticateUser, { email: email, password: password, });
-      console.log(currentUser);
 
       if (currentUser != null) {
         let token = await currentUser.getIdTokenResult();

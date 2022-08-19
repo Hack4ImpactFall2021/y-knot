@@ -38,7 +38,6 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
   const getMentees: VoidFunction = async () => {
     try {
       let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, { submissionId: mentorId });
-      console.log(snap);
       snap = snap as QuerySnapshot<DocumentData>;
       const menteeIds = snap.data()?.mentee_ids;
       const menteeData = [];
@@ -77,7 +76,6 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
 
   const getApplicant = async () => {
     try {
-      console.log(mentorId);
       let snap = await NetworkManager.makeRequest(Endpoints.GetApplicant, { submissionId: mentorId });
       snap = snap as DocumentSnapshot<DocumentData>
       if (!snap.exists()) {
@@ -95,7 +93,6 @@ const MentorProfile: React.FC<Props> = ({defaultTab}) => {
         notes: data.note || "",
         createdAt: data.createdAt
       });
-      console.log(applicant);
     } catch (error) {
         console.log(error);
     }

@@ -10,7 +10,6 @@ type Props = {
 const Application: React.FC<Props> = ({ data }) => {
 
     const response = data['content']['answers'];
-    console.log(data);
 
     return (
         <div className='user-application'>

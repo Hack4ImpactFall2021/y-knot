@@ -23,7 +23,7 @@ const ResetPassword = () => {
         try {
             await NetworkManager.makeRequest(Endpoints.SendPasswordResetEmail, {email: email});
         } catch(error) {
-            // console.log(error);
+            console.log(error);
         } finally {
             setIsLoading(false);
             setMessage('If the account associated with the email exists, instructions will be sent to reset the password.')

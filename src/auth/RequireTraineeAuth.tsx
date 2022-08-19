@@ -29,7 +29,6 @@ const RequireTraineeAuth:React.FC<Props> = ({ children }) => {
     try {
       let snap = await NetworkManager.makeRequest(Endpoints.GetCurrentMentorOrTrainee);
       snap = snap as QuerySnapshot<DocumentData>;
-      console.log(snap);
       setTrainee(snap.docs[0].data());
       setPending(false);
     } catch(err) {

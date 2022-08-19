@@ -80,7 +80,6 @@ const Profile = () => {
         notes: data.note || "",
         createdAt: data.createdAt,
       });
-      console.log(applicant);
       setEmail(data.email);
 
       if (data.stage != ApplicantStages.New) {

@@ -20,8 +20,6 @@ const BackgroundCheck: React.FC<Props> = ({data, files, uploadFile}) => {
 
     const inputRef = useRef<HTMLInputElement>(null);
 
-    console.log(files);
-
     return (
         <div className='user-background-check'>
             {

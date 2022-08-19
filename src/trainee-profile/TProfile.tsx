@@ -27,8 +27,6 @@ const TProfile = () => {
 
   const [tab, setTab] = useState<string>(Tabs.TraineeProfile);
 
-  console.log(user);
-
   useEffect(() => {
     getApplicant();
     getApplicantForm();

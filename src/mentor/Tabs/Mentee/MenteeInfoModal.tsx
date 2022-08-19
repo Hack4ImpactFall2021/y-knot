@@ -10,8 +10,6 @@ type Props = {
 
 const MenteeInfoModal: React.FC<Props> = ({ mentee, onCloseModal }) => {
 
-  console.log(mentee)
-
   /* RENDER FUNCTIONS */
   const renderModalContent = () => {
     return (

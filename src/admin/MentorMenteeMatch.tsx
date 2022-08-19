@@ -86,7 +86,6 @@ const MentorMenteeMatch = () => {
         grade: data['113']?.answer
       };
 
-      console.log(newMentee);
       setMentee(newMentee);
     } catch (error) {
       console.log(error);
@@ -117,8 +116,6 @@ const MentorMenteeMatch = () => {
       if (mentee?.bestDescribes) {
         matches += mentor.bestDescribes.filter(interest => mentee.bestDescribes.includes(interest)).length;
       }
-      console.log(mentor.firstName);
-      console.log(matches);
       return { ...mentor, matches: matches };
 
     });
@@ -137,7 +134,6 @@ const MentorMenteeMatch = () => {
 
   const getMentors = async () => {
     const data : Mentor[] = await NetworkManager.makeRequest(Endpoints.GetAllMentors);
-    console.log(data);
     setMentors(data);
   }
 
@@ -199,7 +195,6 @@ const MentorMenteeMatch = () => {
     if (mentee && mentee[propertyType] && mentee[propertyType].indexOf(trait) !== -1) {
       className += " match";
     }
-    console.log(className);
     return className;
   }
 
