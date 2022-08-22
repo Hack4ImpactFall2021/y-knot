@@ -1,21 +1,12 @@
-.profile {
-  display: flex;
-  height: 100vh;
-  background-color: white;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  justify-content: center;
-}
-
-.content-box {
-  position: relative;
-  height: 80vh;
-}
-
 .applicant-profile {
-  margin: 5%;
+  padding: 4em;
+  display: flex;
+  flex-direction: column;
+  height: 83vh;
 }
 
+/* Exit Button */
+.applicant-profile
 .exit-btn {
   position: absolute;
   top: 20px;
@@ -24,41 +15,28 @@
   height: 53px;
 }
 
+.applicant-profile
 .exit-btn:hover {
   cursor: pointer;
 }
-
-.profile-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  margin-left: 100px;
-  margin-right: 100px;
-  min-width: 1250px;
-  max-width: 1250px;
-  overflow: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.profile-container::-webkit-scrollbar {
-  display: none;
-}
-
+/* Header */
+.applicant-profile
 .profile-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: flex-start;
   width: 100%;
-  height: 90px;
-  margin-top: 64px;
 }
+
+.applicant-profile
 .profile-header .profile-header-left {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
+.applicant-profile
 .profile-header .profile-header-left .name {
   color: #10275b;
   font-size: 40px;
@@ -69,14 +47,17 @@
   max-width: 360px;
   white-space: nowrap;
   overflow: auto;
+  scrollbar-width: 1px !important;
 }
 
+.applicant-profile
 .profile-header .profile-header-right {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
+.applicant-profile
 .profile-header .profile-header-right .button {
   width: 210px;
   height: 50px;
@@ -91,48 +72,87 @@
   border-radius: 20px;
 }
 
+.applicant-profile
 .profile-header .profile-header-right .button > img {
   width: 32px;
   height: 32px;
   margin-left: 20px;
 }
 
+.applicant-profile
 .profile-header .profile-header-right .accept {
   background-color: #117a54;
   margin-right: 40px;
   transition: all 300ms;
 }
+
+.applicant-profile
 .profile-header .profile-header-right .reject {
   background-color: #f44250;
   transition: all 300ms;
 }
 
+.applicant-profile
 .profile-header .profile-header-right .accept:hover {
   background-color: #0c6846;
   cursor: pointer;
 }
+
+.applicant-profile
 .profile-header .profile-header-right .reject:hover {
   background-color: #d03945;
   cursor: pointer;
 }
 
+/* Tabs */
+.applicant-profile
 .profile-tabs {
   display: flex;
   flex-direction: row;
   margin-top: 20px;
+  height: 5em;
 }
 
+.applicant-profile
 .profile-tabs .tab-title:hover {
   cursor: pointer;
   color: black;
 }
 
+.applicant-profile
 .profile-tabs .tab-title {
   margin-right: 50px;
   font-size: 24px;
 }
 
+.applicant-profile
 .profile-tabs .selected {
   padding-bottom: 5px;
   border-bottom: 2px solid black;
 }
+
+/* Content */
+.applicant-profile
+.content-box {
+  border-radius: 1em;
+  background-color: #ececec;
+  padding: 0.5em;
+  flex-grow: 1;
+  height: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.applicant-profile
+.content-scroll {
+  /* border: 1px solid red; */
+  overflow-y: scroll;
+  min-height: 0;
+  flex-grow: 1;
+}
+.applicant-profile
+.content-scroll * {
+  border-radius: 0.5em;
+}
+
+

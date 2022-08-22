@@ -11,7 +11,7 @@ import accept from "./assets/check-circle.png";
 import reject from "./assets/x-circle.png";
 import close from "./assets/close.png";
 import next from "./assets/next.png";
-import Modal from "./Modal/Modal";
+import AdvancementModal from "./Modal/AdvancementModal";
 import Popup from "../settings/Popup/Popup";
 import Toast from "../widgets/Toast";
 
@@ -34,7 +34,7 @@ const Profile = () => {
   const { id } = useParams();
   const [applicant, setApplicant] = useState<Applicant | null>(null);
   const [data, setData] = useState<JotformResponse | null>(null);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showAdvancementModal, setShowAdvancementModal] = useState<boolean>(false);
   const [action, setAction] = useState<Actions>(Actions.MoveToInterviewStage);
   const [popupMessage, setPopupMessage] = useState<[boolean, string]>([false, ""]);
   const [email, setEmail] = useState<string>("");
@@ -133,7 +133,7 @@ const Profile = () => {
         // move user in database
         await NetworkManager.makeRequest(Endpoints.UpdateStage, { id: applicant?.submissionId, stage: nextStage });
         console.log("updated db");
-        setShowModal(false);
+        setShowAdvancementModal(false);
         window.location.reload();
       } catch (error) {
         if (error === "invalid-email") {
@@ -145,13 +145,13 @@ const Profile = () => {
           ]);
         }
         console.log(error);
-        setShowModal(false);
+        setShowAdvancementModal(false);
       }
     } else {
       nextStage = ApplicantStages.BackgroundCheck;
 
       try {
-        // send email requesitng background check
+        // send email requesting background check
         await NetworkManager.makeRequest(Endpoints.SendBackgroundCheckEmail, {
           email: email,
         });
@@ -162,7 +162,7 @@ const Profile = () => {
           stage: nextStage,
         });
         console.log("updated db");
-        setShowModal(false);
+        setShowAdvancementModal(false);
         window.location.reload();
       } catch (error) {
         if (error === "invalid-email") {
@@ -174,7 +174,7 @@ const Profile = () => {
           ]);
         }
         console.log(error);
-        setShowModal(false);
+        setShowAdvancementModal(false);
       }
     }
   };
@@ -213,7 +213,7 @@ const Profile = () => {
       });
       console.log("updated stage");
 
-      setShowModal(false);
+      setShowAdvancementModal(false);
       navigate('/admin/home');
       
     } catch (error) {
@@ -226,7 +226,7 @@ const Profile = () => {
         ]);
       }
       console.log(error);
-      setShowModal(false);
+      setShowAdvancementModal(false);
     }
   };
 
@@ -246,7 +246,7 @@ const Profile = () => {
       });
       console.log("sent email");
 
-      setShowModal(false);
+      setShowAdvancementModal(false);
       window.location.reload();
     } catch (error) {
       if (error === "invalid-email") {
@@ -258,7 +258,7 @@ const Profile = () => {
         ]);
       }
       console.log(error);
-      setShowModal(false);
+      setShowAdvancementModal(false);
     }
   };
 
@@ -268,12 +268,12 @@ const Profile = () => {
   
   // RENDER FUNCTIONS
   const renderAdvancementModal = () => {
-    if (!showModal) {
+    if (!showAdvancementModal) {
       return null;
     }
 
     return (
-      <Modal
+      <AdvancementModal
         firstname={applicant.firstName}
         lastname={applicant.lastName}
         action={action}
@@ -281,7 +281,7 @@ const Profile = () => {
         setEmail={setEmail}
         setApplicantLogin={setApplicantLogin}
         accept={handleClick}
-        reject={() => setShowModal(false)}
+        reject={() => setShowAdvancementModal(false)}
       />
     );
   }
@@ -308,7 +308,7 @@ const Profile = () => {
         <button
           className="button accept"
           onClick={() => {
-            setShowModal(true);
+            setShowAdvancementModal(true);
             setAction(Actions.Accept);
           }}
         >
@@ -321,7 +321,7 @@ const Profile = () => {
         <button
           className="button accept"
           onClick={() => {
-            setShowModal(true);
+            setShowAdvancementModal(true);
             if (applicant.stage === ApplicantStages.New) {
               setAction(Actions.MoveToInterviewStage);
             } else if (applicant.stage === ApplicantStages.Interviewing) {
@@ -347,7 +347,7 @@ const Profile = () => {
         <button
           className="button reject"
           onClick={() => {
-            setShowModal(true);
+            setShowAdvancementModal(true);
             setAction(Actions.Reject);
           }}
         >
@@ -365,32 +365,33 @@ const Profile = () => {
       {renderPopup()}
       {/* Close Button */}
       <img className="exit-btn" src={close} onClick={() => navigate(-1)} />
-        <div className="profile-header">
-          <div className="profile-header-left">
-            {/* Applicant Name */}
-            <h1 className="name">
-              {applicant.firstName} {applicant.lastName}
-            </h1>
-            {/* Stage */}
-            <ApplicantStageTile stage={applicant.stage} maximized />
-          </div>
-          {/* Accept Reject */}
-          {renderAdvancementAndRejectionButtons()}
+      <div className="profile-header">
+        <div className="profile-header-left">
+          {/* Applicant Name */}
+          <h1 className="name">
+            {applicant.firstName} {applicant.lastName}
+          </h1>
+          {/* Stage */}
+          <ApplicantStageTile stage={applicant.stage} maximized />
         </div>
+        {/* Accept Reject */}
+        {renderAdvancementAndRejectionButtons()}
+      </div>
 
-        {/* Tabs */}
-        <div className="profile-tabs">
-          {Object.values(Tabs).map((curr, idx) => (
-            <h1
-              key={idx}
-              className={curr === tab ? "tab-title selected" : "tab-title"}
-              onClick={() => setTab(curr)}
-            >
-              {curr}
-            </h1>))}
-        </div>
-        {/* Content */}
-        <div className="content-box">
+      {/* Tabs */}
+      <div className="profile-tabs">
+        {Object.values(Tabs).map((curr, idx) => (
+          <h1
+            key={idx}
+            className={curr === tab ? "tab-title selected" : "tab-title"}
+            onClick={() => setTab(curr)}
+          >
+            {curr}
+          </h1>))}
+      </div>
+      {/* Content */}
+      <div className="content-box">
+        <div className="content-scroll">
           <Content
             type={tab}
             data={data}
@@ -398,6 +399,7 @@ const Profile = () => {
             interviewTime={interviewTime}
           />
         </div>
+      </div>
     </div>
   );
 };
