@@ -1,0 +1,166 @@
+.profile-modal {
+  background-color: rgba(179, 179, 179, 0.5);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  min-width: 1400px;
+  margin: 0;
+  padding: 0;
+  z-index: 100;
+}
+
+.profile-modal 
+.modal-container {
+  background-color: white;
+  opacity: 1;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 30px 20px;
+  justify-content: space-between;
+  position: relative;
+  border-radius: 1em;
+}
+
+.profile-modal
+.modal-container * {
+  border-radius: 0.5em;
+}
+
+.profile-modal 
+.modal-spinner {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.profile-modal 
+.modal-spinner > img {
+  position: absolute;
+  width: 640px; /* width of container */
+  height: 100%; /* height of container */
+  object-fit: cover;
+}
+
+.profile-modal 
+.modal-title {
+  font-size: 32px;
+  margin: 0px;
+}
+
+.profile-modal 
+.modal-message {
+  font-size: 24px;
+  font-weight: 400;
+  margin: 40px 0px;
+}
+
+.profile-modal 
+.modal-message-text {
+  font-size: 30px;
+  line-height: 140%;
+}
+
+.profile-modal 
+.modal-message-email {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgb(237, 237, 237);
+  padding: 20px 10px;
+}
+
+.profile-modal 
+.modal-message-email > input[type="email"] {
+  width: 100%;
+  height: 25px;
+  margin: 0px 20px;
+}
+
+.profile-modal 
+.modal-message-email-button {
+  margin-left: 0px;
+}
+
+.profile-modal 
+.modal-message-login {
+  margin-top: 20px;
+  background-color: rgb(237, 237, 237);
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.profile-modal 
+.modal-message-login-box {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.profile-modal 
+.modal-message-login-box > input {
+  margin: 0px 20px;
+  min-width: 400px;
+  height: 25px;
+}
+
+.profile-modal 
+.modal-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.profile-modal 
+.modal-button {
+  width: 200px;
+  height: 50px;
+  font-size: 24px;
+  color: white;
+  font-weight: 500;
+  border: none;
+  transition: all 300ms;
+}
+
+.profile-modal 
+.modal-button:disabled {
+  pointer-events: none;
+  background-color: gray;
+}
+
+.profile-modal 
+.modal-accept {
+  background-color: #117a54;
+}
+
+.profile-modal 
+.modal-reject {
+  background-color: #f44250;
+}
+
+.profile-modal 
+.modal-accept:hover {
+  background-color: #0b553a;
+  cursor: pointer;
+}
+
+.profile-modal 
+.modal-reject:hover {
+  background-color: #d13643;
+  cursor: pointer;
+}
