@@ -47,7 +47,6 @@
   max-width: 360px;
   white-space: nowrap;
   overflow: auto;
-  scrollbar-width: 1px !important;
 }
 
 .applicant-profile
