@@ -164,7 +164,7 @@ class NetworkManager {
 
   private getFinishedTrainees(): Promise<AssignmentsTabPerson[]> {
     return new Promise((resolve, reject) => {
-      getDocs(query(collection(db, "applicants"), where("training_complete", "==", true), where("stage", "==", "TRAINEE")))
+      getDocs(query(collection(db, "applicants"), where("stage", "==", "TRAINEE")))
       .then((docs) => {
         let people: AssignmentsTabPerson[] = [];
         docs.forEach((doc) => {
