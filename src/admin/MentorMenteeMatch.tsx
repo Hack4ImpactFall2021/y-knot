@@ -140,7 +140,7 @@ const MentorMenteeMatch = () => {
   const onAssignMenteeToMentor = () => {
     if (selectedMentor == -1) return;
     if (!mentors) return;
-    setAssignMenteeToMentorModal(mentors[selectedMentor]);
+    setAssignMenteeToMentorModal(getMentorsSortedByMatches(mentors)[selectedMentor]);
   }
 
 
