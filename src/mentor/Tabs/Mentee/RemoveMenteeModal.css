@@ -1,0 +1,84 @@
+.remove-mentee-modal {
+  /* Modal positioning */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  /* Modal size */
+  width: 60%;
+  height: 60%;
+  border-radius: 1em;
+
+  /* Colors */
+  background-color: #ececec;
+  border: 2px solid #c4c4c4;
+
+  /* Modal fade in on open */
+  animation-name: modalopen;
+  animation-duration: 0.25s;
+}
+@keyframes modalopen {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.unassign-button {
+  background-color: #091734;
+  margin-left: auto;
+  margin: 1em;
+  color: white;
+  pointer-events: auto;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+  border-radius: 15px;
+  width: 150px;
+}
+
+.unassign-button:hover {
+  background-color: #0e204d;
+  cursor: pointer;
+}
+
+.reason-note {
+  min-width: 300px;
+  min-height: 80px;
+  resize: none;
+}
+.remove-mentee-modal .mentee-name {
+  margin-left: 20px;
+}
+
+.remove-mentee-modal .modal-close-btn {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 30px;
+  color: #c4c4c4;
+}
+.remove-mentee-modal .modal-close-btn:hover {
+  cursor: pointer;
+  filter: brightness(0.8);
+}
+
+.remove-mentee-modal .modal-content {
+  height: 80%;
+  overflow-y: scroll;
+  margin: 25px;
+}
+
+.remove-mentee-modal .modal-content * {
+  border-radius: 0.5em;
+}
+
+.remove-mentee-modal .info-text {
+  font-weight: 400;
+  font-size: 18px;
+  margin: 0px;
+  margin-bottom: 15px;
+}
