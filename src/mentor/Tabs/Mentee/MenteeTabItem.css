@@ -5,8 +5,33 @@
   width: 98%;
   margin: 10px;
   transition: 300ms all;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
 }
-  
+
+.mentee-tile-clickbox {
+  width: 90%;
+  pointer-events: auto;
+}
+
+.unassign-button {
+  background-color: #091734;
+  margin-left: auto;
+  margin: 1em;
+  color: white;
+  pointer-events: auto;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+  border-radius: 15px;
+}
+
+.unassign-button:hover {
+  background-color: #0e204d;
+  cursor: pointer;
+}
+
 .mentee-tile:first-child {
   margin-top: 0;
 }
@@ -15,11 +40,8 @@
   background-color: hsl(0, 0%, 98%);
   cursor: pointer;
 }
-  
-.mentee-tile
-.mentee-name {
+
+.mentee-tile .mentee-name {
   color: #45963b;
   margin-left: 2em;
 }
-  
-  
