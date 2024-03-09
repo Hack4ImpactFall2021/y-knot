@@ -208,20 +208,20 @@ const MentorMenteeMatch = () => {
         menteeId: menteeId,
         mentorId: mentor.submissionId,
       });
-      // await NetworkManager.makeRequest(Endpoints.SendMenteeMatchEmail, {
-      //   email: mentor.email,
-      //   menteeName: mentee.childName,
-      //   characteristic1: numChars > 0 ? mentee.bestDescribes[0] : undefined,
-      //   characteristic2: numChars > 1 ? mentee.bestDescribes[1] : undefined,
-      //   characteristic3: numChars > 2 ? mentee.bestDescribes[2] : undefined,
-      //   menteeAge: mentee.age,
-      //   menteeGrade: mentee.grade,
-      //   menteeSchool: mentee.school,
-      //   parentName: mentee.parentName,
-      //   phoneNumber: mentee.phoneNumber,
-      //   menteeEmail: mentee.email,
-      //   mentorName: mentor.firstName
-      // });
+      await NetworkManager.makeRequest(Endpoints.SendMenteeMatchEmail, {
+        email: mentor.email,
+        menteeName: mentee.childName,
+        characteristic1: numChars > 0 ? mentee.bestDescribes[0] : undefined,
+        characteristic2: numChars > 1 ? mentee.bestDescribes[1] : undefined,
+        characteristic3: numChars > 2 ? mentee.bestDescribes[2] : undefined,
+        menteeAge: mentee.age,
+        menteeGrade: mentee.grade,
+        menteeSchool: mentee.school,
+        parentName: mentee.parentName,
+        phoneNumber: mentee.phoneNumber,
+        menteeEmail: mentee.email,
+        mentorName: mentor.firstName,
+      });
       navigate(-1);
     } catch (error) {
       console.log(error);

@@ -38,17 +38,12 @@ import {
 import app, { db, storage } from "../config/firebase";
 import secondaryApp from "../config/secondaryFirebase";
 import { getDownloadURL, listAll, ref, uploadBytes } from "firebase/storage";
-import {
-  connectFunctionsEmulator,
-  getFunctions,
-  httpsCallable,
-} from "firebase/functions";
+import { getFunctions, httpsCallable } from "firebase/functions";
 import UserInformation from "../profile/UserInformation/UserInformation";
 import { resolve } from "dns";
 import { rejects } from "assert";
 
 const functions = getFunctions();
-connectFunctionsEmulator(functions, "127.0.0.1", 5001);
 
 export enum Endpoints {
   AuthenticateUser,
